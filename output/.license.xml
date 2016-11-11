@@ -1,0 +1,39 @@
+<ApplicationPackageLicenses>
+    <ApplicationPackageLicense>
+        <CompanyName>Smartface User</CompanyName>
+        <LicenseName>Self Service</LicenseName>
+        <SASVersion>v5.0.0</SASVersion>
+        <CreateDate>02.10.2016 20:59:53</CreateDate>
+        <ExpireDate>00.10.2026 20:59:53</ExpireDate>
+        <LicenseType>Professional</LicenseType>
+        <PackageType>iOS</PackageType>
+        <PackageName>io.smartface.sample.selfservice</PackageName>
+        <PackageFeatures>
+            <PackageFeature>
+                <FeatureName>Feature</FeatureName>
+                <FeatureValue>Feature</FeatureValue>
+            </PackageFeature>
+        </PackageFeatures>
+        <TripleDESKey>VqCuLwrZAWEI9KtdbF4B2uszoKQtk9SavfBwGG0n9wOeS1o5k1l4d0xPR0m8oyVjePq81919Fn6lZWR24Qk2Gqj+ZhkXT98kR3QlbLS46g7FNdyadlU+poE6yAWvF10fa9Dqhjl2ReIIoiSnF4msTsTD9JJPauaZ24Ak/rbaYoAA</TripleDESKey>
+        <SignData></SignData>
+    </ApplicationPackageLicense>
+    <ApplicationPackageLicense>
+        <CompanyName>Smartface User</CompanyName>
+        <LicenseName>Self Service</LicenseName>
+        <SASVersion>v5.0.0</SASVersion>
+        <CreateDate>02.10.2016 20:59:53</CreateDate>
+        <ExpireDate>00.10.2026 20:59:53</ExpireDate>
+        <LicenseType>Professional</LicenseType>
+        <PackageType>Android</PackageType>
+        <PackageName>io.smartface.sample.selfservice</PackageName>
+        <PackageFeatures>
+            <PackageFeature>
+                <FeatureName>Feature</FeatureName>
+                <FeatureValue>Feature</FeatureValue>
+            </PackageFeature>
+        </PackageFeatures>
+        <TripleDESKey>VqCuLwrZAWEI9KtdbF4B2uszoKQtk9SavfBwGG0n9wOeS1o5k1l4d0xPR0m8oyVjePq81919Fn6lZWR24Qk2Gqj+ZhkXT98kR3QlbLS46g7FNdyadlU+poE6yAWvF10fa9Dqhjl2ReIIoiSnF4msTsTD9JJPauaZ24Ak/rbaYoAA</TripleDESKey>
+        <SignData></SignData>
+    </ApplicationPackageLicense>
+    <TripleDESKeyValue>kRqnqG+KKC5N4nemYjv5ywPGy5wHi1j0</TripleDESKeyValue>
+</ApplicationPackageLicenses>

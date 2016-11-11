@@ -49,6 +49,6 @@
 		<AdMob name="AdMob" adUnitId="" enabled="true" left="0%" top="44.79%" touchEnabled="true" visible="true" adSize="SMF.UI.AdMob.AdSize.BANNER" />
 		<Canvas name="Canvas" height="30%" left="24.06%" top="41.46%" touchEnabled="true" width="75%" loopPeriod="50" loop="true" z="0" />
 		<SearchBar name="SearchBar" enabled="true" height="10%" left="24.06%" top="46.25%" touchEnabled="true" visible="true" width="75%" alpha="1" text="" placeholder="Search" icon="" barStyle="SMF.UI.SearchBarStyle.DEFAULT" tintColor="#7FEA00" z="0" />
-		<SliderDrawer name="SliderDrawer" width="88%" touchEnabled="true" backgroundColor = "#FFFFFFF" />
+		<SliderDrawer name="SliderDrawer" width="88%" touchEnabled="true" backgroundColor = "#FFFFFF" />
 	</Defaults>
 </SMF>
