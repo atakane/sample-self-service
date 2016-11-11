@@ -1,7 +1,8 @@
 /* globals lang */
 include('i18n/i18n.js');
 include('libs/utils/smartface.tiny.utils.js');
-include('libs/Smartface/require.js');
+
+// include('libs/Smartface/require.js');
 
 Application.onStart = Application_OnStart;
 Application.onUnhandledError = Application_OnError;
@@ -16,10 +17,8 @@ var smfOracle;
  */
 function Application_OnStart(e) {
 	SMF.UI.statusBar.visible = true;
-	// SMF.UI.statusBar.color = "#00A1F1";
-	SMF.UI.statusBar.style = SMF.UI.StatusBarStyle.LIGHTCONTENT;
-	
-	initRequire("pages/index.js");
+	include('pages/index.js');
+	// initRequire("pages/index.js");
 	
 	// Creating a new Oracle MCS instance 
 	smfOracle = new SMF.Oracle.MobileCloudService('smartfaceOracleMCS');

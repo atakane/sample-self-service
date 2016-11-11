@@ -1,7 +1,6 @@
 /* globals smfOracle mcsUser mcsPassword Dialog defaultPageAnimation*/
-require('pages/pgDashboard.js');
-
 (function() {
+
     var pgLogin = Pages.pgLogin = new SMF.UI.Page({
         name: "pgLogin",
         onKeyPress: pgLogin_onKeyPress,
@@ -143,6 +142,8 @@ require('pages/pgDashboard.js');
      * @this Pages.pgLogin
      */
     function pgLogin_onShow() {
+        SMF.UI.statusBar.style = SMF.UI.StatusBarStyle.LIGHTCONTENT;
+        Dialog.removeWait();
         btnLogin.enabled = true;
         btnLogin.fillColor = "#00A1F1";
     }
@@ -219,12 +220,15 @@ require('pages/pgDashboard.js');
         // Get self service details from EBS service
         // For now we're going dummy
 
+        // var gravatar = md5hash("atakan.eser@smartface.io");
         var myProfile = {
             "FullName": "Osman Celik",
             "Email": "osman.celik@smartface.io",
             "Team": "HR Team",
             "Role": "Recruiter",
-            "OutOfOffice": true
+            "OutOfOffice": true,
+            "OutOfOfficeMessage": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dapibus diam id orci dignissim consequat. Fusce tincidunt neque et neque luctus dignissim. Sed ex ipsum, vulputate eget lectus eget, efficitur fermentum turpis. Nulla facilisi. In sit amet convallis neque. Sed tristique non lorem vitae efficitur. Quisque ullamcorper arcu vitae vestibulum tincidunt. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla sollicitudin id orci ac ullamcorper. Nunc consequat diam vel convallis vehicula. Nunc hendrerit maximus consequat. Sed euismod eleifend nisl, sit amet finibus nulla porta eget. Suspendisse dapibus semper lectus vitae aliquam. Suspendisse sed elit rhoncus, blandit nibh a, sodales dolor.",
+            "Avatar": "avatar.png" //"http://www.gravatar.com/avatar/" + gravatar
         }
 
         var myTimeTable = {
@@ -232,6 +236,27 @@ require('pages/pgDashboard.js');
             "Used": 11,
             "Remaining": 11
         }
+
+        var myRequestList = [{
+                "FullName": "Osman Celik",
+                "Email": "osman.celik@smartface.io",
+                "Team": "HR Team",
+                "Role": "Recruiter",
+                "StartDate": "",
+                "EndDate": "",
+                "EmployeeID": "",
+                "IsApproved": false
+                },
+            {
+                "FullName": "Atakan Eser",
+                "Email": "atakan.eser@smartface.io",
+                "Team": "UAT Team",
+                "Role": "Developer",
+                "StartDate": "",
+                "EndDate": "",
+                "EmployeeID": "",
+                "IsApproved": false
+        }]
 
         // passing objects to pgFiles
         Pages.pgDashboard.myProfile = myProfile;

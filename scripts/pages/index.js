@@ -7,4 +7,6 @@ include("libs/utils/dialog.js");
 include("libs/utils/headerbar.js");
 
 //pages
-require('pages/pgLogin.js');
+include('pages/pgLogin.js');
+include('pages/pgDashboard.js');
+include('pages/pgOutOfOffice.js');

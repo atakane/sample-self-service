@@ -104,11 +104,12 @@
         }
 
         //sets headerbar's title text
-        this.setTitleView = function(page, titleText, textColor, backgroundImage, left, top, width, height) {
+        this.setTitleView = function(page, titleText, textColor, backgroundImage, left, top, width, height, fontSize) {
             var _left = (left) ? left : 0;
             var _top = (top) ? top : 0;
             var _width = (width) ? width : 320;
             var _height = (height) ? height : 44;
+            var _fontSize = (fontSize) ? fontSize : 16;
 
             if (this.isAndroid == true) {
                 this.actionBar = page.actionBar;
@@ -119,7 +120,7 @@
                 this.actionBar.titleView = {
                     type: SMF.UI.TitleViewType.TEXT,
                     text: titleText,
-                    textSize: 16,
+                    textSize: _fontSize,
                     textColor: textColor,
                     alignment: SMF.UI.Alignment.CENTER,
                 };
@@ -133,13 +134,13 @@
                     frame: [_left, _top, _width, _height], // left, top, width, height
                     text: titleText,
                     textColor: textColor,
-                    fontSize: 16,
+                    fontSize: _fontSize,
                     alignment: SMF.UI.TextAlignment.CENTER
                 }
 
                 if (backgroundImage)
                     SMF.UI.iOS.NavigationBar.backgroundImage = backgroundImage;
-                SMF.UI.iOS.NavigationBar.translucent = false;
+                
             }
         }
 

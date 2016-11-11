@@ -1,6 +1,8 @@
 /* globals */
 //TODO: include this file in onStart in pages/index.js Use the code below:
-//include("pages/pgDashboard.js");
+
+// require('libs/utils/sliderdrawer.js');
+
 (function() {
     var isSliderDrawerOpen = false;
 
@@ -71,7 +73,7 @@
     // Profile
     var imgAvatar = new SMF.UI.Image({
         name: "imgAvatar",
-        image: "avatar.png",
+        image: "",
         left: getUnit(148),
         top: getUnit(95),
         width: getUnit(80),
@@ -136,7 +138,10 @@
         height: getUnit(64),
         borderWidth: 0,
         fillColor: "#e7e7e7",
-        backgroundTransparent: false
+        backgroundTransparent: false,
+        onTouchEnded:function(e) {
+            Pages.pgOutOfOffice.show(defaultPageAnimation);
+        }
     });
 
     var swtOutOfOffice = new SMF.UI.SwitchButton({
@@ -146,9 +151,10 @@
         checked: false,
         onTintColor: "#248afd",
         tintColor: "#248afd",
-        onChange: function(e) {
-            Pages.pgDashboard.cntOutOfOfficeBar.lblOOOStatusText.text = this.checked == true ? "Mode On" : "Mode Off";
-        }
+        // onChange: function(e) {
+        //     Pages.pgDashboard.cntOutOfOfficeBar.lblOOOStatusText.text = this.checked == true ? "Mode On" : "Mode Off";
+        // },
+        touchEnabled:false
     });
     cntOutOfOfficeBar.add(swtOutOfOffice);
 
@@ -295,6 +301,7 @@
     });
     pgDashboard.add(imgAdd);
 
+    // Adding Slider Drawer
     //slider drawer
     var sdSelfService = new SMF.UI.SliderDrawer({
         name: "sdSelfService",
@@ -311,31 +318,106 @@
     });
 
     // Profile
-    var imgSliderProfileBackground = new SMF.UI.Image({
-        name: "imgSliderProfileBackground",
-        image: "slider_rectangle.png",
-        left: 0,
-        top: 0,
-        width: getUnit(340),
-        height: getUnit(225),
-        imageFillType: SMF.UI.ImageFillType.NORMAL
-    });
-    sdSelfService.add(imgSliderProfileBackground);
+    createImage(sdSelfService, "imgSliderProfileBackground", "slider_rectangle.png", 0, 0, 340, 225);
+    createImage(sdSelfService, "imgSliderAvatar", "", 127, 53.5, 80, 80);
+    createLabel(sdSelfService, "lblSliderFullName", "", 0, 155, 336, 20, SMF.UI.TextAlignment.CENTER, false, "12pt", false, "#248afd");
+    createLabel(sdSelfService, "lblSliderTeamRole", "", 0, 181.5, 336, 20, SMF.UI.TextAlignment.CENTER, false, "7pt", false, "#248afd");
 
-    var imgSliderAvatar = imgAvatar.clone();
-    imgSliderAvatar.left = getUnit(127);
-    imgSliderAvatar.top = getUnit(53.5);
-    sdSelfService.add(imgSliderAvatar);
 
-    var lblSliderFullName = lblFullName.clone();
-    lblSliderFullName.top = getUnit(155);
-    lblSliderFullName.fontColor = "#248afd";
-    sdSelfService.add(lblSliderFullName);
+    //Slider Menus
+    createLabel(sdSelfService, "lblLeaveManagement", "Leave Management", 18.5, 250.5, 200, 23, SMF.UI.TextAlignment.LEFT, false, "8pt", false, "#248afd");
 
-    var lblSliderTeamRole = lblTeamRole.clone();
-    lblSliderTeamRole.top = getUnit(181.5);
-    lblSliderTeamRole.fontColor = "#248afd";
-    sdSelfService.add(lblSliderTeamRole);
+    createImage(sdSelfService, "imgSliderMenuStatus", "icon_status.png", 20.5, 296.5, 21, 19);
+    createTextButton(sdSelfService,
+        "btnStatus",
+        "Status",
+        68.5, 289.5, 200, 30,
+        SMF.UI.TextAlignment.LEFT,
+        "9pt", false,
+        SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
+        "#444444", "#a0a0a0",
+        function(e) {
+            alert('status page');
+        });
+
+    createRectangle(sdSelfService, 15.1, 328, 320.1, 1, "#979797");
+    createImage(sdSelfService, "imgSliderMenuRequest", "icon_request.png", 22, 343.5, 22, 20);
+    createTextButton(sdSelfService,
+        "btnRequest",
+        "Request",
+        68.5, 337, 200, 30,
+        SMF.UI.TextAlignment.LEFT,
+        "9pt", false,
+        SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
+        "#444444", "#a0a0a0",
+        function(e) {
+            alert('Request page');
+        });
+
+    createRectangle(sdSelfService, 15.1, 375.5, 320.1, 1, "#979797");
+    createImage(sdSelfService, "imgSliderMenuInfo", "icon_info.png", 20.5, 388.2, 20, 20);
+    createTextButton(sdSelfService,
+        "btnInfo",
+        "Info",
+        68.5, 381.5, 200, 30,
+        SMF.UI.TextAlignment.LEFT,
+        "9pt", false,
+        SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
+        "#444444", "#a0a0a0",
+        function(e) {
+            alert('Info page');
+        });
+
+    createRectangle(sdSelfService, 15.1, 418, 320.1, 1, "#979797");
+
+    createLabel(sdSelfService, "lblApprovalWorklist", "Approval Worklist", 18.5, 430, 155, 23, SMF.UI.TextAlignment.LEFT, false, "8pt", false, "#248afd");
+    createImage(sdSelfService, "imgSliderMenuStatus", "icon_worklist.png", 24, 479.5, 16, 19);
+    createTextButton(sdSelfService,
+        "btnWorklist",
+        "Worklist",
+        68.5, 472, 200, 30,
+        SMF.UI.TextAlignment.LEFT,
+        "9pt", false,
+        SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
+        "#444444", "#a0a0a0",
+        function(e) {
+            alert('Worklist page');
+        });
+    createRectangle(sdSelfService, 15.1, 513, 320.1, 1, "#979797");
+    // createLabel(sdSelfService, "lblOutOfOffice", "Out Of Office", 18.5, 530, 155, 23, SMF.UI.TextAlignment.LEFT, false, "8pt", false, "#248afd");
+
+    createTextButton(sdSelfService,
+        "btnOutOfOffice",
+        "Out Of Office",
+        18.5, 530, 155, 23,
+        SMF.UI.TextAlignment.LEFT,
+        "8pt", false,
+        SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
+        "#248afd", "#1961c1",
+        function(e) {
+            Pages.pgOutOfOffice.show(defaultPageAnimation);
+        });
+
+
+    createLabel(sdSelfService, "lblAbout", "About", 18.5, 570, 155, 23, SMF.UI.TextAlignment.LEFT, false, "8pt", false, "#248afd");
+
+    createRectangle(sdSelfService, 15.1, 620.5, 320.1, 1, "#979797");
+
+
+    createTextButton(sdSelfService,
+        "btnLogout",
+        "Logout",
+        18.5, 628.5, 200, 30,
+        SMF.UI.TextAlignment.LEFT,
+        "8pt", false,
+        SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
+        "#f64b95", "#ebc0d3",
+        function(e) {
+            Pages.pgLogin.show(defaultPageAnimation);
+        });
+
+
+
 
     pgDashboard.add(sdSelfService);
 
@@ -358,8 +440,9 @@
 
         //TODO: Add Avatar pic
         // pgDashboard.imgAvatar.image = pgDashboard.myProfile.Avatar;
-        pgDashboard.lblFullName.text = lblSliderFullName.text = pgDashboard.myProfile.FullName;
-        pgDashboard.lblTeamRole.text = lblSliderTeamRole.text = pgDashboard.myProfile.Role + " / " + pgDashboard.myProfile.Team;
+        pgDashboard.imgAvatar.image = pgDashboard.sdSelfService.imgSliderAvatar.image = pgDashboard.myProfile.Avatar;
+        pgDashboard.lblFullName.text = pgDashboard.sdSelfService.lblSliderFullName.text = pgDashboard.myProfile.FullName;
+        pgDashboard.lblTeamRole.text = pgDashboard.sdSelfService.lblSliderTeamRole.text = pgDashboard.myProfile.Role + " / " + pgDashboard.myProfile.Team;
         pgDashboard.cntOutOfOfficeBar.swtOutOfOffice.checked = pgDashboard.myProfile.OutOfOffice;
     }
 
@@ -384,9 +467,7 @@
 
         headerBar.setTitleImageView(Pages.currentPage, "self_service.png", 84, 15, 120, 24);
 
-        // return;
-
-        // Preparin left items 
+        // Preparing left items 
         if (Device.deviceOS !== "Android") {
             var itemMenu = new SMF.UI.iOS.BarButtonItem({
                 image: 'menu.png',
