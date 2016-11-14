@@ -341,3 +341,17 @@ function formatDate(date, format, utc) {
 
     return format;
 };
+
+
+// Days between 2 dates calculation with UTC calculations
+// Based on http://stackoverflow.com/a/11252167/4371020
+function treatAsUTC(date) {
+    var result = new Date(date);
+    result.setMinutes(result.getMinutes() - result.getTimezoneOffset());
+    return result;
+}
+
+function daysBetween(startDate, endDate) {
+    var millisecondsPerDay = 24 * 60 * 60 * 1000;
+    return (treatAsUTC(endDate) - treatAsUTC(startDate)) / millisecondsPerDay;
+}
