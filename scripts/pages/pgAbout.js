@@ -81,16 +81,20 @@
 
 
     var lblInfoText = new SMF.UI.Label({
-        top: "60%",
-        left: "10%",
-        width: "80%",
-        height: "35%",
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dapibus diam id orci dignissim consequat. Fusce tincidunt neque et neque luctus dignissim. Sed ex ipsum, vulputate eget lectus eget, efficitur fermentum turpis. Nulla facilisi. In sit amet convallis neque.",
+        top: "45%",
+        left: "6%",
+        width: "88%",
+        height: "49%",
+        text: "Develop superior native apps and manage the full frontend and backend lifecycle with the power of the cloud using Oracle Cloud integration in Smartface Cloud.",
         textAlignment: SMF.UI.TextAlignment.TOP,
         font: new SMF.UI.Font({
-            size: "6pt"
+            size: "7pt"
         }),
-        multipleLine:true
+        multipleLine:true,
+        borderWidth:0,
+        // fillColor:SMF.UI.Color.WHITE,
+        // backgroundTransparent: false,
+        // horizontalGap:3
     });
 
     pgAbout.add(imgHome);
@@ -110,8 +114,9 @@
         // SMF.UI.statusBar.style = SMF.UI.StatusBarStyle.LIGHTCONTENT;
         Dialog.removeWait();
 
-        var sliderDrawer = new SliderDrawer();
-        sliderDrawer.init(Pages.currentPage);
+        // var sliderDrawer = new SliderDrawer();
+        // sliderDrawer.init(Pages.currentPage);
+        createSliderDrawer(Pages.pgAbout,"sdMenuAbout");
 
         addHeaderBar();
     }
@@ -130,7 +135,7 @@
             var itemMenu = new SMF.UI.iOS.BarButtonItem({
                 image: 'menu.png',
                 onSelected: function() {
-                    (!isSliderDrawerOpen) ? Pages.currentPage.sdSelfService.show(): Pages.currentPage.sdSelfService.hide();
+                    (!isSliderDrawerOpen) ? Pages.pgAbout.sdMenuAbout.show(): Pages.pgAbout.sdMenuAbout.hide();
                 }
             });
 
