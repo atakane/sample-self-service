@@ -19,65 +19,13 @@
         }
     }
 
-    var imgHome = new SMF.UI.Image({
-        name: "imgHome",
-        image: "home_back.png",
-        left: 0,
-        top: 0,
-        width: "100%",
-        height: "40%",
-        imageFillType: SMF.UI.ImageFillType.STRETCH
-    });
 
-    var lblWelcome = new SMF.UI.Label({
-        top: "15%",
-        left: "10%",
-        width: "80%",
-        height: "15%",
-        text: "EBS\nSelf Service",
-        textAlignment: SMF.UI.TextAlignment.TOP,
-        font: new SMF.UI.Font({
-            size: "17pt"
-        }),
-        fontColor: SMF.UI.Color.WHITE,
-        touchEnabled: false,
-        showScrollBar: false,
-        multipleLine: true,
-        borderWidth: 0
-    });
+    // top image
+    createImage(pgLogin, "imgHome", "home_back.png", "0", "0", "100%", "40%", SMF.UI.ImageFillType.STRETCH);
 
-    var lblWelcome2 = new SMF.UI.Label({
-        top: "29%",
-        left: "10%",
-        width: "80%",
-        height: "8%",
-        text: "Powered & secured by Oracle MCS & ICS",
-        textAlignment: SMF.UI.TextAlignment.TOP,
-        font: new SMF.UI.Font({
-            size: "7pt"
-        }),
-        fontColor: SMF.UI.Color.WHITE,
-        touchEnabled: false,
-        showScrollBar: false,
-        borderWidth: 0
-    });
-
-    var lblVersion = new SMF.UI.Label({
-        top: "97%",
-        left: "0%",
-        width: "99%",
-        height: "3%",
-        text: 'v.' + Application.version,
-        textAlignment: SMF.UI.TextAlignment.RIGHT,
-        font: new SMF.UI.Font({
-            size: "4pt"
-        }),
-        fontColor: SMF.UI.Color.BLACK,
-        touchEnabled: false,
-        showScrollBar: false,
-        borderWidth: 0,
-        multipleLine: false
-    });
+    // Welcome texts
+    createLabel(pgLogin, "lblWelcome", "EBS\nSelf Service", "9.5%", "15%", "80%", "15%", SMF.UI.TextAlignment.TOP, true, "17pt", false, SMF.UI.Color.WHITE);
+    createLabel(pgLogin, "lblWelcome2", "Powered & secured by Oracle MCS & ICS", "10%", "29%", "80%", "8%", SMF.UI.TextAlignment.TOP, false, "7pt", false, SMF.UI.Color.WHITE);
 
     var txtUserName = new SMF.UI.TextBox({
         top: "51%",
@@ -114,26 +62,15 @@
     });
     (Device.deviceOS === "Android") && (btnLogin.effects.ripple.enabled = true);
 
-    var lblInfoText = new SMF.UI.Label({
-        top: "78%",
-        left: "10%",
-        width: "80%",
-        height: "8%",
-        text: "Please login with your MCS realm user.",
-        textAlignment: SMF.UI.TextAlignment.TOP,
-        font: new SMF.UI.Font({
-            size: "6pt"
-        })
-    });
-
-    pgLogin.add(imgHome);
-    pgLogin.add(lblWelcome);
-    pgLogin.add(lblWelcome2);
-    pgLogin.add(lblVersion);
     pgLogin.add(txtUserName);
     pgLogin.add(txtPassword);
     pgLogin.add(btnLogin);
-    pgLogin.add(lblInfoText);
+
+    // Warning text
+    createLabel(pgLogin, "lblInfoText", "Please login with your MCS realm user.", "10%", "78%", "80%", "8%", SMF.UI.TextAlignment.TOP, false, "6pt", false, SMF.UI.Color.BLACK);
+
+    // Version text
+    createLabel(pgLogin, "lblVersion", "v." + Application.version, "0", "97%", "99%", "3%", SMF.UI.TextAlignment.RIGHT, false, "4pt", false, SMF.UI.Color.BLACK);
 
 
     /**
