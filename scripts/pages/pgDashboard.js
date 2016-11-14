@@ -1,10 +1,8 @@
 /* globals */
 //TODO: include this file in onStart in pages/index.js Use the code below:
 
-// require('libs/utils/sliderdrawer.js');
 
 (function() {
-    var isSliderDrawerOpen = false;
 
     var pgDashboard = Pages.pgDashboard = new SMF.UI.Page({
         name: "pgDashboard",
@@ -139,7 +137,7 @@
         borderWidth: 0,
         fillColor: "#e7e7e7",
         backgroundTransparent: false,
-        onTouchEnded:function(e) {
+        onTouchEnded: function(e) {
             Pages.pgOutOfOffice.show(defaultPageAnimation);
         }
     });
@@ -154,13 +152,14 @@
         // onChange: function(e) {
         //     Pages.pgDashboard.cntOutOfOfficeBar.lblOOOStatusText.text = this.checked == true ? "Mode On" : "Mode Off";
         // },
-        touchEnabled:false
+        touchEnabled: false,
+        visible: false
     });
     cntOutOfOfficeBar.add(swtOutOfOffice);
 
     var lblOOOStatusTitle = new SMF.UI.Label({
         name: "lblOOOStatusTitle",
-        left: getUnit(95.8),
+        left: getUnit(17),
         top: getUnit(14),
         width: "60%",
         height: "25%",
@@ -175,7 +174,7 @@
 
     var lblOOOStatusTitle2 = new SMF.UI.Label({
         name: "lblOOOStatusTitle2",
-        left: getUnit(95.8),
+        left: getUnit(17),
         top: getUnit(34.5),
         width: "24%",
         height: "25%",
@@ -190,7 +189,7 @@
 
     var lblOOOStatusText = new SMF.UI.Label({
         name: "lblOOOStatusText",
-        left: getUnit(190),
+        left: getUnit(110),
         top: getUnit(34.5),
         width: "30%",
         height: "25%",
@@ -243,7 +242,7 @@
         }),
         fontColor: "#cca2b5"
     });
-    pgDashboard.add(lblNewRequestTitle);
+    // pgDashboard.add(lblNewRequestTitle);
 
     var lblNewRequestText = new SMF.UI.Label({
         name: "lblNewRequestText",
@@ -259,7 +258,7 @@
         multipleLine: true,
         fontColor: "#a0a0a0"
     });
-    pgDashboard.add(lblNewRequestText);
+    // pgDashboard.add(lblNewRequestText);
 
     var lblNewRequestTextDate = new SMF.UI.Label({
         name: "lblNewRequestTextDate",
@@ -274,7 +273,7 @@
         }),
         fontColor: "#37404a"
     });
-    pgDashboard.add(lblNewRequestTextDate);
+    // pgDashboard.add(lblNewRequestTextDate);
 
     var imgAdd = new SMF.UI.Image({
         image: "btn_plus.png",
@@ -301,125 +300,12 @@
     });
     pgDashboard.add(imgAdd);
 
-    // Adding Slider Drawer
-    //slider drawer
-    var sdSelfService = new SMF.UI.SliderDrawer({
-        name: "sdSelfService",
-        width: getUnit(336),
-        touchEnabled: 'true',
-        backgroundColor: SMF.UI.Color.WHITE,
-        position: 'left',
-        onShow: function() {
-            isSliderDrawerOpen = true;
-        },
-        onHide: function() {
-            isSliderDrawerOpen = false;
-        }
-    });
 
-    // Profile
-    createImage(sdSelfService, "imgSliderProfileBackground", "slider_rectangle.png", 0, 0, 340, 225);
-    createImage(sdSelfService, "imgSliderAvatar", "", 127, 53.5, 80, 80);
-    createLabel(sdSelfService, "lblSliderFullName", "", 0, 155, 336, 20, SMF.UI.TextAlignment.CENTER, false, "12pt", false, "#248afd");
-    createLabel(sdSelfService, "lblSliderTeamRole", "", 0, 181.5, 336, 20, SMF.UI.TextAlignment.CENTER, false, "7pt", false, "#248afd");
+    // var pageSliderDrawer = new SliderMenu();
+    // pgDashboard.add(pageSliderDrawer);
 
 
-    //Slider Menus
-    createLabel(sdSelfService, "lblLeaveManagement", "Leave Management", 18.5, 250.5, 200, 23, SMF.UI.TextAlignment.LEFT, false, "8pt", false, "#248afd");
-
-    createImage(sdSelfService, "imgSliderMenuStatus", "icon_status.png", 20.5, 296.5, 21, 19);
-    createTextButton(sdSelfService,
-        "btnStatus",
-        "Status",
-        68.5, 289.5, 200, 30,
-        SMF.UI.TextAlignment.LEFT,
-        "9pt", false,
-        SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
-        "#444444", "#a0a0a0",
-        function(e) {
-            alert('status page');
-        });
-
-    createRectangle(sdSelfService, 15.1, 328, 320.1, 1, "#979797");
-    createImage(sdSelfService, "imgSliderMenuRequest", "icon_request.png", 22, 343.5, 22, 20);
-    createTextButton(sdSelfService,
-        "btnRequest",
-        "Request",
-        68.5, 337, 200, 30,
-        SMF.UI.TextAlignment.LEFT,
-        "9pt", false,
-        SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
-        "#444444", "#a0a0a0",
-        function(e) {
-            alert('Request page');
-        });
-
-    createRectangle(sdSelfService, 15.1, 375.5, 320.1, 1, "#979797");
-    createImage(sdSelfService, "imgSliderMenuInfo", "icon_info.png", 20.5, 388.2, 20, 20);
-    createTextButton(sdSelfService,
-        "btnInfo",
-        "Info",
-        68.5, 381.5, 200, 30,
-        SMF.UI.TextAlignment.LEFT,
-        "9pt", false,
-        SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
-        "#444444", "#a0a0a0",
-        function(e) {
-            alert('Info page');
-        });
-
-    createRectangle(sdSelfService, 15.1, 418, 320.1, 1, "#979797");
-
-    createLabel(sdSelfService, "lblApprovalWorklist", "Approval Worklist", 18.5, 430, 155, 23, SMF.UI.TextAlignment.LEFT, false, "8pt", false, "#248afd");
-    createImage(sdSelfService, "imgSliderMenuStatus", "icon_worklist.png", 24, 479.5, 16, 19);
-    createTextButton(sdSelfService,
-        "btnWorklist",
-        "Worklist",
-        68.5, 472, 200, 30,
-        SMF.UI.TextAlignment.LEFT,
-        "9pt", false,
-        SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
-        "#444444", "#a0a0a0",
-        function(e) {
-            alert('Worklist page');
-        });
-    createRectangle(sdSelfService, 15.1, 513, 320.1, 1, "#979797");
-    // createLabel(sdSelfService, "lblOutOfOffice", "Out Of Office", 18.5, 530, 155, 23, SMF.UI.TextAlignment.LEFT, false, "8pt", false, "#248afd");
-
-    createTextButton(sdSelfService,
-        "btnOutOfOffice",
-        "Out Of Office",
-        18.5, 530, 155, 23,
-        SMF.UI.TextAlignment.LEFT,
-        "8pt", false,
-        SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
-        "#248afd", "#1961c1",
-        function(e) {
-            Pages.pgOutOfOffice.show(defaultPageAnimation);
-        });
-
-
-    createLabel(sdSelfService, "lblAbout", "About", 18.5, 570, 155, 23, SMF.UI.TextAlignment.LEFT, false, "8pt", false, "#248afd");
-
-    createRectangle(sdSelfService, 15.1, 620.5, 320.1, 1, "#979797");
-
-
-    createTextButton(sdSelfService,
-        "btnLogout",
-        "Logout",
-        18.5, 628.5, 200, 30,
-        SMF.UI.TextAlignment.LEFT,
-        "8pt", false,
-        SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
-        "#f64b95", "#ebc0d3",
-        function(e) {
-            Pages.pgLogin.show(defaultPageAnimation);
-        });
-
-
-
-
-    pgDashboard.add(sdSelfService);
+    // pgDashboard.add(sdSelfService);
 
     /**
      * Creates action(s) that are run when the page is appeared
@@ -429,6 +315,10 @@
     function pgDashboard_onShow() {
         //We are going w/ dark mode. Our navbar is white.
         SMF.UI.statusBar.style = SMF.UI.StatusBarStyle.DEFAULT;
+        
+        var sliderDrawer = new SliderDrawer();
+        sliderDrawer.init(Pages.currentPage);
+        
         addHeaderBar();
 
         //var timerID = setTimeout(function() {
@@ -440,10 +330,11 @@
 
         //TODO: Add Avatar pic
         // pgDashboard.imgAvatar.image = pgDashboard.myProfile.Avatar;
-        pgDashboard.imgAvatar.image = pgDashboard.sdSelfService.imgSliderAvatar.image = pgDashboard.myProfile.Avatar;
-        pgDashboard.lblFullName.text = pgDashboard.sdSelfService.lblSliderFullName.text = pgDashboard.myProfile.FullName;
-        pgDashboard.lblTeamRole.text = pgDashboard.sdSelfService.lblSliderTeamRole.text = pgDashboard.myProfile.Role + " / " + pgDashboard.myProfile.Team;
+        pgDashboard.imgAvatar.image = pgDashboard.myProfile.Avatar; //pgDashboard.sdSelfService.imgSliderAvatar.image =
+        pgDashboard.lblFullName.text = pgDashboard.myProfile.FullName; //pgDashboard.sdSelfService.lblSliderFullName.text = 
+        pgDashboard.lblTeamRole.text = pgDashboard.myProfile.Role + " / " + pgDashboard.myProfile.Team; //pgDashboard.sdSelfService.lblSliderTeamRole.text = 
         pgDashboard.cntOutOfOfficeBar.swtOutOfOffice.checked = pgDashboard.myProfile.OutOfOffice;
+        pgDashboard.cntOutOfOfficeBar.lblOOOStatusText.text = (pgDashboard.myProfile.OutOfOffice) ? "Mode On" : "Mode Off";
     }
 
     function fillUsedDaysBar() {

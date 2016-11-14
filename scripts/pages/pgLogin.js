@@ -149,70 +149,71 @@
     }
 
     function pgLogin_btnLogin_onPressed(e) {
-        smfOracle.logAnalytics('pgLogin_btnLogin_onPressed');
+        getUserInfo()
+            // smfOracle.logAnalytics('pgLogin_btnLogin_onPressed');
 
-        this.enabled = false;
-        btnLogin.fillColor = SMF.UI.Color.GREY;
+        // this.enabled = false;
+        // btnLogin.fillColor = SMF.UI.Color.GREY;
 
-        Dialog.showWait();
+        // Dialog.showWait();
 
-        smfOracle.logAnalytics('pgLogin_btnLogin_onPressed');
+        // smfOracle.logAnalytics('pgLogin_btnLogin_onPressed');
 
-        mcsUser = txtUserName.text;
-        mcsPassword = txtPassword.text;
+        // mcsUser = txtUserName.text;
+        // mcsPassword = txtPassword.text;
 
-        if ((mcsUser) && (mcsPassword)) {
-            var successCallback = function(e) {
-                //analytics log for auth.
-                smfOracle.logAnalytics("user authenticated");
+        // if ((mcsUser) && (mcsPassword)) {
+        //     var successCallback = function(e) {
+        //         //analytics log for auth.
+        //         smfOracle.logAnalytics("user authenticated");
 
-                Dialog.showWait();
+        //         Dialog.showWait();
 
-                //Registering for Push notification
+        //         //Registering for Push notification
 
-                //Resgistering device to Google and Apple servers
-                Notifications.remote.registerForPushNotifications({
-                    OnSuccess: function(e) {
-                        //alert("registerForPushNotifications Success:" + JSON.prune(e));
+        //         //Resgistering device to Google and Apple servers
+        //         Notifications.remote.registerForPushNotifications({
+        //             OnSuccess: function(e) {
+        //                 //alert("registerForPushNotifications Success:" + JSON.prune(e));
 
-                        var registrationID = Notifications.remote.token;
-                        var appId = "io.smartface.sample.filemanager";
-                        var appVersion = Application.version;
+        //                 var registrationID = Notifications.remote.token;
+        //                 var appId = "io.smartface.sample.filemanager";
+        //                 var appVersion = Application.version;
 
-                        //Registering device to Oracle MCS
-                        smfOracle.registerNotification(registrationID, appId, appVersion, function(err) {
-                            if (!err) getUserInfo();
-                        });
+        //                 //Registering device to Oracle MCS
+        //                 smfOracle.registerNotification(registrationID, appId, appVersion, function(err) {
+        //                     if (!err) getUserInfo();
+        //                 });
 
-                    },
-                    OnFailure: function(e) {
-                        // alert("registerForPushNotifications Failed:" + JSON.prune(e));
-                        // downloading objects from mcs storage
-                        getUserInfo();
-                    }
-                });
-            };
+        //             },
+        //             OnFailure: function(e) {
+        //                 // alert("registerForPushNotifications Failed:" + JSON.prune(e));
+        //                 // downloading objects from mcs storage
+        //                 getUserInfo();
+        //             }
+        //         });
+        //     };
 
-            var failureCallback = function(e) {
-                //analytics log for auth fail
-                smfOracle.logAnalytics('[error] auth failed ' + e);
-                console.log(mcsUser + ' authentication failed ' + e);
+        //     var failureCallback = function(e) {
+        //         //analytics log for auth fail
+        //         smfOracle.logAnalytics('[error] auth failed ' + e);
+        //         console.log(mcsUser + ' authentication failed ' + e);
 
-                Dialog.removeWait();
+        //         Dialog.removeWait();
 
-                alert('Username or Password is incorrect, please try again');
-                btnLogin.enabled = true;
-                btnLogin.fillColor = "#00A1F1";
-            }
+        //         alert('Username or Password is incorrect, please try again');
+        //         btnLogin.enabled = true;
+        //         btnLogin.fillColor = "#00A1F1";
+        //     }
 
-            smfOracle.authenticate(mcsUser, mcsPassword, successCallback, failureCallback)
-        }
-        else {
-            Dialog.removeWait();
-            alert('Please enter your username and password.');
-            btnLogin.enabled = true;
-            btnLogin.fillColor = "#00A1F1";
-        }
+        //     smfOracle.authenticate(mcsUser, mcsPassword, successCallback, failureCallback)
+        // }
+        // else {
+        //     Dialog.removeWait();
+        //     alert('Please enter your username and password.');
+        //     btnLogin.enabled = true;
+        //     btnLogin.fillColor = "#00A1F1";
+        // }
     }
 
     //Downloads collection objects and assign them to repeatbox
@@ -221,23 +222,25 @@
         // For now we're going dummy
 
         // var gravatar = md5hash("atakan.eser@smartface.io");
-        var myProfile = {
+        oProfile = {
             "FullName": "Osman Celik",
             "Email": "osman.celik@smartface.io",
             "Team": "HR Team",
             "Role": "Recruiter",
             "OutOfOffice": true,
             "OutOfOfficeMessage": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dapibus diam id orci dignissim consequat. Fusce tincidunt neque et neque luctus dignissim. Sed ex ipsum, vulputate eget lectus eget, efficitur fermentum turpis. Nulla facilisi. In sit amet convallis neque. Sed tristique non lorem vitae efficitur. Quisque ullamcorper arcu vitae vestibulum tincidunt. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla sollicitudin id orci ac ullamcorper. Nunc consequat diam vel convallis vehicula. Nunc hendrerit maximus consequat. Sed euismod eleifend nisl, sit amet finibus nulla porta eget. Suspendisse dapibus semper lectus vitae aliquam. Suspendisse sed elit rhoncus, blandit nibh a, sodales dolor.",
+            "OutOfOfficeStart": "9/15/16",
+            "OutOfOfficeEnd": "11/25/16",
             "Avatar": "avatar.png" //"http://www.gravatar.com/avatar/" + gravatar
         }
 
-        var myTimeTable = {
+        oTimeTable = {
             "TotalDays": 22,
             "Used": 11,
             "Remaining": 11
         }
 
-        var myRequestList = [{
+        oRequestList = [{
                 "FullName": "Osman Celik",
                 "Email": "osman.celik@smartface.io",
                 "Team": "HR Team",
@@ -259,8 +262,8 @@
         }]
 
         // passing objects to pgFiles
-        Pages.pgDashboard.myProfile = myProfile;
-        Pages.pgDashboard.myTimeTable = myTimeTable;
+        Pages.pgDashboard.myProfile = oProfile;
+        Pages.pgDashboard.myTimeTable = oTimeTable;
 
         Pages.pgDashboard.show(defaultPageAnimation);
     }

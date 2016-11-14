@@ -3,11 +3,21 @@
     String.prototype.left = function(n) {
         return this.substring(0, n);
     }
+    String.prototype.right = function(n) {
+        return this.substring(this.length - n, this.length);
+    }
+
+    Date.prototype.isDate = function(n) {
+        return (n instanceof Date && !isNaN(n.valueOf()));
+    }
+    
 })();
 
 function getUnit(value) {
     if (typeof value === "object")
         return getUnit(value[Device.deviceOS]);
+    if (value.toString().right(1) === "%")
+        return value;
     if (Device.deviceOS === "Android")
         return value + "dp";
     else
@@ -76,7 +86,7 @@ function createLabel(parent, name, text, left, top, width, height, textAlignment
             bold: fontBold
         }),
         fontColor: fontColor,
-        borderWidth:0
+        borderWidth: 0
     });
 
     parent.add(lblTemp);

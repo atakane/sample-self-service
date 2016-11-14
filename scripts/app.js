@@ -9,6 +9,11 @@ Application.onUnhandledError = Application_OnError;
 Application.onMaximize = Application_onMaximize;
 
 var smfOracle;
+var oProfile;
+var oTimeTable;
+var oRequestList;
+
+var isSliderDrawerOpen = false;
 
 /**
  * Triggered when application is started.
@@ -19,10 +24,10 @@ function Application_OnStart(e) {
 	SMF.UI.statusBar.visible = true;
 	include('pages/index.js');
 	// initRequire("pages/index.js");
-	
+
 	// Creating a new Oracle MCS instance 
 	smfOracle = new SMF.Oracle.MobileCloudService('smartfaceOracleMCS');
-	
+
 	//Update check for RaU
 	if (Device.deviceOS == "Android") {
 		global.checkPermission("WRITE_EXTERNAL_STORAGE", function(err) {

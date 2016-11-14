@@ -124,6 +124,7 @@
                     textColor: textColor,
                     alignment: SMF.UI.Alignment.CENTER,
                 };
+                this.actionBar.overlay = true;
             }
             else {
                 //Sets NavigationITem for iOS 
