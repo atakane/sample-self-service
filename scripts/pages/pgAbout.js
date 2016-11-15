@@ -19,19 +19,90 @@
         }
     }
 
-    // top image
-    createImage(pgAbout, "imgHome", "home_back.png", "0", "0", "100%", "40%", SMF.UI.ImageFillType.STRETCH);
-    
-    // Welcome texts
-    createLabel(pgAbout, "lblWelcome", "EBS\nSelf Service", "9.5%", "15%", "80%", "15%", SMF.UI.TextAlignment.TOP, true, "17pt", false, SMF.UI.Color.WHITE);
-    createLabel(pgAbout, "lblWelcome2", "Powered & secured by Oracle MCS & ICS", "10%", "29%", "80%", "8%", SMF.UI.TextAlignment.TOP, false, "7pt", false, SMF.UI.Color.WHITE);
-    
-    // About
-    var aboutText ="Develop superior native apps and manage the full frontend and backend lifecycle with the power of the cloud using Oracle Cloud integration in Smartface Cloud.";
-    createLabel(pgAbout, "lblInfoText", aboutText, "6%", "45%", "88%", "49%", SMF.UI.TextAlignment.TOP, true, "7pt", false, SMF.UI.Color.BLACK);
+    var imgHome = new SMF.UI.Image({
+        name: "imgHome",
+        image: "home_back.png",
+        left: 0,
+        top: 0,
+        width: "100%",
+        height: "40%",
+        imageFillType: SMF.UI.ImageFillType.STRETCH
+    });
 
-    // Version text
-    createLabel(pgAbout, "lblVersion", "v." + Application.version, "0", "97%", "99%", "3%", SMF.UI.TextAlignment.RIGHT, false, "4pt", false, SMF.UI.Color.BLACK);
+    var lblWelcome = new SMF.UI.Label({
+        top: "15%",
+        left: "10%",
+        width: "80%",
+        height: "15%",
+        text: "EBS\nSelf Service",
+        textAlignment: SMF.UI.TextAlignment.TOP,
+        font: new SMF.UI.Font({
+            size: "17pt"
+        }),
+        fontColor: SMF.UI.Color.WHITE,
+        touchEnabled: false,
+        showScrollBar: false,
+        multipleLine: true,
+        borderWidth: 0
+    });
+
+    var lblWelcome2 = new SMF.UI.Label({
+        top: "29%",
+        left: "10%",
+        width: "80%",
+        height: "8%",
+        text: "Powered & secured by Oracle MCS & ICS",
+        textAlignment: SMF.UI.TextAlignment.TOP,
+        font: new SMF.UI.Font({
+            size: "7pt"
+        }),
+        fontColor: SMF.UI.Color.WHITE,
+        touchEnabled: false,
+        showScrollBar: false,
+        borderWidth: 0
+    });
+
+    var lblVersion = new SMF.UI.Label({
+        top: "97%",
+        left: "0%",
+        width: "99%",
+        height: "3%",
+        text: 'v.' + Application.version,
+        textAlignment: SMF.UI.TextAlignment.RIGHT,
+        font: new SMF.UI.Font({
+            size: "4pt"
+        }),
+        fontColor: SMF.UI.Color.BLACK,
+        touchEnabled: false,
+        showScrollBar: false,
+        borderWidth: 0,
+        multipleLine: false
+    });
+
+
+    var lblInfoText = new SMF.UI.Label({
+        top: "45%",
+        left: "6%",
+        width: "88%",
+        height: "49%",
+        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dapibus diam id orci dignissim consequat. Fusce tincidunt neque et neque luctus dignissim. Sed ex ipsum, vulputate eget lectus eget, efficitur fermentum turpis. Nulla facilisi. In sit amet convallis neque.",
+        textAlignment: SMF.UI.TextAlignment.TOP,
+        font: new SMF.UI.Font({
+            size: "8pt"
+        }),
+        multipleLine: true,
+        borderWidth: 0,
+        // borderColor: "#e7e7e7",
+        fillColor: SMF.UI.Color.WHITE,
+        backgroundTransparent: true
+    });
+
+    pgAbout.add(imgHome);
+    pgAbout.add(lblWelcome);
+    pgAbout.add(lblWelcome2);
+    pgAbout.add(lblVersion);
+    pgAbout.add(lblInfoText);
+
 
 
     /**
@@ -40,11 +111,12 @@
      * @this Pages.pgLogin
      */
     function pgAbout_onShow() {
+        // SMF.UI.statusBar.style = SMF.UI.StatusBarStyle.LIGHTCONTENT;
         Dialog.removeWait();
 
         // var sliderDrawer = new SliderDrawer();
         // sliderDrawer.init(Pages.currentPage);
-        createSliderDrawer(Pages.pgAbout,"sdMenuAbout");
+        createSliderDrawer(Pages.pgAbout, "sdMenuAbout");
 
         addHeaderBar();
     }

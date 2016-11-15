@@ -12,4 +12,5 @@ include('pages/pgLogin.js');
 include('pages/pgDashboard.js');
 include('pages/pgOutOfOffice.js');
 include('pages/pgAbout.js');
+include("pages/pgLeaveRequest.js");
 

@@ -177,24 +177,32 @@
             "Remaining": 11
         }
 
+
         oRequestList = [{
+                "EmployeeID": "88771100",
                 "FullName": "Osman Celik",
                 "Email": "osman.celik@smartface.io",
                 "Team": "HR Team",
                 "Role": "Recruiter",
                 "StartDate": "",
                 "EndDate": "",
-                "EmployeeID": "",
+                "LeaveType": "ANNUAL",
+                "TimeUnit": "DAY",
+                "AbsenceMessage": "I need a few days for paper works.",
                 "IsApproved": false
                 },
             {
+
+                "EmployeeID": "88711203",
                 "FullName": "Atakan Eser",
                 "Email": "atakan.eser@smartface.io",
                 "Team": "UAT Team",
                 "Role": "Developer",
                 "StartDate": "",
                 "EndDate": "",
-                "EmployeeID": "",
+                "LeaveType": "MEDICAL",
+                "TimeUnit": "DAY",
+                "AbsenceMessage": "I've a planned surgery. Going to be at hospital for 2 weeks.",
                 "IsApproved": false
         }]
 

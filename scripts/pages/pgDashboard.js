@@ -1,7 +1,5 @@
 /* globals */
 //TODO: include this file in onStart in pages/index.js Use the code below:
-
-
 (function() {
 
     var pgDashboard = Pages.pgDashboard = new SMF.UI.Page({
@@ -119,15 +117,6 @@
     // Vacation Boxes & Numbers
     createVacationBoxes();
 
-    // Out Of Office Section top line
-    var imgOutOfOfficeShadowLine = new SMF.UI.Image({
-        image: "shadow_line.png",
-        left: 0,
-        top: getUnit(499.5),
-        width: getUnit(375),
-        height: getUnit(6),
-        imageFillType: SMF.UI.ImageFillType.NORMAL
-    });
     var cntOutOfOfficeBar = new SMF.UI.Container({
         name: "cntOutOfOfficeBar",
         left: 0,
@@ -213,7 +202,8 @@
     cntOutOfOfficeBar.add(imgDetail);
 
     pgDashboard.add(cntOutOfOfficeBar);
-    pgDashboard.add(imgOutOfOfficeShadowLine);
+    // pgDashboard.add(imgOutOfOfficeShadowLine);
+    createImage(pgDashboard, "imgOutOfOfficeShadowLine", "shadow_line.png", "0", "74.8875%", "100%", "6", SMF.UI.ImageFillType.ASPECTFIT);
 
 
     // New Leave bar
@@ -277,14 +267,8 @@
 
     var imgAdd = new SMF.UI.Image({
         image: "btn_plus.png",
-        left: getUnit({
-            iOS: 293.5,
-            Android: 281.8
-        }),
-        top: getUnit({
-            iOS: 593.5,
-            Android: 569.8
-        }),
+        left: getUnit("78.2666%"),
+        top: getUnit("88.9805%"),
         width: getUnit({
             iOS: 63,
             Android: 61
@@ -295,7 +279,7 @@
         }),
         imageFillType: SMF.UI.ImageFillType.NORMAL,
         onTouchEnded: function(e) {
-            alert('Request a new leave');
+            Pages.pgLeaveRequest.show(defaultPageAnimation);
         }
     });
     pgDashboard.add(imgAdd);
@@ -315,10 +299,11 @@
     function pgDashboard_onShow() {
         //We are going w/ dark mode. Our navbar is white.
         SMF.UI.statusBar.style = SMF.UI.StatusBarStyle.DEFAULT;
-        
-        var sliderDrawer = new SliderDrawer();
-        sliderDrawer.init(Pages.currentPage);
-        
+
+        // var sliderDrawer = new SliderDrawer();
+        // sliderDrawer.init(Pages.currentPage);
+        createSliderDrawer(Pages.pgDashboard, "sdMenuDashboard");
+
         addHeaderBar();
 
         //var timerID = setTimeout(function() {
@@ -326,7 +311,7 @@
         fillUsedDaysBar();
         // }, 100);
 
-        fillVacationMetrics(pgDashboard.myTimeTable.TotalDays, pgDashboard.myTimeTable.Used, pgDashboard.myTimeTable.Remaining);
+        fillVacationMetrics(oTimeTable.TotalDays, oTimeTable.Used, oTimeTable.Remaining);
 
         //TODO: Add Avatar pic
         // pgDashboard.imgAvatar.image = pgDashboard.myProfile.Avatar;
@@ -363,7 +348,7 @@
             var itemMenu = new SMF.UI.iOS.BarButtonItem({
                 image: 'menu.png',
                 onSelected: function() {
-                    (!isSliderDrawerOpen) ? pgDashboard.sdSelfService.show(): pgDashboard.sdSelfService.hide();
+                    (!isSliderDrawerOpen) ? pgDashboard.sdMenuDashboard.show(): pgDashboard.sdMenuDashboard.hide();
                 }
             });
 
@@ -379,144 +364,48 @@
     function createVacationBoxes() {
         var boxTotalDays = new SMF.UI.Container({
             name: "boxTotalDays",
-            left: getUnit(15),
-            top: getUnit(378),
-            width: getUnit(105),
-            height: getUnit(104),
+            left: getUnit("4%"),
+            top: getUnit("56.6716%"),
+            width: getUnit("28%"),
+            height: getUnit("15.5922%"),
             borderWidth: 1,
             borderColor: "#979797",
             roundedEdge: 0
         });
 
-        var lblTotalDays = new SMF.UI.Label({
-            name: "lblTotalDays",
-            top: "0",
-            left: "0",
-            width: "100%",
-            height: "73%",
-            text: "-",
-            textAlignment: SMF.UI.TextAlignment.CENTER,
-            font: new SMF.UI.Font({
-                size: "30pt",
-                bold: true
-            }),
-            fontColor: "#979797"
-        });
-        var lblTotalDaysText = new SMF.UI.Label({
-            name: "lblTotalDaysText",
-            top: "73%",
-            left: "0",
-            width: "100%",
-            height: "20%",
-            text: "Total",
-            textAlignment: SMF.UI.TextAlignment.CENTER,
-            font: new SMF.UI.Font({
-                size: "6pt",
-                bold: true
-            }),
-            fontColor: "#979797"
-        });
+        createLabel(boxTotalDays, "lblTotalDays", "-", "0", "0", "100%", "73%", SMF.UI.TextAlignment.CENTER, false, "30pt", true, "#979797");
+        createLabel(boxTotalDays, "lblTotalDaysText", "Total", "0", "73", "100%", "20%", SMF.UI.TextAlignment.CENTER, false, "6pt", true, "#979797");
 
-        boxTotalDays.add(lblTotalDays);
-        boxTotalDays.add(lblTotalDaysText);
 
         var boxUsed = new SMF.UI.Container({
             name: "boxUsed",
-            left: getUnit(135),
-            top: getUnit(378),
-            width: getUnit(105),
-            height: getUnit(104),
+            left: getUnit("36%"),
+            top: getUnit("56.6716%"),
+            width: getUnit("28%"),
+            height: getUnit("15.5922%"),
             borderWidth: 1,
             borderColor: "#cca2b5",
             roundedEdge: 0
         });
 
-        var lblUsedDays = new SMF.UI.Label({
-            name: "lblUsedDays",
-            top: "0",
-            left: "0",
-            width: "100%",
-            height: "73%",
-            text: "-",
-            textAlignment: SMF.UI.TextAlignment.CENTER,
-            font: new SMF.UI.Font({
-                size: "30pt",
-                bold: true
-            }),
-            fontColor: "#cca2b5"
-        });
+        createLabel(boxUsed, "lblUsedDays", "-", "0", "0", "100%", "73%", SMF.UI.TextAlignment.CENTER, false, "30pt", true, "#cca2b5");
+        createLabel(boxUsed, "lblUsedDaysText", "Used", "0", "73", "100%", "20%", SMF.UI.TextAlignment.CENTER, false, "6pt", true, "#cca2b5");
 
-        var lblUsedDaysText = new SMF.UI.Label({
-            name: "lblUsedDaysText",
-            top: "73%",
-            left: "0",
-            width: "100%",
-            height: "20%",
-            text: "Used",
-            textAlignment: SMF.UI.TextAlignment.CENTER,
-            font: new SMF.UI.Font({
-                size: "6pt",
-                bold: true
-            }),
-            fontColor: "#cca2b5"
-        });
-        boxUsed.add(lblUsedDays);
-        boxUsed.add(lblUsedDaysText);
 
         var boxRemaining = new SMF.UI.Container({
             name: "boxRemaining",
-            left: getUnit(255),
-            top: getUnit(378),
-            width: getUnit(105),
-            height: getUnit(104),
+            left: getUnit("68%"),
+            top: getUnit("56.6716%"),
+            width: getUnit("28%"),
+            height: getUnit("15.5922%"),
             borderWidth: 0,
             roundedEdge: 0
         });
 
-        var imgRemaining = new SMF.UI.Image({
-            name: "imgRemaining",
-            left: "0",
-            top: "0",
-            width: "100%",
-            height: "100%",
-            borderWidth: 0,
-            image: "square_stripe.png",
-            imageFillType: SMF.UI.ImageFillType.NORMAL
-        });
+        createImage(boxRemaining, "imgRemaining", "square_stripe.png", "0", "0", "100%", "100%", SMF.UI.ImageFillType.ASPECTFIT);
+        createLabel(boxRemaining, "lblRemainingDays", "-", "0", "0", "100%", "73%", SMF.UI.TextAlignment.CENTER, false, "30pt", true, "#37404a");
+        createLabel(boxRemaining, "lblRemainingDaysText", "Remaining", "0", "73", "100%", "20%", SMF.UI.TextAlignment.CENTER, false, "6pt", true, "#37404a");
 
-        var lblRemainingDays = new SMF.UI.Label({
-            name: "lblRemainingDays",
-            top: "0",
-            left: "0",
-            width: "100%",
-            height: "73%",
-            text: "-",
-            textAlignment: SMF.UI.TextAlignment.CENTER,
-            font: new SMF.UI.Font({
-                size: "30pt",
-                bold: true
-            }),
-            fontColor: "#37404a"
-        });
-
-        var lblRemainingDaysText = new SMF.UI.Label({
-            name: "lblRemainingDaysText",
-            top: "73%",
-            left: "0",
-            width: "100%",
-            height: "20%",
-            text: "Remaining",
-            textAlignment: SMF.UI.TextAlignment.CENTER,
-            font: new SMF.UI.Font({
-                size: "6pt",
-                bold: true
-            }),
-            fontColor: "#37404a"
-        });
-
-        boxRemaining.add(imgRemaining);
-        boxRemaining.add(lblRemainingDays);
-        boxRemaining.add(lblRemainingDaysText);
 
         pgDashboard.add(boxTotalDays);
         pgDashboard.add(boxUsed);

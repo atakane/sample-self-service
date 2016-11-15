@@ -14,6 +14,7 @@ var oTimeTable;
 var oRequestList;
 
 var isSliderDrawerOpen = false;
+console.log("isSliderDrawerOpen = " + isSliderDrawerOpen);
 
 /**
  * Triggered when application is started.

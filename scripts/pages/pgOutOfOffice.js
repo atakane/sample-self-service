@@ -1,6 +1,6 @@
 /* globals */
 //TODO: include this file in onStart in pages/index.js Use the code below:
-//include("pages/pgOutOfOffice.js");
+
 (function() {
     var selectedStartDate;
     var selectedEndDate;
@@ -17,9 +17,9 @@
     createRectangle(pgOutOfOffice, 0, "29.5352%", "100%", 1, "#e7e7e7");
     createRectangle(pgOutOfOffice, 0, "44.5277%", "100%", 1, "#e7e7e7");
     createRectangle(pgOutOfOffice, "49.90%", "29.5352%", 1, "14.9925%", "#e7e7e7");
-    
+
     //Profile
-    createImage(pgOutOfOffice, "imgAvatar", "", "5.3333%", "11.5442%", "14.4%" , "8.0959%", SMF.UI.ImageFillType.ASPECTFIT);
+    createImage(pgOutOfOffice, "imgAvatar", "", "5.3333%", "11.5442%", "14.4%", "8.0959%", SMF.UI.ImageFillType.ASPECTFIT);
     createLabel(pgOutOfOffice, "lblFullName", "", "4.5333%", "20%", "53.3333%", "4.7376%", SMF.UI.TextAlignment.LEFT, false, "12pt", false, "#27bc66");
     createLabel(pgOutOfOffice, "lblTeamRole", "", "4.5333%", "24.7376%", "53.3333%", "3.4482%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#444444");
 
@@ -61,8 +61,8 @@
 
     //Day Count Circle
     createImage(pgOutOfOffice, "imgCenterCircle", "circle.png", "39.2%", "31.3343%", 81, 81);
-    createLabel(pgOutOfOffice, "lblSelectedDaysCount", "07", "39.4666%", "34.1829%", 79, 30, SMF.UI.TextAlignment.CENTER, false, "16pt", true, "#248afd");
-    createLabel(pgOutOfOffice, "lblSelectedDaysCount", "days", "39.4666%", "37.78110%", 79, 30, SMF.UI.TextAlignment.CENTER, false, "7pt", false, "#37404a");
+    createLabel(pgOutOfOffice, "lblSelectedDaysCount", "-", "39.4666%", "34.1829%", 79, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "16pt", true, "#248afd");
+    createLabel(pgOutOfOffice, "lblSelectedDaysCountText", "day", "39.4666%", "37.78110%", 79, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "7pt", false, "#37404a");
 
     createLabel(pgOutOfOffice, "lblStart", "OUT OF OFFICE MESSAGE", "4.4%", "47.1514%", "55%", "3%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#248afd");
 
@@ -70,9 +70,9 @@
         name: "txtOutOfOfficeMessage",
         text: "",
         left: getUnit("4.5333%"),
-        top: getUnit(344),
-        width: getUnit(331),
-        height: getUnit(240),
+        top: getUnit("51.57421%"),
+        width: getUnit("90.9334%"),
+        height: getUnit("35.982%"),
         multipleLine: true,
         textAlignment: SMF.UI.TextAlignment.JUSTIFIED,
         borderWidth: 0,
@@ -130,8 +130,9 @@
         //We are going w/ dark mode. Our navbar is white.
         SMF.UI.statusBar.style = SMF.UI.StatusBarStyle.DEFAULT;
 
-        var sliderDrawer = new SliderDrawer();
-        sliderDrawer.init(Pages.currentPage);
+        // var sliderDrawer = new SliderDrawer();
+        // sliderDrawer.init(Pages.currentPage);
+        createSliderDrawer(Pages.pgOutOfOffice, "sdMenuOOO");
 
         addHeaderBar();
 
@@ -141,12 +142,15 @@
         pgOutOfOffice.lblTeamRole.text = oProfile.Role + " / " + oProfile.Team;
         pgOutOfOffice.swtOutOfOffice.checked = oProfile.OutOfOffice;
         pgOutOfOffice.txtOutOfOfficeMessage.text = oProfile.OutOfOfficeMessage;
+        console.log(oProfile.OutOfOfficeMessage);
 
         selectedStartDate = new Date(oProfile.OutOfOfficeStart);
         selectedEndDate = new Date(oProfile.OutOfOfficeEnd);
 
         setDateLabels(selectedStartDate, true);
         setDateLabels(selectedEndDate, false);
+
+        calculateDaysBetween();
     }
 
     // Adding a new navigation or actionbar to the page
@@ -168,7 +172,7 @@
             var itemMenu = new SMF.UI.iOS.BarButtonItem({
                 image: 'menu.png',
                 onSelected: function() {
-                    (!isSliderDrawerOpen) ? Pages.currentPage.sdSelfService.show(): Pages.currentPage.sdSelfService.hide();
+                    (!isSliderDrawerOpen) ? Pages.pgOutOfOffice.sdMenuOOO.show(): Pages.pgOutOfOffice.sdMenuOOO.hide();
                 }
             });
 
@@ -182,17 +186,18 @@
     }
 
     function showDateTimePicker(isStartDate) {
+        var today = (new Date());
+        
         SMF.UI.showDatePicker({
             currentDate: (isStartDate) ? selectedStartDate : selectedEndDate, //(new Date()).toString(), // date is given with JavaScript date object
             mask: "dd-MM-yyyy",
-            minDate: (new Date()).getDate(),
-            maxDate: (new Date()).getDate() + 90,
+            minDate: today,
+            maxDate: today.setDate(today.getDate() + 90),
             showWorkingDate: true,
             onSelect: function(e) {
                 var sDate = new Date(e.date);
 
                 setDateLabels(sDate, isStartDate);
-
             },
             onCancel: function(e) {
                 //alert("Picker cancelled!");
@@ -208,13 +213,30 @@
         var _year = date.getFullYear().toString().right(2);
 
         if (isStartDate) {
-            pgOutOfOffice.lblStartDate.text =  _month + "." + _day + "."+ _year;
-            selectedStartDate = date;
+            if (date < selectedEndDate) {
+                pgOutOfOffice.lblStartDate.text = _month + "." + _day + "." + _year;
+                selectedStartDate = date;
+            }
+            else {
+                alert('"Start Date" should be prior to "End Date"');
+            }
         }
         else {
-            pgOutOfOffice.lblEndDate.text =  _month + "." + _day + "."+ _year;
-            selectedEndDate = date;
-        }
+            if (date > selectedStartDate) {
+                pgOutOfOffice.lblEndDate.text = _month + "." + _day + "." + _year;
+                selectedEndDate = date;
+            }
+            else {
+                alert('"End Date" should be after "Start Date"');
+            }
 
+        }
+        calculateDaysBetween();
+    }
+
+    function calculateDaysBetween() {
+        var days = daysBetween(selectedStartDate, selectedEndDate).toFixed(0);
+        pgOutOfOffice.lblSelectedDaysCount.text = days;
+        pgOutOfOffice.lblSelectedDaysCountText.text = (days == 1) ? 'day' : 'days'; 
     }
 })();

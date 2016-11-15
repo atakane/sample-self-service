@@ -10,7 +10,12 @@
     Date.prototype.isDate = function(n) {
         return (n instanceof Date && !isNaN(n.valueOf()));
     }
-    
+
+    Date.prototype.addDays = function(days) {
+        this.setDate(this.getDate() + parseInt(days));
+        return this;
+    };
+
 })();
 
 function getUnit(value) {
@@ -71,7 +76,7 @@ function createImage(parent, name, image, left, top, width, height, imageFillTyp
     parent.add(imgTemp);
 }
 
-function createLabel(parent, name, text, left, top, width, height, textAlignment, multipleLine, fontSize, fontBold, fontColor) {
+function createLabel(parent, name, text, left, top, width, height, textAlignment, multipleLine, fontSize, fontBold, fontColor, onTouchEnded) {
     var lblTemp = new SMF.UI.Label({
         name: name,
         text: text,
@@ -88,6 +93,10 @@ function createLabel(parent, name, text, left, top, width, height, textAlignment
         fontColor: fontColor,
         borderWidth: 0
     });
+    if (onTouchEnded) {
+        lblTemp.touchEnabled = true;
+        lblTemp.onTouchEnded = onTouchEnded;
+    }
 
     parent.add(lblTemp);
 }
@@ -354,4 +363,20 @@ function treatAsUTC(date) {
 function daysBetween(startDate, endDate) {
     var millisecondsPerDay = 24 * 60 * 60 * 1000;
     return (treatAsUTC(endDate) - treatAsUTC(startDate)) / millisecondsPerDay;
+}
+
+function getDateString(date) {
+    var dd = date.getDate();
+    var mm = date.getMonth() + 1; //January is 0!
+    var yy = date.getFullYear().toString().right(2);
+
+    if (dd < 10) {
+        dd = '0' + dd
+    }
+
+    if (mm < 10) {
+        mm = '0' + mm
+    }
+
+    return mm + '/' + dd + '/' + yy;;
 }
