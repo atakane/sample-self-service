@@ -11,6 +11,9 @@
         onShow: pgOutOfOffice_onShow
     });
 
+    // var sliderDrawer = new SliderDrawer();
+    // sliderDrawer.init(Pages.currentPage);
+    createSliderDrawer(Pages.pgOutOfOffice, "sdSelfService");
 
     //Lines
     //  createRectangle(pgOutOfOffice, 252, 64, 1, 133, "#e7e7e7");
@@ -130,16 +133,12 @@
         //We are going w/ dark mode. Our navbar is white.
         SMF.UI.statusBar.style = SMF.UI.StatusBarStyle.DEFAULT;
 
-        // var sliderDrawer = new SliderDrawer();
-        // sliderDrawer.init(Pages.currentPage);
-        createSliderDrawer(Pages.pgOutOfOffice, "sdMenuOOO");
-
         addHeaderBar();
 
+        pgOutOfOffice.imgAvatar.image = pgOutOfOffice.sdSelfService.imgSliderAvatar.image = oProfile.Avatar;
+        pgOutOfOffice.lblFullName.text = pgOutOfOffice.sdSelfService.lblSliderFullName.text = oProfile.FullName;
+        pgOutOfOffice.lblTeamRole.text = pgOutOfOffice.sdSelfService.lblSliderTeamRole.text = oProfile.Role + " / " + oProfile.Team;
 
-        pgOutOfOffice.imgAvatar.image = oProfile.Avatar;
-        pgOutOfOffice.lblFullName.text = oProfile.FullName;
-        pgOutOfOffice.lblTeamRole.text = oProfile.Role + " / " + oProfile.Team;
         pgOutOfOffice.swtOutOfOffice.checked = oProfile.OutOfOffice;
         pgOutOfOffice.txtOutOfOfficeMessage.text = oProfile.OutOfOfficeMessage;
         console.log(oProfile.OutOfOfficeMessage);
@@ -172,7 +171,7 @@
             var itemMenu = new SMF.UI.iOS.BarButtonItem({
                 image: 'menu.png',
                 onSelected: function() {
-                    (!isSliderDrawerOpen) ? Pages.pgOutOfOffice.sdMenuOOO.show(): Pages.pgOutOfOffice.sdMenuOOO.hide();
+                    (!isSliderDrawerOpen) ? Pages.pgOutOfOffice.sdSelfService.show(): Pages.pgOutOfOffice.sdSelfService.hide();
                 }
             });
 
@@ -187,7 +186,7 @@
 
     function showDateTimePicker(isStartDate) {
         var today = (new Date());
-        
+
         SMF.UI.showDatePicker({
             currentDate: (isStartDate) ? selectedStartDate : selectedEndDate, //(new Date()).toString(), // date is given with JavaScript date object
             mask: "dd-MM-yyyy",
@@ -237,6 +236,6 @@
     function calculateDaysBetween() {
         var days = daysBetween(selectedStartDate, selectedEndDate).toFixed(0);
         pgOutOfOffice.lblSelectedDaysCount.text = days;
-        pgOutOfOffice.lblSelectedDaysCountText.text = (days == 1) ? 'day' : 'days'; 
+        pgOutOfOffice.lblSelectedDaysCountText.text = (days == 1) ? 'day' : 'days';
     }
 })();

@@ -160,10 +160,11 @@
 
         // var gravatar = md5hash("atakan.eser@smartface.io");
         oProfile = {
-            "FullName": "Osman Celik",
+            "EmployeeID": "8927191",
+            "FullName": "Emre Celik",
             "Email": "osman.celik@smartface.io",
             "Team": "HR Team",
-            "Role": "Recruiter",
+            "Role": "Director",
             "OutOfOffice": true,
             "OutOfOfficeMessage": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dapibus diam id orci dignissim consequat. Fusce tincidunt neque et neque luctus dignissim. Sed ex ipsum, vulputate eget lectus eget, efficitur fermentum turpis. Nulla facilisi. In sit amet convallis neque. Sed tristique non lorem vitae efficitur. Quisque ullamcorper arcu vitae vestibulum tincidunt. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla sollicitudin id orci ac ullamcorper. Nunc consequat diam vel convallis vehicula. Nunc hendrerit maximus consequat. Sed euismod eleifend nisl, sit amet finibus nulla porta eget. Suspendisse dapibus semper lectus vitae aliquam. Suspendisse sed elit rhoncus, blandit nibh a, sodales dolor.",
             "OutOfOfficeStart": "9/15/16",
@@ -172,41 +173,119 @@
         }
 
         oTimeTable = {
-            "TotalDays": 22,
-            "Used": 11,
-            "Remaining": 11
+            "TotalDays": 37,
+            "Used": 18,
+            "Remaining": 19
         }
 
 
         oRequestList = [{
                 "EmployeeID": "88771100",
-                "FullName": "Osman Celik",
-                "Email": "osman.celik@smartface.io",
-                "Team": "HR Team",
-                "Role": "Recruiter",
-                "StartDate": "",
-                "EndDate": "",
+                "FullName": "William Campell",
+                "Email": "wc@smartface.io",
+                "Avatar": "avatar6.png",
+                "Team": "R&D",
+                "Role": "Sr. Researcher",
+                "StartDate": "11/18/16",
+                "EndDate": "11/28/16",
                 "LeaveType": "ANNUAL",
                 "TimeUnit": "DAY",
                 "AbsenceMessage": "I need a few days for paper works.",
-                "IsApproved": false
+                "Status": "waiting",
+                "TotalDays": 29,
+                "Used": 16,
+                "Remaining": 13
                 },
             {
 
                 "EmployeeID": "88711203",
-                "FullName": "Atakan Eser",
-                "Email": "atakan.eser@smartface.io",
-                "Team": "UAT Team",
+                "FullName": "Robert Harris",
+                "Email": "robert@smartface.io",
+                "Avatar": "avatar2.png",
+                "Team": "Software Dev.",
                 "Role": "Developer",
-                "StartDate": "",
-                "EndDate": "",
+                "StartDate": "11/16/16",
+                "EndDate": "11/22/16",
                 "LeaveType": "MEDICAL",
                 "TimeUnit": "DAY",
                 "AbsenceMessage": "I've a planned surgery. Going to be at hospital for 2 weeks.",
-                "IsApproved": false
+                "Status": "waiting",
+                "TotalDays": 22,
+                "Used": 16,
+                "Remaining": 6
+        }, {
+
+                "EmployeeID": "1902837",
+                "FullName": "Kevin Parker",
+                "Email": "john.smart@bigcorp.io",
+                "Avatar": "avatar3.png",
+                "Team": "Dev-Ops",
+                "Role": "Sys. Eng.",
+                "StartDate": "12/24/16",
+                "EndDate": "12/31/16",
+                "LeaveType": "ANNUAL",
+                "TimeUnit": "DAY",
+                "AbsenceMessage": "You know, it's Christmas time!!! :)",
+                "Status": "waiting",
+                "TotalDays": 15,
+                "Used": 9,
+                "Remaining": 6
+        }, {
+
+                "EmployeeID": "1902837",
+                "FullName": "Patricia Lewis",
+                "Email": "plewis@hotmail.io",
+                "Avatar": "avatar4.png",
+                "Team": "HR",
+                "Role": "Assistant",
+                "StartDate": "11/23/16",
+                "EndDate": "11/24/16",
+                "LeaveType": "MEDICAL",
+                "TimeUnit": "DAY",
+                "AbsenceMessage": "Doctor checkup",
+                "Status": "waiting",
+                "TotalDays": 19,
+                "Used": 3,
+                "Remaining": 16
+        }, {
+
+                "EmployeeID": "1902837",
+                "FullName": "Patricia Lewis",
+                "Email": "plewis@hotmail.io",
+                "Avatar": "avatar4.png",
+                "Team": "HR",
+                "Role": "Assistant",
+                "StartDate": "12/18/16",
+                "EndDate": "12/31/16",
+                "LeaveType": "ANNUAL",
+                "TimeUnit": "DAY",
+                "AbsenceMessage": "New Year's eve. I need to keep up with the Family. Michelle will take the calls while I'm away.",
+                "Status": "waiting",
+                "TotalDays": 19,
+                "Used": 3,
+                "Remaining": 16
+        }, {
+
+                "EmployeeID": "341561",
+                "FullName": "Michelle Edward",
+                "Email": "md@lab.cp",
+                "Avatar": "avatar5.png",
+                "Team": "Visual",
+                "Role": "Art Director",
+                "StartDate": "3/15/17",
+                "EndDate": "3/27/17",
+                "LeaveType": "ANNUAL",
+                "TimeUnit": "DAY",
+                "AbsenceMessage": "European division site visit with Sr. Vice President Mr. Thomas.",
+                "Status": "waiting",
+                "TotalDays": 45,
+                "Used": 20,
+                "Remaining": 25
         }]
 
         // passing objects to pgFiles
+
+        console.log(oProfile.FullName);
         Pages.pgDashboard.myProfile = oProfile;
         Pages.pgDashboard.myTimeTable = oTimeTable;
 

@@ -8,6 +8,10 @@
         backgroundImage: 'stripe.png'
     });
 
+    // var sliderDrawer = new SliderDrawer();
+    // sliderDrawer.init(Pages.currentPage);
+    createSliderDrawer(Pages.pgAbout, "sdSelfService");
+
     /**
      * Creates action(s) that are run when the user press the key of the devices.
      * @param {KeyCodeEventArguments} e Uses to for key code argument. It returns e.keyCode parameter.
@@ -114,11 +118,13 @@
         // SMF.UI.statusBar.style = SMF.UI.StatusBarStyle.LIGHTCONTENT;
         Dialog.removeWait();
 
-        // var sliderDrawer = new SliderDrawer();
-        // sliderDrawer.init(Pages.currentPage);
-        createSliderDrawer(Pages.pgAbout, "sdMenuAbout");
 
         addHeaderBar();
+        
+        pgAbout.sdSelfService.imgSliderAvatar.image = oProfile.Avatar;
+        pgAbout.sdSelfService.lblSliderFullName.text = oProfile.FullName;
+        pgAbout.sdSelfService.lblSliderTeamRole.text = oProfile.Role + " / " + oProfile.Team;
+
     }
 
 
@@ -135,7 +141,7 @@
             var itemMenu = new SMF.UI.iOS.BarButtonItem({
                 image: 'menu.png',
                 onSelected: function() {
-                    (!isSliderDrawerOpen) ? Pages.pgAbout.sdMenuAbout.show(): Pages.pgAbout.sdMenuAbout.hide();
+                    (!isSliderDrawerOpen) ? Pages.pgAbout.sdSelfService.show(): Pages.pgAbout.sdSelfService.hide();
                 }
             });
 

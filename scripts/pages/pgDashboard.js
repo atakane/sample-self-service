@@ -11,6 +11,11 @@
         myTimeTable: []
     });
 
+
+    // var sliderDrawer = new SliderDrawer();
+    // sliderDrawer.init(Pages.currentPage);
+    createSliderDrawer(Pages.pgDashboard, "sdSelfService");
+
     /**
      * Creates action(s) that are run when the user press the key of the devices.
      * @param {KeyCodeEventArguments} e Uses to for key code argument. It returns e.keyCode parameter.
@@ -28,17 +33,16 @@
         left: 0,
         top: 0,
         width: "100%",
-        height: "285dp",
-        // height: (100*(285/Device.screenHeight)) + "%",
-        imageFillType: SMF.UI.ImageFillType.NORMAL
+        height: "42.05397%",
+        imageFillType: SMF.UI.ImageFillType.STRETCH
     });
 
     var cntProgressBar = new SMF.UI.Container({
         name: "cntProgressBar",
         left: 0,
         width: "100%",
-        top: "279dp",
-        height: "55dp",
+        top: "41.82908%",
+        height: "8.2458%",
         borderWidth: 0
     });
 
@@ -47,14 +51,15 @@
         left: 0,
         top: 0,
         width: "100%",
-        height: "55dp"
+        height: "100%",
+        imageFillType: SMF.UI.ImageFillType.STRETCH
     })
     var recProgress = new SMF.UI.Rectangle({
         name: "recProgress",
         left: 0,
         top: 0,
         width: "0",
-        height: "55dp",
+        height: "100%",
         fillColor: "#ebc0d3",
         borderWidth: 0,
         roundedEdge: 0
@@ -70,20 +75,20 @@
     var imgAvatar = new SMF.UI.Image({
         name: "imgAvatar",
         image: "",
-        left: getUnit(148),
-        top: getUnit(95),
+        left: getUnit("39.4666%"),
+        top: getUnit("14.2428%"),
         width: getUnit(80),
         height: getUnit(80),
-        imageFillType: SMF.UI.ImageFillType.NORMAL
+        imageFillType: SMF.UI.ImageFillType.ASPECTFIT
     });
     pgDashboard.add(imgAvatar);
 
     var lblFullName = new SMF.UI.Label({
         name: "lblFullName",
         left: 0,
-        top: getUnit(196.5),
+        top: getUnit("29.4602%"),
         width: "100%",
-        height: getUnit(20),
+        height: getUnit("2.9985%"),
         text: "",
         textAlignment: SMF.UI.TextAlignment.CENTER,
         font: new SMF.UI.Font({
@@ -98,9 +103,9 @@
     var lblTeamRole = new SMF.UI.Label({
         name: "lblTeamRole",
         left: 0,
-        top: getUnit(223),
+        top: getUnit("33.4332%"),
         width: "100%",
-        height: getUnit(20),
+        height: getUnit("2.9985%"),
         text: "",
         textAlignment: SMF.UI.TextAlignment.CENTER,
         font: new SMF.UI.Font({
@@ -121,8 +126,8 @@
         name: "cntOutOfOfficeBar",
         left: 0,
         width: "100%",
-        top: getUnit(501.5),
-        height: getUnit(64),
+        top: getUnit("75.1874%"),
+        height: getUnit("9.5952%"),
         borderWidth: 0,
         fillColor: "#e7e7e7",
         backgroundTransparent: false,
@@ -133,8 +138,8 @@
 
     var swtOutOfOffice = new SMF.UI.SwitchButton({
         name: "swtOutOfOffice",
-        left: getUnit(21.5),
-        top: getUnit(19.5),
+        left: getUnit("5.73333%"),
+        top: getUnit("30.4687%"),
         checked: false,
         onTintColor: "#248afd",
         tintColor: "#248afd",
@@ -148,8 +153,8 @@
 
     var lblOOOStatusTitle = new SMF.UI.Label({
         name: "lblOOOStatusTitle",
-        left: getUnit(17),
-        top: getUnit(14),
+        left: getUnit("4.53333%"),
+        top: getUnit("21.875%"),
         width: "60%",
         height: "25%",
         text: "OUT OF OFFICE STATUS",
@@ -163,8 +168,8 @@
 
     var lblOOOStatusTitle2 = new SMF.UI.Label({
         name: "lblOOOStatusTitle2",
-        left: getUnit(17),
-        top: getUnit(34.5),
+        left: getUnit("4.53333%"),
+        top: getUnit("53.9062%"),
         width: "24%",
         height: "25%",
         text: "Out Of Office",
@@ -178,8 +183,8 @@
 
     var lblOOOStatusText = new SMF.UI.Label({
         name: "lblOOOStatusText",
-        left: getUnit(110),
-        top: getUnit(34.5),
+        left: getUnit("29.3333%"),
+        top: getUnit("53.9062%"),
         width: "30%",
         height: "25%",
         text: "Mode Off",
@@ -193,8 +198,8 @@
 
     var imgDetail = new SMF.UI.Image({
         image: "right_arrow.png",
-        left: getUnit(340),
-        top: getUnit(26),
+        left: getUnit("90.66666%"),
+        top: getUnit("40.625%"),
         width: getUnit(12),
         height: getUnit(20),
         imageFillType: SMF.UI.ImageFillType.NORMAL
@@ -203,67 +208,7 @@
 
     pgDashboard.add(cntOutOfOfficeBar);
     // pgDashboard.add(imgOutOfOfficeShadowLine);
-    createImage(pgDashboard, "imgOutOfOfficeShadowLine", "shadow_line.png", "0", "74.8875%", "100%", "6", SMF.UI.ImageFillType.ASPECTFIT);
-
-
-    // New Leave bar
-    // var cntNewLeaveRequest = new SMF.UI.Container({
-    //     name: "cntNewLeaveRequest",
-    //     left: 0,
-    //     width: "20%",
-    //     top: "75.1874%",
-    //     height: "9.5952%",
-    //     borderWidth: 0,
-    //     fillColor: "RED",
-    //     backgroundTransparent: false
-    // });
-    // pgDashboard.add(cntNewLeaveRequest);
-
-    var lblNewRequestTitle = new SMF.UI.Label({
-        name: "lblNewRequestTitle",
-        left: getUnit(23.2),
-        top: getUnit(583.5),
-        width: "60%",
-        height: getUnit(19.5),
-        text: "NEW LEAVE REQUEST",
-        textAlignment: SMF.UI.TextAlignment.LEFT,
-        font: new SMF.UI.Font({
-            size: "7pt"
-        }),
-        fontColor: "#cca2b5"
-    });
-    // pgDashboard.add(lblNewRequestTitle);
-
-    var lblNewRequestText = new SMF.UI.Label({
-        name: "lblNewRequestText",
-        left: getUnit(23.5),
-        top: getUnit(607.5),
-        width: getUnit(183),
-        height: getUnit(38),
-        text: "Your next request can start from",
-        textAlignment: SMF.UI.TextAlignment.LEFT,
-        font: new SMF.UI.Font({
-            size: "7pt"
-        }),
-        multipleLine: true,
-        fontColor: "#a0a0a0"
-    });
-    // pgDashboard.add(lblNewRequestText);
-
-    var lblNewRequestTextDate = new SMF.UI.Label({
-        name: "lblNewRequestTextDate",
-        left: getUnit(58),
-        top: getUnit(623),
-        width: getUnit(80),
-        height: getUnit(19.5),
-        text: "21.05.2017",
-        textAlignment: SMF.UI.TextAlignment.LEFT,
-        font: new SMF.UI.Font({
-            size: "7pt"
-        }),
-        fontColor: "#37404a"
-    });
-    // pgDashboard.add(lblNewRequestTextDate);
+    createImage(pgDashboard, "imgOutOfOfficeShadowLine", "shadow_line.png", "0", "74.8875%", "100%", "6", SMF.UI.ImageFillType.STRETCH);
 
     var imgAdd = new SMF.UI.Image({
         image: "btn_plus.png",
@@ -277,7 +222,7 @@
             iOS: 66,
             Android: 64
         }),
-        imageFillType: SMF.UI.ImageFillType.NORMAL,
+        imageFillType: SMF.UI.ImageFillType.ASPECTFIT,
         onTouchEnded: function(e) {
             Pages.pgLeaveRequest.show(defaultPageAnimation);
         }
@@ -300,26 +245,23 @@
         //We are going w/ dark mode. Our navbar is white.
         SMF.UI.statusBar.style = SMF.UI.StatusBarStyle.DEFAULT;
 
-        // var sliderDrawer = new SliderDrawer();
-        // sliderDrawer.init(Pages.currentPage);
-        createSliderDrawer(Pages.pgDashboard, "sdMenuDashboard");
 
         addHeaderBar();
 
         //var timerID = setTimeout(function() {
         // setTimeout(function() {
-        fillUsedDaysBar();
-        // }, 100);
+            fillUsedDaysBar();
+        // }, 500);
 
         fillVacationMetrics(oTimeTable.TotalDays, oTimeTable.Used, oTimeTable.Remaining);
 
         //TODO: Add Avatar pic
         // pgDashboard.imgAvatar.image = pgDashboard.myProfile.Avatar;
-        pgDashboard.imgAvatar.image = pgDashboard.myProfile.Avatar; //pgDashboard.sdSelfService.imgSliderAvatar.image =
-        pgDashboard.lblFullName.text = pgDashboard.myProfile.FullName; //pgDashboard.sdSelfService.lblSliderFullName.text = 
-        pgDashboard.lblTeamRole.text = pgDashboard.myProfile.Role + " / " + pgDashboard.myProfile.Team; //pgDashboard.sdSelfService.lblSliderTeamRole.text = 
-        pgDashboard.cntOutOfOfficeBar.swtOutOfOffice.checked = pgDashboard.myProfile.OutOfOffice;
-        pgDashboard.cntOutOfOfficeBar.lblOOOStatusText.text = (pgDashboard.myProfile.OutOfOffice) ? "Mode On" : "Mode Off";
+        pgDashboard.imgAvatar.image = pgDashboard.sdSelfService.imgSliderAvatar.image = oProfile.Avatar;
+        pgDashboard.lblFullName.text = pgDashboard.sdSelfService.lblSliderFullName.text = oProfile.FullName;
+        pgDashboard.lblTeamRole.text = pgDashboard.sdSelfService.lblSliderTeamRole.text = oProfile.Role + " / " + oProfile.Team;
+        pgDashboard.cntOutOfOfficeBar.swtOutOfOffice.checked = oProfile.OutOfOffice;
+        pgDashboard.cntOutOfOfficeBar.lblOOOStatusText.text = (oProfile.OutOfOffice) ? "Mode On" : "Mode Off";
     }
 
     function fillUsedDaysBar() {
@@ -348,7 +290,7 @@
             var itemMenu = new SMF.UI.iOS.BarButtonItem({
                 image: 'menu.png',
                 onSelected: function() {
-                    (!isSliderDrawerOpen) ? pgDashboard.sdMenuDashboard.show(): pgDashboard.sdMenuDashboard.hide();
+                    (!isSliderDrawerOpen) ? pgDashboard.sdSelfService.show(): pgDashboard.sdSelfService.hide();
                 }
             });
 

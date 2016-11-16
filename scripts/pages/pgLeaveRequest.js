@@ -10,9 +10,14 @@
 
     var pgLeaveRequest = Pages.pgLeaveRequest = new SMF.UI.Page({
         name: "pgLeaveRequest",
-        onKeyPress: pgOutOfOffice_onKeyPress,
-        onShow: pgOutOfOffice_onShow
+        onKeyPress: pgLeaveRequest_onKeyPress,
+        onShow: pgLeaveRequest_onShow
     });
+
+
+    // var sliderDrawer = new SliderDrawer();
+    // sliderDrawer.init(Pages.currentPage);
+    createSliderDrawer(Pages.pgLeaveRequest, "sdSelfService");
 
     // createContainer(pgLeaveRequest, "cntVacationBoxes", "0", "64", "100%", "11.46926%", SMF.UI.Color.WHITE, false);
 
@@ -32,7 +37,7 @@
     createVacationBoxes(cntVacationBoxes);
 
     //Lines
-    createImage(pgLeaveRequest, "imgShadowLine", "shadow_line.png", "0", "21.0644%", "100%", "6", SMF.UI.ImageFillType.ASPECTFIT);
+    createImage(pgLeaveRequest, "imgShadowLine", "shadow_line.png", "0", "21.0644%", "100%", "6", SMF.UI.ImageFillType.STRETCH);
     createRectangle(pgLeaveRequest, 0, "32.5037%", "100%", 1, "#e7e7e7");
     createRectangle(pgLeaveRequest, 0, "47.4962%", "100%", 1, "#e7e7e7");
     createRectangle(pgLeaveRequest, "49.90%", "32.5037%", 1, "14.9925%", "#e7e7e7");
@@ -43,7 +48,7 @@
     createLabel(pgLeaveRequest, "lblTimeUnitText", "TIME UNIT", "60.4667%", "23.68815%", "35%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
 
     createLabel(pgLeaveRequest, "lblLeaveType", "ANNUAL", "4.5333%", "27.5%", "40%", "2.9985%", SMF.UI.TextAlignment.LEFT, false, "10pt", false, "#4a4a4a", pickLeaveType);
-    createLabel(pgLeaveRequest, "lblTimeUnit", "DAY", "60.4667%", "27.5%", "35%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "10pt", false, "#4a4a4a", pickTimeUnit);
+    createLabel(pgLeaveRequest, "lblTimeUnit", "DAY", "60.4667%", "27%", "35%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "10pt", false, "#4a4a4a", pickTimeUnit);
 
 
     // Dates
@@ -108,10 +113,13 @@
         "#f64b95", "#ebc0d3",
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITESMOKE,
         function(e) {
+
+            //Sample
             var myRequest = {
-                "EmployeeID": "999999",
+                "EmployeeID": oProfile.EmployeeID,
                 "FullName": oProfile.FullName,
                 "Email": oProfile.Email,
+                "Avatar": "avatar.png",
                 "Team": oProfile.Team,
                 "Role": oProfile.Role,
                 "StartDate": selectedStartDate,
@@ -119,7 +127,10 @@
                 "TimeUnit": pgLeaveRequest.lblTimeUnit.text,
                 "LeaveType": pgLeaveRequest.lblLeaveType.text,
                 "AbsenceMessage": JSON.stringify(pgLeaveRequest.txtAbsenceMessage.text),
-                "IsApproved": false
+                "Status": "waiting",
+                "TotalDays": oTimeTable.TotalDays,
+                "Used": oTimeTable.Used,
+                "Remaining": oTimeTable.Remaining
             }
 
             oRequestList.push(myRequest);
@@ -135,7 +146,7 @@
      * @param {KeyCodeEventArguments} e Uses to for key code argument. It returns e.keyCode parameter.
      * @this Pages.pgOutOfOffice
      */
-    function pgOutOfOffice_onKeyPress(e) {
+    function pgLeaveRequest_onKeyPress(e) {
         if (e.keyCode === 4) {
             Pages.back(defaultPageAnimation);
         }
@@ -146,21 +157,20 @@
      * @param {EventArguments} e Returns some attributes about the specified functions
      * @this Pages.pgOutOfOffice
      */
-    function pgOutOfOffice_onShow() {
+    function pgLeaveRequest_onShow() {
         //We are going w/ dark mode. Our navbar is white.
         SMF.UI.statusBar.style = SMF.UI.StatusBarStyle.DEFAULT;
 
-        // var sliderDrawer = new SliderDrawer();
-        // sliderDrawer.init(Pages.currentPage);
-        createSliderDrawer(Pages.pgLeaveRequest, "sdMenuLeaveRequest");
-
         addHeaderBar();
-
 
         fillVacationMetrics(oTimeTable.TotalDays, oTimeTable.Used, oTimeTable.Remaining);
 
-
         // resetting each time
+        pgLeaveRequest.sdSelfService.imgSliderAvatar.image = oProfile.Avatar;
+        pgLeaveRequest.sdSelfService.lblSliderFullName.text = oProfile.FullName;
+        pgLeaveRequest.sdSelfService.lblSliderTeamRole.text = oProfile.Role + " / " + oProfile.Team;
+
+
         pgLeaveRequest.txtAbsenceMessage.text = '';
         pgLeaveRequest.lblLeaveType.text = 'ANNUAL';
         pgLeaveRequest.lblTimeUnit.text = 'DAY';
@@ -191,7 +201,7 @@
             var itemMenu = new SMF.UI.iOS.BarButtonItem({
                 image: 'menu.png',
                 onSelected: function() {
-                    (!isSliderDrawerOpen) ? Pages.pgLeaveRequest.sdMenuLeaveRequest.show(): Pages.pgLeaveRequest.sdMenuLeaveRequest.hide();
+                    (!isSliderDrawerOpen) ? Pages.pgLeaveRequest.sdSelfService.show(): Pages.pgLeaveRequest.sdSelfService.hide();
                 }
             });
 
