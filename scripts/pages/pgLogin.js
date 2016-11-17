@@ -161,8 +161,8 @@
         // var gravatar = md5hash("atakan.eser@smartface.io");
         oProfile = {
             "EmployeeID": "8927191",
-            "FullName": "Emre Celik",
-            "Email": "osman.celik@smartface.io",
+            "FullName": "Lee Allen",
+            "Email": "la@smartface.io",
             "Team": "HR Team",
             "Role": "Director",
             "OutOfOffice": false,

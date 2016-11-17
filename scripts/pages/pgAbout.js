@@ -89,7 +89,7 @@
         left: "6%",
         width: "88%",
         height: "49%",
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dapibus diam id orci dignissim consequat. Fusce tincidunt neque et neque luctus dignissim. Sed ex ipsum, vulputate eget lectus eget, efficitur fermentum turpis. Nulla facilisi. In sit amet convallis neque.",
+        text: "This app is an employee self-service app that is integrated with Oracle Integration Cloud Service (ICS). Through ICS, this app can be integrated with all Oracle systems such as E-Business Suite or Applications Cloud.\n\nIt is a fully native app developed with the Smartface Cloud Platform. Full source code is available and enterprises can extend this app in the cloud development environment, only with JavaScript knowledge.",
         textAlignment: SMF.UI.TextAlignment.TOP,
         font: new SMF.UI.Font({
             size: "8pt"
