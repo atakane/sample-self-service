@@ -57,21 +57,21 @@ function createSliderDrawer(page, name, backgroundColor) {
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
         "#444444", "#a0a0a0",
         function(e) {
-            Pages.pgDashboard.show();
+            (Pages.currentPage === Pages.pgDashboard)? sdSelfService.hide() : Pages.pgDashboard.show();
         });
     //336
     createRectangle(sdSelfService, "4.4940%", "49.1754%", "95.506%", 1, "#e7e7e7");
     createImage(sdSelfService, "imgSliderMenuRequest", "icon_request.png", "5.8666%", "51.4992%", 22, 20);
     createTextButton(sdSelfService,
         "btnRequest",
-        "Request",
+        "New Request",
         "18.2666%", "50.5247%", "55%", "4.5%",
         SMF.UI.TextAlignment.LEFT,
         "9pt", false,
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
         "#444444", "#a0a0a0",
         function(e) {
-            Pages.pgLeaveRequest.show();
+            (Pages.currentPage === Pages.pgLeaveRequest)? sdSelfService.hide() : Pages.pgLeaveRequest.show();
         });
 
     createRectangle(sdSelfService, "4.4940%", "56.2968%", "95.506%", 1, "#e7e7e7");
@@ -79,38 +79,38 @@ function createSliderDrawer(page, name, backgroundColor) {
     createTextButton(sdSelfService,
         "btnApprovals",
         "Approval Worklist",
-        "4.9333%", "58.2008%", "55%", "4.5%",
+        "4.9333%", "57.6008%", "55%", "4.5%",
         SMF.UI.TextAlignment.LEFT,
         "8pt", false,
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
         "#248afd", "#1961c1",
         function(e) {
-            Pages.pgApprovalWorklist.show();
+            (Pages.currentPage === Pages.pgApprovalWorklist)? sdSelfService.hide() : Pages.pgApprovalWorklist.show();
         });
 
     createRectangle(sdSelfService, "4.4940%", "62.6686%", "95.506%", 1, "#e7e7e7");
     createTextButton(sdSelfService,
         "btnOutOfOffice",
         "Out Of Office",
-        "4.9333%", "64.4677%", "55%", "4.5%",
+        "4.9333%", "63.8677%", "55%", "4.5%",
         SMF.UI.TextAlignment.LEFT,
         "8pt", false,
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
         "#248afd", "#1961c1",
         function(e) {
-            Pages.pgOutOfOffice.show();
+            (Pages.currentPage === Pages.pgOutOfOffice)? sdSelfService.hide() : Pages.pgOutOfOffice.show();
         });
     createRectangle(sdSelfService, "4.4940%", "68.9355%", "95.506%", 1, "#e7e7e7");
     createTextButton(sdSelfService,
         "btnAbout",
         "About",
-        "4.9333%", "70.7346%", "55%", "4.5%",
+        "4.9333%", "70.1346%", "55%", "4.5%",
         SMF.UI.TextAlignment.LEFT,
         "8pt", false,
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
         "#248afd", "#1961c1",
         function(e) {
-            Pages.pgAbout.show();
+            (Pages.currentPage === Pages.pgAbout)? sdSelfService.hide() : Pages.pgAbout.show();
         });
 
     // createLabel(sdSelfService, "lblAbout", "About", 18.5, 570, 155, 23, SMF.UI.TextAlignment.LEFT, false, "8pt", false, "#248afd");

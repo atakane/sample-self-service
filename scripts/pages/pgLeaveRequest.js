@@ -48,7 +48,9 @@
     createLabel(pgLeaveRequest, "lblTimeUnitText", "TIME UNIT", "60.4667%", "23.68815%", "35%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
 
     createLabel(pgLeaveRequest, "lblLeaveType", "ANNUAL", "4.5333%", "27.5%", "40%", "2.9985%", SMF.UI.TextAlignment.LEFT, false, "10pt", false, "#4a4a4a", pickLeaveType);
-    createLabel(pgLeaveRequest, "lblTimeUnit", "DAY", "60.4667%", "27%", "35%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "10pt", false, "#4a4a4a", pickTimeUnit);
+    createLabel(pgLeaveRequest, "lblTimeUnit", "DAY", "60.4667%", "27%", "35%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "10pt", false, "#4a4a4a");
+    
+    //pickTimeUnit
 
 
     // Dates
@@ -67,11 +69,11 @@
 
     // Adding a container layer on top of the date to be touchable as a single object
     createContainer(pgLeaveRequest, "cntSelectEndDate", "67%", "38.9505%", "37.3333%", "6.5967%", SMF.UI.Color.WHITE, true, function() {
-        showDateTimePicker();
+        showDateTimePicker(false);
     });
 
     //Day Count Circle
-    createImage(pgLeaveRequest, "imgCenterCircle", "circle.png", "39.2%", "34.3028%", 81, 81);
+    createImage(pgLeaveRequest, "imgCenterCircle", "circle.png", (Device.screenWidth - 81)/2, "34.3028%", 81, 81);
     createLabel(pgLeaveRequest, "lblSelectedDaysCount", "-", "39.4666%", "37.1514%", 79, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "16pt", true, "#248afd");
     createLabel(pgLeaveRequest, "lblSelectedDaysCountText", "", "39.4666%", "40.7496%", 79, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "7pt", false, "#37404a");
 
@@ -99,7 +101,7 @@
     //(Device.brandModel.toLowerCase().includes("plus")) ? 80 : 40,
     var myFont = new SMF.UI.Font({
         name: "FontAwesome",
-        size: "10pt",
+        size: (Device.brandModel.toLowerCase().includes("plus")) ? 80 : 50,
         bold: false
     });
 
@@ -110,35 +112,49 @@
         0, "90.4048%", "100%", "9.5952%",
         SMF.UI.TextAlignment.CENTER,
         myFont,
-        "#f64b95", "#ebc0d3",
+        "#7ed321", "#5b9918",
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITESMOKE,
         function(e) {
-
-            //Sample
-            var myRequest = {
-                "EmployeeID": oProfile.EmployeeID,
-                "FullName": oProfile.FullName,
-                "Email": oProfile.Email,
-                "Avatar": "avatar.png",
-                "Team": oProfile.Team,
-                "Role": oProfile.Role,
-                "StartDate": selectedStartDate,
-                "EndDate": selectedEndDate,
-                "TimeUnit": pgLeaveRequest.lblTimeUnit.text,
-                "LeaveType": pgLeaveRequest.lblLeaveType.text,
-                "AbsenceMessage": JSON.stringify(pgLeaveRequest.txtAbsenceMessage.text),
-                "Status": "waiting",
-                "TotalDays": oTimeTable.TotalDays,
-                "Used": oTimeTable.Used,
-                "Remaining": oTimeTable.Remaining
-            }
-
-            oRequestList.push(myRequest);
-
-
-            alert('Your "Leave of Absence" request has been forwarded for approval.');
-
-            Pages.pgDashboard.show(defaultPageAnimation);
+              alert({
+                    title: 'Warning!',
+                    message: 'Do you want to make this request?',
+                    firstButtonText: "Submit",
+                    secondButtonText: "Cancel",
+                    onFirstButtonPressed: function() {
+                        //Sample
+                        var myRequest = {
+                            "EmployeeID": oProfile.EmployeeID,
+                            "FullName": oProfile.FullName,
+                            "Email": oProfile.Email,
+                            "Avatar": "avatar.png",
+                            "Team": oProfile.Team,
+                            "Role": oProfile.Role,
+                            "StartDate": selectedStartDate,
+                            "EndDate": selectedEndDate,
+                            "TimeUnit": pgLeaveRequest.lblTimeUnit.text,
+                            "LeaveType": pgLeaveRequest.lblLeaveType.text,
+                            "AbsenceMessage": JSON.stringify(pgLeaveRequest.txtAbsenceMessage.text),
+                            "Status": "waiting",
+                            "TotalDays": oTimeTable.TotalDays,
+                            "Used": oTimeTable.Used,
+                            "Remaining": oTimeTable.Remaining
+                        }
+            
+                        oRequestList.push(myRequest);
+            
+                        alert({
+                                title: 'Request submitted',
+                                message: 'Your "Leave of Absence" request has been forwarded for approval.',
+                                firstButtonText: "OK",
+                                onFirstButtonPressed: function()
+                                {
+                                    Pages.pgDashboard.show(reverseDefaultPageAnimation);
+                                }});
+                    },
+                    onSecondButtonPressed: function() {}
+                });  
+                
+            
         });
 
     /**
@@ -148,7 +164,7 @@
      */
     function pgLeaveRequest_onKeyPress(e) {
         if (e.keyCode === 4) {
-            Pages.back(defaultPageAnimation);
+            Pages.back(reverseDefaultPageAnimation);
         }
     }
 
@@ -194,7 +210,7 @@
         headerBar.init(Pages.currentPage);
 
         // console.log(SMF.UI.iOS.NavigationBar.translucent);
-        headerBar.setTitleView(Pages.currentPage, "Leave of Absence", "#248afd", null, 0, 0, 240, 44, 20);
+        headerBar.setTitleView(Pages.currentPage, "Leave Request", "#248afd", null, 0, 0, 240, 44, 20);
 
         // Preparing left items 
         if (Device.deviceOS !== "Android") {
@@ -285,7 +301,9 @@
             roundedEdge: 0
         });
 
-        createLabel(boxTotalDays, "lblTotalDays", "-", "0", "0", "100%", "100%", SMF.UI.TextAlignment.CENTER, false, "12pt", true, "#979797");
+        createLabel(boxTotalDays, "lblTotalDays", "-", "0", "20%", "100%", "40%", SMF.UI.TextAlignment.CENTER, false, "12pt", true, "#979797");
+        createLabel(boxTotalDays, "lblTotalDaysText", "Total", "0", "70%", "100%", "20%", SMF.UI.TextAlignment.CENTER, false, "5pt", false, "#979797");
+
 
         var boxUsed = new SMF.UI.Container({
             name: "boxUsed",
@@ -298,7 +316,8 @@
             roundedEdge: 0
         });
 
-        createLabel(boxUsed, "lblUsedDays", "-", "0", "0", "100%", "100%", SMF.UI.TextAlignment.CENTER, false, "12pt", true, "#cca2b5");
+        createLabel(boxUsed, "lblUsedDays", "-", "0", "20%", "100%", "40%", SMF.UI.TextAlignment.CENTER, false, "12pt", true, "#cca2b5");
+        createLabel(boxUsed, "lblUsedDaysText", "Used", "0", "70%", "100%", "20%", SMF.UI.TextAlignment.CENTER, false, "5pt", false, "#cca2b5");
 
         var boxRemaining = new SMF.UI.Container({
             name: "boxRemaining",
@@ -311,7 +330,8 @@
         });
 
         createImage(boxRemaining, "imgRemaining", "square_stripe.png", "0", "0", "100%", "100%", SMF.UI.ImageFillType.ASPECTFIT);
-        createLabel(boxRemaining, "lblRemainingDays", "-", "0", "0", "100%", "100%", SMF.UI.TextAlignment.CENTER, false, "12pt", true, "#37404a");
+        createLabel(boxRemaining, "lblRemainingDays", "-", "0", "20%", "100%", "40%", SMF.UI.TextAlignment.CENTER, false, "12pt", true, "#37404a");
+        createLabel(boxRemaining, "lblRemainingDaysText", "Rem.", "0", "70%", "100%", "20%", SMF.UI.TextAlignment.CENTER, false, "5pt", false, "#37404a");
 
         parent.add(boxTotalDays);
         parent.add(boxUsed);

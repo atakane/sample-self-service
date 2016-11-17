@@ -165,10 +165,10 @@
             "Email": "osman.celik@smartface.io",
             "Team": "HR Team",
             "Role": "Director",
-            "OutOfOffice": true,
-            "OutOfOfficeMessage": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dapibus diam id orci dignissim consequat. Fusce tincidunt neque et neque luctus dignissim. Sed ex ipsum, vulputate eget lectus eget, efficitur fermentum turpis. Nulla facilisi. In sit amet convallis neque. Sed tristique non lorem vitae efficitur. Quisque ullamcorper arcu vitae vestibulum tincidunt. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla sollicitudin id orci ac ullamcorper. Nunc consequat diam vel convallis vehicula. Nunc hendrerit maximus consequat. Sed euismod eleifend nisl, sit amet finibus nulla porta eget. Suspendisse dapibus semper lectus vitae aliquam. Suspendisse sed elit rhoncus, blandit nibh a, sodales dolor.",
-            "OutOfOfficeStart": "9/15/16",
-            "OutOfOfficeEnd": "11/25/16",
+            "OutOfOffice": false,
+            "OutOfOfficeMessage": "",
+            "OutOfOfficeStart": "",
+            "OutOfOfficeEnd": "",
             "Avatar": "avatar.png" //"http://www.gravatar.com/avatar/" + gravatar
         }
 

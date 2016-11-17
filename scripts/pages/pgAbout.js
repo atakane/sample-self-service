@@ -19,7 +19,7 @@
      */
     function pgAbout_onKeyPress(e) {
         if (e.keyCode === 4) {
-            Pages.back(defaultPageAnimation);
+            Pages.back(reverseDefaultPageAnimation);
         }
     }
 

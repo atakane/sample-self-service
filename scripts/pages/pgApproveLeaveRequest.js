@@ -66,9 +66,9 @@
     createLabel(pgApproveLeaveRequest, "lblEndDate", "-", "60.4667%", "47.3013%", "35%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "12pt", false, "#4a4a4a");
 
     //Day Count Circle
-    createImage(pgApproveLeaveRequest, "imgCenterCircle", "circle.png", "39.2%", "42.6536%", 81, 81);
-    createLabel(pgApproveLeaveRequest, "lblSelectedDaysCount", "-", "39.4666%", "45.5022%", 79, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "16pt", true, "#248afd");
-    createLabel(pgApproveLeaveRequest, "lblSelectedDaysCountText", "", "39.4666%", "49.1004%", 79, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "7pt", false, "#37404a");
+    createImage(pgApproveLeaveRequest, "imgCenterCircle", "circle.png", (Device.screenWidth - 81)/2, "42.6536%", 81, 81);
+    createLabel(pgApproveLeaveRequest, "lblSelectedDaysCount", "-", "39.4666%", "45%", 79, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "16pt", true, "#248afd");
+    createLabel(pgApproveLeaveRequest, "lblSelectedDaysCountText", "", "39.4666%", "48.7%", 79, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "7pt", false, "#37404a");
 
     createContainer(pgApproveLeaveRequest, "cntDescriptionBack", 0, "55.847%", "100%", "44.153%", "#e7e7e7", false);
     createLabel(pgApproveLeaveRequest, "lblStart", "DESCRIPTION", "4.4%", "58.4707%", "63.3508%", "3%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#248afd");
@@ -97,7 +97,7 @@
     //(Device.brandModel.toLowerCase().includes("plus")) ? 80 : 40,
     var myFont = new SMF.UI.Font({
         name: "FontAwesome",
-        size: "10pt",
+        size: (Device.brandModel.toLowerCase().includes("plus")) ? 80 : 50,
         bold: false
     });
 
@@ -111,11 +111,25 @@
         "#ee2736", "#eb2c3d",
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITESMOKE,
         function(e) {
+                alert({
+                    title: 'Warning!',
+                    message: 'Do you want to reject this request?',
+                    firstButtonText: "Reject",
+                    secondButtonText: "Cancel",
+                    onFirstButtonPressed: function() {
+                        oRequestList[pgApproveLeaveRequest.recordID].Status = "rejected";
 
-            oRequestList[pgApproveLeaveRequest.recordID].Status = "rejected";
-            alert('This leave request rejected and requester informed.');
-
-            Pages.pgApprovalWorklist.show(defaultPageAnimation);
+                        alert({
+                            title: 'Request rejected',
+                            message: 'This leave request rejected and requester informed.',
+                            firstButtonText: "OK",
+                            onFirstButtonPressed: function()
+                            {
+                                Pages.pgApprovalWorklist.show(reverseDefaultPageAnimation);
+                            }});
+                    },
+                    onSecondButtonPressed: function() {}
+                });
         });
 
     // check: uf00c
@@ -125,13 +139,30 @@
         "50%", "90.4048%", "50%", "9.5952%",
         SMF.UI.TextAlignment.CENTER,
         myFont,
-        "#f64b95", "#ebc0d3",
+        "#7ed321", "#5b9918",
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITESMOKE,
         function(e) {
-            oRequestList[pgApproveLeaveRequest.recordID].Status = "approved";
-            alert('This leave request approved and requester informed.');
+              alert({
+                    title: 'Warning!',
+                    message: 'Do you want to approve this request?',
+                    firstButtonText: "Approve",
+                    secondButtonText: "Cancel",
+                    onFirstButtonPressed: function() {
+                        oRequestList[pgApproveLeaveRequest.recordID].Status = "approved";
+                    
+                        alert({
+                            title: 'Request approved',
+                            message: 'This leave request approved and requester informed.',
+                            firstButtonText: "OK",
+                            onFirstButtonPressed: function()
+                            {
+                                Pages.pgApprovalWorklist.show(reverseDefaultPageAnimation);
+                            }});
+                        
+                    },
+                    onSecondButtonPressed: function() {}
+                });            
 
-            Pages.pgApprovalWorklist.show(defaultPageAnimation);
         });
 
     /**
@@ -141,7 +172,7 @@
      */
     function pgApproveLeaveRequest_onKeyPress(e) {
         if (e.keyCode === 4) {
-            Pages.back(defaultPageAnimation);
+            Pages.back(reverseDefaultPageAnimation);
         }
     }
 
@@ -248,7 +279,8 @@
             roundedEdge: 0
         });
 
-        createLabel(boxTotalDays, "lblTotalDays", "-", "0", "0", "100%", "100%", SMF.UI.TextAlignment.CENTER, false, "12pt", true, "#979797");
+        createLabel(boxTotalDays, "lblTotalDays", "-", "0", "20%", "100%", "40%", SMF.UI.TextAlignment.CENTER, false, "12pt", true, "#979797");
+        createLabel(boxTotalDays, "lblTotalDaysText", "Total", "0", "70%", "100%", "20%", SMF.UI.TextAlignment.CENTER, false, "5pt", false, "#979797");
 
         var boxUsed = new SMF.UI.Container({
             name: "boxUsed",
@@ -261,7 +293,8 @@
             roundedEdge: 0
         });
 
-        createLabel(boxUsed, "lblUsedDays", "-", "0", "0", "100%", "100%", SMF.UI.TextAlignment.CENTER, false, "12pt", true, "#cca2b5");
+        createLabel(boxUsed, "lblUsedDays", "-", "0", "20%", "100%", "40%", SMF.UI.TextAlignment.CENTER, false, "12pt", true, "#cca2b5");
+        createLabel(boxUsed, "lblUsedDaysText", "Used", "0", "70%", "100%", "20%", SMF.UI.TextAlignment.CENTER, false, "5pt", false, "#cca2b5");
 
         var boxRemaining = new SMF.UI.Container({
             name: "boxRemaining",
@@ -274,7 +307,8 @@
         });
 
         createImage(boxRemaining, "imgRemaining", "square_stripe.png", "0", "0", "100%", "100%", SMF.UI.ImageFillType.ASPECTFIT);
-        createLabel(boxRemaining, "lblRemainingDays", "-", "0", "0", "100%", "100%", SMF.UI.TextAlignment.CENTER, false, "12pt", true, "#37404a");
+        createLabel(boxRemaining, "lblRemainingDays", "-", "0", "20%", "100%", "40%", SMF.UI.TextAlignment.CENTER, false, "12pt", true, "#37404a");
+        createLabel(boxRemaining, "lblRemainingDaysText", "Rem.", "0", "70%", "100%", "20%", SMF.UI.TextAlignment.CENTER, false, "5pt", false, "#37404a");
 
         parent.add(boxTotalDays);
         parent.add(boxUsed);

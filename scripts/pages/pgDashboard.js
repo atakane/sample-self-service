@@ -6,7 +6,7 @@
         name: "pgDashboard",
         onKeyPress: pgDashboard_onKeyPress,
         onShow: pgDashboard_onShow,
-        onTouch: fillUsedDaysBar,
+        // onTouch: fillUsedDaysBar,
         myProfile: [],
         myTimeTable: []
     });
@@ -283,7 +283,20 @@
         var headerBar = new HeaderBar();
         headerBar.init(Pages.currentPage);
 
-        headerBar.setTitleImageView(Pages.currentPage, "self_service.png", 84, 15, 120, 24);
+        if (Device.deviceOS == "iOS")
+        {
+            if  (Device.brandModel.toLowerCase().includes("plus"))
+            {
+                headerBar.setTitleImageView(Pages.currentPage, "self_service.png", 100, 15, 120, 24);
+            }
+                else
+            {
+            headerBar.setTitleImageView(Pages.currentPage, "self_service.png", 84, 15, 120, 24);
+            }
+        }else
+        {
+            headerBar.setTitleView(Pages.currentPage, "Self Service", "#248afd", null, 0, 0, 240, 44, 20);
+        }
 
         // Preparing left items 
         if (Device.deviceOS !== "Android") {

@@ -59,13 +59,13 @@
 
     // Adding a container layer on top of the date to be touchable as a single object
     createContainer(pgOutOfOffice, "cntSelectEndDate", "67%", "35.9820%", "37.3333%", "6.5967%", SMF.UI.Color.WHITE, true, function() {
-        showDateTimePicker();
+        showDateTimePicker(false);
     });
 
     //Day Count Circle
-    createImage(pgOutOfOffice, "imgCenterCircle", "circle.png", "39.2%", "31.3343%", 81, 81);
-    createLabel(pgOutOfOffice, "lblSelectedDaysCount", "-", "39.4666%", "34.1829%", 79, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "16pt", true, "#248afd");
-    createLabel(pgOutOfOffice, "lblSelectedDaysCountText", "day", "39.4666%", "37.78110%", 79, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "7pt", false, "#37404a");
+    createImage(pgOutOfOffice, "imgCenterCircle", "circle.png", (Device.screenWidth - 81)/2, "31.3343%", 81, 81);
+    createLabel(pgOutOfOffice, "lblSelectedDaysCount", "-", "39.4666%", "34%", 79, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "16pt", true, "#248afd");
+    createLabel(pgOutOfOffice, "lblSelectedDaysCountText", "day", "39.4666%", "37.4%", 79, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "7pt", false, "#37404a");
 
     createLabel(pgOutOfOffice, "lblStart", "OUT OF OFFICE MESSAGE", "4.4%", "47.1514%", "55%", "3%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#248afd");
 
@@ -90,7 +90,7 @@
     //(Device.brandModel.toLowerCase().includes("plus")) ? 80 : 40,
     var myFont = new SMF.UI.Font({
         name: "FontAwesome",
-        size: "10pt",
+        size: (Device.brandModel.toLowerCase().includes("plus")) ? 80 : 50,
         bold: false
     });
 
@@ -104,13 +104,23 @@
         "#7ed321", "#5b9918",
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITESMOKE,
         function(e) {
-            oProfile.OutOfOffice = pgOutOfOffice.swtOutOfOffice.checked;
-            oProfile.OutOfOfficeMessage = pgOutOfOffice.txtOutOfOfficeMessage.text;
-
-            oProfile.OutOfOfficeStart = selectedStartDate;
-            oProfile.OutOfOfficeEnd = selectedEndDate;
-
-            alert('Your "Out of Office" status has been updated.');
+            alert({
+                    title: 'Warning!',
+                    message: 'Do you want to update your "Out of Office" status?',
+                    firstButtonText: "Update",
+                    secondButtonText: "Cancel",
+                    onFirstButtonPressed: function() {
+                        oProfile.OutOfOffice = pgOutOfOffice.swtOutOfOffice.checked;
+                        oProfile.OutOfOfficeMessage = pgOutOfOffice.txtOutOfOfficeMessage.text;
+            
+                        oProfile.OutOfOfficeStart = selectedStartDate;
+                        oProfile.OutOfOfficeEnd = selectedEndDate;
+            
+                        alert('Your "Out of Office" status has been updated.');
+                    },
+                    onSecondButtonPressed: function() {}
+                });
+            
         });
 
     /**
@@ -120,7 +130,7 @@
      */
     function pgOutOfOffice_onKeyPress(e) {
         if (e.keyCode === 4) {
-            Pages.back(defaultPageAnimation);
+            Pages.back(reverseDefaultPageAnimation);
         }
     }
 
@@ -140,16 +150,27 @@
         pgOutOfOffice.lblTeamRole.text = pgOutOfOffice.sdSelfService.lblSliderTeamRole.text = oProfile.Role + " / " + oProfile.Team;
 
         pgOutOfOffice.swtOutOfOffice.checked = oProfile.OutOfOffice;
-        pgOutOfOffice.txtOutOfOfficeMessage.text = oProfile.OutOfOfficeMessage;
-        console.log(oProfile.OutOfOfficeMessage);
+        
 
-        selectedStartDate = new Date(oProfile.OutOfOfficeStart);
-        selectedEndDate = new Date(oProfile.OutOfOfficeEnd);
+        selectedStartDate = (isDate(oProfile.OutOfOfficeStart)) ? new Date(oProfile.OutOfOfficeStart) : new Date(Date.now());
+        selectedEndDate = (isDate(oProfile.OutOfOfficeEnd)) ? new Date(oProfile.OutOfOfficeEnd) : new Date(Date.now()).addDays(1);
 
         setDateLabels(selectedStartDate, true);
         setDateLabels(selectedEndDate, false);
-
+        
         calculateDaysBetween();
+    }
+    
+    function setInitialOutOfficeText(){
+        var oooText;
+        
+        if ((oProfile.OutOfOfficeMessage) && (oProfile.OutOfOfficeMessage.length > 0)){
+            oooText = oProfile.OutOfOfficeMessage
+        }else{
+            oooText = templateOutOfOfficeText.replace('{FullName}',oProfile.FullName).replace('{Role}',oProfile.Role).replace('{Team}',oProfile.Team).replace('{EndDate}',selectedEndDate.format('dddd, MMMM d, y'));
+        }
+        
+        pgOutOfOffice.txtOutOfOfficeMessage.text = oooText;
     }
 
     // Adding a new navigation or actionbar to the page
@@ -157,13 +178,6 @@
 
         var headerBar = new HeaderBar();
         headerBar.init(Pages.currentPage);
-
-        // headerBar.setTitleView(Pages.currentPage, "Out of Office", "#248afd", null, 0, 0, 240, 44, 20);
-        // headerBar.setLeftItemImage("back.png", function() {
-        //     Pages.back();
-        // });
-
-        // console.log(SMF.UI.iOS.NavigationBar.translucent);
         headerBar.setTitleView(Pages.currentPage, "Out of Office", "#248afd", null, 0, 0, 240, 44, 20);
 
         // Preparing left items 
@@ -185,13 +199,21 @@
     }
 
     function showDateTimePicker(isStartDate) {
-        var today = (new Date());
-
+        var currentDate = (isStartDate) ? selectedStartDate : selectedEndDate ;
+        console.log('isStartDate = ' + isStartDate);
+        console.log('currentDate = ' + currentDate.format('dd-MM-yyyy'));
+        
+        var minDate = (isStartDate) ? new Date() : new Date(selectedStartDate);
+        console.log('minDate = ' + minDate.format('dd-MM-yyyy'));
+        
+        var maxDate = (isStartDate) ? (new Date(selectedEndDate)).addDays(-1) : (new Date(selectedStartDate)).addDays(365);
+        console.log('maxDate = ' + maxDate.format('dd-MM-yyyy'));
+        
         SMF.UI.showDatePicker({
-            currentDate: (isStartDate) ? selectedStartDate : selectedEndDate, //(new Date()).toString(), // date is given with JavaScript date object
-            mask: "dd-MM-yyyy",
-            minDate: today,
-            maxDate: today.setDate(today.getDate() + 90),
+              currentDate : currentDate.format('dd-MM-yyyy'),
+              mask : "dd-MM-yyyy",
+              minDate : minDate.format('dd-MM-yyyy'),
+              maxDate : maxDate.format('dd-MM-yyyy'),
             showWorkingDate: true,
             onSelect: function(e) {
                 var sDate = new Date(e.date);
@@ -205,8 +227,6 @@
     }
 
     function setDateLabels(date, isStartDate) {
-        // var currentStartDate = pgDashboard.myProfile.OutOfOfficeStart;
-        // var currentStartDate = pgDashboard.myProfile.OutOfOfficeEnd;
         var _day = ('00' + date.getDate()).right(2);
         var _month = ('00' + (date.getMonth() + 1)).right(2);
         var _year = date.getFullYear().toString().right(2);
@@ -224,6 +244,7 @@
             if (date > selectedStartDate) {
                 pgOutOfOffice.lblEndDate.text = _month + "." + _day + "." + _year;
                 selectedEndDate = date;
+                setInitialOutOfficeText();
             }
             else {
                 alert('"End Date" should be after "Start Date"');

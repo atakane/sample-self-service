@@ -7,16 +7,16 @@
         return this.substring(this.length - n, this.length);
     }
 
-    Date.prototype.isDate = function(n) {
-        return (n instanceof Date && !isNaN(n.valueOf()));
-    }
-
     Date.prototype.addDays = function(days) {
         this.setDate(this.getDate() + parseInt(days));
         return this;
     };
 
 })();
+
+function isDate(n) {
+    return (n instanceof Date && !isNaN(n.valueOf()));
+}
 
 function getUnit(value) {
     if (typeof value === "object")
@@ -257,6 +257,15 @@ var animationCover = {
 var defaultPageAnimation = {
     motionEase: SMF.UI.MotionEase.ACCELERATEANDDECELERATE,
     transitionEffect: SMF.UI.TransitionEffect.RIGHTTOLEFT,
+    transitionEffectType: SMF.UI.TransitionEffectType.PUSH,
+    fade: true,
+    reset: false,
+    duration: 300 //Device.deviceOS === "iOS" ? 300 : 600
+}
+
+var reverseDefaultPageAnimation = {
+    motionEase: SMF.UI.MotionEase.ACCELERATEANDDECELERATE,
+    transitionEffect: SMF.UI.TransitionEffect.LEFTTORIGHT,
     transitionEffectType: SMF.UI.TransitionEffectType.PUSH,
     fade: true,
     reset: false,
