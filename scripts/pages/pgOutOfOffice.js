@@ -153,7 +153,7 @@
         
 
         selectedStartDate = (isDate(oProfile.OutOfOfficeStart)) ? new Date(oProfile.OutOfOfficeStart) : new Date(Date.now());
-        selectedEndDate = (isDate(oProfile.OutOfOfficeEnd)) ? new Date(oProfile.OutOfOfficeEnd) : new Date(Date.now()).addDays(1);
+        selectedEndDate = (isDate(oProfile.OutOfOfficeEnd)) ? new Date(oProfile.OutOfOfficeEnd) : new Date(Date.now()).addDays(7);
 
         setDateLabels(selectedStartDate, true);
         setDateLabels(selectedEndDate, false);
@@ -200,24 +200,19 @@
 
     function showDateTimePicker(isStartDate) {
         var currentDate = (isStartDate) ? selectedStartDate : selectedEndDate ;
-        console.log('isStartDate = ' + isStartDate);
-        console.log('currentDate = ' + currentDate.format('dd-MM-yyyy'));
         
         var minDate = (isStartDate) ? new Date() : new Date(selectedStartDate);
-        console.log('minDate = ' + minDate.format('dd-MM-yyyy'));
         
         var maxDate = (isStartDate) ? (new Date(selectedEndDate)).addDays(-1) : (new Date(selectedStartDate)).addDays(365);
-        console.log('maxDate = ' + maxDate.format('dd-MM-yyyy'));
         
         SMF.UI.showDatePicker({
-              currentDate : currentDate.format('dd-MM-yyyy'),
+              currentDate : currentDate,
               mask : "dd-MM-yyyy",
-              minDate : minDate.format('dd-MM-yyyy'),
-              maxDate : maxDate.format('dd-MM-yyyy'),
+              minDate : minDate,
+              maxDate : maxDate,
             showWorkingDate: true,
             onSelect: function(e) {
                 var sDate = new Date(e.date);
-
                 setDateLabels(sDate, isStartDate);
             },
             onCancel: function(e) {

@@ -48,7 +48,7 @@
     createLabel(pgLeaveRequest, "lblTimeUnitText", "TIME UNIT", "60.4667%", "23.68815%", "35%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
 
     createLabel(pgLeaveRequest, "lblLeaveType", "ANNUAL", "4.5333%", "27.5%", "40%", "2.9985%", SMF.UI.TextAlignment.LEFT, false, "10pt", false, "#4a4a4a", pickLeaveType);
-    createLabel(pgLeaveRequest, "lblTimeUnit", "DAY", "60.4667%", "27%", "35%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "10pt", false, "#4a4a4a");
+    createLabel(pgLeaveRequest, "lblTimeUnit", "DAY", "60.4667%", "27%", "35%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "10pt", false, "#4a4a4a",pickTimeUnit);
     
     //pickTimeUnit
 
@@ -57,6 +57,7 @@
     // Start Date
     createLabel(pgLeaveRequest, "lblStart", "STARTS", "4.5333%", "34.1529%", "17%", "2.9985%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#248afd");
     createLabel(pgLeaveRequest, "lblStartDate", "-", "4.5333%", "38.9505%", "37.3333%", "2.9985%", SMF.UI.TextAlignment.LEFT, false, "12pt", false, "#4a4a4a");
+    // createLabel(pgLeaveRequest, "lblStartTime", "12:00 AM", "4.5333%", "42.9505%", "20%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "8pt", false, "#4a4a4a");
     // Adding a container layer on top of the date to be touchable as a single object
     createContainer(pgLeaveRequest, "cntSelectStartDate", "4.5333%", "38.9505%", "37.3333%", "6.5967%", SMF.UI.Color.WHITE, true, function() {
         showDateTimePicker(true);
@@ -235,12 +236,28 @@
             currentDate: (isStartDate) ? selectedStartDate : selectedEndDate, //(new Date()).toString(), // date is given with JavaScript date object
             mask: "dd-MM-yyyy",
             minDate: (new Date()),
-            maxDate: (new Date()).addDays(90),
+            maxDate: (new Date()).addDays(365),
             showWorkingDate: true,
             onSelect: function(e) {
                 var sDate = new Date(e.date);
 
                 setDateLabels(sDate, isStartDate);
+                
+                if (pgLeaveRequest.lblTimeUnit.text === "HOUR"){
+                    SMF.UI.showTimePicker({
+                      currentTime : (isStartDate) ? "07:00" : "18:30",
+                      hourViewFormat24 : true,
+                      minuteInterval : 5,
+                      minTime : "06:00",
+                      maxTime : "18:30",
+                      onSelect : function (e) {
+                        var t = new Date(e.time);
+                      },
+                      onCancel : function () {
+                      }
+                    }); 
+                    
+                }
             },
             onCancel: function(e) {
                 //alert("Picker cancelled!");
