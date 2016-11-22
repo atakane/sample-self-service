@@ -255,7 +255,7 @@ var animationCover = {
 };
 
 var defaultPageAnimation = {
-    motionEase: SMF.UI.MotionEase.ACCELERATEANDDECELERATE,
+    motionEase: SMF.UI.MotionEase.NONE,
     transitionEffect: SMF.UI.TransitionEffect.RIGHTTOLEFT,
     transitionEffectType: SMF.UI.TransitionEffectType.PUSH,
     fade: true,
@@ -369,9 +369,9 @@ function treatAsUTC(date) {
     return result;
 }
 
-function daysBetween(startDate, endDate) {
+function daysBetween(startDate, endDate, calculateAsHours) {
     var millisecondsPerDay = 24 * 60 * 60 * 1000;
-    return (treatAsUTC(endDate) - treatAsUTC(startDate)) / millisecondsPerDay;
+    return (treatAsUTC(endDate) - treatAsUTC(startDate)) / ((calculateAsHours) ? millisecondsPerDay/24  : millisecondsPerDay);
 }
 
 function getDateString(date) {

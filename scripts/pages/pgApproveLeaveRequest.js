@@ -67,8 +67,8 @@
 
     //Day Count Circle
     createImage(pgApproveLeaveRequest, "imgCenterCircle", "circle.png", (Device.screenWidth - 81)/2, "42.6536%", 81, 81);
-    createLabel(pgApproveLeaveRequest, "lblSelectedDaysCount", "-", "39.4666%", "45%", 79, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "16pt", true, "#248afd");
-    createLabel(pgApproveLeaveRequest, "lblSelectedDaysCountText", "", "39.4666%", "48.7%", 79, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "7pt", false, "#37404a");
+    createLabel(pgApproveLeaveRequest, "lblSelectedDaysCount", "-", (Device.screenWidth - 81)/2, "45%", 81, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "16pt", true, "#248afd");
+    createLabel(pgApproveLeaveRequest, "lblSelectedDaysCountText", "", (Device.screenWidth - 81)/2, "48.7%", 81, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "7pt", false, "#37404a");
 
     createContainer(pgApproveLeaveRequest, "cntDescriptionBack", 0, "55.847%", "100%", "44.153%", "#e7e7e7", false);
     createLabel(pgApproveLeaveRequest, "lblStart", "DESCRIPTION", "4.4%", "58.4707%", "63.3508%", "3%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#248afd");

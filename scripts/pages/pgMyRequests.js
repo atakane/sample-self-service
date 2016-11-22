@@ -1,16 +1,16 @@
 /* globals smfOracle mcsUser mcsPassword Dialog defaultPageAnimation*/
 (function() {
     var arrayRequests;
-    var pgApprovalWorklist = Pages.pgApprovalWorklist = new SMF.UI.Page({
-        name: "pgApprovalWorklist",
-        onKeyPress: pgApprovalWorklist_onKeyPress,
-        onShow: pgApprovalWorklist_onShow,
+    var pgMyRequests = Pages.pgMyRequests = new SMF.UI.Page({
+        name: "pgMyRequests",
+        onKeyPress: pgMyRequests_onKeyPress,
+        onShow: pgMyRequests_onShow,
         backgroundImage: 'stripe.png'
     });
 
     // var sliderDrawer = new SliderDrawer();
     // sliderDrawer.init(Pages.currentPage);
-    createSliderDrawer(Pages.pgApprovalWorklist, "sdSelfService");
+    createSliderDrawer(Pages.pgMyRequests, "sdSelfService");
 
 
     //creating a repeatbox to show our files
@@ -52,9 +52,6 @@
     // });
     // rptApprovalList.pullDownItem.add(aiPullDown);
     // rptApprovalList.pullDownItemTemplate.fillColor = "#FFFFFF";
-
-
-
 
     // Adding a container layer on top of the date to be touchable as a single object
     // var cntTotalDays = new SMF.UI.Container({
@@ -130,7 +127,7 @@
         text: "-",
         left: "25%",
         top: "63%",
-        width: "75%",
+        width: "60%",
         height: "30%",
         textAlignment: SMF.UI.TextAlignment.LEFT,
         multipleLine: false,
@@ -218,31 +215,50 @@
         var startDate = arrayRequests[e.rowIndex].StartDate;
         var endDate = arrayRequests[e.rowIndex].EndDate;
         var days = daysBetween(startDate, endDate);
-        var leaveDetails = arrayRequests[e.rowIndex].LeaveType + ', ' + days + ' ' + ((days > 1) ? 'days' : 'day');
+        var leaveDetails = days + ' ' + ((days > 1) ? 'days' : 'day');
 
         this.controls[0].image = arrayRequests[e.rowIndex].Avatar;
-        this.controls[2].text = arrayRequests[e.rowIndex].FullName;
-        this.controls[3].text = arrayRequests[e.rowIndex].Role + " / " + arrayRequests[e.rowIndex].Team;
-        this.controls[4].text = leaveDetails + ', starting Dec, 31th.'
+        this.controls[2].text = arrayRequests[e.rowIndex].LeaveType;
+        this.controls[3].text = arrayRequests[e.rowIndex].StartDate.format("MM/dd/yyyy") + " - " + arrayRequests[e.rowIndex].EndDate.format("MM/dd/yyyy");
+        this.controls[4].text = leaveDetails
 
 
         this.controls[7].image = arrayRequests[e.rowIndex].Avatar;
-        this.controls[9].text = arrayRequests[e.rowIndex].FullName;
-        this.controls[10].text = arrayRequests[e.rowIndex].Role + " / " + arrayRequests[e.rowIndex].Team;
-        this.controls[11].text = leaveDetails + ', starting Dec, 31th.'
-
+        this.controls[9].text = arrayRequests[e.rowIndex].LeaveType;
+        this.controls[10].text = arrayRequests[e.rowIndex].StartDate.format("MM/dd/yyyy") + " - " + arrayRequests[e.rowIndex].EndDate.format("MM/dd/yyyy");
+        this.controls[11].text = leaveDetails
     };
 
 
     //adding repeatbox to the page
-    pgApprovalWorklist.add(rptApprovalList);
+    pgMyRequests.add(rptApprovalList);
+
+    //adding label for no-data
+    var lblNoData = new SMF.UI.Label({
+        name: 'lblNoData',
+        text: 'You dont have any "Leave Request" yet.',
+        left: 0,
+        top: 0,
+        width: "100%",
+        height: "100%",
+        textAlignment: SMF.UI.TextAlignment.CENTER,
+        multipleLine: true,
+        font: new SMF.UI.Font({
+            size: "7pt",
+            bold: false
+        }),
+        fontColor: "#4a4a4a",
+        borderWidth: 0,
+        visible: false
+    });
+    pgMyRequests.add(lblNoData);
 
     /**
      * Creates action(s) that are run when the user press the key of the devices.
      * @param {KeyCodeEventArguments} e Uses to for key code argument. It returns e.keyCode parameter.
      * @this Pages.pgLogin
      */
-    function pgApprovalWorklist_onKeyPress(e) {
+    function pgMyRequests_onKeyPress(e) {
         if (e.keyCode === 4) {
             Pages.back(reverseDefaultPageAnimation);
         }
@@ -253,16 +269,16 @@
      * @param {EventArguments} e Returns some attributes about the specified functions
      * @this Pages.pgLogin
      */
-    function pgApprovalWorklist_onShow() {
+    function pgMyRequests_onShow() {
         // SMF.UI.statusBar.style = SMF.UI.StatusBarStyle.LIGHTCONTENT;
         Dialog.removeWait();
 
 
         addHeaderBar();
 
-        pgApprovalWorklist.sdSelfService.imgSliderAvatar.image = oProfile.Avatar;
-        pgApprovalWorklist.sdSelfService.lblSliderFullName.text = oProfile.FullName;
-        pgApprovalWorklist.sdSelfService.lblSliderTeamRole.text = oProfile.Role + " / " + oProfile.Team;
+        pgMyRequests.sdSelfService.imgSliderAvatar.image = oProfile.Avatar;
+        pgMyRequests.sdSelfService.lblSliderFullName.text = oProfile.FullName;
+        pgMyRequests.sdSelfService.lblSliderTeamRole.text = oProfile.Role + " / " + oProfile.Team;
 
         displayApprovalRequests();
 
@@ -275,65 +291,23 @@
         var headerBar = new HeaderBar();
         headerBar.init(Pages.currentPage);
 
-        headerBar.setTitleView(Pages.currentPage, "Approval Worklist", "#248afd", null, 0, 0, 240, 44, 20);
+        headerBar.setTitleView(Pages.currentPage, "My Leave Requests", "#248afd", null, 0, 0, 240, 44, 20);
 
         // Preparing left items 
         if (Device.deviceOS !== "Android") {
             var itemMenu = new SMF.UI.iOS.BarButtonItem({
                 image: 'menu.png',
                 onSelected: function() {
-                    (!isSliderDrawerOpen) ? Pages.pgApprovalWorklist.sdSelfService.show(): Pages.pgApprovalWorklist.sdSelfService.hide();
-                }
-            });
-
-            var itemFilter = new SMF.UI.iOS.BarButtonItem({
-                image: 'filter.png',
-                onSelected: function() {
-                    filterMenu();
+                    (!isSliderDrawerOpen) ? Pages.pgMyRequests.sdSelfService.show(): Pages.pgMyRequests.sdSelfService.hide();
                 }
             });
 
             Pages.currentPage.navigationItem.leftBarButtonItems = [itemMenu];
-            Pages.currentPage.navigationItem.rightBarButtonItems = [itemFilter];
         }
         else {
             Pages.currentPage.actionBar.displayShowHomeEnabled = true;
             Pages.currentPage.actionBar.icon = "menu.png";
         }
-    }
-
-    //filter requests menu item
-    function filterMenu(e) {
-        var item1 = {
-            title: "All requests",
-            icon: "icon.png", // Andrid 3.0- only
-            onSelected: function(e) {
-
-            }
-        };
-        var item2 = {
-            title: "Approved",
-            icon: "icon.png", // Andrid 3.0- only
-            onSelected: function(e) {}
-        }
-        var item3 = {
-            title: "Rejected",
-            icon: "icon.png", // Andrid 3.0- only
-            onSelected: function(e) {}
-        }
-
-        var item4 = {
-            title: "Cancel",
-            itemType: SMF.UI.MenuItemType.cancel, //  iOS Only
-            onSelected: function(e) {}
-        };
-        var myItems = [item1, item2, item3, item4]; // assume that items are predefined
-        var menu1 = new SMF.UI.Menu({
-            menuStyle: SMF.UI.MenuStyle.OPTIONALMENU,
-            icon: "menu_icon.png", // Android Context Menu Only
-            items: myItems
-        });
-        menu1.show();
     }
 
     //Parsing storage objects 
@@ -371,7 +345,7 @@
         for (var i = 0; i < parsedResponse.length; i++) {
             var objRequestObject = {};
 
-            if (parsedResponse[i].Status === "waiting") {
+            if (parsedResponse[i].EmployeeID === oProfile.EmployeeID) {
                 objRequestObject.EmployeeID = parsedResponse[i].EmployeeID;
                 objRequestObject.FullName = parsedResponse[i].FullName;
                 objRequestObject.Email = parsedResponse[i].Email;
@@ -402,6 +376,9 @@
         rptApprovalList.dataSource = arrayRequests;
         rptApprovalList.refresh();
         Dialog.removeWait();
+
+        pgMyRequests.lblNoData.visible = (arrayRequests.length == 0);
+        rptApprovalList.visible = !(arrayRequests.length == 0);
     }
 
 })();

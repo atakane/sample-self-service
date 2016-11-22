@@ -32,8 +32,8 @@ function createSliderDrawer(page, name, backgroundColor) {
         height: getUnit("33.7331%"),
         borderWidth: 0,
         backgroundTransparent: true
-        // layoutType: SMF.UI.LayoutType.FLOW,
-        // layoutAlignment: SMF.UI.LayoutAlignment.CENTER
+            // layoutType: SMF.UI.LayoutType.FLOW,
+            // layoutAlignment: SMF.UI.LayoutAlignment.CENTER
     });
     sdSelfService.add(cntTop);
 
@@ -45,7 +45,7 @@ function createSliderDrawer(page, name, backgroundColor) {
 
 
     //Slider Menus
-    createLabel(sdSelfService, "lblLeaveManagement", "Leave Management", "4.9333%","37.5562%", "55%", 23, SMF.UI.TextAlignment.LEFT, false, "8pt", false, "#248afd");
+    createLabel(sdSelfService, "lblLeaveManagement", "Leave Management", "4.9333%", "37.5562%", "55%", 23, SMF.UI.TextAlignment.LEFT, false, "8pt", false, "#248afd");
 
     createImage(sdSelfService, "imgSliderMenuStatus", "icon_status.png", "5.4666%", "44.4527%", 21, 19);
     createTextButton(sdSelfService,
@@ -57,7 +57,7 @@ function createSliderDrawer(page, name, backgroundColor) {
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
         "#444444", "#a0a0a0",
         function(e) {
-            (Pages.currentPage === Pages.pgDashboard)? sdSelfService.hide() : Pages.pgDashboard.show();
+            (Pages.currentPage === Pages.pgDashboard) ? sdSelfService.hide(): Pages.pgDashboard.show();
         });
     //336
     createRectangle(sdSelfService, "4.4940%", "49.1754%", "95.506%", 1, "#e7e7e7");
@@ -71,46 +71,62 @@ function createSliderDrawer(page, name, backgroundColor) {
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
         "#444444", "#a0a0a0",
         function(e) {
-            (Pages.currentPage === Pages.pgLeaveRequest)? sdSelfService.hide() : Pages.pgLeaveRequest.show();
+            (Pages.currentPage === Pages.pgLeaveRequest) ? sdSelfService.hide(): Pages.pgLeaveRequest.show();
         });
 
     createRectangle(sdSelfService, "4.4940%", "56.2968%", "95.506%", 1, "#e7e7e7");
 
+    createImage(sdSelfService, "imgSliderMenuMyRequests", "icon_info.png", "5.8666%", "58.6206%", 22, 20);
+    createTextButton(sdSelfService,
+        "btnMyRequests",
+        "My Requests",
+        "18.2666%", "57.6461%", "55%", "4.5%",
+        SMF.UI.TextAlignment.LEFT,
+        "9pt", false,
+        SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
+        "#444444", "#a0a0a0",
+        function(e) {
+            (Pages.currentPage === Pages.pgMyRequests) ? sdSelfService.hide(): Pages.pgMyRequests.show();
+        });
+
+
+    createRectangle(sdSelfService, "4.4940%", "63.4182%", "95.506%", 1, "#e7e7e7");
+
     createTextButton(sdSelfService,
         "btnApprovals",
         "Approval Worklist",
-        "4.9333%", "57.6008%", "55%", "4.5%",
+        "4.9333%", "64.7222%", "55%", "4.5%",
         SMF.UI.TextAlignment.LEFT,
         "8pt", false,
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
         "#248afd", "#1961c1",
         function(e) {
-            (Pages.currentPage === Pages.pgApprovalWorklist)? sdSelfService.hide() : Pages.pgApprovalWorklist.show();
+            (Pages.currentPage === Pages.pgApprovalWorklist) ? sdSelfService.hide(): Pages.pgApprovalWorklist.show();
         });
 
-    createRectangle(sdSelfService, "4.4940%", "62.6686%", "95.506%", 1, "#e7e7e7");
+    createRectangle(sdSelfService, "4.4940%", "69.79%", "95.506%", 1, "#e7e7e7");
     createTextButton(sdSelfService,
         "btnOutOfOffice",
         "Out Of Office",
-        "4.9333%", "63.8677%", "55%", "4.5%",
+        "4.9333%", "70.9891%", "55%", "4.5%",
         SMF.UI.TextAlignment.LEFT,
         "8pt", false,
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
         "#248afd", "#1961c1",
         function(e) {
-            (Pages.currentPage === Pages.pgOutOfOffice)? sdSelfService.hide() : Pages.pgOutOfOffice.show();
+            (Pages.currentPage === Pages.pgOutOfOffice) ? sdSelfService.hide(): Pages.pgOutOfOffice.show();
         });
-    createRectangle(sdSelfService, "4.4940%", "68.9355%", "95.506%", 1, "#e7e7e7");
+    createRectangle(sdSelfService, "4.4940%", "76.0569%", "95.506%", 1, "#e7e7e7");
     createTextButton(sdSelfService,
         "btnAbout",
         "About",
-        "4.9333%", "70.1346%", "55%", "4.5%",
+        "4.9333%", "77.256%", "55%", "4.5%",
         SMF.UI.TextAlignment.LEFT,
         "8pt", false,
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
         "#248afd", "#1961c1",
         function(e) {
-            (Pages.currentPage === Pages.pgAbout)? sdSelfService.hide() : Pages.pgAbout.show();
+            (Pages.currentPage === Pages.pgAbout) ? sdSelfService.hide(): Pages.pgAbout.show();
         });
 
     // createLabel(sdSelfService, "lblAbout", "About", 18.5, 570, 155, 23, SMF.UI.TextAlignment.LEFT, false, "8pt", false, "#248afd");

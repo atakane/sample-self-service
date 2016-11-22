@@ -48,35 +48,56 @@
     createLabel(pgLeaveRequest, "lblTimeUnitText", "TIME UNIT", "60.4667%", "23.68815%", "35%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
 
     createLabel(pgLeaveRequest, "lblLeaveType", "ANNUAL", "4.5333%", "27.5%", "40%", "2.9985%", SMF.UI.TextAlignment.LEFT, false, "10pt", false, "#4a4a4a", pickLeaveType);
-    createLabel(pgLeaveRequest, "lblTimeUnit", "DAY", "60.4667%", "27%", "35%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "10pt", false, "#4a4a4a",pickTimeUnit);
-    
+    createLabel(pgLeaveRequest, "lblTimeUnit", "DAY", "60.4667%", "27%", "35%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "10pt", false, "#4a4a4a", pickTimeUnit);
+
     //pickTimeUnit
 
 
     // Dates
     // Start Date
-    createLabel(pgLeaveRequest, "lblStart", "STARTS", "4.5333%", "34.1529%", "17%", "2.9985%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#248afd");
-    createLabel(pgLeaveRequest, "lblStartDate", "-", "4.5333%", "38.9505%", "37.3333%", "2.9985%", SMF.UI.TextAlignment.LEFT, false, "12pt", false, "#4a4a4a");
-    // createLabel(pgLeaveRequest, "lblStartTime", "12:00 AM", "4.5333%", "42.9505%", "20%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "8pt", false, "#4a4a4a");
-    // Adding a container layer on top of the date to be touchable as a single object
-    createContainer(pgLeaveRequest, "cntSelectStartDate", "4.5333%", "38.9505%", "37.3333%", "6.5967%", SMF.UI.Color.WHITE, true, function() {
-        showDateTimePicker(true);
+    var cntStarts = new SMF.UI.Container({
+        name: "cntStarts",
+        left: "4.53%",
+        top: "34.8%",
+        height: "12%",
+        width: "27.6%",
+        borderWidth: 0,
+        backgroundTransparent: true,
+        onTouchEnded: function(e) {
+            showDateTimePicker(true);
+        }
     });
+
+    createLabel(cntStarts, "lblStart", "STARTS", 0, 0, "100%", "15%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#248afd");
+    createLabel(cntStarts, "lblStartDate", "-", 0, "30%", "100%", "30%", SMF.UI.TextAlignment.LEFT, false, "12pt", false, "#4a4a4a");
+    createLabel(cntStarts, "lblStartTime", "", 0, "70%", "100%", "20%", SMF.UI.TextAlignment.RIGHT, false, "8pt", false, "#4a4a4a");
+
+    pgLeaveRequest.add(cntStarts);
 
     // End Date
-    createLabel(pgLeaveRequest, "lblEnd", "ENDS", "80.4667%", "34.1529%", "15%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
-
-    createLabel(pgLeaveRequest, "lblEndDate", "-", "60.4667%", "38.9505%", "35%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "12pt", false, "#4a4a4a");
-
-    // Adding a container layer on top of the date to be touchable as a single object
-    createContainer(pgLeaveRequest, "cntSelectEndDate", "67%", "38.9505%", "37.3333%", "6.5967%", SMF.UI.Color.WHITE, true, function() {
-        showDateTimePicker(false);
+    var cntEnds = new SMF.UI.Container({
+        name: "cntEnds",
+        left: "68%",
+        top: "34.8%",
+        height: "12%",
+        width: "27.6%",
+        borderWidth: 0,
+        backgroundTransparent: true,
+        onTouchEnded: function(e) {
+            showDateTimePicker(false);
+        }
     });
 
+    createLabel(cntEnds, "lblEnd", "ENDS", 0, 0, "100%", "15%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
+    createLabel(cntEnds, "lblEndDate", "11.25.16", 0, "30%", "100%", "30%", SMF.UI.TextAlignment.LEFT, false, "12pt", false, "#4a4a4a");
+    createLabel(cntEnds, "lblEndTime", "", 0, "70%", "100%", "20%", SMF.UI.TextAlignment.RIGHT, false, "8pt", false, "#4a4a4a");
+
+    pgLeaveRequest.add(cntEnds);
+
     //Day Count Circle
-    createImage(pgLeaveRequest, "imgCenterCircle", "circle.png", (Device.screenWidth - 81)/2, "34.3028%", 81, 81);
-    createLabel(pgLeaveRequest, "lblSelectedDaysCount", "-", "39.4666%", "37.1514%", 79, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "16pt", true, "#248afd");
-    createLabel(pgLeaveRequest, "lblSelectedDaysCountText", "", "39.4666%", "40.7496%", 79, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "7pt", false, "#37404a");
+    createImage(pgLeaveRequest, "imgCenterCircle", "circle.png", (Device.screenWidth - 81) / 2, "34.3028%", 81, 81);
+    createLabel(pgLeaveRequest, "lblSelectedDaysCount", "-", (Device.screenWidth - 81) / 2, "37.1514%", 81, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "16pt", true, "#248afd");
+    createLabel(pgLeaveRequest, "lblSelectedDaysCountText", "", (Device.screenWidth - 81) / 2, "40.7496%", 81, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "7pt", false, "#37404a");
 
     createLabel(pgLeaveRequest, "lblStart", "DESCRIPTION", "4.4%", "50.1199%", "55%", "3%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#248afd");
     //
@@ -116,46 +137,46 @@
         "#7ed321", "#5b9918",
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITESMOKE,
         function(e) {
-              alert({
-                    title: 'Warning!',
-                    message: 'Do you want to make this request?',
-                    firstButtonText: "Submit",
-                    secondButtonText: "Cancel",
-                    onFirstButtonPressed: function() {
-                        //Sample
-                        var myRequest = {
-                            "EmployeeID": oProfile.EmployeeID,
-                            "FullName": oProfile.FullName,
-                            "Email": oProfile.Email,
-                            "Avatar": "avatar.png",
-                            "Team": oProfile.Team,
-                            "Role": oProfile.Role,
-                            "StartDate": selectedStartDate,
-                            "EndDate": selectedEndDate,
-                            "TimeUnit": pgLeaveRequest.lblTimeUnit.text,
-                            "LeaveType": pgLeaveRequest.lblLeaveType.text,
-                            "AbsenceMessage": JSON.stringify(pgLeaveRequest.txtAbsenceMessage.text),
-                            "Status": "waiting",
-                            "TotalDays": oTimeTable.TotalDays,
-                            "Used": oTimeTable.Used,
-                            "Remaining": oTimeTable.Remaining
+            alert({
+                title: 'Warning!',
+                message: 'Do you want to make this request?',
+                firstButtonText: "Submit",
+                secondButtonText: "Cancel",
+                onFirstButtonPressed: function() {
+                    //Sample
+                    var myRequest = {
+                        "EmployeeID": oProfile.EmployeeID,
+                        "FullName": oProfile.FullName,
+                        "Email": oProfile.Email,
+                        "Avatar": "avatar.png",
+                        "Team": oProfile.Team,
+                        "Role": oProfile.Role,
+                        "StartDate": selectedStartDate,
+                        "EndDate": selectedEndDate,
+                        "TimeUnit": pgLeaveRequest.lblTimeUnit.text,
+                        "LeaveType": pgLeaveRequest.lblLeaveType.text,
+                        "AbsenceMessage": JSON.stringify(pgLeaveRequest.txtAbsenceMessage.text),
+                        "Status": "waiting",
+                        "TotalDays": oTimeTable.TotalDays,
+                        "Used": oTimeTable.Used,
+                        "Remaining": oTimeTable.Remaining
+                    }
+
+                    oRequestList.push(myRequest);
+
+                    alert({
+                        title: 'Request submitted',
+                        message: 'Your "Leave of Absence" request has been forwarded for approval.',
+                        firstButtonText: "OK",
+                        onFirstButtonPressed: function() {
+                            Pages.pgDashboard.show(reverseDefaultPageAnimation);
                         }
-            
-                        oRequestList.push(myRequest);
-            
-                        alert({
-                                title: 'Request submitted',
-                                message: 'Your "Leave of Absence" request has been forwarded for approval.',
-                                firstButtonText: "OK",
-                                onFirstButtonPressed: function()
-                                {
-                                    Pages.pgDashboard.show(reverseDefaultPageAnimation);
-                                }});
-                    },
-                    onSecondButtonPressed: function() {}
-                });  
-                
-            
+                    });
+                },
+                onSecondButtonPressed: function() {}
+            });
+
+
         });
 
     /**
@@ -211,7 +232,7 @@
         headerBar.init(Pages.currentPage);
 
         // console.log(SMF.UI.iOS.NavigationBar.translucent);
-        headerBar.setTitleView(Pages.currentPage, "Leave Request", "#248afd", null, 0, 0, 240, 44, 20);
+        headerBar.setTitleView(Pages.currentPage, "New Leave Request", "#248afd", null, 0, 0, 240, 44, 20);
 
         // Preparing left items 
         if (Device.deviceOS !== "Android") {
@@ -242,21 +263,31 @@
                 var sDate = new Date(e.date);
 
                 setDateLabels(sDate, isStartDate);
-                
-                if (pgLeaveRequest.lblTimeUnit.text === "HOUR"){
+
+                if (pgLeaveRequest.lblTimeUnit.text === "HOUR") {
                     SMF.UI.showTimePicker({
-                      currentTime : (isStartDate) ? "07:00" : "18:30",
-                      hourViewFormat24 : true,
-                      minuteInterval : 5,
-                      minTime : "06:00",
-                      maxTime : "18:30",
-                      onSelect : function (e) {
-                        var t = new Date(e.time);
-                      },
-                      onCancel : function () {
-                      }
-                    }); 
-                    
+                        currentTime: (isStartDate) ? "07:00" : "18:30",
+                        hourViewFormat24: true,
+                        minuteInterval: 5,
+                        minTime: "06:00",
+                        maxTime: "18:30",
+                        onSelect: function(e) {
+                            var t = new Date(e.time);
+                            var selectedTime = t.getHours() + ':' + ('00' + t.getMinutes()).right(2);
+
+                            if (isStartDate) {
+                                pgLeaveRequest.cntStarts.lblStartTime.text = selectedTime;
+                            }
+                            else {
+                                pgLeaveRequest.cntEnds.lblEndTime.text = selectedTime;
+                            }
+                        },
+                        onCancel: function() {}
+                    });
+
+                }
+                else {
+                    pgLeaveRequest.cntStarts.lblStartTime.text = pgLeaveRequest.cntEnds.lblEndTime.text = "";
                 }
             },
             onCancel: function(e) {
@@ -271,10 +302,22 @@
         var _day = ('00' + date.getDate()).right(2);
         var _month = ('00' + (date.getMonth() + 1)).right(2);
         var _year = date.getFullYear().toString().right(2);
+        var _hour = date.getHours();
+        var _min = date.getMinutes();
+        var _time = ('00' + _hour).right(2) + ':' + ('00' + _min).right(2);
+
+        if (pgLeaveRequest.lblTimeUnit.text === "HOUR") {
+            if (isStartDate) {
+                pgLeaveRequest.cntStarts.lblStartTime.text = _time;
+            }
+            else {
+                pgLeaveRequest.cntEnds.lblEndTime.text = _time;
+            }
+        }
 
         if (isStartDate) {
             if (date < selectedEndDate) {
-                pgLeaveRequest.lblStartDate.text = _month + "." + _day + "." + _year;
+                pgLeaveRequest.cntStarts.lblStartDate.text = _month + "." + _day + "." + _year;
                 selectedStartDate = date;
             }
             else {
@@ -283,7 +326,7 @@
         }
         else {
             if (date > selectedStartDate) {
-                pgLeaveRequest.lblEndDate.text = _month + "." + _day + "." + _year;
+                pgLeaveRequest.cntEnds.lblEndDate.text = _month + "." + _day + "." + _year;
                 selectedEndDate = date;
             }
             else {
@@ -295,14 +338,19 @@
     }
 
     function calculateDaysBetween() {
-        console.log("selectedStartDate = " + selectedStartDate.format("MM/dd/yyyy"));
-        console.log("selectedEndDate = " + selectedEndDate.format("MM/dd/yyyy"));
+        if (pgLeaveRequest.lblTimeUnit.text === "HOUR") {
+            var hours = daysBetween(selectedStartDate, selectedEndDate, true);
 
-        var days = daysBetween(selectedStartDate.format("MM/dd/yyyy"), selectedEndDate.format("MM/dd/yyyy"));
-        console.log("days = " + days);
+            pgLeaveRequest.lblSelectedDaysCount.text = hours;
+            pgLeaveRequest.lblSelectedDaysCountText.text = (hours == 1) ? 'hour' : 'hours';
+        }
+        else {
+            var days = daysBetween(selectedStartDate.format("MM/dd/yyyy"), selectedEndDate.format("MM/dd/yyyy"));
 
-        pgLeaveRequest.lblSelectedDaysCount.text = days;
-        pgLeaveRequest.lblSelectedDaysCountText.text = (days == 1) ? 'day' : 'days';
+            pgLeaveRequest.lblSelectedDaysCount.text = days;
+            pgLeaveRequest.lblSelectedDaysCountText.text = (days == 1) ? 'day' : 'days';
+
+        }
     }
 
     // Drawing day-boxes 
@@ -363,7 +411,7 @@
     }
 
     function pickLeaveType() {
-        var leaveTypes = ["ANNUAL", "DAILY", "MEDICAL"];
+        var leaveTypes = ["PERSONAL", "MEDICAL"];
         pick(
             leaveTypes,
             (leaveTypeSelectedIndex) ? leaveTypeSelectedIndex : 0,
@@ -384,6 +432,38 @@
             function(e) {
                 pgLeaveRequest.lblTimeUnit.text = timeUnits[e.index];
                 timeUnitSelectedIndex = e.index;
+
+                if (timeUnits[e.index] === "HOUR") {
+                    var newStartDate = new Date(selectedStartDate);
+                    newStartDate.setHours(9);
+                    newStartDate.setMinutes(0);
+
+                    selectedStartDate = newStartDate;
+                    setDateLabels(newStartDate, true);
+
+                    var newEndDate = new Date(selectedStartDate);
+                    newEndDate.setHours(18);
+                    newEndDate.setMinutes(00);
+
+                    selectedEndDate = newEndDate;
+                    setDateLabels(newEndDate, false);
+                }
+                else {
+                    var newStartDate = new Date(selectedStartDate);
+                    newStartDate.setHours(0);
+                    newStartDate.setMinutes(0);
+
+                    selectedStartDate = newStartDate;
+                    setDateLabels(newStartDate, true);
+
+                    var newEndDate = new Date(selectedEndDate);
+                    newEndDate.setHours(23);
+                    newEndDate.setMinutes(59);
+
+                    selectedEndDate = newEndDate;
+                    setDateLabels(newEndDate, false);
+
+                }
             },
             function() {}
         );
