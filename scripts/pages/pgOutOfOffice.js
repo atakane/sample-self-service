@@ -36,6 +36,8 @@
         tintColor: "#248afd",
         onChange: function(e) {
             pgOutOfOffice.lblOOOStatusText.text = this.checked == true ? "Mode On" : "Mode Off";
+            pgOutOfOffice.lblOOOStatusText.fontColor = this.checked == true ? "#27bc66" : "#37404a"
+            pgOutOfOffice.cntOverlay.visible = !this.checked;
         }
     });
     pgOutOfOffice.add(swtOutOfOffice);
@@ -63,7 +65,7 @@
     });
 
     //Day Count Circle
-    createImage(pgOutOfOffice, "imgCenterCircle", "circle.png", (Device.screenWidth - 81)/2, "31.3343%", 81, 81);
+    createImage(pgOutOfOffice, "imgCenterCircle", "circle.png", (Device.screenWidth - 81) / 2, "31.3343%", 81, 81);
     createLabel(pgOutOfOffice, "lblSelectedDaysCount", "-", "39.4666%", "34%", 79, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "16pt", true, "#248afd");
     createLabel(pgOutOfOffice, "lblSelectedDaysCountText", "day", "39.4666%", "37.4%", 79, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "7pt", false, "#37404a");
 
@@ -105,24 +107,28 @@
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITESMOKE,
         function(e) {
             alert({
-                    title: 'Warning!',
-                    message: 'Do you want to update your "Out of Office" status?',
-                    firstButtonText: "Update",
-                    secondButtonText: "Cancel",
-                    onFirstButtonPressed: function() {
-                        oProfile.OutOfOffice = pgOutOfOffice.swtOutOfOffice.checked;
-                        oProfile.OutOfOfficeMessage = pgOutOfOffice.txtOutOfOfficeMessage.text;
-            
-                        oProfile.OutOfOfficeStart = selectedStartDate;
-                        oProfile.OutOfOfficeEnd = selectedEndDate;
-            
-                        alert('Your "Out of Office" status has been updated.');
-                    },
-                    onSecondButtonPressed: function() {}
-                });
-            
+                title: 'Warning!',
+                message: 'Do you want to update your "Out of Office" status?',
+                firstButtonText: "Update",
+                secondButtonText: "Cancel",
+                onFirstButtonPressed: function() {
+                    oProfile.OutOfOffice = pgOutOfOffice.swtOutOfOffice.checked;
+                    oProfile.OutOfOfficeMessage = pgOutOfOffice.txtOutOfOfficeMessage.text;
+
+                    oProfile.OutOfOfficeStart = selectedStartDate;
+                    oProfile.OutOfOfficeEnd = selectedEndDate;
+
+                    alert('Your "Out of Office" status has been updated.');
+                },
+                onSecondButtonPressed: function() {}
+            });
+
         });
 
+
+    createContainer(pgOutOfOffice, "cntOverlay", 0, "29.5352%", "100%", "60.8696%", "#e7e7e7", false, function(){} , 0.8);
+    // pgOutOfOffice.cntOverlay.touchEnabled = false;
+    
     /**
      * Creates action(s) that are run when the user press the key of the devices.
      * @param {KeyCodeEventArguments} e Uses to for key code argument. It returns e.keyCode parameter.
@@ -150,26 +156,27 @@
         pgOutOfOffice.lblTeamRole.text = pgOutOfOffice.sdSelfService.lblSliderTeamRole.text = oProfile.Role + " / " + oProfile.Team;
 
         pgOutOfOffice.swtOutOfOffice.checked = oProfile.OutOfOffice;
-        
+
 
         selectedStartDate = (isDate(oProfile.OutOfOfficeStart)) ? new Date(oProfile.OutOfOfficeStart) : new Date(Date.now());
         selectedEndDate = (isDate(oProfile.OutOfOfficeEnd)) ? new Date(oProfile.OutOfOfficeEnd) : new Date(Date.now()).addDays(7);
 
         setDateLabels(selectedStartDate, true);
         setDateLabels(selectedEndDate, false);
-        
+
         calculateDaysBetween();
     }
-    
-    function setInitialOutOfficeText(){
+
+    function setInitialOutOfficeText() {
         var oooText;
-        
-        if ((oProfile.OutOfOfficeMessage) && (oProfile.OutOfOfficeMessage.length > 0)){
+
+        if ((oProfile.OutOfOfficeMessage) && (oProfile.OutOfOfficeMessage.length > 0)) {
             oooText = oProfile.OutOfOfficeMessage
-        }else{
-            oooText = templateOutOfOfficeText.replace('{FullName}',oProfile.FullName).replace('{Role}',oProfile.Role).replace('{Team}',oProfile.Team).replace('{EndDate}',selectedEndDate.format('dddd, MMMM d, y'));
         }
-        
+        else {
+            oooText = templateOutOfOfficeText.replace('{FullName}', oProfile.FullName).replace('{Role}', oProfile.Role).replace('{Team}', oProfile.Team).replace('{EndDate}', selectedEndDate.format('dddd, MMMM d, y'));
+        }
+
         pgOutOfOffice.txtOutOfOfficeMessage.text = oooText;
     }
 
@@ -199,17 +206,17 @@
     }
 
     function showDateTimePicker(isStartDate) {
-        var currentDate = (isStartDate) ? selectedStartDate : selectedEndDate ;
-        
+        var currentDate = (isStartDate) ? selectedStartDate : selectedEndDate;
+
         var minDate = (isStartDate) ? new Date() : new Date(selectedStartDate);
-        
+
         var maxDate = (isStartDate) ? (new Date(selectedEndDate)).addDays(-1) : (new Date(selectedStartDate)).addDays(365);
-        
+
         SMF.UI.showDatePicker({
-              currentDate : currentDate,
-              mask : "dd-MM-yyyy",
-              minDate : minDate,
-              maxDate : maxDate,
+            currentDate: currentDate,
+            mask: "dd-MM-yyyy",
+            minDate: minDate,
+            maxDate: maxDate,
             showWorkingDate: true,
             onSelect: function(e) {
                 var sDate = new Date(e.date);

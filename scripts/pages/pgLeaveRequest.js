@@ -77,10 +77,10 @@
     // End Date
     var cntEnds = new SMF.UI.Container({
         name: "cntEnds",
-        left: "68%",
+        left: "65%",
         top: "34.8%",
         height: "12%",
-        width: "27.6%",
+        width: "30.6%",
         borderWidth: 0,
         backgroundTransparent: true,
         onTouchEnded: function(e) {
@@ -89,7 +89,7 @@
     });
 
     createLabel(cntEnds, "lblEnd", "ENDS", 0, 0, "100%", "15%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
-    createLabel(cntEnds, "lblEndDate", "11.25.16", 0, "30%", "100%", "30%", SMF.UI.TextAlignment.LEFT, false, "12pt", false, "#4a4a4a");
+    createLabel(cntEnds, "lblEndDate", "11.25.16", 0, "30%", "100%", "30%", SMF.UI.TextAlignment.RIGHT, false, "12pt", false, "#4a4a4a");
     createLabel(cntEnds, "lblEndTime", "", 0, "70%", "100%", "20%", SMF.UI.TextAlignment.RIGHT, false, "8pt", false, "#4a4a4a");
 
     pgLeaveRequest.add(cntEnds);
@@ -120,7 +120,6 @@
     })
     pgLeaveRequest.add(txtAbsenceMessage);
 
-    //(Device.brandModel.toLowerCase().includes("plus")) ? 80 : 40,
     var myFont = new SMF.UI.Font({
         name: "FontAwesome",
         size: (Device.brandModel.toLowerCase().includes("plus")) ? 80 : 50,

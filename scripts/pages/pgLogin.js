@@ -169,7 +169,9 @@
             "OutOfOfficeMessage": "",
             "OutOfOfficeStart": "",
             "OutOfOfficeEnd": "",
-            "Avatar": "avatar.png" //"http://www.gravatar.com/avatar/" + gravatar
+            "Avatar": "avatar.png", //"http://www.gravatar.com/avatar/" + gravatar
+            "LeaveRequestCount" : 1,
+            "NearestLeaveDate" : "12/22/16"
         }
 
         oTimeTable = {
@@ -180,6 +182,7 @@
 
 
         oRequestList = [{
+                "ID": 1,
                 "EmployeeID": "88771100",
                 "FullName": "William Campell",
                 "Email": "wc@smartface.io",
@@ -197,7 +200,7 @@
                 "Remaining": 13
                 },
             {
-
+                "ID": 2,
                 "EmployeeID": "88711203",
                 "FullName": "Robert Harris",
                 "Email": "robert@smartface.io",
@@ -214,7 +217,7 @@
                 "Used": 16,
                 "Remaining": 6
         }, {
-
+                "ID": 3,
                 "EmployeeID": "1902837",
                 "FullName": "Kevin Parker",
                 "Email": "john.smart@bigcorp.io",
@@ -231,7 +234,7 @@
                 "Used": 9,
                 "Remaining": 6
         }, {
-
+                "ID": 4,
                 "EmployeeID": "1902837",
                 "FullName": "Patricia Lewis",
                 "Email": "plewis@hotmail.io",
@@ -248,7 +251,24 @@
                 "Used": 3,
                 "Remaining": 16
         }, {
-
+                "ID": 5,
+                "EmployeeID": "8927191",
+                "FullName": "Lee Allen",
+                "Email": "la@smartface.io",
+                "Avatar": "avatar.png",
+                "Team": "HR Team",
+                "Role": "Director",
+                "StartDate": "12/22/16",
+                "EndDate": "12/23/16",
+                "LeaveType": "PERSONAL",
+                "TimeUnit": "DAY",
+                "AbsenceMessage": "I need a day off",
+                "Status": "rejected",
+                "TotalDays": 37,
+                "Used": 18,
+                "Remaining": 19
+        }, {
+                "ID": 6,
                 "EmployeeID": "1902837",
                 "FullName": "Patricia Lewis",
                 "Email": "plewis@hotmail.io",
@@ -265,7 +285,7 @@
                 "Used": 3,
                 "Remaining": 16
         }, {
-
+                "ID": 7,
                 "EmployeeID": "341561",
                 "FullName": "Michelle Edward",
                 "Email": "md@lab.cp",
@@ -284,8 +304,6 @@
         }]
 
         // passing objects to pgFiles
-
-        console.log(oProfile.FullName);
         Pages.pgDashboard.myProfile = oProfile;
         Pages.pgDashboard.myTimeTable = oTimeTable;
 

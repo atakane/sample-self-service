@@ -210,6 +210,39 @@
     // pgDashboard.add(imgOutOfOfficeShadowLine);
     createImage(pgDashboard, "imgOutOfOfficeShadowLine", "shadow_line.png", "0", "74.8875%", "100%", "6", SMF.UI.ImageFillType.STRETCH);
 
+
+    var lblNewRequestText = new SMF.UI.Label({
+        name: "lblNewRequestText",
+        left: getUnit("4.53333%"),
+        top: getUnit("88.5%"),
+        width: getUnit("65%"),
+        height: getUnit("10%"),
+        text: "",
+        textAlignment: SMF.UI.TextAlignment.LEFT,
+        font: new SMF.UI.Font({
+            size: "7pt"
+        }),
+        multipleLine: true,
+        fontColor: "#a0a0a0"
+    });
+    pgDashboard.add(lblNewRequestText);
+
+    var lblNewRequestTextDate = new SMF.UI.Label({
+        name: "lblNewRequestTextDate",
+        left: getUnit("32%"),
+        top: getUnit("89.5%"),
+        width: getUnit("30%"),
+        height: getUnit("10%"),
+        text: "",
+        textAlignment: SMF.UI.TextAlignment.LEFT,
+        font: new SMF.UI.Font({
+            size: "7pt"
+        }),
+        fontColor: "#37404a"
+    });
+    pgDashboard.add(lblNewRequestTextDate);
+
+
     var imgAdd = new SMF.UI.Image({
         image: "btn_plus.png",
         left: getUnit("78.2666%"),
@@ -250,10 +283,20 @@
 
         //var timerID = setTimeout(function() {
         // setTimeout(function() {
-            fillUsedDaysBar();
+        fillUsedDaysBar();
         // }, 500);
 
         fillVacationMetrics(oTimeTable.TotalDays, oTimeTable.Used, oTimeTable.Remaining);
+
+        if ((oProfile.LeaveRequestCount) && !isNaN(oProfile.LeaveRequestCount) && (oProfile.LeaveRequestCount > 0)) {
+            lblNewRequestText.text = "You have " + oProfile.LeaveRequestCount + " request(s) in total. The nearest leave is at";
+            lblNewRequestTextDate.text = oProfile.NearestLeaveDate;
+        }
+        else {
+            lblNewRequestText.text = "You don't have any upcoming leave request.";
+            lblNewRequestTextDate.text = "";
+        }
+
 
         //TODO: Add Avatar pic
         // pgDashboard.imgAvatar.image = pgDashboard.myProfile.Avatar;
@@ -262,6 +305,7 @@
         pgDashboard.lblTeamRole.text = pgDashboard.sdSelfService.lblSliderTeamRole.text = oProfile.Role + " / " + oProfile.Team;
         pgDashboard.cntOutOfOfficeBar.swtOutOfOffice.checked = oProfile.OutOfOffice;
         pgDashboard.cntOutOfOfficeBar.lblOOOStatusText.text = (oProfile.OutOfOffice) ? "Mode On" : "Mode Off";
+        pgDashboard.cntOutOfOfficeBar.lblOOOStatusText.fontColor = (oProfile.OutOfOffice) ? "#27bc66" : "#37404a"
     }
 
     function fillUsedDaysBar() {
@@ -283,18 +327,15 @@
         var headerBar = new HeaderBar();
         headerBar.init(Pages.currentPage);
 
-        if (Device.deviceOS == "iOS")
-        {
-            if  (Device.brandModel.toLowerCase().includes("plus"))
-            {
+        if (Device.deviceOS == "iOS") {
+            if (Device.brandModel.toLowerCase().includes("plus")) {
                 headerBar.setTitleImageView(Pages.currentPage, "self_service.png", 100, 15, 120, 24);
             }
-                else
-            {
-            headerBar.setTitleImageView(Pages.currentPage, "self_service.png", 84, 15, 120, 24);
+            else {
+                headerBar.setTitleImageView(Pages.currentPage, "self_service.png", 84, 15, 120, 24);
             }
-        }else
-        {
+        }
+        else {
             headerBar.setTitleView(Pages.currentPage, "Self Service", "#248afd", null, 0, 0, 240, 44, 20);
         }
 
@@ -328,7 +369,7 @@
             roundedEdge: 0
         });
 
-        createLabel(boxTotalDays, "lblTotalDays", "-", "0", "0", "100%", "73%", SMF.UI.TextAlignment.CENTER, false, "30pt", true, "#979797");
+        createLabel(boxTotalDays, "lblTotalDays", "-", "0", "0", "100%", "73%", SMF.UI.TextAlignment.CENTER, false, "27pt", true, "#979797");
         createLabel(boxTotalDays, "lblTotalDaysText", "Total", "0", "73", "100%", "20%", SMF.UI.TextAlignment.CENTER, false, "6pt", true, "#979797");
 
 
@@ -343,7 +384,7 @@
             roundedEdge: 0
         });
 
-        createLabel(boxUsed, "lblUsedDays", "-", "0", "0", "100%", "73%", SMF.UI.TextAlignment.CENTER, false, "30pt", true, "#cca2b5");
+        createLabel(boxUsed, "lblUsedDays", "-", "0", "0", "100%", "73%", SMF.UI.TextAlignment.CENTER, false, "27pt", true, "#cca2b5");
         createLabel(boxUsed, "lblUsedDaysText", "Used", "0", "73", "100%", "20%", SMF.UI.TextAlignment.CENTER, false, "6pt", true, "#cca2b5");
 
 
@@ -358,7 +399,7 @@
         });
 
         createImage(boxRemaining, "imgRemaining", "square_stripe.png", "0", "0", "100%", "100%", SMF.UI.ImageFillType.ASPECTFIT);
-        createLabel(boxRemaining, "lblRemainingDays", "-", "0", "0", "100%", "73%", SMF.UI.TextAlignment.CENTER, false, "30pt", true, "#37404a");
+        createLabel(boxRemaining, "lblRemainingDays", "-", "0", "0", "100%", "73%", SMF.UI.TextAlignment.CENTER, false, "27pt", true, "#37404a");
         createLabel(boxRemaining, "lblRemainingDaysText", "Remaining", "0", "73", "100%", "20%", SMF.UI.TextAlignment.CENTER, false, "6pt", true, "#37404a");
 
 

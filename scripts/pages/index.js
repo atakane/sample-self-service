@@ -17,4 +17,5 @@ include("pages/pgLeaveRequest.js");
 include("pages/pgApprovalWorklist.js");
 include("pages/pgApproveLeaveRequest.js");
 include("pages/pgMyRequests.js");
+include("pages/pgMyRequestDetail.js");
 

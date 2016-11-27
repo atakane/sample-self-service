@@ -37,7 +37,9 @@ function Application_OnStart(e) {
 		});
 	}
 	else {
-		checkforUpdate();
+		setTimeout(function() {
+			checkforUpdate();
+		}, 3000);
 	}
 
 	Pages.pgLogin.show(defaultPageAnimation);

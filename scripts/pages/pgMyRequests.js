@@ -15,10 +15,11 @@
 
     //creating a repeatbox to show our files
     var rptApprovalList = new SMF.UI.RepeatBox({
+        name: 'rptApprovalList',
         top: Device.deviceOS == "Android" ? "64" : "64", //navbar is translucent
         left: '0%',
         width: '100%',
-        height: '100%',
+        height: '90%',
         borderWidth: 0,
         showScrollbar: true,
         autoSize: false,
@@ -31,17 +32,14 @@
         useActiveItem: false,
         allowDeletingItem: false,
         onSelectedItem: function(e) {
-                Pages.pgApproveLeaveRequest.recordID = e.rowIndex;
-                Pages.pgApproveLeaveRequest.oRequest = arrayRequests[e.rowIndex];
-                Pages.pgApproveLeaveRequest.show(defaultPageAnimation);
+                Pages.pgMyRequestDetail.oRequest = arrayRequests[e.rowIndex];
+                Pages.pgMyRequestDetail.show(defaultPageAnimation);
             }
             // onPullDown: function(e) {
             //     Dialog.showWait();
             //     displayApprovalRequests();
             // }
     });
-
-
     // //an activity indicator for pulldown action on file repeatbox
     // var aiPullDown = new SMF.UI.ActivityIndicator({
     //     top: "0%",
@@ -66,15 +64,33 @@
     //     roundedEdge: 0
     // });
 
-    var imgAvatar = new SMF.UI.Image({
-        name: "imgAvatar",
-        image: "avatar.png",
+    var imgStatusCircle = new SMF.UI.Image({
+        name: "imgStatusCircle",
+        image: "white_circle.png",
         left: "3%",
         top: ((((Device.screenHeight - 64) / 7) - 60) / 2),
         width: "60",
         height: "60",
         imageFillType: SMF.UI.ImageFillType.ASPECTFIT
     });
+
+    var lblStatusLetter = new SMF.UI.Label({
+        name: "lblStatusLetter",
+        text: "W",
+        left: "3%",
+        top: ((((Device.screenHeight - 64) / 7) - 60) / 2),
+        width: "60",
+        height: "60",
+        textAlignment: SMF.UI.TextAlignment.CENTER,
+        multipleLine: false,
+        font: new SMF.UI.Font({
+            size: "12pt",
+            bold: false
+        }),
+        fontColor: "#248afd",
+        borderWidth: 0
+    });
+
 
     var recVerticalLine = new SMF.UI.Rectangle({
         name: "recVerticalLine",
@@ -162,7 +178,8 @@
 
     //adding files to repeatbox's itemtemplate
     rptApprovalList.itemTemplate.height = (Device.screenHeight - 64) / 7;
-    rptApprovalList.itemTemplate.add(imgAvatar);
+    rptApprovalList.itemTemplate.add(imgStatusCircle);
+    rptApprovalList.itemTemplate.add(lblStatusLetter);
     rptApprovalList.itemTemplate.add(recVerticalLine);
     rptApprovalList.itemTemplate.add(lblFullName);
     rptApprovalList.itemTemplate.add(lblTeamRole);
@@ -172,7 +189,8 @@
     rptApprovalList.itemTemplate.fillColor = "#e7e7e7";
 
     //activeItemTemplate
-    var imgAvatar2 = imgAvatar.clone();
+    var imgStatusCircle2 = imgStatusCircle.clone();
+    var lblStatusLetter2 = lblStatusLetter.clone();
     var recVerticalLine2 = recVerticalLine.clone();
     var lblFullName2 = lblFullName.clone();
     var lblTeamRole2 = lblTeamRole.clone();
@@ -181,7 +199,8 @@
     var recHorizontalLine2 = recHorizontalLine.clone();
 
     rptApprovalList.activeItemTemplate.height = (Device.screenHeight - 64) / 7;
-    rptApprovalList.activeItemTemplate.add(imgAvatar2);
+    rptApprovalList.activeItemTemplate.add(imgStatusCircle2);
+    rptApprovalList.activeItemTemplate.add(lblStatusLetter2);
     rptApprovalList.activeItemTemplate.add(recVerticalLine2);
     rptApprovalList.activeItemTemplate.add(lblFullName2);
     rptApprovalList.activeItemTemplate.add(lblTeamRole2);
@@ -212,26 +231,53 @@
         // "Remaining": 13
         // }
 
-        var startDate = arrayRequests[e.rowIndex].StartDate;
-        var endDate = arrayRequests[e.rowIndex].EndDate;
+        var startDate = (new Date(arrayRequests[e.rowIndex].StartDate)).format("MM/dd/yyyy");
+        var endDate = (new Date(arrayRequests[e.rowIndex].EndDate)).format("MM/dd/yyyy");
         var days = daysBetween(startDate, endDate);
         var leaveDetails = days + ' ' + ((days > 1) ? 'days' : 'day');
 
-        this.controls[0].image = arrayRequests[e.rowIndex].Avatar;
-        this.controls[2].text = arrayRequests[e.rowIndex].LeaveType;
-        this.controls[3].text = arrayRequests[e.rowIndex].StartDate.format("MM/dd/yyyy") + " - " + arrayRequests[e.rowIndex].EndDate.format("MM/dd/yyyy");
-        this.controls[4].text = leaveDetails
+        // this.controls[0].image = arrayRequests[e.rowIndex].Avatar;
 
+        getStatusLetter(arrayRequests[e.rowIndex].Status, this.controls[1]);
+        this.controls[3].text = arrayRequests[e.rowIndex].LeaveType;
+        this.controls[4].text = startDate + " - " + endDate;
+        this.controls[5].text = leaveDetails
 
-        this.controls[7].image = arrayRequests[e.rowIndex].Avatar;
-        this.controls[9].text = arrayRequests[e.rowIndex].LeaveType;
-        this.controls[10].text = arrayRequests[e.rowIndex].StartDate.format("MM/dd/yyyy") + " - " + arrayRequests[e.rowIndex].EndDate.format("MM/dd/yyyy");
-        this.controls[11].text = leaveDetails
+        getStatusLetter(arrayRequests[e.rowIndex].Status, this.controls[9]);
+        // this.controls[7].image = arrayRequests[e.rowIndex].Avatar;
+        this.controls[11].text = arrayRequests[e.rowIndex].LeaveType;
+        this.controls[12].text = startDate + " - " + endDate;
+        startDate + " - " + endDate;;
+        this.controls[13].text = leaveDetails
     };
 
+    function getStatusLetter(status, statusObject) {
+        // for mock system status may be used as string, 
+        // this switch written here to prevent further problems. 
+        // if your EBS installation's status type are different, you may just change below lines to fit your configuration.
+        switch (status.toUpperCase()) {
+            case 'WAITING':
+                statusObject.text = 'W';
+                statusObject.fontColor = "#248afd";
+                break;
+            case 'APPROVED':
+                statusObject.text = 'A';
+                statusObject.fontColor = "#5b9918";
+                break;
+            case 'REJECTED':
+                statusObject.text = 'R';
+                statusObject.fontColor = "#ee2736";
+                break;
+        }
+        console.log(status);
+        console.log(statusObject.text);
+    }
 
     //adding repeatbox to the page
     pgMyRequests.add(rptApprovalList);
+
+
+    // createLabel(pgMyRequests, 'lblLegend', 'W: Waiting\nA: Approved\nR: Rejected', "5%", "0%", "90%", "10%", SMF.UI.TextAlignment.LEFT, true, "5pt", false, "#979797");
 
     //adding label for no-data
     var lblNoData = new SMF.UI.Label({
@@ -281,7 +327,8 @@
         pgMyRequests.sdSelfService.lblSliderTeamRole.text = oProfile.Role + " / " + oProfile.Team;
 
         displayApprovalRequests();
-
+        
+        // pgMyRequests.lblLegend.top  = pgMyRequests.rptApprovalList.top + pgMyRequests.rptApprovalList.height;
     }
 
 
@@ -317,6 +364,7 @@
         Sample item 
        [
             {
+                "ID": 1,
                 "EmployeeID": "88711203",
                 "FullName": "Atakan Eser",
                 "Email": "atakan.eser@smartface.io",
@@ -335,7 +383,6 @@
         }]
         */
 
-
         var parsedResponse = oRequestList;
         arrayRequests = [];
 
@@ -346,6 +393,7 @@
             var objRequestObject = {};
 
             if (parsedResponse[i].EmployeeID === oProfile.EmployeeID) {
+                objRequestObject.ID = parsedResponse[i].ID;
                 objRequestObject.EmployeeID = parsedResponse[i].EmployeeID;
                 objRequestObject.FullName = parsedResponse[i].FullName;
                 objRequestObject.Email = parsedResponse[i].Email;

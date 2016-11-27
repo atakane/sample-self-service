@@ -29,7 +29,7 @@ function getUnit(value) {
         return value;
 }
 
-function createContainer(parent, name, left, top, width, height, fillColor, backgroundTransparent, onTouchEnded) {
+function createContainer(parent, name, left, top, width, height, fillColor, backgroundTransparent, onTouchEnded, alpha) {
     var cntTemp = new SMF.UI.Rectangle({
         name: name,
         left: getUnit(left),
@@ -43,6 +43,7 @@ function createContainer(parent, name, left, top, width, height, fillColor, back
         borderWidth: 0,
         roundedEdge: 0
     });
+    if (alpha) cntTemp.alpha = alpha;
 
     parent.add(cntTemp);
 }
@@ -258,7 +259,7 @@ var defaultPageAnimation = {
     motionEase: SMF.UI.MotionEase.NONE,
     transitionEffect: SMF.UI.TransitionEffect.RIGHTTOLEFT,
     transitionEffectType: SMF.UI.TransitionEffectType.PUSH,
-    fade: true,
+    fade: false,
     reset: false,
     duration: 300 //Device.deviceOS === "iOS" ? 300 : 600
 }
@@ -267,7 +268,7 @@ var reverseDefaultPageAnimation = {
     motionEase: SMF.UI.MotionEase.ACCELERATEANDDECELERATE,
     transitionEffect: SMF.UI.TransitionEffect.LEFTTORIGHT,
     transitionEffectType: SMF.UI.TransitionEffectType.PUSH,
-    fade: true,
+    fade: false,
     reset: false,
     duration: 300 //Device.deviceOS === "iOS" ? 300 : 600
 }
@@ -371,7 +372,7 @@ function treatAsUTC(date) {
 
 function daysBetween(startDate, endDate, calculateAsHours) {
     var millisecondsPerDay = 24 * 60 * 60 * 1000;
-    return (treatAsUTC(endDate) - treatAsUTC(startDate)) / ((calculateAsHours) ? millisecondsPerDay/24  : millisecondsPerDay);
+    return (treatAsUTC(endDate) - treatAsUTC(startDate)) / ((calculateAsHours) ? millisecondsPerDay / 24 : millisecondsPerDay);
 }
 
 function getDateString(date) {
@@ -388,4 +389,23 @@ function getDateString(date) {
     }
 
     return mm + '/' + dd + '/' + yy;;
+}
+
+// This filters help us to filter or filter out arrays by ID 
+// based on https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+var targetID = 0;
+function filterByID(obj) {
+  if (obj.ID !== undefined && typeof(obj.ID) === 'number' && !isNaN(obj.ID) && !isNaN(targetID) &&  (obj.ID === targetID)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function filterOutByID(obj) {
+  if (obj.ID !== undefined && typeof(obj.ID) === 'number' && !isNaN(obj.ID) && !isNaN(targetID) &&  (obj.ID === targetID)) {
+    return false;
+  } else {
+    return true;
+  }
 }

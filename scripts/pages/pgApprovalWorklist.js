@@ -135,7 +135,7 @@
         textAlignment: SMF.UI.TextAlignment.LEFT,
         multipleLine: false,
         font: new SMF.UI.Font({
-            size: "7pt",
+            size: "6pt",
             bold: false
         }),
         fontColor: "#4a4a4a",
@@ -199,6 +199,7 @@
 
     rptApprovalList.onRowRender = function(e) {
         // {
+        // "ID" : 1,
         // "EmployeeID": "88711203",
         // "FullName": "Atakan Eser",
         // "Email": "atakan.eser@smartface.io",
@@ -343,6 +344,7 @@
         Sample item 
        [
             {
+                "ID": 1,
                 "EmployeeID": "88711203",
                 "FullName": "Atakan Eser",
                 "Email": "atakan.eser@smartface.io",
@@ -372,6 +374,7 @@
             var objRequestObject = {};
 
             if (parsedResponse[i].Status === "waiting") {
+                objRequestObject.ID = parsedResponse[i].ID;
                 objRequestObject.EmployeeID = parsedResponse[i].EmployeeID;
                 objRequestObject.FullName = parsedResponse[i].FullName;
                 objRequestObject.Email = parsedResponse[i].Email;
