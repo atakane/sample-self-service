@@ -50,7 +50,7 @@
     createLabel(pgMyRequestDetail, "lblLeaveTypeText", "LEAVE TYPE", "4.5333%", "32.0389%", "40%", "2.9985%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#248afd");
     createLabel(pgMyRequestDetail, "lblTimeUnitText", "TIME UNIT", "60.4667%", "32.0389%", "35%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
 
-    createLabel(pgMyRequestDetail, "lblLeaveType", "ANNUAL", "4.5333%", "35.8508%", "40%", "2.9985%", SMF.UI.TextAlignment.LEFT, false, "10pt", false, "#4a4a4a");
+    createLabel(pgMyRequestDetail, "lblLeaveType", "PERSONAL", "4.5333%", "35.8508%", "40%", "2.9985%", SMF.UI.TextAlignment.LEFT, false, "10pt", false, "#4a4a4a");
     createLabel(pgMyRequestDetail, "lblTimeUnit", "DAY", "60.4667%", "35.8508%", "35%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "10pt", false, "#4a4a4a");
 
 

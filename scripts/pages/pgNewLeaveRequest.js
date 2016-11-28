@@ -47,7 +47,7 @@
     createLabel(pgNewLeaveRequest, "lblLeaveTypeText", "LEAVE TYPE", "4.5333%", "23.68815%", "40%", "2.9985%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#248afd");
     createLabel(pgNewLeaveRequest, "lblTimeUnitText", "TIME UNIT", "60.4667%", "23.68815%", "35%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
 
-    createLabel(pgNewLeaveRequest, "lblLeaveType", "ANNUAL", "4.5333%", "27.5%", "40%", "2.9985%", SMF.UI.TextAlignment.LEFT, false, "10pt", false, "#4a4a4a", pickLeaveType);
+    createLabel(pgNewLeaveRequest, "lblLeaveType", "PERSONAL", "4.5333%", "27.5%", "40%", "2.9985%", SMF.UI.TextAlignment.LEFT, false, "10pt", false, "#4a4a4a", pickLeaveType);
     createLabel(pgNewLeaveRequest, "lblTimeUnit", "DAY", "60.4667%", "27%", "35%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "10pt", false, "#4a4a4a", pickTimeUnit);
 
     //pickTimeUnit
@@ -209,7 +209,7 @@
 
 
         pgNewLeaveRequest.txtAbsenceMessage.text = '';
-        pgNewLeaveRequest.lblLeaveType.text = 'ANNUAL';
+        pgNewLeaveRequest.lblLeaveType.text = 'PERSONAL';
         pgNewLeaveRequest.lblTimeUnit.text = 'DAY';
         leaveTypeSelectedIndex = 0;
         timeUnitSelectedIndex = 0;
