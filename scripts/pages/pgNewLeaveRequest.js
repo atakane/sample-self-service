@@ -43,13 +43,19 @@
     createRectangle(pgNewLeaveRequest, "49.90%", "32.5037%", 1, "14.9925%", "#e7e7e7");
 
     //Request
-
+    //Down arrow uf107
     createLabel(pgNewLeaveRequest, "lblLeaveTypeText", "LEAVE TYPE", "4.5333%", "23.68815%", "40%", "2.9985%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#248afd");
-    createLabel(pgNewLeaveRequest, "lblTimeUnitText", "TIME UNIT", "60.4667%", "23.68815%", "35%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
+    createAwesomeLabel(pgNewLeaveRequest, "lblDown1", JSON.parse('""'), "29%", "23.68815%", "10%", "2.9985%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#248afd");
+
+    // createLabel(pgNewLeaveRequest, "lblTimeUnitText", "TIME UNIT", "60.4667%", "23.68815%", "35%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
+    // createAwesomeLabel(pgNewLeaveRequest, "lblDown2", JSON.parse('""'), "72%", "23.68815%", "3%", "2.9985%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#248afd");
+    createLabel(pgNewLeaveRequest, "lblTimeUnitText", "TIME UNIT", "62%", "23.68815%", "30%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
+    createAwesomeLabel(pgNewLeaveRequest, "lblDown2", JSON.parse('""'), "90%", "23.68815%", "5%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
+
 
     createLabel(pgNewLeaveRequest, "lblLeaveType", "PERSONAL", "4.5333%", "27.5%", "40%", "2.9985%", SMF.UI.TextAlignment.LEFT, false, "10pt", false, "#4a4a4a", pickLeaveType);
     createLabel(pgNewLeaveRequest, "lblTimeUnit", "DAY", "60.4667%", "27%", "35%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "10pt", false, "#4a4a4a", pickTimeUnit);
-
+    //
     //pickTimeUnit
 
 
@@ -69,6 +75,8 @@
     });
 
     createLabel(cntStarts, "lblStart", "STARTS", 0, 0, "100%", "15%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#248afd");
+    createAwesomeLabel(cntStarts, "lblDown3", JSON.parse('""'), "60%", 0, "50%", "15%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#248afd");
+
     createLabel(cntStarts, "lblStartDate", "-", 0, "30%", "100%", "30%", SMF.UI.TextAlignment.LEFT, false, "12pt", false, "#4a4a4a");
     createLabel(cntStarts, "lblStartTime", "", 0, "70%", "100%", "20%", SMF.UI.TextAlignment.RIGHT, false, "8pt", false, "#4a4a4a");
 
@@ -88,7 +96,11 @@
         }
     });
 
-    createLabel(cntEnds, "lblEnd", "ENDS", 0, 0, "100%", "15%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
+    // createLabel(cntEnds, "lblEnd", "ENDS", 0, 0, "100%", "15%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
+    // createAwesomeLabel(cntEnds, "lblDown4", JSON.parse('""'), 0, 0, "60%", "15%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
+    createLabel(cntEnds, "lblEnd", "ENDS", 0, 0, "87%", "15%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
+    createAwesomeLabel(cntEnds, "lblDown4", JSON.parse('""'), 0, 0, "97%", "15%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
+
     createLabel(cntEnds, "lblEndDate", "11.25.16", 0, "30%", "100%", "30%", SMF.UI.TextAlignment.RIGHT, false, "12pt", false, "#4a4a4a");
     createLabel(cntEnds, "lblEndTime", "", 0, "70%", "100%", "20%", SMF.UI.TextAlignment.RIGHT, false, "8pt", false, "#4a4a4a");
 
@@ -122,7 +134,7 @@
 
     var myFont = new SMF.UI.Font({
         name: "FontAwesome",
-        size: (Device.brandModel.toLowerCase().includes("plus")) ? 80 : 50,
+        size: "12pt",
         bold: false
     });
 
@@ -142,8 +154,14 @@
                 firstButtonText: "Submit",
                 secondButtonText: "Cancel",
                 onFirstButtonPressed: function() {
-                    //Sample
+                    //Updating Stats (this should return from real service when we connected. For now updating the mock)
+                    oProfile.LeaveRequestCount = oProfile.LeaveRequestCount + 1;
+                    oProfile.LastRequestStartDate = selectedStartDate;
+                    oProfile.LastRequestID = oProfile.LastRequestID + 1;
+                    
+                    //Sample Mock Request 
                     var myRequest = {
+                        "ID": oProfile.LastRequestID,
                         "EmployeeID": oProfile.EmployeeID,
                         "FullName": oProfile.FullName,
                         "Email": oProfile.Email,
@@ -163,6 +181,7 @@
 
                     oRequestList.push(myRequest);
 
+
                     alert({
                         title: 'Request submitted',
                         message: 'Your "Leave of Absence" request has been forwarded for approval.',
@@ -177,6 +196,7 @@
 
 
         });
+
 
     /**
      * Creates action(s) that are run when the user press the key of the devices.
@@ -272,7 +292,7 @@
                         maxTime: "18:30",
                         onSelect: function(e) {
                             var t = new Date(e.time);
-                            var selectedTime = t.getHours() + ':' + ('00' + t.getMinutes()).right(2);
+                            var selectedTime = t.format("h:mm TT"); // ie; 6:45 PM
 
                             if (isStartDate) {
                                 pgNewLeaveRequest.cntStarts.lblStartTime.text = selectedTime;
@@ -301,9 +321,8 @@
         var _day = ('00' + date.getDate()).right(2);
         var _month = ('00' + (date.getMonth() + 1)).right(2);
         var _year = date.getFullYear().toString().right(2);
-        var _hour = date.getHours();
-        var _min = date.getMinutes();
-        var _time = ('00' + _hour).right(2) + ':' + ('00' + _min).right(2);
+
+        var _time = date.format("h:mm TT");
 
         if (pgNewLeaveRequest.lblTimeUnit.text === "HOUR") {
             if (isStartDate) {

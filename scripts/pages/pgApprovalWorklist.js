@@ -216,21 +216,23 @@
         // "Remaining": 13
         // }
 
-        var startDate = arrayRequests[e.rowIndex].StartDate;
+        var startDate = new Date(arrayRequests[e.rowIndex].StartDate);
         var endDate = arrayRequests[e.rowIndex].EndDate;
         var days = daysBetween(startDate, endDate);
         var leaveDetails = arrayRequests[e.rowIndex].LeaveType + ', ' + days + ' ' + ((days > 1) ? 'days' : 'day');
 
+        var leaveText = ("{0}, starts {1}").format(leaveDetails, startDate.format("ddd, MMM. d"));
+
         this.controls[0].image = arrayRequests[e.rowIndex].Avatar;
         this.controls[2].text = arrayRequests[e.rowIndex].FullName;
         this.controls[3].text = arrayRequests[e.rowIndex].Role + " / " + arrayRequests[e.rowIndex].Team;
-        this.controls[4].text = leaveDetails + ', starting Dec, 31th.'
+        this.controls[4].text = leaveText;
 
 
         this.controls[7].image = arrayRequests[e.rowIndex].Avatar;
         this.controls[9].text = arrayRequests[e.rowIndex].FullName;
         this.controls[10].text = arrayRequests[e.rowIndex].Role + " / " + arrayRequests[e.rowIndex].Team;
-        this.controls[11].text = leaveDetails + ', starting Dec, 31th.'
+        this.controls[11].text = leaveText;
 
     };
 

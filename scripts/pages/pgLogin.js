@@ -171,7 +171,8 @@
             "OutOfOfficeEnd": "",
             "Avatar": "avatar.png", //"http://www.gravatar.com/avatar/" + gravatar
             "LeaveRequestCount" : 1,
-            "NearestLeaveDate" : "12/22/16"
+            "LastRequestStartDate" : "12/22/16",
+            "LastRequestID" : 7
         }
 
         oTimeTable = {

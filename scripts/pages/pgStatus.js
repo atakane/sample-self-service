@@ -289,8 +289,8 @@
         fillVacationMetrics(oTimeTable.TotalDays, oTimeTable.Used, oTimeTable.Remaining);
 
         if ((oProfile.LeaveRequestCount) && !isNaN(oProfile.LeaveRequestCount) && (oProfile.LeaveRequestCount > 0)) {
-            lblNewRequestText.text = "You have " + oProfile.LeaveRequestCount + " request(s) in total. The first one is on";
-            lblNewRequestTextDate.text = (new Date(oProfile.NearestLeaveDate)).format("MM/dd/yyyy");
+            lblNewRequestText.text = "You have " + oProfile.LeaveRequestCount + " request(s) in total. The last one is on";
+            lblNewRequestTextDate.text = (new Date(oProfile.LastRequestStartDate)).format("MM/dd/yyyy");
         }
         else {
             lblNewRequestText.text = "You don't have any upcoming leave request.";
@@ -369,7 +369,7 @@
             roundedEdge: 0
         });
 
-        createLabel(boxTotalDays, "lblTotalDays", "-", "0", "0", "100%", "73%", SMF.UI.TextAlignment.CENTER, false, "27pt", true, "#979797");
+        createLabel(boxTotalDays, "lblTotalDays", "-", "0", "0", "100%", "73%", SMF.UI.TextAlignment.CENTER, false, "23pt", true, "#979797");
         createLabel(boxTotalDays, "lblTotalDaysText", "Total", "0", "73", "100%", "20%", SMF.UI.TextAlignment.CENTER, false, "6pt", true, "#979797");
 
 
@@ -384,7 +384,7 @@
             roundedEdge: 0
         });
 
-        createLabel(boxUsed, "lblUsedDays", "-", "0", "0", "100%", "73%", SMF.UI.TextAlignment.CENTER, false, "27pt", true, "#cca2b5");
+        createLabel(boxUsed, "lblUsedDays", "-", "0", "0", "100%", "73%", SMF.UI.TextAlignment.CENTER, false, "24pt", true, "#cca2b5");
         createLabel(boxUsed, "lblUsedDaysText", "Used", "0", "73", "100%", "20%", SMF.UI.TextAlignment.CENTER, false, "6pt", true, "#cca2b5");
 
 
@@ -399,7 +399,7 @@
         });
 
         createImage(boxRemaining, "imgRemaining", "square_stripe.png", "0", "0", "100%", "100%", SMF.UI.ImageFillType.ASPECTFIT);
-        createLabel(boxRemaining, "lblRemainingDays", "-", "0", "0", "100%", "73%", SMF.UI.TextAlignment.CENTER, false, "27pt", true, "#37404a");
+        createLabel(boxRemaining, "lblRemainingDays", "-", "0", "0", "100%", "73%", SMF.UI.TextAlignment.CENTER, false, "25pt", true, "#37404a");
         createLabel(boxRemaining, "lblRemainingDaysText", "Remaining", "0", "73", "100%", "20%", SMF.UI.TextAlignment.CENTER, false, "6pt", true, "#37404a");
 
 

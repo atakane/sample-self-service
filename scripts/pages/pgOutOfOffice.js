@@ -48,6 +48,8 @@
     // Dates
     // Start Date
     createLabel(pgOutOfOffice, "lblStart", "STARTS", "4.5333%", "31.1844%", "17%", "2.9985%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#248afd");
+    createAwesomeLabel(pgOutOfOffice, "lblDown1", JSON.parse('""'), "21.5%", "31.1844%", "10%", "2.9985%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#248afd");
+
     createLabel(pgOutOfOffice, "lblStartDate", "-", "4.5333%", "35.9820%", "37.3333%", "2.9985%", SMF.UI.TextAlignment.LEFT, false, "12pt", false, "#4a4a4a");
     // Adding a container layer on top of the date to be touchable as a single object
     createContainer(pgOutOfOffice, "cntSelectStartDate", "4.5333%", "35.9820%", "37.3333%", "6.5967%", SMF.UI.Color.WHITE, true, function() {
@@ -55,7 +57,8 @@
     });
 
     // End Date
-    createLabel(pgOutOfOffice, "lblEnd", "ENDS", "80.4667%", "31.1844%", "15%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
+    createLabel(pgOutOfOffice, "lblEnd", "ENDS", "75.4667%", "31.1844%", "15%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
+    createAwesomeLabel(pgOutOfOffice, "lblDown2", JSON.parse('""'), "90%", "31.1844%", "5%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
 
     createLabel(pgOutOfOffice, "lblEndDate", "-", "60.4667%", "35.9820%", "35%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "12pt", false, "#4a4a4a");
 
@@ -126,9 +129,9 @@
         });
 
 
-    createContainer(pgOutOfOffice, "cntOverlay", 0, "29.5352%", "100%", "60.8696%", "#e7e7e7", false, function(){} , 0.8);
+    createContainer(pgOutOfOffice, "cntOverlay", 0, "29.5352%", "100%", "60.8696%", "#e7e7e7", false, function() {}, 0.8);
     // pgOutOfOffice.cntOverlay.touchEnabled = false;
-    
+
     /**
      * Creates action(s) that are run when the user press the key of the devices.
      * @param {KeyCodeEventArguments} e Uses to for key code argument. It returns e.keyCode parameter.

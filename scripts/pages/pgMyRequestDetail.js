@@ -65,9 +65,9 @@
     createLabel(pgMyRequestDetail, "lblEndDate", "-", "60.4667%", "47.3013%", "35%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "12pt", false, "#4a4a4a");
 
     //Day Count Circle
-    createImage(pgMyRequestDetail, "imgCenterCircle", "circle.png", (Device.screenWidth - 81)/2, "42.6536%", 81, 81);
-    createLabel(pgMyRequestDetail, "lblSelectedDaysCount", "-", (Device.screenWidth - 81)/2, "45%", 81, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "16pt", true, "#248afd");
-    createLabel(pgMyRequestDetail, "lblSelectedDaysCountText", "", (Device.screenWidth - 81)/2, "48.7%", 81, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "7pt", false, "#37404a");
+    createImage(pgMyRequestDetail, "imgCenterCircle", "circle.png", (Device.screenWidth - 81) / 2, "42.6536%", 81, 81);
+    createLabel(pgMyRequestDetail, "lblSelectedDaysCount", "-", (Device.screenWidth - 81) / 2, "45%", 81, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "16pt", true, "#248afd");
+    createLabel(pgMyRequestDetail, "lblSelectedDaysCountText", "", (Device.screenWidth - 81) / 2, "48.7%", 81, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "7pt", false, "#37404a");
 
     createContainer(pgMyRequestDetail, "cntDescriptionBack", 0, "55.847%", "100%", "44.153%", "#e7e7e7", false);
     createLabel(pgMyRequestDetail, "lblStart", "DESCRIPTION", "4.4%", "58.4707%", "63.3508%", "3%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#248afd");
@@ -88,7 +88,7 @@
         }),
         fontColor: "#37404a",
         touchEnabled: false,
-        enabled:false,
+        enabled: false,
         backgroundTransparent: true
     })
     pgMyRequestDetail.add(txtAbsenceMessage);
@@ -110,30 +110,33 @@
         "#ee2736", "#eb2c3d",
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITESMOKE,
         function(e) {
-                alert({
-                    title: 'Warning!',
-                    message: 'Do you want to delete this request?',
-                    firstButtonText: "Delete",
-                    secondButtonText: "Cancel",
-                    onFirstButtonPressed: function() {
-                        targetID = pgMyRequestDetail.oRequest.ID;
-                        console.log(targetID);
-                        oRequestList = oRequestList.filter(filterOutByID)
-                        
-                        alert({
-                            title: 'Request deleted',
-                            message: 'This leave request deleted.',
-                            firstButtonText: "OK",
-                            onFirstButtonPressed: function()
-                            {
-                                Pages.pgMyRequests.show(reverseDefaultPageAnimation);
-                            }});
-                    },
-                    onSecondButtonPressed: function() {}
-                });
+            alert({
+                title: 'Warning!',
+                message: 'Do you want to delete this request?',
+                firstButtonText: "Delete",
+                secondButtonText: "Cancel",
+                onFirstButtonPressed: function() {
+                    targetID = pgMyRequestDetail.oRequest.ID;
+                    console.log(targetID);
+                    oRequestList = oRequestList.filter(filterOutByID)
+
+                    //Updating Stats (this should return from real service when we connected. For now updating the mock)
+                    oProfile.LeaveRequestCount = oProfile.LeaveRequestCount - 1;
+
+                    alert({
+                        title: 'Request deleted',
+                        message: 'This leave request deleted.',
+                        firstButtonText: "OK",
+                        onFirstButtonPressed: function() {
+                            Pages.pgMyRequests.show(reverseDefaultPageAnimation);
+                        }
+                    });
+                },
+                onSecondButtonPressed: function() {}
+            });
         });
 
-    
+
 
     /**
      * Creates action(s) that are run when the user press the key of the devices.

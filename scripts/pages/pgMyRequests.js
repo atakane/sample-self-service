@@ -215,6 +215,7 @@
 
     rptApprovalList.onRowRender = function(e) {
         // {
+        // "ID" : 1,
         // "EmployeeID": "88711203",
         // "FullName": "Atakan Eser",
         // "Email": "atakan.eser@smartface.io",
