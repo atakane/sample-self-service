@@ -168,7 +168,7 @@
                         message: 'Your "Leave of Absence" request has been forwarded for approval.',
                         firstButtonText: "OK",
                         onFirstButtonPressed: function() {
-                            Pages.pgDashboard.show(reverseDefaultPageAnimation);
+                            Pages.pgStatus.show(reverseDefaultPageAnimation);
                         }
                     });
                 },
@@ -296,8 +296,8 @@
     }
 
     function setDateLabels(date, isStartDate) {
-        // var currentStartDate = pgDashboard.myProfile.OutOfOfficeStart;
-        // var currentStartDate = pgDashboard.myProfile.OutOfOfficeEnd;
+        // var currentStartDate = pgStatus.myProfile.OutOfOfficeStart;
+        // var currentStartDate = pgStatus.myProfile.OutOfOfficeEnd;
         var _day = ('00' + date.getDate()).right(2);
         var _month = ('00' + (date.getMonth() + 1)).right(2);
         var _year = date.getFullYear().toString().right(2);

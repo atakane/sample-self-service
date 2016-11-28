@@ -10,7 +10,7 @@ include("libs/utils/headerbar.js");
 include('pages/pgLogin.js');
 
 include("libs/utils/sliderdrawer.js");
-include('pages/pgDashboard.js');
+include('pages/pgStatus.js');
 include('pages/pgOutOfOffice.js');
 include('pages/pgAbout.js');
 include("pages/pgLeaveRequest.js");

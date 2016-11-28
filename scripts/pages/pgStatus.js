@@ -2,10 +2,10 @@
 //TODO: include this file in onStart in pages/index.js Use the code below:
 (function() {
 
-    var pgDashboard = Pages.pgDashboard = new SMF.UI.Page({
-        name: "pgDashboard",
-        onKeyPress: pgDashboard_onKeyPress,
-        onShow: pgDashboard_onShow,
+    var pgStatus = Pages.pgStatus = new SMF.UI.Page({
+        name: "pgStatus",
+        onKeyPress: pgStatus_onKeyPress,
+        onShow: pgStatus_onShow,
         // onTouch: fillUsedDaysBar,
         myProfile: [],
         myTimeTable: []
@@ -14,14 +14,14 @@
 
     // var sliderDrawer = new SliderDrawer();
     // sliderDrawer.init(Pages.currentPage);
-    createSliderDrawer(Pages.pgDashboard, "sdSelfService");
+    createSliderDrawer(Pages.pgStatus, "sdSelfService");
 
     /**
      * Creates action(s) that are run when the user press the key of the devices.
      * @param {KeyCodeEventArguments} e Uses to for key code argument. It returns e.keyCode parameter.
-     * @this Pages.pgDashboard
+     * @this Pages.pgStatus
      */
-    function pgDashboard_onKeyPress(e) {
+    function pgStatus_onKeyPress(e) {
         if (e.keyCode === 4) {
             Pages.back();
         }
@@ -68,8 +68,8 @@
     cntProgressBar.add(imgProgressBackground);
     cntProgressBar.add(recProgress);
 
-    pgDashboard.add(cntProgressBar);
-    pgDashboard.add(imgHome);
+    pgStatus.add(cntProgressBar);
+    pgStatus.add(imgHome);
 
     // Profile
     var imgAvatar = new SMF.UI.Image({
@@ -81,7 +81,7 @@
         height: getUnit(80),
         imageFillType: SMF.UI.ImageFillType.ASPECTFIT
     });
-    pgDashboard.add(imgAvatar);
+    pgStatus.add(imgAvatar);
 
     var lblFullName = new SMF.UI.Label({
         name: "lblFullName",
@@ -98,7 +98,7 @@
         multipleLine: false,
         fontColor: SMF.UI.Color.WHITE
     });
-    pgDashboard.add(lblFullName);
+    pgStatus.add(lblFullName);
 
     var lblTeamRole = new SMF.UI.Label({
         name: "lblTeamRole",
@@ -115,7 +115,7 @@
         multipleLine: false,
         fontColor: SMF.UI.Color.WHITE
     });
-    pgDashboard.add(lblTeamRole);
+    pgStatus.add(lblTeamRole);
 
 
 
@@ -144,7 +144,7 @@
         onTintColor: "#248afd",
         tintColor: "#248afd",
         // onChange: function(e) {
-        //     Pages.pgDashboard.cntOutOfOfficeBar.lblOOOStatusText.text = this.checked == true ? "Mode On" : "Mode Off";
+        //     Pages.pgStatus.cntOutOfOfficeBar.lblOOOStatusText.text = this.checked == true ? "Mode On" : "Mode Off";
         // },
         touchEnabled: false,
         visible: false
@@ -206,9 +206,9 @@
     });
     cntOutOfOfficeBar.add(imgDetail);
 
-    pgDashboard.add(cntOutOfOfficeBar);
-    // pgDashboard.add(imgOutOfOfficeShadowLine);
-    createImage(pgDashboard, "imgOutOfOfficeShadowLine", "shadow_line.png", "0", "74.8875%", "100%", "6", SMF.UI.ImageFillType.STRETCH);
+    pgStatus.add(cntOutOfOfficeBar);
+    // pgStatus.add(imgOutOfOfficeShadowLine);
+    createImage(pgStatus, "imgOutOfOfficeShadowLine", "shadow_line.png", "0", "74.8875%", "100%", "6", SMF.UI.ImageFillType.STRETCH);
 
 
     var lblNewRequestText = new SMF.UI.Label({
@@ -225,11 +225,11 @@
         multipleLine: true,
         fontColor: "#a0a0a0"
     });
-    pgDashboard.add(lblNewRequestText);
+    pgStatus.add(lblNewRequestText);
 
     var lblNewRequestTextDate = new SMF.UI.Label({
         name: "lblNewRequestTextDate",
-        left: getUnit("32%"),
+        left: getUnit("29.5%"),
         top: getUnit("89.5%"),
         width: getUnit("30%"),
         height: getUnit("10%"),
@@ -240,7 +240,7 @@
         }),
         fontColor: "#37404a"
     });
-    pgDashboard.add(lblNewRequestTextDate);
+    pgStatus.add(lblNewRequestTextDate);
 
 
     var imgAdd = new SMF.UI.Image({
@@ -260,21 +260,21 @@
             Pages.pgLeaveRequest.show(defaultPageAnimation);
         }
     });
-    pgDashboard.add(imgAdd);
+    pgStatus.add(imgAdd);
 
 
     // var pageSliderDrawer = new SliderMenu();
-    // pgDashboard.add(pageSliderDrawer);
+    // pgStatus.add(pageSliderDrawer);
 
 
-    // pgDashboard.add(sdSelfService);
+    // pgStatus.add(sdSelfService);
 
     /**
      * Creates action(s) that are run when the page is appeared
      * @param {EventArguments} e Returns some attributes about the specified functions
-     * @this Pages.pgDashboard
+     * @this Pages.pgStatus
      */
-    function pgDashboard_onShow() {
+    function pgStatus_onShow() {
         //We are going w/ dark mode. Our navbar is white.
         SMF.UI.statusBar.style = SMF.UI.StatusBarStyle.DEFAULT;
 
@@ -289,8 +289,8 @@
         fillVacationMetrics(oTimeTable.TotalDays, oTimeTable.Used, oTimeTable.Remaining);
 
         if ((oProfile.LeaveRequestCount) && !isNaN(oProfile.LeaveRequestCount) && (oProfile.LeaveRequestCount > 0)) {
-            lblNewRequestText.text = "You have " + oProfile.LeaveRequestCount + " request(s) in total. The nearest leave is at";
-            lblNewRequestTextDate.text = oProfile.NearestLeaveDate;
+            lblNewRequestText.text = "You have " + oProfile.LeaveRequestCount + " request(s) in total. The first one is on";
+            lblNewRequestTextDate.text = (new Date(oProfile.NearestLeaveDate)).format("MM/dd/yyyy");
         }
         else {
             lblNewRequestText.text = "You don't have any upcoming leave request.";
@@ -299,20 +299,20 @@
 
 
         //TODO: Add Avatar pic
-        // pgDashboard.imgAvatar.image = pgDashboard.myProfile.Avatar;
-        pgDashboard.imgAvatar.image = pgDashboard.sdSelfService.imgSliderAvatar.image = oProfile.Avatar;
-        pgDashboard.lblFullName.text = pgDashboard.sdSelfService.lblSliderFullName.text = oProfile.FullName;
-        pgDashboard.lblTeamRole.text = pgDashboard.sdSelfService.lblSliderTeamRole.text = oProfile.Role + " / " + oProfile.Team;
-        pgDashboard.cntOutOfOfficeBar.swtOutOfOffice.checked = oProfile.OutOfOffice;
-        pgDashboard.cntOutOfOfficeBar.lblOOOStatusText.text = (oProfile.OutOfOffice) ? "Mode On" : "Mode Off";
-        pgDashboard.cntOutOfOfficeBar.lblOOOStatusText.fontColor = (oProfile.OutOfOffice) ? "#27bc66" : "#37404a"
+        // pgStatus.imgAvatar.image = pgStatus.myProfile.Avatar;
+        pgStatus.imgAvatar.image = pgStatus.sdSelfService.imgSliderAvatar.image = oProfile.Avatar;
+        pgStatus.lblFullName.text = pgStatus.sdSelfService.lblSliderFullName.text = oProfile.FullName;
+        pgStatus.lblTeamRole.text = pgStatus.sdSelfService.lblSliderTeamRole.text = oProfile.Role + " / " + oProfile.Team;
+        pgStatus.cntOutOfOfficeBar.swtOutOfOffice.checked = oProfile.OutOfOffice;
+        pgStatus.cntOutOfOfficeBar.lblOOOStatusText.text = (oProfile.OutOfOffice) ? "Mode On" : "Mode Off";
+        pgStatus.cntOutOfOfficeBar.lblOOOStatusText.fontColor = (oProfile.OutOfOffice) ? "#27bc66" : "#37404a"
     }
 
     function fillUsedDaysBar() {
         recProgress.width = "0%";
         recProgress.animate({
             property: 'width',
-            endValue: (100 * (pgDashboard.myTimeTable.Used / pgDashboard.myTimeTable.TotalDays)) + "%",
+            endValue: (100 * (pgStatus.myTimeTable.Used / pgStatus.myTimeTable.TotalDays)) + "%",
             motionEase: SMF.UI.MotionEase.DECELERATING,
             duration: 700,
             onFinish: function() {
@@ -344,7 +344,7 @@
             var itemMenu = new SMF.UI.iOS.BarButtonItem({
                 image: 'menu.png',
                 onSelected: function() {
-                    (!isSliderDrawerOpen) ? pgDashboard.sdSelfService.show(): pgDashboard.sdSelfService.hide();
+                    (!isSliderDrawerOpen) ? pgStatus.sdSelfService.show(): pgStatus.sdSelfService.hide();
                 }
             });
 
@@ -403,16 +403,16 @@
         createLabel(boxRemaining, "lblRemainingDaysText", "Remaining", "0", "73", "100%", "20%", SMF.UI.TextAlignment.CENTER, false, "6pt", true, "#37404a");
 
 
-        pgDashboard.add(boxTotalDays);
-        pgDashboard.add(boxUsed);
-        pgDashboard.add(boxRemaining);
+        pgStatus.add(boxTotalDays);
+        pgStatus.add(boxUsed);
+        pgStatus.add(boxRemaining);
     }
 
     // We'll use this function when a new update occurs
     function fillVacationMetrics(TotalDays, Used, Remaining) {
-        pgDashboard.boxTotalDays.lblTotalDays.text = TotalDays;
-        pgDashboard.boxUsed.lblUsedDays.text = Used;
-        pgDashboard.boxRemaining.lblRemainingDays.text = Remaining;
+        pgStatus.boxTotalDays.lblTotalDays.text = TotalDays;
+        pgStatus.boxUsed.lblUsedDays.text = Used;
+        pgStatus.boxRemaining.lblRemainingDays.text = Remaining;
     }
 
 

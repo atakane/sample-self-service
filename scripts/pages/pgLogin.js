@@ -304,9 +304,9 @@
         }]
 
         // passing objects to pgFiles
-        Pages.pgDashboard.myProfile = oProfile;
-        Pages.pgDashboard.myTimeTable = oTimeTable;
+        Pages.pgStatus.myProfile = oProfile;
+        Pages.pgStatus.myTimeTable = oTimeTable;
 
-        Pages.pgDashboard.show(defaultPageAnimation);
+        Pages.pgStatus.show(defaultPageAnimation);
     }
 })();
