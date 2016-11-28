@@ -1,4 +1,5 @@
-/* globals smfOracle mcsUser mcsPassword Dialog defaultPageAnimation*/
+/* globals smfOracle mcsUser mcsPassword Dialog defaultPageAnimation createSliderDrawer isSliderDrawerOpen
+reverseDefaultPageAnimation getUnit HeaderBar*/
 (function() {
     var arrayRequests;
     var pgMyRequests = Pages.pgMyRequests = new SMF.UI.Page({
@@ -8,10 +9,8 @@
         backgroundImage: 'stripe.png'
     });
 
-    // var sliderDrawer = new SliderDrawer();
-    // sliderDrawer.init(Pages.currentPage);
+    // Creating Slider Drawer
     createSliderDrawer(Pages.pgMyRequests, "sdSelfService");
-
 
     //creating a repeatbox to show our files
     var rptApprovalList = new SMF.UI.RepeatBox({
@@ -24,7 +23,6 @@
         showScrollbar: true,
         autoSize: false,
         touchEnabled: true,
-        //onSelectedItem: _onSelectedItem,
         enableScroll: true,
         backgroundTransparent: false,
         enablePullUpToRefresh: false,
@@ -32,37 +30,10 @@
         useActiveItem: false,
         allowDeletingItem: false,
         onSelectedItem: function(e) {
-                Pages.pgMyRequestDetail.oRequest = arrayRequests[e.rowIndex];
-                Pages.pgMyRequestDetail.show(defaultPageAnimation);
-            }
-            // onPullDown: function(e) {
-            //     Dialog.showWait();
-            //     displayApprovalRequests();
-            // }
+            Pages.pgMyRequestDetail.oRequest = arrayRequests[e.rowIndex];
+            Pages.pgMyRequestDetail.show(defaultPageAnimation);
+        }
     });
-    // //an activity indicator for pulldown action on file repeatbox
-    // var aiPullDown = new SMF.UI.ActivityIndicator({
-    //     top: "0%",
-    //     left: "45%",
-    //     widht: "10%",
-    //     height: "10%",
-    //     style: SMF.UI.ActivityIndicatorStyle.GRAY,
-    // });
-    // rptApprovalList.pullDownItem.add(aiPullDown);
-    // rptApprovalList.pullDownItemTemplate.fillColor = "#FFFFFF";
-
-    // Adding a container layer on top of the date to be touchable as a single object
-    // var cntTotalDays = new SMF.UI.Container({
-    //     name: "cntTotalDays",
-    //     left: 0,
-    //     top: 0,
-    //     width: "27%",
-    //     height: "100%",
-    //     backgroundTransparent: true,
-    //     touchEnabled: false,
-    //     borderWidth: 0,
-    //     roundedEdge: 0
-    // });
 
     var imgStatusCircle = new SMF.UI.Image({
         name: "imgStatusCircle",
@@ -90,7 +61,6 @@
         fontColor: "#248afd",
         borderWidth: 0
     });
-
 
     var recVerticalLine = new SMF.UI.Rectangle({
         name: "recVerticalLine",
@@ -212,7 +182,6 @@
     rptApprovalList.pullDownItem.height = "8%";
 
     //onRowRender will work for each item bound
-
     rptApprovalList.onRowRender = function(e) {
         // {
         // "ID" : 1,
@@ -237,18 +206,14 @@
         var days = daysBetween(startDate, endDate);
         var leaveDetails = days + ' ' + ((days > 1) ? 'days' : 'day');
 
-        // this.controls[0].image = arrayRequests[e.rowIndex].Avatar;
-
         getStatusLetter(arrayRequests[e.rowIndex].Status, this.controls[1]);
         this.controls[3].text = arrayRequests[e.rowIndex].LeaveType;
         this.controls[4].text = startDate + " - " + endDate;
         this.controls[5].text = leaveDetails
 
         getStatusLetter(arrayRequests[e.rowIndex].Status, this.controls[9]);
-        // this.controls[7].image = arrayRequests[e.rowIndex].Avatar;
         this.controls[11].text = arrayRequests[e.rowIndex].LeaveType;
         this.controls[12].text = startDate + " - " + endDate;
-        startDate + " - " + endDate;;
         this.controls[13].text = leaveDetails
     };
 
@@ -270,13 +235,10 @@
                 statusObject.fontColor = "#ee2736";
                 break;
         }
-        console.log(status);
-        console.log(statusObject.text);
     }
 
     //adding repeatbox to the page
     pgMyRequests.add(rptApprovalList);
-
 
     // createLabel(pgMyRequests, 'lblLegend', 'W: Waiting\nA: Approved\nR: Rejected', "5%", "0%", "90%", "10%", SMF.UI.TextAlignment.LEFT, true, "5pt", false, "#979797");
 
@@ -317,10 +279,10 @@
      * @this Pages.pgLogin
      */
     function pgMyRequests_onShow() {
-        // SMF.UI.statusBar.style = SMF.UI.StatusBarStyle.LIGHTCONTENT;
+        // Hiding "wait" dialog
         Dialog.removeWait();
 
-
+        // Adding header bar (actionbar for Android, navigationbar for iOS)
         addHeaderBar();
 
         pgMyRequests.sdSelfService.imgSliderAvatar.image = oProfile.Avatar;
@@ -328,7 +290,7 @@
         pgMyRequests.sdSelfService.lblSliderTeamRole.text = oProfile.Role + " / " + oProfile.Team;
 
         displayApprovalRequests();
-        
+
         // pgMyRequests.lblLegend.top  = pgMyRequests.rptApprovalList.top + pgMyRequests.rptApprovalList.height;
     }
 
@@ -387,9 +349,6 @@
         var parsedResponse = oRequestList;
         arrayRequests = [];
 
-        //if (parsedResponse.length > 0)
-        // lblWelcome2.text = "You have " + (parsedResponse.length) + " file(s) in your storage";
-
         for (var i = 0; i < parsedResponse.length; i++) {
             var objRequestObject = {};
 
@@ -412,15 +371,11 @@
                 objRequestObject.Remaining = parsedResponse[i].Remaining;
 
                 arrayRequests.push(objRequestObject);
-                // arrayRequests.sort(function(a, b) {
-                //     return new Date(b.EndDate) - new Date(a.EndDate);
-                // });
             }
         }
 
 
         //binding objects array
-        // rptBoxObjects.pullDownItemTemplate.visible = true;
         rptApprovalList.closePullItems();
         rptApprovalList.dataSource = arrayRequests;
         rptApprovalList.refresh();

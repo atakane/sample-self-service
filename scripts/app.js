@@ -2,8 +2,6 @@
 include('i18n/i18n.js');
 include('libs/utils/smartface.tiny.utils.js');
 
-// include('libs/Smartface/require.js');
-
 Application.onStart = Application_OnStart;
 Application.onUnhandledError = Application_OnError;
 Application.onMaximize = Application_onMaximize;
@@ -14,6 +12,7 @@ var oTimeTable;
 var oRequestList;
 var templateOutOfOfficeText = "Hello,\n\nI'm currently out of the office but I will return on {EndDate}. I will respond to your inquiry as soon as possible.\n\nBest\n{FullName}\n{Role}/{Team}";
 var lunchBreakDuration = 1;
+var urlMockServicePath = "https://preview.dev.smartface.io/smartface92/sample-oracle-self-service/_self-service-mock/"
 
 var isSliderDrawerOpen = false;
 
@@ -25,7 +24,6 @@ var isSliderDrawerOpen = false;
 function Application_OnStart(e) {
 	SMF.UI.statusBar.visible = true;
 	include('pages/index.js');
-	// initRequire("pages/index.js");
 
 	// Creating a new Oracle MCS instance 
 	smfOracle = new SMF.Oracle.MobileCloudService('smartfaceOracleMCS');
@@ -68,7 +66,28 @@ function Application_OnError(e) {
 	}
 }
 
+// function getDataFromService(){
+// 	// Getting oProfile
+// 	SMFAjax.getJSON(urlMockServicePath + 'profile.json', {
+// 		command: 'GET'
+// 	}, function(data) {
+// 		oProfile = data;
+// 	});
 
+// 	// Getting TimeTable
+// 	SMFAjax.getJSON(urlMockServicePath + 'timetable.json', {
+// 		command: 'GET'
+// 	}, function(data) {
+// 		oTimeTable = data;
+// 	});
+
+// 	// Getting RequestList
+// 	SMFAjax.getJSON(urlMockServicePath + 'requestlist.json', {
+// 		command: 'GET'
+// 	}, function(data) {
+// 		oRequestList = data;
+// 	});
+// }
 
 // Checking for Remote App Update 
 function checkforUpdate() {

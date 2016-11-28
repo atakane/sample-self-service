@@ -1,4 +1,4 @@
-/* globals smfOracle mcsUser mcsPassword Dialog defaultPageAnimation*/
+/* globals smfOracle mcsUser mcsPassword Dialog defaultPageAnimation createImage createLabel SMFAjax urlMockServicePath oProfile oTimeTable oRequestList*/
 (function() {
 
     var pgLogin = Pages.pgLogin = new SMF.UI.Page({
@@ -157,157 +157,38 @@
     function getUserInfo() {
         // Get self service details from EBS service
         // For now we're going dummy
+        Dialog.showWait();
 
-        // var gravatar = md5hash("atakan.eser@smartface.io");
-        oProfile = {
-            "EmployeeID": "8927191",
-            "FullName": "Lee Allen",
-            "Email": "la@smartface.io",
-            "Team": "HR Team",
-            "Role": "Director",
-            "OutOfOffice": false,
-            "OutOfOfficeMessage": "",
-            "OutOfOfficeStart": "",
-            "OutOfOfficeEnd": "",
-            "Avatar": "avatar.png", //"http://www.gravatar.com/avatar/" + gravatar
-            "LeaveRequestCount" : 1,
-            "LastRequestStartDate" : "12/22/16",
-            "LastRequestID" : 7
-        }
+        getDataFromService(function() {
+            Pages.pgStatus.show(defaultPageAnimation);
+        });
+    }
 
-        oTimeTable = {
-            "TotalDays": 37,
-            "Used": 18,
-            "Remaining": 19
-        }
+    // Currently we're working from a mock url that provides all 3 JSON files
+    // When we connected to a Real EBS service or MCS instance we'll change these to point real endpoints.
+    function getDataFromService(callback) {
+        // Getting oProfile
+        SMFAjax.getJSON(urlMockServicePath + 'profile.json', {
+            command: 'GET'
+        }, function(data) {
+            oProfile = data;
 
-
-        oRequestList = [{
-                "ID": 1,
-                "EmployeeID": "88771100",
-                "FullName": "William Campell",
-                "Email": "wc@smartface.io",
-                "Avatar": "avatar6.png",
-                "Team": "R&D",
-                "Role": "Sr. Researcher",
-                "StartDate": "11/18/16",
-                "EndDate": "11/28/16",
-                "LeaveType": "PERSONAL",
-                "TimeUnit": "DAY",
-                "AbsenceMessage": "I need a few days for paper works.",
-                "Status": "waiting",
-                "TotalDays": 29,
-                "Used": 16,
-                "Remaining": 13
-                },
-            {
-                "ID": 2,
-                "EmployeeID": "88711203",
-                "FullName": "Robert Harris",
-                "Email": "robert@smartface.io",
-                "Avatar": "avatar2.png",
-                "Team": "Software Dev.",
-                "Role": "Developer",
-                "StartDate": "11/16/16",
-                "EndDate": "11/22/16",
-                "LeaveType": "MEDICAL",
-                "TimeUnit": "DAY",
-                "AbsenceMessage": "I've a planned surgery. Going to be at hospital for 2 weeks.",
-                "Status": "waiting",
-                "TotalDays": 22,
-                "Used": 16,
-                "Remaining": 6
-        }, {
-                "ID": 3,
-                "EmployeeID": "1902837",
-                "FullName": "Kevin Parker",
-                "Email": "john.smart@bigcorp.io",
-                "Avatar": "avatar3.png",
-                "Team": "Dev-Ops",
-                "Role": "Sys. Eng.",
-                "StartDate": "12/24/16",
-                "EndDate": "12/31/16",
-                "LeaveType": "PERSONAL",
-                "TimeUnit": "DAY",
-                "AbsenceMessage": "You know, it's Christmas time!!! :)",
-                "Status": "waiting",
-                "TotalDays": 15,
-                "Used": 9,
-                "Remaining": 6
-        }, {
-                "ID": 4,
-                "EmployeeID": "1902837",
-                "FullName": "Patricia Lewis",
-                "Email": "plewis@hotmail.io",
-                "Avatar": "avatar4.png",
-                "Team": "HR",
-                "Role": "Assistant",
-                "StartDate": "11/23/16",
-                "EndDate": "11/24/16",
-                "LeaveType": "MEDICAL",
-                "TimeUnit": "DAY",
-                "AbsenceMessage": "Doctor checkup",
-                "Status": "waiting",
-                "TotalDays": 19,
-                "Used": 3,
-                "Remaining": 16
-        }, {
-                "ID": 5,
-                "EmployeeID": "8927191",
-                "FullName": "Lee Allen",
-                "Email": "la@smartface.io",
-                "Avatar": "avatar.png",
-                "Team": "HR Team",
-                "Role": "Director",
-                "StartDate": "12/22/16",
-                "EndDate": "12/23/16",
-                "LeaveType": "PERSONAL",
-                "TimeUnit": "DAY",
-                "AbsenceMessage": "I need a day off",
-                "Status": "rejected",
-                "TotalDays": 37,
-                "Used": 18,
-                "Remaining": 19
-        }, {
-                "ID": 6,
-                "EmployeeID": "1902837",
-                "FullName": "Patricia Lewis",
-                "Email": "plewis@hotmail.io",
-                "Avatar": "avatar4.png",
-                "Team": "HR",
-                "Role": "Assistant",
-                "StartDate": "12/18/16",
-                "EndDate": "12/31/16",
-                "LeaveType": "PERSONAL",
-                "TimeUnit": "DAY",
-                "AbsenceMessage": "New Year's eve. I need to keep up with the Family. Michelle will take the calls while I'm away.",
-                "Status": "waiting",
-                "TotalDays": 19,
-                "Used": 3,
-                "Remaining": 16
-        }, {
-                "ID": 7,
-                "EmployeeID": "341561",
-                "FullName": "Michelle Edward",
-                "Email": "md@lab.cp",
-                "Avatar": "avatar5.png",
-                "Team": "Visual",
-                "Role": "Art Director",
-                "StartDate": "3/15/17",
-                "EndDate": "3/27/17",
-                "LeaveType": "PERSONAL",
-                "TimeUnit": "DAY",
-                "AbsenceMessage": "European division site visit with Sr. Vice President Mr. Thomas.",
-                "Status": "waiting",
-                "TotalDays": 45,
-                "Used": 20,
-                "Remaining": 25
-        }]
-
-        // passing objects to pgFiles
-        Pages.pgStatus.myProfile = oProfile;
-        Pages.pgStatus.myTimeTable = oTimeTable;
-
-        Pages.pgStatus.show(defaultPageAnimation);
+            // Getting TimeTable
+            SMFAjax.getJSON(urlMockServicePath + 'timetable.json', {
+                command: 'GET'
+            }, function(data) {
+                oTimeTable = data;
+                
+                // Getting RequestList
+                SMFAjax.getJSON(urlMockServicePath + 'requestlist.json', {
+                    command: 'GET'
+                }, function(data) {
+                    oRequestList = data;
+                    
+                    Dialog.removeWait();
+                    oProfile && oTimeTable && oRequestList && callback && callback();
+                });
+            });
+        });
     }
 })();

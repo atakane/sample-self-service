@@ -257,12 +257,13 @@
      * @this Pages.pgLogin
      */
     function pgApprovalWorklist_onShow() {
-        // SMF.UI.statusBar.style = SMF.UI.StatusBarStyle.LIGHTCONTENT;
+        // Hiding "wait" dialog
         Dialog.removeWait();
 
-
+        // Adding header bar (actionbar for Android, navigationbar for iOS)
         addHeaderBar();
-
+        
+        // Updating logged in user's info on the this page's slider drawer
         pgApprovalWorklist.sdSelfService.imgSliderAvatar.image = oProfile.Avatar;
         pgApprovalWorklist.sdSelfService.lblSliderFullName.text = oProfile.FullName;
         pgApprovalWorklist.sdSelfService.lblSliderTeamRole.text = oProfile.Role + " / " + oProfile.Team;

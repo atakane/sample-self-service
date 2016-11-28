@@ -1,0 +1,15 @@
+{
+    "EmployeeID": "8927191",
+    "FullName": "Lee Allen",
+    "Email": "la@smartface.io",
+    "Team": "HR Team",
+    "Role": "Director",
+    "OutOfOffice": false,
+    "OutOfOfficeMessage": "",
+    "OutOfOfficeStart": "",
+    "OutOfOfficeEnd": "",
+    "Avatar": "avatar.png",
+    "LeaveRequestCount": 1,
+    "LastRequestStartDate": "12/22/16",
+    "LastRequestID": 7
+}

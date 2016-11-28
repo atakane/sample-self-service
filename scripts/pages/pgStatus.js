@@ -1,19 +1,16 @@
-/* globals */
-//TODO: include this file in onStart in pages/index.js Use the code below:
+/* globals createSliderDrawer getUnit defaultPageAnimation createImage oProfile oTimeTable HeaderBar
+createLabel isSliderDrawerOpen*/
 (function() {
 
     var pgStatus = Pages.pgStatus = new SMF.UI.Page({
         name: "pgStatus",
         onKeyPress: pgStatus_onKeyPress,
         onShow: pgStatus_onShow,
-        // onTouch: fillUsedDaysBar,
         myProfile: [],
         myTimeTable: []
     });
 
-
-    // var sliderDrawer = new SliderDrawer();
-    // sliderDrawer.init(Pages.currentPage);
+    // Creating Slider Drawer
     createSliderDrawer(Pages.pgStatus, "sdSelfService");
 
     /**
@@ -27,6 +24,7 @@
         }
     }
 
+    // Home Background
     var imgHome = new SMF.UI.Image({
         name: "imgHome",
         image: "home_back.png",
@@ -37,6 +35,7 @@
         imageFillType: SMF.UI.ImageFillType.STRETCH
     });
 
+    // Progress bar (Earned & Used days ratio)
     var cntProgressBar = new SMF.UI.Container({
         name: "cntProgressBar",
         left: 0,
@@ -117,11 +116,10 @@
     });
     pgStatus.add(lblTeamRole);
 
-
-
-    // Vacation Boxes & Numbers
+    // Vacation metrics
     createVacationBoxes();
 
+    // Out Of Office Status
     var cntOutOfOfficeBar = new SMF.UI.Container({
         name: "cntOutOfOfficeBar",
         left: 0,
@@ -143,9 +141,6 @@
         checked: false,
         onTintColor: "#248afd",
         tintColor: "#248afd",
-        // onChange: function(e) {
-        //     Pages.pgStatus.cntOutOfOfficeBar.lblOOOStatusText.text = this.checked == true ? "Mode On" : "Mode Off";
-        // },
         touchEnabled: false,
         visible: false
     });
@@ -207,10 +202,9 @@
     cntOutOfOfficeBar.add(imgDetail);
 
     pgStatus.add(cntOutOfOfficeBar);
-    // pgStatus.add(imgOutOfOfficeShadowLine);
     createImage(pgStatus, "imgOutOfOfficeShadowLine", "shadow_line.png", "0", "74.8875%", "100%", "6", SMF.UI.ImageFillType.STRETCH);
 
-
+    // Latest Leave Request details
     var lblNewRequestText = new SMF.UI.Label({
         name: "lblNewRequestText",
         left: getUnit("4.53333%"),
@@ -242,7 +236,7 @@
     });
     pgStatus.add(lblNewRequestTextDate);
 
-
+    // New Request button
     var imgAdd = new SMF.UI.Image({
         image: "btn_plus.png",
         left: getUnit("78.2666%"),
@@ -262,13 +256,6 @@
     });
     pgStatus.add(imgAdd);
 
-
-    // var pageSliderDrawer = new SliderMenu();
-    // pgStatus.add(pageSliderDrawer);
-
-
-    // pgStatus.add(sdSelfService);
-
     /**
      * Creates action(s) that are run when the page is appeared
      * @param {EventArguments} e Returns some attributes about the specified functions
@@ -278,13 +265,10 @@
         //We are going w/ dark mode. Our navbar is white.
         SMF.UI.statusBar.style = SMF.UI.StatusBarStyle.DEFAULT;
 
-
+        // Adding header bar (actionbar for Android, navigationbar for iOS)
         addHeaderBar();
 
-        //var timerID = setTimeout(function() {
-        // setTimeout(function() {
         fillUsedDaysBar();
-        // }, 500);
 
         fillVacationMetrics(oTimeTable.TotalDays, oTimeTable.Used, oTimeTable.Remaining);
 
@@ -297,9 +281,7 @@
             lblNewRequestTextDate.text = "";
         }
 
-
-        //TODO: Add Avatar pic
-        // pgStatus.imgAvatar.image = pgStatus.myProfile.Avatar;
+        // resetting every time
         pgStatus.imgAvatar.image = pgStatus.sdSelfService.imgSliderAvatar.image = oProfile.Avatar;
         pgStatus.lblFullName.text = pgStatus.sdSelfService.lblSliderFullName.text = oProfile.FullName;
         pgStatus.lblTeamRole.text = pgStatus.sdSelfService.lblSliderTeamRole.text = oProfile.Role + " / " + oProfile.Team;
@@ -308,11 +290,12 @@
         pgStatus.cntOutOfOfficeBar.lblOOOStatusText.fontColor = (oProfile.OutOfOffice) ? "#27bc66" : "#37404a"
     }
 
+    // Used days bar
     function fillUsedDaysBar() {
         recProgress.width = "0%";
         recProgress.animate({
             property: 'width',
-            endValue: (100 * (pgStatus.myTimeTable.Used / pgStatus.myTimeTable.TotalDays)) + "%",
+            endValue: (100 * (oTimeTable.Used / oTimeTable.TotalDays)) + "%",
             motionEase: SMF.UI.MotionEase.DECELERATING,
             duration: 700,
             onFinish: function() {
@@ -408,7 +391,7 @@
         pgStatus.add(boxRemaining);
     }
 
-    // We'll use this function when a new update occurs
+    // We trigger this function when a new update occurs
     function fillVacationMetrics(TotalDays, Used, Remaining) {
         pgStatus.boxTotalDays.lblTotalDays.text = TotalDays;
         pgStatus.boxUsed.lblUsedDays.text = Used;

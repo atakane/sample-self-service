@@ -1,5 +1,6 @@
-/* globals */
-//TODO: include this file in onStart in pages/index.js Use the code below:
+/* globals Dialog getUnit createImage createLabel createRectangle createContainer createTextButtonWithCustomFont
+targetID filterOutByID oRequestList oProfile reverseDefaultPageAnimation daysBetween
+*/
 
 (function() {
     var selectedStartDate;
@@ -12,17 +13,12 @@
         oRequest: []
     });
 
-
-    // createContainer(pgNewLeaveRequest, "cntVacationBoxes", "0", "64", "100%", "11.46926%", SMF.UI.Color.WHITE, false);
-
-
-    //Profile
     //Profile
     createImage(pgMyRequestDetail, "imgAvatar", "", "5.3333%", "11.5442%", "14.4%", "8.0959%", SMF.UI.ImageFillType.ASPECTFIT);
     createLabel(pgMyRequestDetail, "lblFullName", "", "4.5333%", "20%", "53.3333%", "4.7376%", SMF.UI.TextAlignment.LEFT, false, "12pt", false, "#27bc66");
     createLabel(pgMyRequestDetail, "lblTeamRole", "", "4.5333%", "24.7376%", "53.3333%", "3.4482%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#444444");
 
-
+    // Vacation metrics
     var cntVacationBoxes = new SMF.UI.Container({
         name: "cntVacationBoxes",
         left: getUnit("51.2%"),
@@ -39,14 +35,12 @@
     createVacationBoxes(cntVacationBoxes);
 
     //Lines
-    // createImage(pgApproveLeaveRequest, "imgShadowLine", "shadow_line.png", "0", "21.0644%", "100%", "6", SMF.UI.ImageFillType.ASPECTFIT);
     createRectangle(pgMyRequestDetail, 0, "29.4152%", "100%", 1, "#e7e7e7");
     createRectangle(pgMyRequestDetail, 0, "40.8545%", "100%", 1, "#e7e7e7");
     createRectangle(pgMyRequestDetail, 0, "55.847%", "100%", 1, "#e7e7e7");
     createRectangle(pgMyRequestDetail, "49.90%", "40.8545%", 1, "14.9925%", "#e7e7e7");
 
-    //Request
-
+    //Request Details
     createLabel(pgMyRequestDetail, "lblLeaveTypeText", "LEAVE TYPE", "4.5333%", "32.0389%", "40%", "2.9985%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#248afd");
     createLabel(pgMyRequestDetail, "lblTimeUnitText", "TIME UNIT", "60.4667%", "32.0389%", "35%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
 
@@ -61,17 +55,17 @@
 
     // End Date
     createLabel(pgMyRequestDetail, "lblEnd", "ENDS", "80.4667%", "42.5037%", "15%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
-
     createLabel(pgMyRequestDetail, "lblEndDate", "-", "60.4667%", "47.3013%", "35%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "12pt", false, "#4a4a4a");
 
-    //Day Count Circle
+    // Day Count Circle
     createImage(pgMyRequestDetail, "imgCenterCircle", "circle.png", (Device.screenWidth - 81) / 2, "42.6536%", 81, 81);
     createLabel(pgMyRequestDetail, "lblSelectedDaysCount", "-", (Device.screenWidth - 81) / 2, "45%", 81, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "16pt", true, "#248afd");
     createLabel(pgMyRequestDetail, "lblSelectedDaysCountText", "", (Device.screenWidth - 81) / 2, "48.7%", 81, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "7pt", false, "#37404a");
 
     createContainer(pgMyRequestDetail, "cntDescriptionBack", 0, "55.847%", "100%", "44.153%", "#e7e7e7", false);
     createLabel(pgMyRequestDetail, "lblStart", "DESCRIPTION", "4.4%", "58.4707%", "63.3508%", "3%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#248afd");
-    //
+
+    // Textbox for Absence Message
     var txtAbsenceMessage = new SMF.UI.TextBox({
         name: "txtAbsenceMessage",
         text: '',
@@ -93,14 +87,16 @@
     })
     pgMyRequestDetail.add(txtAbsenceMessage);
 
-    //(Device.brandModel.toLowerCase().includes("plus")) ? 80 : 40,
+
+    // Custom icon font
     var myFont = new SMF.UI.Font({
         name: "FontAwesome",
         size: "12pt",
         bold: false
     });
 
-    // delete: "uf08b"
+    // Delete Button
+    // FontAwesome "delete icon" UTF8 code: "uf08b"
     createTextButtonWithCustomFont(pgMyRequestDetail,
         "btnDelete",
         JSON.parse('""'),
@@ -158,12 +154,15 @@
         //We are going w/ dark mode. Our navbar is white.
         SMF.UI.statusBar.style = SMF.UI.StatusBarStyle.DEFAULT;
 
-        addHeaderBar();
+        // Hiding "wait" dialog
+        Dialog.removeWait();
 
+        // Adding header bar (actionbar for Android, navigationbar for iOS)
+        addHeaderBar();
 
         fillVacationMetrics(pgMyRequestDetail.oRequest.TotalDays, pgMyRequestDetail.oRequest.Used, pgMyRequestDetail.oRequest.Remaining);
 
-        // resetting each time
+        // resetting every time
         pgMyRequestDetail.imgAvatar.image = pgMyRequestDetail.oRequest.Avatar;
         pgMyRequestDetail.lblFullName.text = pgMyRequestDetail.oRequest.FullName;
         pgMyRequestDetail.lblTeamRole.text = pgMyRequestDetail.oRequest.Role + " / " + pgMyRequestDetail.oRequest.Team;
@@ -180,6 +179,7 @@
         setDateLabels(selectedStartDate, true);
         setDateLabels(selectedEndDate, false);
 
+        // Calculating the day-count according to given Start and End dates
         calculateDaysBetween();
     }
 
@@ -198,10 +198,8 @@
 
     }
 
-
+    // Setting the date labels according to their relations between each other
     function setDateLabels(date, isStartDate) {
-        // var currentStartDate = pgStatus.myProfile.OutOfOfficeStart;
-        // var currentStartDate = pgStatus.myProfile.OutOfOfficeEnd;
         var _day = ('00' + date.getDate()).right(2);
         var _month = ('00' + (date.getMonth() + 1)).right(2);
         var _year = date.getFullYear().toString().right(2);
@@ -228,6 +226,7 @@
         calculateDaysBetween();
     }
 
+    // Calculates the day-count between Start and End Dates
     function calculateDaysBetween() {
         console.log("selectedStartDate = " + selectedStartDate.format("MM/dd/yyyy"));
         console.log("selectedEndDate = " + selectedEndDate.format("MM/dd/yyyy"));
@@ -288,12 +287,10 @@
         parent.add(boxRemaining);
     }
 
-    // We'll use this function when a new update occurs
+    // We trigger this function when a new update occurs
     function fillVacationMetrics(TotalDays, Used, Remaining) {
         pgMyRequestDetail.cntVacationBoxes.boxTotalDays.lblTotalDays.text = TotalDays;
         pgMyRequestDetail.cntVacationBoxes.boxUsed.lblUsedDays.text = Used;
         pgMyRequestDetail.cntVacationBoxes.boxRemaining.lblRemainingDays.text = Remaining;
     }
-
-
 })();

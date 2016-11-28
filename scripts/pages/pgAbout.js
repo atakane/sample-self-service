@@ -1,4 +1,4 @@
-/* globals smfOracle mcsUser mcsPassword Dialog defaultPageAnimation*/
+/* globals smfOracle mcsUser mcsPassword Dialog defaultPageAnimation reverseDefaultPageAnimation createSliderDrawer oProfile isSliderDrawerOpen HeaderBar*/
 (function() {
 
     var pgAbout = Pages.pgAbout = new SMF.UI.Page({
@@ -23,6 +23,7 @@
         }
     }
 
+    // Home Background
     var imgHome = new SMF.UI.Image({
         name: "imgHome",
         image: "home_back.png",
@@ -83,7 +84,7 @@
         multipleLine: false
     });
 
-
+    // About text
     var lblInfoText = new SMF.UI.Label({
         top: "45%",
         left: "6%",
@@ -107,26 +108,23 @@
     pgAbout.add(lblVersion);
     pgAbout.add(lblInfoText);
 
-
-
     /**
      * Creates action(s) that are run when the page is appeared
      * @param {EventArguments} e Returns some attributes about the specified functions
      * @this Pages.pgLogin
      */
     function pgAbout_onShow() {
-        // SMF.UI.statusBar.style = SMF.UI.StatusBarStyle.LIGHTCONTENT;
+        // Hiding "wait" dialog
         Dialog.removeWait();
 
-
+        // Adding header bar (actionbar for Android, navigationbar for iOS)
         addHeaderBar();
-        
+
+        // Updating logged in user's info on the this page's slider drawer
         pgAbout.sdSelfService.imgSliderAvatar.image = oProfile.Avatar;
         pgAbout.sdSelfService.lblSliderFullName.text = oProfile.FullName;
         pgAbout.sdSelfService.lblSliderTeamRole.text = oProfile.Role + " / " + oProfile.Team;
-
     }
-
 
     // Adding a new navigation or actionbar to the page
     function addHeaderBar() {

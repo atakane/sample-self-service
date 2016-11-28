@@ -1,5 +1,6 @@
-/* globals */
-//TODO: include this file in onStart in pages/index.js Use the code below:
+/* globals createSliderDrawer createImage createRectangle createLabel createAwesomeLabel Dialog createTextButtonWithCustomFont
+lunchBreakDuration daysBetween HeaderBar isSliderDrawerOpen oTimeTable oProfile reverseDefaultPageAnimation
+oRequestList*/
 
 (function() {
     var leaveTypeSelectedIndex;
@@ -14,13 +15,10 @@
         onShow: pgNewLeaveRequest_onShow
     });
 
-
-    // var sliderDrawer = new SliderDrawer();
-    // sliderDrawer.init(Pages.currentPage);
+     // Creating Slider Drawer
     createSliderDrawer(Pages.pgNewLeaveRequest, "sdSelfService");
 
-    // createContainer(pgNewLeaveRequest, "cntVacationBoxes", "0", "64", "100%", "11.46926%", SMF.UI.Color.WHITE, false);
-
+    // Vacation metrics
     var cntVacationBoxes = new SMF.UI.Container({
         name: "cntVacationBoxes",
         left: getUnit(0),
@@ -42,8 +40,8 @@
     createRectangle(pgNewLeaveRequest, 0, "47.4962%", "100%", 1, "#e7e7e7");
     createRectangle(pgNewLeaveRequest, "49.90%", "32.5037%", 1, "14.9925%", "#e7e7e7");
 
-    //Request
-    //Down arrow uf107
+    // Request Details
+    // FontAwesome "Down arrow" UTF8 code: uf107
     createLabel(pgNewLeaveRequest, "lblLeaveTypeText", "LEAVE TYPE", "4.5333%", "23.68815%", "40%", "2.9985%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#248afd");
     createAwesomeLabel(pgNewLeaveRequest, "lblDown1", JSON.parse('""'), "29%", "23.68815%", "10%", "2.9985%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#248afd");
 
@@ -52,14 +50,9 @@
     createLabel(pgNewLeaveRequest, "lblTimeUnitText", "TIME UNIT", "62%", "23.68815%", "30%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
     createAwesomeLabel(pgNewLeaveRequest, "lblDown2", JSON.parse('""'), "90%", "23.68815%", "5%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
 
-
     createLabel(pgNewLeaveRequest, "lblLeaveType", "PERSONAL", "4.5333%", "27.5%", "40%", "2.9985%", SMF.UI.TextAlignment.LEFT, false, "10pt", false, "#4a4a4a", pickLeaveType);
     createLabel(pgNewLeaveRequest, "lblTimeUnit", "DAY", "60.4667%", "27%", "35%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "10pt", false, "#4a4a4a", pickTimeUnit);
-    //
-    //pickTimeUnit
 
-
-    // Dates
     // Start Date
     var cntStarts = new SMF.UI.Container({
         name: "cntStarts",
@@ -68,10 +61,7 @@
         height: "12%",
         width: "29%",
         borderWidth: 0,
-        backgroundTransparent: true //,
-            // onTouchEnded: function(e) {
-            // showDateTimePicker(true);
-            // }
+        backgroundTransparent: true
     });
 
     createLabel(cntStarts, "lblStart", "STARTS", 0, 0, "100%", "15%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#248afd");
@@ -94,10 +84,7 @@
         height: "12%",
         width: "30.6%",
         borderWidth: 0,
-        backgroundTransparent: true //,
-            // onTouchEnded: function(e) {
-            //     showDateTimePicker(false);
-            // }
+        backgroundTransparent: true
     });
 
     // createLabel(cntEnds, "lblEnd", "ENDS", 0, 0, "100%", "15%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
@@ -140,13 +127,15 @@
     })
     pgNewLeaveRequest.add(txtAbsenceMessage);
 
+    // Custom icon font
     var myFont = new SMF.UI.Font({
         name: "FontAwesome",
         size: "12pt",
         bold: false
     });
 
-    // check: uf00c
+    // Save Button
+    // FontAwesome "check icon" UTF8 code: uf00c
     createTextButtonWithCustomFont(pgNewLeaveRequest,
         "btnSave",
         JSON.parse('""'),
@@ -189,7 +178,6 @@
 
                     oRequestList.push(myRequest);
 
-
                     alert({
                         title: 'Request submitted',
                         message: 'Your "Leave of Absence" request has been forwarded for approval.',
@@ -226,11 +214,15 @@
         //We are going w/ dark mode. Our navbar is white.
         SMF.UI.statusBar.style = SMF.UI.StatusBarStyle.DEFAULT;
 
+        // Hiding "wait" dialog
+        Dialog.removeWait();
+
+        // Adding header bar (actionbar for Android, navigationbar for iOS)
         addHeaderBar();
 
         fillVacationMetrics(oTimeTable.TotalDays, oTimeTable.Used, oTimeTable.Remaining);
 
-        // resetting each time
+        // resetting every time
         pgNewLeaveRequest.sdSelfService.imgSliderAvatar.image = oProfile.Avatar;
         pgNewLeaveRequest.sdSelfService.lblSliderFullName.text = oProfile.FullName;
         pgNewLeaveRequest.sdSelfService.lblSliderTeamRole.text = oProfile.Role + " / " + oProfile.Team;
@@ -249,6 +241,7 @@
         setDateLabels(selectedStartDate, true);
         setDateLabels(selectedEndDate, false);
 
+        // Calculating the day-count according to given Start and End dates
         calculateDaysBetween();
     }
 
@@ -258,10 +251,9 @@
         var headerBar = new HeaderBar();
         headerBar.init(Pages.currentPage);
 
-        // console.log(SMF.UI.iOS.NavigationBar.translucent);
         headerBar.setTitleView(Pages.currentPage, "New Leave Request", "#248afd", null, 0, 0, 240, 44, 20);
 
-        // Preparing left items 
+        // Preparing left nav. items 
         if (Device.deviceOS !== "Android") {
             var itemMenu = new SMF.UI.iOS.BarButtonItem({
                 image: 'menu.png',
@@ -282,7 +274,7 @@
     // Showing Date Picker
     function showDateTimePicker(isStartDate) {
         SMF.UI.showDatePicker({
-            currentDate: (isStartDate) ? selectedStartDate : selectedEndDate, //(new Date()).toString(), // date is given with JavaScript date object
+            currentDate: (isStartDate) ? selectedStartDate : selectedEndDate,
             mask: "dd-MM-yyyy",
             minDate: (new Date()),
             maxDate: (new Date()).addDays(365),
@@ -295,7 +287,6 @@
                 setDateLabels(sDate, isStartDate);
             },
             onCancel: function(e) {
-                //alert("Picker cancelled!");
             }
         });
     }
@@ -309,28 +300,18 @@
             minTime: "06:00",
             maxTime: "18:30",
             onSelect: function(e) {
-                console.log(JSON.stringify(e));
                 var t = new Date(e.time);
-                // console.log('--->' + t.getHours() + ':' + ('00' + t.getMinutes()).right(2));)
 
                 var selectedTime = t.format("h:mm TT"); // ie; 6:45 PM
 
                 if (isStartDate) {
-                    console.log("old:" + isStartDate + ", date: " + selectedStartDate);
-
                     selectedStartDate = new Date(selectedStartDate.format("MM/dd/yyyy") + " " + t.format("hh:mm:00"));
                     pgNewLeaveRequest.cntStarts.lblStartTime.text = selectedTime;
-                    console.log("new:" + isStartDate + ", date: " + selectedStartDate);
                 }
                 else {
-
-                    console.log("old: enddate: " + selectedEndDate);
-
                     selectedEndDate = new Date(selectedEndDate.format("MM/dd/yyyy") + " " + t.format("HH:mm:00"));
 
                     pgNewLeaveRequest.cntEnds.lblEndTime.text = selectedTime;
-
-                    console.log("new: enddate: " + selectedEndDate);
                 }
                 calculateHoursBetween();
             },
@@ -338,12 +319,8 @@
         });
     }
 
-    // Assigning label text
+    // Assigning date-labels' texts
     function setDateLabels(date, isStartDate) {
-        console.log("isStartDate:" + isStartDate + ", date: " + date);
-
-        // var currentStartDate = pgStatus.myProfile.OutOfOfficeStart;
-        // var currentStartDate = pgStatus.myProfile.OutOfOfficeEnd;
         var _day = ('00' + date.getDate()).right(2);
         var _month = ('00' + (date.getMonth() + 1)).right(2);
         var _year = date.getFullYear().toString().right(2);
@@ -385,7 +362,7 @@
         calculateDaysBetween();
     }
 
-    // Days/Hours calculation
+    // Calculates the day-count between Start and End Dates
     function calculateDaysBetween() {
         var days = daysBetween(selectedStartDate.format("MM/dd/yyyy"), selectedEndDate.format("MM/dd/yyyy"));
 
@@ -393,15 +370,15 @@
         pgNewLeaveRequest.lblSelectedDaysCountText.text = (days == 1) ? 'day' : 'days';
     }
 
+    // Calculates the hour-count between Start and End Times
     function calculateHoursBetween() {
         var hours = daysBetween(selectedStartDate, selectedEndDate, true) - lunchBreakDuration;
 
         pgNewLeaveRequest.lblSelectedDaysCount.text = hours;
         pgNewLeaveRequest.lblSelectedDaysCountText.text = (hours == 1) ? 'hour' : 'hours';
-        console.log('hours = ' + hours);
     }
 
-
+    // Show Leave-Type picker
     function pickLeaveType() {
         var leaveTypes = ["PERSONAL", "MEDICAL"];
         pick(
@@ -416,6 +393,7 @@
 
     }
 
+    // Show Time-Unit picker
     function pickTimeUnit() {
         var timeUnits = ["DAY", "HOUR"];
         pick(
@@ -472,7 +450,6 @@
 
     }
 
-
     // Drawing day-boxes 
     function createVacationBoxes(parent) {
         var boxTotalDays = new SMF.UI.Container({
@@ -523,7 +500,7 @@
         parent.add(boxRemaining);
     }
 
-    // We'll use this function when a new update occurs
+    // We trigger this function when a new update occurs
     function fillVacationMetrics(TotalDays, Used, Remaining) {
         pgNewLeaveRequest.cntVacationBoxes.boxTotalDays.lblTotalDays.text = TotalDays;
         pgNewLeaveRequest.cntVacationBoxes.boxUsed.lblUsedDays.text = Used;
