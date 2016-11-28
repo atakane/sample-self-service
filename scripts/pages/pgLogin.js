@@ -86,71 +86,71 @@
     }
 
     function pgLogin_btnLogin_onPressed(e) {
-        getUserInfo()
-            // smfOracle.logAnalytics('pgLogin_btnLogin_onPressed');
+        // getUserInfo()
+        smfOracle.logAnalytics('pgLogin_btnLogin_onPressed');
 
-        // this.enabled = false;
-        // btnLogin.fillColor = SMF.UI.Color.GREY;
+        this.enabled = false;
+        btnLogin.fillColor = SMF.UI.Color.GREY;
 
-        // Dialog.showWait();
+        Dialog.showWait();
 
-        // smfOracle.logAnalytics('pgLogin_btnLogin_onPressed');
+        smfOracle.logAnalytics('pgLogin_btnLogin_onPressed');
 
-        // mcsUser = txtUserName.text;
-        // mcsPassword = txtPassword.text;
+        mcsUser = txtUserName.text;
+        mcsPassword = txtPassword.text;
 
-        // if ((mcsUser) && (mcsPassword)) {
-        //     var successCallback = function(e) {
-        //         //analytics log for auth.
-        //         smfOracle.logAnalytics("user authenticated");
+        if ((mcsUser) && (mcsPassword)) {
+            var successCallback = function(e) {
+                //analytics log for auth.
+                smfOracle.logAnalytics("user authenticated");
 
-        //         Dialog.showWait();
+                Dialog.showWait();
 
-        //         //Registering for Push notification
+                //Registering for Push notification
 
-        //         //Resgistering device to Google and Apple servers
-        //         Notifications.remote.registerForPushNotifications({
-        //             OnSuccess: function(e) {
-        //                 //alert("registerForPushNotifications Success:" + JSON.prune(e));
+                //Resgistering device to Google and Apple servers
+                Notifications.remote.registerForPushNotifications({
+                    OnSuccess: function(e) {
+                        //alert("registerForPushNotifications Success:" + JSON.prune(e));
 
-        //                 var registrationID = Notifications.remote.token;
-        //                 var appId = "io.smartface.sample.filemanager";
-        //                 var appVersion = Application.version;
+                        var registrationID = Notifications.remote.token;
+                        var appId = "io.smartface.sample.filemanager";
+                        var appVersion = Application.version;
 
-        //                 //Registering device to Oracle MCS
-        //                 smfOracle.registerNotification(registrationID, appId, appVersion, function(err) {
-        //                     if (!err) getUserInfo();
-        //                 });
+                        //Registering device to Oracle MCS
+                        smfOracle.registerNotification(registrationID, appId, appVersion, function(err) {
+                            if (!err) getUserInfo();
+                        });
 
-        //             },
-        //             OnFailure: function(e) {
-        //                 // alert("registerForPushNotifications Failed:" + JSON.prune(e));
-        //                 // downloading objects from mcs storage
-        //                 getUserInfo();
-        //             }
-        //         });
-        //     };
+                    },
+                    OnFailure: function(e) {
+                        // alert("registerForPushNotifications Failed:" + JSON.prune(e));
+                        // downloading objects from mcs storage
+                        getUserInfo();
+                    }
+                });
+            };
 
-        //     var failureCallback = function(e) {
-        //         //analytics log for auth fail
-        //         smfOracle.logAnalytics('[error] auth failed ' + e);
-        //         console.log(mcsUser + ' authentication failed ' + e);
+            var failureCallback = function(e) {
+                //analytics log for auth fail
+                smfOracle.logAnalytics('[error] auth failed ' + e);
+                console.log(mcsUser + ' authentication failed ' + e);
 
-        //         Dialog.removeWait();
+                Dialog.removeWait();
 
-        //         alert('Username or Password is incorrect, please try again');
-        //         btnLogin.enabled = true;
-        //         btnLogin.fillColor = "#00A1F1";
-        //     }
+                alert('Username or Password is incorrect, please try again');
+                btnLogin.enabled = true;
+                btnLogin.fillColor = "#00A1F1";
+            }
 
-        //     smfOracle.authenticate(mcsUser, mcsPassword, successCallback, failureCallback)
-        // }
-        // else {
-        //     Dialog.removeWait();
-        //     alert('Please enter your username and password.');
-        //     btnLogin.enabled = true;
-        //     btnLogin.fillColor = "#00A1F1";
-        // }
+            smfOracle.authenticate(mcsUser, mcsPassword, successCallback, failureCallback)
+        }
+        else {
+            Dialog.removeWait();
+            alert('Please enter your username and password.');
+            btnLogin.enabled = true;
+            btnLogin.fillColor = "#00A1F1";
+        }
     }
 
     //Downloads collection objects and assign them to repeatbox
@@ -178,13 +178,13 @@
                 command: 'GET'
             }, function(data) {
                 oTimeTable = data;
-                
+
                 // Getting RequestList
                 SMFAjax.getJSON(urlMockServicePath + 'requestlist.json', {
                     command: 'GET'
                 }, function(data) {
                     oRequestList = data;
-                    
+
                     Dialog.removeWait();
                     oProfile && oTimeTable && oRequestList && callback && callback();
                 });

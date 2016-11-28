@@ -181,6 +181,9 @@ targetID filterOutByID oRequestList oProfile reverseDefaultPageAnimation daysBet
 
         // Calculating the day-count according to given Start and End dates
         calculateDaysBetween();
+
+        // Oracle MCS Analytics logging 
+        smfOracle.logAndFlushAnalytics('pgMyRequestDetail_onShow');
     }
 
     // Adding a new navigation or actionbar to the page

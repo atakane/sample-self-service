@@ -1,5 +1,5 @@
 /* globals createSliderDrawer getUnit defaultPageAnimation createImage oProfile oTimeTable HeaderBar
-createLabel isSliderDrawerOpen*/
+createLabel isSliderDrawerOpen smfOracle*/
 (function() {
 
     var pgStatus = Pages.pgStatus = new SMF.UI.Page({
@@ -287,7 +287,10 @@ createLabel isSliderDrawerOpen*/
         pgStatus.lblTeamRole.text = pgStatus.sdSelfService.lblSliderTeamRole.text = oProfile.Role + " / " + oProfile.Team;
         pgStatus.cntOutOfOfficeBar.swtOutOfOffice.checked = oProfile.OutOfOffice;
         pgStatus.cntOutOfOfficeBar.lblOOOStatusText.text = (oProfile.OutOfOffice) ? "Mode On" : "Mode Off";
-        pgStatus.cntOutOfOfficeBar.lblOOOStatusText.fontColor = (oProfile.OutOfOffice) ? "#27bc66" : "#37404a"
+        pgStatus.cntOutOfOfficeBar.lblOOOStatusText.fontColor = (oProfile.OutOfOffice) ? "#27bc66" : "#37404a"  
+        
+        // Oracle MCS Analytics logging 
+        smfOracle.logAndFlushAnalytics('pgStatus_onShow');
     }
 
     // Used days bar

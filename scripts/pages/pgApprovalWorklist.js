@@ -1,4 +1,5 @@
-/* globals smfOracle mcsUser mcsPassword Dialog defaultPageAnimation*/
+/* globals smfOracle mcsUser mcsPassword Dialog defaultPageAnimation createSliderDrawer reverseDefaultPageAnimation
+oProfile*/
 (function() {
     var arrayRequests;
     var pgApprovalWorklist = Pages.pgApprovalWorklist = new SMF.UI.Page({
@@ -8,8 +9,7 @@
         backgroundImage: 'stripe.png'
     });
 
-    // var sliderDrawer = new SliderDrawer();
-    // sliderDrawer.init(Pages.currentPage);
+    // Creating Slider Drawer
     createSliderDrawer(Pages.pgApprovalWorklist, "sdSelfService");
 
 
@@ -23,7 +23,6 @@
         showScrollbar: true,
         autoSize: false,
         touchEnabled: true,
-        //onSelectedItem: _onSelectedItem,
         enableScroll: true,
         backgroundTransparent: false,
         enablePullUpToRefresh: false,
@@ -31,44 +30,13 @@
         useActiveItem: false,
         allowDeletingItem: false,
         onSelectedItem: function(e) {
-                Pages.pgApproveLeaveRequest.recordID = e.rowIndex;
-                Pages.pgApproveLeaveRequest.oRequest = arrayRequests[e.rowIndex];
-                Pages.pgApproveLeaveRequest.show(defaultPageAnimation);
-            }
-            // onPullDown: function(e) {
-            //     Dialog.showWait();
-            //     displayApprovalRequests();
-            // }
+            Pages.pgApproveLeaveRequest.recordID = e.rowIndex;
+            Pages.pgApproveLeaveRequest.oRequest = arrayRequests[e.rowIndex];
+            Pages.pgApproveLeaveRequest.show(defaultPageAnimation);
+        }
     });
 
-
-    // //an activity indicator for pulldown action on file repeatbox
-    // var aiPullDown = new SMF.UI.ActivityIndicator({
-    //     top: "0%",
-    //     left: "45%",
-    //     widht: "10%",
-    //     height: "10%",
-    //     style: SMF.UI.ActivityIndicatorStyle.GRAY,
-    // });
-    // rptApprovalList.pullDownItem.add(aiPullDown);
-    // rptApprovalList.pullDownItemTemplate.fillColor = "#FFFFFF";
-
-
-
-
-    // Adding a container layer on top of the date to be touchable as a single object
-    // var cntTotalDays = new SMF.UI.Container({
-    //     name: "cntTotalDays",
-    //     left: 0,
-    //     top: 0,
-    //     width: "27%",
-    //     height: "100%",
-    //     backgroundTransparent: true,
-    //     touchEnabled: false,
-    //     borderWidth: 0,
-    //     roundedEdge: 0
-    // });
-
+    // Profile
     var imgAvatar = new SMF.UI.Image({
         name: "imgAvatar",
         image: "avatar.png",
@@ -196,7 +164,6 @@
     rptApprovalList.pullDownItem.height = "8%";
 
     //onRowRender will work for each item bound
-
     rptApprovalList.onRowRender = function(e) {
         // {
         // "ID" : 1,
@@ -262,7 +229,7 @@
 
         // Adding header bar (actionbar for Android, navigationbar for iOS)
         addHeaderBar();
-        
+
         // Updating logged in user's info on the this page's slider drawer
         pgApprovalWorklist.sdSelfService.imgSliderAvatar.image = oProfile.Avatar;
         pgApprovalWorklist.sdSelfService.lblSliderFullName.text = oProfile.FullName;
@@ -270,6 +237,8 @@
 
         displayApprovalRequests();
 
+        // Oracle MCS Analytics logging 
+        smfOracle.logAndFlushAnalytics('pgAbout_onShow');
     }
 
 

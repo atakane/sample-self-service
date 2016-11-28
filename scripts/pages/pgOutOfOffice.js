@@ -175,6 +175,9 @@ HeaderBar isSliderDrawerOpen templateOutOfOfficeText Dialog isDate
 
         // Calculating the day-count according to given Start and End dates
         calculateDaysBetween();
+        
+        // Oracle MCS Analytics logging 
+        smfOracle.logAndFlushAnalytics('pgOutOfOffice_onShow');
     }
 
     // Setting initial Out Of Office message as a template if app is opened first time

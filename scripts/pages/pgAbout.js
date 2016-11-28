@@ -124,6 +124,9 @@
         pgAbout.sdSelfService.imgSliderAvatar.image = oProfile.Avatar;
         pgAbout.sdSelfService.lblSliderFullName.text = oProfile.FullName;
         pgAbout.sdSelfService.lblSliderTeamRole.text = oProfile.Role + " / " + oProfile.Team;
+
+        // Oracle MCS Analytics logging 
+        smfOracle.logAndFlushAnalytics('pgAbout_onShow');
     }
 
     // Adding a new navigation or actionbar to the page

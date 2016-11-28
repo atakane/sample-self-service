@@ -15,7 +15,8 @@ oRequestList*/
         onShow: pgNewLeaveRequest_onShow
     });
 
-     // Creating Slider Drawer
+    // var sliderDrawer = new SliderDrawer();
+    // sliderDrawer.init(Pages.currentPage);
     createSliderDrawer(Pages.pgNewLeaveRequest, "sdSelfService");
 
     // Vacation metrics
@@ -243,6 +244,9 @@ oRequestList*/
 
         // Calculating the day-count according to given Start and End dates
         calculateDaysBetween();
+        
+        // Oracle MCS Analytics logging 
+        smfOracle.logAndFlushAnalytics('pgNewLeaveRequest_onShow');
     }
 
     // Adding a new navigation or actionbar to the page
@@ -286,8 +290,7 @@ oRequestList*/
                     pgNewLeaveRequest.cntStarts.lblStartTime.text = pgNewLeaveRequest.cntEnds.lblEndTime.text = "";
                 setDateLabels(sDate, isStartDate);
             },
-            onCancel: function(e) {
-            }
+            onCancel: function(e) {}
         });
     }
 

@@ -1,4 +1,4 @@
-/* globals lang */
+/* globals lang defaultPageAnimation Dialog*/
 include('i18n/i18n.js');
 include('libs/utils/smartface.tiny.utils.js');
 
@@ -65,29 +65,6 @@ function Application_OnError(e) {
 			break;
 	}
 }
-
-// function getDataFromService(){
-// 	// Getting oProfile
-// 	SMFAjax.getJSON(urlMockServicePath + 'profile.json', {
-// 		command: 'GET'
-// 	}, function(data) {
-// 		oProfile = data;
-// 	});
-
-// 	// Getting TimeTable
-// 	SMFAjax.getJSON(urlMockServicePath + 'timetable.json', {
-// 		command: 'GET'
-// 	}, function(data) {
-// 		oTimeTable = data;
-// 	});
-
-// 	// Getting RequestList
-// 	SMFAjax.getJSON(urlMockServicePath + 'requestlist.json', {
-// 		command: 'GET'
-// 	}, function(data) {
-// 		oRequestList = data;
-// 	});
-// }
 
 // Checking for Remote App Update 
 function checkforUpdate() {

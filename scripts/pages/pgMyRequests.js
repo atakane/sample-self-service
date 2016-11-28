@@ -12,7 +12,7 @@ reverseDefaultPageAnimation getUnit HeaderBar*/
     // Creating Slider Drawer
     createSliderDrawer(Pages.pgMyRequests, "sdSelfService");
 
-    //creating a repeatbox to show our files
+    // Creating a repeatbox to show our requests
     var rptApprovalList = new SMF.UI.RepeatBox({
         name: 'rptApprovalList',
         top: Device.deviceOS == "Android" ? "64" : "64", //navbar is translucent
@@ -240,6 +240,7 @@ reverseDefaultPageAnimation getUnit HeaderBar*/
     //adding repeatbox to the page
     pgMyRequests.add(rptApprovalList);
 
+    // If you want, you can add some legend here
     // createLabel(pgMyRequests, 'lblLegend', 'W: Waiting\nA: Approved\nR: Rejected', "5%", "0%", "90%", "10%", SMF.UI.TextAlignment.LEFT, true, "5pt", false, "#979797");
 
     //adding label for no-data
@@ -291,7 +292,8 @@ reverseDefaultPageAnimation getUnit HeaderBar*/
 
         displayApprovalRequests();
 
-        // pgMyRequests.lblLegend.top  = pgMyRequests.rptApprovalList.top + pgMyRequests.rptApprovalList.height;
+        // Oracle MCS Analytics logging 
+        smfOracle.logAndFlushAnalytics('pgMyRequests_onShow');
     }
 
 
