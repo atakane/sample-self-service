@@ -7,6 +7,19 @@
         return this.substring(this.length - n, this.length);
     }
 
+	//http://stackoverflow.com/a/18405800
+	// First, checks if it isn't implemented yet.
+	if (!String.prototype.format) {
+		String.prototype.format = function() {
+			var args = arguments;
+			return this.replace(/{(\d+)}/g, function(match, number) {
+				return typeof args[number] != 'undefined' ?
+					args[number] :
+					match;
+			});
+		};
+	}
+	
     Date.prototype.addDays = function(days) {
         this.setDate(this.getDate() + parseInt(days));
         return this;
@@ -63,7 +76,6 @@ function createRectangle(parent, left, top, width, height, fillColor) {
     parent.add(recTemp);
 }
 
-
 function createImage(parent, name, image, left, top, width, height, imageFillType) {
     var imgTemp = new SMF.UI.Image({
         name: name,
@@ -88,6 +100,32 @@ function createLabel(parent, name, text, left, top, width, height, textAlignment
         textAlignment: textAlignment,
         multipleLine: multipleLine,
         font: new SMF.UI.Font({
+            size: fontSize,
+            bold: fontBold
+        }),
+        fontColor: fontColor,
+        borderWidth: 0
+    });
+    if (onTouchEnded) {
+        lblTemp.touchEnabled = true;
+        lblTemp.onTouchEnded = onTouchEnded;
+    }
+
+    parent.add(lblTemp);
+}
+
+function createAwesomeLabel(parent, name, text, left, top, width, height, textAlignment, multipleLine, fontSize, fontBold, fontColor, onTouchEnded) {
+    var lblTemp = new SMF.UI.Label({
+        name: name,
+        text: text,
+        left: getUnit(left),
+        top: getUnit(top),
+        width: getUnit(width),
+        height: getUnit(height),
+        textAlignment: textAlignment,
+        multipleLine: multipleLine,
+        font: new SMF.UI.Font({
+            name: "FontAwesome",
             size: fontSize,
             bold: fontBold
         }),
@@ -144,7 +182,6 @@ function createTextButtonWithCustomFont(parent, name, text, left, top, width, he
     });
     parent.add(btnTemp);
 }
-
 
 function formatBytes(bytes, decimals) {
     if (bytes == 0) return '0 Byte';
@@ -254,7 +291,6 @@ var animationCover = {
     fade: false,
     reset: false
 };
-
 var defaultPageAnimation = {
     motionEase: SMF.UI.MotionEase.NONE,
     transitionEffect: SMF.UI.TransitionEffect.RIGHTTOLEFT,
@@ -263,7 +299,6 @@ var defaultPageAnimation = {
     reset: false,
     duration: 300 //Device.deviceOS === "iOS" ? 300 : 600
 }
-
 var reverseDefaultPageAnimation = {
     motionEase: SMF.UI.MotionEase.ACCELERATEANDDECELERATE,
     transitionEffect: SMF.UI.TransitionEffect.LEFTTORIGHT,
@@ -361,7 +396,6 @@ function formatDate(date, format, utc) {
     return format;
 };
 
-
 // Days between 2 dates calculation with UTC calculations
 // Based on http://stackoverflow.com/a/11252167/4371020
 function treatAsUTC(date) {
@@ -409,3 +443,4 @@ function filterOutByID(obj) {
     return true;
   }
 }
+
