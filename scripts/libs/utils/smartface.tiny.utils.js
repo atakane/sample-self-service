@@ -406,7 +406,7 @@ function treatAsUTC(date) {
 
 function daysBetween(startDate, endDate, calculateAsHours) {
     var millisecondsPerDay = 24 * 60 * 60 * 1000;
-    return (treatAsUTC(endDate) - treatAsUTC(startDate)) / ((calculateAsHours) ? millisecondsPerDay / 24 : millisecondsPerDay);
+    return Math.round((treatAsUTC(endDate) - treatAsUTC(startDate)) / ((calculateAsHours) ? millisecondsPerDay / 24 : millisecondsPerDay));
 }
 
 function getDateString(date) {

@@ -13,9 +13,9 @@ var oProfile;
 var oTimeTable;
 var oRequestList;
 var templateOutOfOfficeText = "Hello,\n\nI'm currently out of the office but I will return on {EndDate}. I will respond to your inquiry as soon as possible.\n\nBest\n{FullName}\n{Role}/{Team}";
+var lunchBreakDuration = 1;
 
 var isSliderDrawerOpen = false;
-console.log("isSliderDrawerOpen = " + isSliderDrawerOpen);
 
 /**
  * Triggered when application is started.

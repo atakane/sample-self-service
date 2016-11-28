@@ -66,19 +66,23 @@
         left: "4.53%",
         top: "34.8%",
         height: "12%",
-        width: "27.6%",
+        width: "29%",
         borderWidth: 0,
-        backgroundTransparent: true,
-        onTouchEnded: function(e) {
-            showDateTimePicker(true);
-        }
+        backgroundTransparent: true //,
+            // onTouchEnded: function(e) {
+            // showDateTimePicker(true);
+            // }
     });
 
     createLabel(cntStarts, "lblStart", "STARTS", 0, 0, "100%", "15%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#248afd");
     createAwesomeLabel(cntStarts, "lblDown3", JSON.parse('""'), "60%", 0, "50%", "15%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#248afd");
 
-    createLabel(cntStarts, "lblStartDate", "-", 0, "30%", "100%", "30%", SMF.UI.TextAlignment.LEFT, false, "12pt", false, "#4a4a4a");
-    createLabel(cntStarts, "lblStartTime", "", 0, "70%", "100%", "20%", SMF.UI.TextAlignment.RIGHT, false, "8pt", false, "#4a4a4a");
+    createLabel(cntStarts, "lblStartDate", "-", 0, "30%", "100%", "30%", SMF.UI.TextAlignment.LEFT, false, "12pt", false, "#4a4a4a", function() {
+        showDateTimePicker(true);
+    });
+    createLabel(cntStarts, "lblStartTime", "", 0, "70%", "100%", "20%", SMF.UI.TextAlignment.RIGHT, false, "8pt", false, "#4a4a4a", function() {
+        showTimePicker(true);
+    });
 
     pgNewLeaveRequest.add(cntStarts);
 
@@ -90,10 +94,10 @@
         height: "12%",
         width: "30.6%",
         borderWidth: 0,
-        backgroundTransparent: true,
-        onTouchEnded: function(e) {
-            showDateTimePicker(false);
-        }
+        backgroundTransparent: true //,
+            // onTouchEnded: function(e) {
+            //     showDateTimePicker(false);
+            // }
     });
 
     // createLabel(cntEnds, "lblEnd", "ENDS", 0, 0, "100%", "15%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
@@ -101,8 +105,12 @@
     createLabel(cntEnds, "lblEnd", "ENDS", 0, 0, "87%", "15%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
     createAwesomeLabel(cntEnds, "lblDown4", JSON.parse('""'), 0, 0, "97%", "15%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
 
-    createLabel(cntEnds, "lblEndDate", "11.25.16", 0, "30%", "100%", "30%", SMF.UI.TextAlignment.RIGHT, false, "12pt", false, "#4a4a4a");
-    createLabel(cntEnds, "lblEndTime", "", 0, "70%", "100%", "20%", SMF.UI.TextAlignment.RIGHT, false, "8pt", false, "#4a4a4a");
+    createLabel(cntEnds, "lblEndDate", "11.25.16", 0, "30%", "100%", "30%", SMF.UI.TextAlignment.RIGHT, false, "12pt", false, "#4a4a4a", function() {
+        showDateTimePicker(false);
+    });
+    createLabel(cntEnds, "lblEndTime", "", 0, "70%", "100%", "20%", SMF.UI.TextAlignment.RIGHT, false, "8pt", false, "#4a4a4a", function() {
+        showTimePicker(false);
+    });
 
     pgNewLeaveRequest.add(cntEnds);
 
@@ -158,7 +166,7 @@
                     oProfile.LeaveRequestCount = oProfile.LeaveRequestCount + 1;
                     oProfile.LastRequestStartDate = selectedStartDate;
                     oProfile.LastRequestID = oProfile.LastRequestID + 1;
-                    
+
                     //Sample Mock Request 
                     var myRequest = {
                         "ID": oProfile.LastRequestID,
@@ -271,6 +279,7 @@
 
     }
 
+    // Showing Date Picker
     function showDateTimePicker(isStartDate) {
         SMF.UI.showDatePicker({
             currentDate: (isStartDate) ? selectedStartDate : selectedEndDate, //(new Date()).toString(), // date is given with JavaScript date object
@@ -281,33 +290,9 @@
             onSelect: function(e) {
                 var sDate = new Date(e.date);
 
-                setDateLabels(sDate, isStartDate);
-
-                if (pgNewLeaveRequest.lblTimeUnit.text === "HOUR") {
-                    SMF.UI.showTimePicker({
-                        currentTime: (isStartDate) ? "07:00" : "18:30",
-                        hourViewFormat24: true,
-                        minuteInterval: 5,
-                        minTime: "06:00",
-                        maxTime: "18:30",
-                        onSelect: function(e) {
-                            var t = new Date(e.time);
-                            var selectedTime = t.format("h:mm TT"); // ie; 6:45 PM
-
-                            if (isStartDate) {
-                                pgNewLeaveRequest.cntStarts.lblStartTime.text = selectedTime;
-                            }
-                            else {
-                                pgNewLeaveRequest.cntEnds.lblEndTime.text = selectedTime;
-                            }
-                        },
-                        onCancel: function() {}
-                    });
-
-                }
-                else {
+                if (pgNewLeaveRequest.lblTimeUnit.text === "DAY")
                     pgNewLeaveRequest.cntStarts.lblStartTime.text = pgNewLeaveRequest.cntEnds.lblEndTime.text = "";
-                }
+                setDateLabels(sDate, isStartDate);
             },
             onCancel: function(e) {
                 //alert("Picker cancelled!");
@@ -315,7 +300,48 @@
         });
     }
 
+    // Showing Time Picker
+    function showTimePicker(isStartDate) {
+        SMF.UI.showTimePicker({
+            currentTime: (isStartDate) ? "07:00" : "18:30",
+            hourViewFormat24: true,
+            minuteInterval: 5,
+            minTime: "06:00",
+            maxTime: "18:30",
+            onSelect: function(e) {
+                console.log(JSON.stringify(e));
+                var t = new Date(e.time);
+                // console.log('--->' + t.getHours() + ':' + ('00' + t.getMinutes()).right(2));)
+
+                var selectedTime = t.format("h:mm TT"); // ie; 6:45 PM
+
+                if (isStartDate) {
+                    console.log("old:" + isStartDate + ", date: " + selectedStartDate);
+
+                    selectedStartDate = new Date(selectedStartDate.format("MM/dd/yyyy") + " " + t.format("hh:mm:00"));
+                    pgNewLeaveRequest.cntStarts.lblStartTime.text = selectedTime;
+                    console.log("new:" + isStartDate + ", date: " + selectedStartDate);
+                }
+                else {
+
+                    console.log("old: enddate: " + selectedEndDate);
+
+                    selectedEndDate = new Date(selectedEndDate.format("MM/dd/yyyy") + " " + t.format("HH:mm:00"));
+
+                    pgNewLeaveRequest.cntEnds.lblEndTime.text = selectedTime;
+
+                    console.log("new: enddate: " + selectedEndDate);
+                }
+                calculateHoursBetween();
+            },
+            onCancel: function() {}
+        });
+    }
+
+    // Assigning label text
     function setDateLabels(date, isStartDate) {
+        console.log("isStartDate:" + isStartDate + ", date: " + date);
+
         // var currentStartDate = pgStatus.myProfile.OutOfOfficeStart;
         // var currentStartDate = pgStatus.myProfile.OutOfOfficeEnd;
         var _day = ('00' + date.getDate()).right(2);
@@ -324,28 +350,32 @@
 
         var _time = date.format("h:mm TT");
 
-        if (pgNewLeaveRequest.lblTimeUnit.text === "HOUR") {
-            if (isStartDate) {
-                pgNewLeaveRequest.cntStarts.lblStartTime.text = _time;
-            }
-            else {
-                pgNewLeaveRequest.cntEnds.lblEndTime.text = _time;
-            }
-        }
 
         if (isStartDate) {
-            if (date < selectedEndDate) {
-                pgNewLeaveRequest.cntStarts.lblStartDate.text = _month + "." + _day + "." + _year;
-                selectedStartDate = date;
+            if (pgNewLeaveRequest.lblTimeUnit.text === "DAY") {
+                if (date < selectedEndDate) {
+                    pgNewLeaveRequest.cntStarts.lblStartDate.text = _month + "." + _day + "." + _year;
+                    selectedStartDate = date;
+                }
+                else {
+                    alert('"Start Date" should be prior to "End Date"');
+                }
             }
             else {
-                alert('"Start Date" should be prior to "End Date"');
+                // If TimeUnit is HOUR then EndDate = StartDate
+                pgNewLeaveRequest.cntStarts.lblStartTime.text = _time;
+                pgNewLeaveRequest.cntStarts.lblStartDate.text = pgNewLeaveRequest.cntStarts.lblStartDate.text = _month + "." + _day + "." + _year;
+                selectedStartDate = selectedEndDate = date;
             }
         }
         else {
             if (date > selectedStartDate) {
                 pgNewLeaveRequest.cntEnds.lblEndDate.text = _month + "." + _day + "." + _year;
                 selectedEndDate = date;
+
+                if (pgNewLeaveRequest.lblTimeUnit.text === "HOUR") {
+                    pgNewLeaveRequest.cntEnds.lblEndTime.text = _time;
+                }
             }
             else {
                 alert('"End Date" should be after "Start Date"');
@@ -355,21 +385,93 @@
         calculateDaysBetween();
     }
 
+    // Days/Hours calculation
     function calculateDaysBetween() {
-        if (pgNewLeaveRequest.lblTimeUnit.text === "HOUR") {
-            var hours = daysBetween(selectedStartDate, selectedEndDate, true);
+        var days = daysBetween(selectedStartDate.format("MM/dd/yyyy"), selectedEndDate.format("MM/dd/yyyy"));
 
-            pgNewLeaveRequest.lblSelectedDaysCount.text = hours;
-            pgNewLeaveRequest.lblSelectedDaysCountText.text = (hours == 1) ? 'hour' : 'hours';
-        }
-        else {
-            var days = daysBetween(selectedStartDate.format("MM/dd/yyyy"), selectedEndDate.format("MM/dd/yyyy"));
-
-            pgNewLeaveRequest.lblSelectedDaysCount.text = days;
-            pgNewLeaveRequest.lblSelectedDaysCountText.text = (days == 1) ? 'day' : 'days';
-
-        }
+        pgNewLeaveRequest.lblSelectedDaysCount.text = days;
+        pgNewLeaveRequest.lblSelectedDaysCountText.text = (days == 1) ? 'day' : 'days';
     }
+
+    function calculateHoursBetween() {
+        var hours = daysBetween(selectedStartDate, selectedEndDate, true) - lunchBreakDuration;
+
+        pgNewLeaveRequest.lblSelectedDaysCount.text = hours;
+        pgNewLeaveRequest.lblSelectedDaysCountText.text = (hours == 1) ? 'hour' : 'hours';
+        console.log('hours = ' + hours);
+    }
+
+
+    function pickLeaveType() {
+        var leaveTypes = ["PERSONAL", "MEDICAL"];
+        pick(
+            leaveTypes,
+            (leaveTypeSelectedIndex) ? leaveTypeSelectedIndex : 0,
+            function(e) {
+                pgNewLeaveRequest.lblLeaveType.text = leaveTypes[e.index];
+                leaveTypeSelectedIndex = e.index;
+            },
+            function() {}
+        );
+
+    }
+
+    function pickTimeUnit() {
+        var timeUnits = ["DAY", "HOUR"];
+        pick(
+            timeUnits,
+            (timeUnitSelectedIndex) ? timeUnitSelectedIndex : 0,
+            function(e) {
+                pgNewLeaveRequest.lblTimeUnit.text = timeUnits[e.index];
+                timeUnitSelectedIndex = e.index;
+
+                if (timeUnits[e.index] === "HOUR") {
+                    var newStartDate = new Date(selectedStartDate);
+                    newStartDate.setHours(9);
+                    newStartDate.setMinutes(0);
+
+                    selectedStartDate = newStartDate;
+                    setDateLabels(newStartDate, true);
+
+                    var newEndDate = new Date(selectedStartDate);
+                    newEndDate.setHours(18);
+                    newEndDate.setMinutes(00);
+
+                    selectedEndDate = newEndDate;
+                    setDateLabels(newEndDate, false);
+
+                    //disabling EndDate, it should be same as StartDate
+                    pgNewLeaveRequest.cntEnds.lblEndDate.fontColor = "#a0a0a0";
+                    pgNewLeaveRequest.cntEnds.lblEndDate.touchEnabled = false;
+                    calculateHoursBetween();
+                }
+                else {
+                    var newStartDate = new Date(selectedStartDate);
+                    newStartDate.setHours(0);
+                    newStartDate.setMinutes(0);
+
+                    selectedStartDate = newStartDate;
+                    setDateLabels(newStartDate, true);
+
+                    var newEndDate = new Date(selectedEndDate);
+                    newEndDate.setHours(23);
+                    newEndDate.setMinutes(59);
+
+                    selectedEndDate = newEndDate;
+                    setDateLabels(newEndDate, false);
+
+
+                    //enabling EndDate access
+                    pgNewLeaveRequest.cntEnds.lblEndDate.fontColor = "#4a4a4a";
+                    pgNewLeaveRequest.cntEnds.lblEndDate.touchEnabled = true;
+
+                }
+            },
+            function() {}
+        );
+
+    }
+
 
     // Drawing day-boxes 
     function createVacationBoxes(parent) {
@@ -426,65 +528,5 @@
         pgNewLeaveRequest.cntVacationBoxes.boxTotalDays.lblTotalDays.text = TotalDays;
         pgNewLeaveRequest.cntVacationBoxes.boxUsed.lblUsedDays.text = Used;
         pgNewLeaveRequest.cntVacationBoxes.boxRemaining.lblRemainingDays.text = Remaining;
-    }
-
-    function pickLeaveType() {
-        var leaveTypes = ["PERSONAL", "MEDICAL"];
-        pick(
-            leaveTypes,
-            (leaveTypeSelectedIndex) ? leaveTypeSelectedIndex : 0,
-            function(e) {
-                pgNewLeaveRequest.lblLeaveType.text = leaveTypes[e.index];
-                leaveTypeSelectedIndex = e.index;
-            },
-            function() {}
-        );
-
-    }
-
-    function pickTimeUnit() {
-        var timeUnits = ["DAY", "HOUR"];
-        pick(
-            timeUnits,
-            (timeUnitSelectedIndex) ? timeUnitSelectedIndex : 0,
-            function(e) {
-                pgNewLeaveRequest.lblTimeUnit.text = timeUnits[e.index];
-                timeUnitSelectedIndex = e.index;
-
-                if (timeUnits[e.index] === "HOUR") {
-                    var newStartDate = new Date(selectedStartDate);
-                    newStartDate.setHours(9);
-                    newStartDate.setMinutes(0);
-
-                    selectedStartDate = newStartDate;
-                    setDateLabels(newStartDate, true);
-
-                    var newEndDate = new Date(selectedStartDate);
-                    newEndDate.setHours(18);
-                    newEndDate.setMinutes(00);
-
-                    selectedEndDate = newEndDate;
-                    setDateLabels(newEndDate, false);
-                }
-                else {
-                    var newStartDate = new Date(selectedStartDate);
-                    newStartDate.setHours(0);
-                    newStartDate.setMinutes(0);
-
-                    selectedStartDate = newStartDate;
-                    setDateLabels(newStartDate, true);
-
-                    var newEndDate = new Date(selectedEndDate);
-                    newEndDate.setHours(23);
-                    newEndDate.setMinutes(59);
-
-                    selectedEndDate = newEndDate;
-                    setDateLabels(newEndDate, false);
-
-                }
-            },
-            function() {}
-        );
-
     }
 })();
