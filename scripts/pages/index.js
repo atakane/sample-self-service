@@ -13,7 +13,7 @@ include("libs/utils/sliderdrawer.js");
 include('pages/pgStatus.js');
 include('pages/pgOutOfOffice.js');
 include('pages/pgAbout.js');
-include("pages/pgLeaveRequest.js");
+include("pages/pgNewLeaveRequest.js");
 include("pages/pgApprovalWorklist.js");
 include("pages/pgApproveLeaveRequest.js");
 include("pages/pgMyRequests.js");

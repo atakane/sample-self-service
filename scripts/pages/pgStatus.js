@@ -257,7 +257,7 @@
         }),
         imageFillType: SMF.UI.ImageFillType.ASPECTFIT,
         onTouchEnded: function(e) {
-            Pages.pgLeaveRequest.show(defaultPageAnimation);
+            Pages.pgNewLeaveRequest.show(defaultPageAnimation);
         }
     });
     pgStatus.add(imgAdd);

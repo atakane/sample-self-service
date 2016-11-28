@@ -14,7 +14,7 @@
     });
 
 
-    // createContainer(pgLeaveRequest, "cntVacationBoxes", "0", "64", "100%", "11.46926%", SMF.UI.Color.WHITE, false);
+    // createContainer(pgNewLeaveRequest, "cntVacationBoxes", "0", "64", "100%", "11.46926%", SMF.UI.Color.WHITE, false);
 
 
     //Profile

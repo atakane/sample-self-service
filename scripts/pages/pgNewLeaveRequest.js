@@ -8,18 +8,18 @@
     var selectedStartDate;
     var selectedEndDate;
 
-    var pgLeaveRequest = Pages.pgLeaveRequest = new SMF.UI.Page({
-        name: "pgLeaveRequest",
-        onKeyPress: pgLeaveRequest_onKeyPress,
-        onShow: pgLeaveRequest_onShow
+    var pgNewLeaveRequest = Pages.pgNewLeaveRequest = new SMF.UI.Page({
+        name: "pgNewLeaveRequest",
+        onKeyPress: pgNewLeaveRequest_onKeyPress,
+        onShow: pgNewLeaveRequest_onShow
     });
 
 
     // var sliderDrawer = new SliderDrawer();
     // sliderDrawer.init(Pages.currentPage);
-    createSliderDrawer(Pages.pgLeaveRequest, "sdSelfService");
+    createSliderDrawer(Pages.pgNewLeaveRequest, "sdSelfService");
 
-    // createContainer(pgLeaveRequest, "cntVacationBoxes", "0", "64", "100%", "11.46926%", SMF.UI.Color.WHITE, false);
+    // createContainer(pgNewLeaveRequest, "cntVacationBoxes", "0", "64", "100%", "11.46926%", SMF.UI.Color.WHITE, false);
 
     var cntVacationBoxes = new SMF.UI.Container({
         name: "cntVacationBoxes",
@@ -32,23 +32,23 @@
         borderWidth: 0,
         roundedEdge: 0
     });
-    pgLeaveRequest.add(cntVacationBoxes);
+    pgNewLeaveRequest.add(cntVacationBoxes);
 
     createVacationBoxes(cntVacationBoxes);
 
     //Lines
-    createImage(pgLeaveRequest, "imgShadowLine", "shadow_line.png", "0", "21.0644%", "100%", "6", SMF.UI.ImageFillType.STRETCH);
-    createRectangle(pgLeaveRequest, 0, "32.5037%", "100%", 1, "#e7e7e7");
-    createRectangle(pgLeaveRequest, 0, "47.4962%", "100%", 1, "#e7e7e7");
-    createRectangle(pgLeaveRequest, "49.90%", "32.5037%", 1, "14.9925%", "#e7e7e7");
+    createImage(pgNewLeaveRequest, "imgShadowLine", "shadow_line.png", "0", "21.0644%", "100%", "6", SMF.UI.ImageFillType.STRETCH);
+    createRectangle(pgNewLeaveRequest, 0, "32.5037%", "100%", 1, "#e7e7e7");
+    createRectangle(pgNewLeaveRequest, 0, "47.4962%", "100%", 1, "#e7e7e7");
+    createRectangle(pgNewLeaveRequest, "49.90%", "32.5037%", 1, "14.9925%", "#e7e7e7");
 
     //Request
 
-    createLabel(pgLeaveRequest, "lblLeaveTypeText", "LEAVE TYPE", "4.5333%", "23.68815%", "40%", "2.9985%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#248afd");
-    createLabel(pgLeaveRequest, "lblTimeUnitText", "TIME UNIT", "60.4667%", "23.68815%", "35%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
+    createLabel(pgNewLeaveRequest, "lblLeaveTypeText", "LEAVE TYPE", "4.5333%", "23.68815%", "40%", "2.9985%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#248afd");
+    createLabel(pgNewLeaveRequest, "lblTimeUnitText", "TIME UNIT", "60.4667%", "23.68815%", "35%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "7pt", false, "#248afd");
 
-    createLabel(pgLeaveRequest, "lblLeaveType", "ANNUAL", "4.5333%", "27.5%", "40%", "2.9985%", SMF.UI.TextAlignment.LEFT, false, "10pt", false, "#4a4a4a", pickLeaveType);
-    createLabel(pgLeaveRequest, "lblTimeUnit", "DAY", "60.4667%", "27%", "35%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "10pt", false, "#4a4a4a", pickTimeUnit);
+    createLabel(pgNewLeaveRequest, "lblLeaveType", "ANNUAL", "4.5333%", "27.5%", "40%", "2.9985%", SMF.UI.TextAlignment.LEFT, false, "10pt", false, "#4a4a4a", pickLeaveType);
+    createLabel(pgNewLeaveRequest, "lblTimeUnit", "DAY", "60.4667%", "27%", "35%", "2.9985%", SMF.UI.TextAlignment.RIGHT, false, "10pt", false, "#4a4a4a", pickTimeUnit);
 
     //pickTimeUnit
 
@@ -72,7 +72,7 @@
     createLabel(cntStarts, "lblStartDate", "-", 0, "30%", "100%", "30%", SMF.UI.TextAlignment.LEFT, false, "12pt", false, "#4a4a4a");
     createLabel(cntStarts, "lblStartTime", "", 0, "70%", "100%", "20%", SMF.UI.TextAlignment.RIGHT, false, "8pt", false, "#4a4a4a");
 
-    pgLeaveRequest.add(cntStarts);
+    pgNewLeaveRequest.add(cntStarts);
 
     // End Date
     var cntEnds = new SMF.UI.Container({
@@ -92,14 +92,14 @@
     createLabel(cntEnds, "lblEndDate", "11.25.16", 0, "30%", "100%", "30%", SMF.UI.TextAlignment.RIGHT, false, "12pt", false, "#4a4a4a");
     createLabel(cntEnds, "lblEndTime", "", 0, "70%", "100%", "20%", SMF.UI.TextAlignment.RIGHT, false, "8pt", false, "#4a4a4a");
 
-    pgLeaveRequest.add(cntEnds);
+    pgNewLeaveRequest.add(cntEnds);
 
     //Day Count Circle
-    createImage(pgLeaveRequest, "imgCenterCircle", "circle.png", (Device.screenWidth - 81) / 2, "34.3028%", 81, 81);
-    createLabel(pgLeaveRequest, "lblSelectedDaysCount", "-", (Device.screenWidth - 81) / 2, "37.1514%", 81, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "16pt", true, "#248afd");
-    createLabel(pgLeaveRequest, "lblSelectedDaysCountText", "", (Device.screenWidth - 81) / 2, "40.7496%", 81, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "7pt", false, "#37404a");
+    createImage(pgNewLeaveRequest, "imgCenterCircle", "circle.png", (Device.screenWidth - 81) / 2, "34.3028%", 81, 81);
+    createLabel(pgNewLeaveRequest, "lblSelectedDaysCount", "-", (Device.screenWidth - 81) / 2, "37.1514%", 81, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "16pt", true, "#248afd");
+    createLabel(pgNewLeaveRequest, "lblSelectedDaysCountText", "", (Device.screenWidth - 81) / 2, "40.7496%", 81, "4.4977%", SMF.UI.TextAlignment.CENTER, false, "7pt", false, "#37404a");
 
-    createLabel(pgLeaveRequest, "lblStart", "DESCRIPTION", "4.4%", "50.1199%", "55%", "3%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#248afd");
+    createLabel(pgNewLeaveRequest, "lblStart", "DESCRIPTION", "4.4%", "50.1199%", "55%", "3%", SMF.UI.TextAlignment.LEFT, false, "7pt", false, "#248afd");
     //
     var txtAbsenceMessage = new SMF.UI.TextBox({
         name: "txtAbsenceMessage",
@@ -118,7 +118,7 @@
         }),
         fontColor: "#37404a"
     })
-    pgLeaveRequest.add(txtAbsenceMessage);
+    pgNewLeaveRequest.add(txtAbsenceMessage);
 
     var myFont = new SMF.UI.Font({
         name: "FontAwesome",
@@ -127,7 +127,7 @@
     });
 
     // check: uf00c
-    createTextButtonWithCustomFont(pgLeaveRequest,
+    createTextButtonWithCustomFont(pgNewLeaveRequest,
         "btnSave",
         JSON.parse('""'),
         0, "90.4048%", "100%", "9.5952%",
@@ -152,9 +152,9 @@
                         "Role": oProfile.Role,
                         "StartDate": selectedStartDate,
                         "EndDate": selectedEndDate,
-                        "TimeUnit": pgLeaveRequest.lblTimeUnit.text,
-                        "LeaveType": pgLeaveRequest.lblLeaveType.text,
-                        "AbsenceMessage": JSON.stringify(pgLeaveRequest.txtAbsenceMessage.text),
+                        "TimeUnit": pgNewLeaveRequest.lblTimeUnit.text,
+                        "LeaveType": pgNewLeaveRequest.lblLeaveType.text,
+                        "AbsenceMessage": JSON.stringify(pgNewLeaveRequest.txtAbsenceMessage.text),
                         "Status": "waiting",
                         "TotalDays": oTimeTable.TotalDays,
                         "Used": oTimeTable.Used,
@@ -183,7 +183,7 @@
      * @param {KeyCodeEventArguments} e Uses to for key code argument. It returns e.keyCode parameter.
      * @this Pages.pgOutOfOffice
      */
-    function pgLeaveRequest_onKeyPress(e) {
+    function pgNewLeaveRequest_onKeyPress(e) {
         if (e.keyCode === 4) {
             Pages.back(reverseDefaultPageAnimation);
         }
@@ -194,7 +194,7 @@
      * @param {EventArguments} e Returns some attributes about the specified functions
      * @this Pages.pgOutOfOffice
      */
-    function pgLeaveRequest_onShow() {
+    function pgNewLeaveRequest_onShow() {
         //We are going w/ dark mode. Our navbar is white.
         SMF.UI.statusBar.style = SMF.UI.StatusBarStyle.DEFAULT;
 
@@ -203,14 +203,14 @@
         fillVacationMetrics(oTimeTable.TotalDays, oTimeTable.Used, oTimeTable.Remaining);
 
         // resetting each time
-        pgLeaveRequest.sdSelfService.imgSliderAvatar.image = oProfile.Avatar;
-        pgLeaveRequest.sdSelfService.lblSliderFullName.text = oProfile.FullName;
-        pgLeaveRequest.sdSelfService.lblSliderTeamRole.text = oProfile.Role + " / " + oProfile.Team;
+        pgNewLeaveRequest.sdSelfService.imgSliderAvatar.image = oProfile.Avatar;
+        pgNewLeaveRequest.sdSelfService.lblSliderFullName.text = oProfile.FullName;
+        pgNewLeaveRequest.sdSelfService.lblSliderTeamRole.text = oProfile.Role + " / " + oProfile.Team;
 
 
-        pgLeaveRequest.txtAbsenceMessage.text = '';
-        pgLeaveRequest.lblLeaveType.text = 'ANNUAL';
-        pgLeaveRequest.lblTimeUnit.text = 'DAY';
+        pgNewLeaveRequest.txtAbsenceMessage.text = '';
+        pgNewLeaveRequest.lblLeaveType.text = 'ANNUAL';
+        pgNewLeaveRequest.lblTimeUnit.text = 'DAY';
         leaveTypeSelectedIndex = 0;
         timeUnitSelectedIndex = 0;
 
@@ -238,7 +238,7 @@
             var itemMenu = new SMF.UI.iOS.BarButtonItem({
                 image: 'menu.png',
                 onSelected: function() {
-                    (!isSliderDrawerOpen) ? Pages.pgLeaveRequest.sdSelfService.show(): Pages.pgLeaveRequest.sdSelfService.hide();
+                    (!isSliderDrawerOpen) ? Pages.pgNewLeaveRequest.sdSelfService.show(): Pages.pgNewLeaveRequest.sdSelfService.hide();
                 }
             });
 
@@ -263,7 +263,7 @@
 
                 setDateLabels(sDate, isStartDate);
 
-                if (pgLeaveRequest.lblTimeUnit.text === "HOUR") {
+                if (pgNewLeaveRequest.lblTimeUnit.text === "HOUR") {
                     SMF.UI.showTimePicker({
                         currentTime: (isStartDate) ? "07:00" : "18:30",
                         hourViewFormat24: true,
@@ -275,10 +275,10 @@
                             var selectedTime = t.getHours() + ':' + ('00' + t.getMinutes()).right(2);
 
                             if (isStartDate) {
-                                pgLeaveRequest.cntStarts.lblStartTime.text = selectedTime;
+                                pgNewLeaveRequest.cntStarts.lblStartTime.text = selectedTime;
                             }
                             else {
-                                pgLeaveRequest.cntEnds.lblEndTime.text = selectedTime;
+                                pgNewLeaveRequest.cntEnds.lblEndTime.text = selectedTime;
                             }
                         },
                         onCancel: function() {}
@@ -286,7 +286,7 @@
 
                 }
                 else {
-                    pgLeaveRequest.cntStarts.lblStartTime.text = pgLeaveRequest.cntEnds.lblEndTime.text = "";
+                    pgNewLeaveRequest.cntStarts.lblStartTime.text = pgNewLeaveRequest.cntEnds.lblEndTime.text = "";
                 }
             },
             onCancel: function(e) {
@@ -305,18 +305,18 @@
         var _min = date.getMinutes();
         var _time = ('00' + _hour).right(2) + ':' + ('00' + _min).right(2);
 
-        if (pgLeaveRequest.lblTimeUnit.text === "HOUR") {
+        if (pgNewLeaveRequest.lblTimeUnit.text === "HOUR") {
             if (isStartDate) {
-                pgLeaveRequest.cntStarts.lblStartTime.text = _time;
+                pgNewLeaveRequest.cntStarts.lblStartTime.text = _time;
             }
             else {
-                pgLeaveRequest.cntEnds.lblEndTime.text = _time;
+                pgNewLeaveRequest.cntEnds.lblEndTime.text = _time;
             }
         }
 
         if (isStartDate) {
             if (date < selectedEndDate) {
-                pgLeaveRequest.cntStarts.lblStartDate.text = _month + "." + _day + "." + _year;
+                pgNewLeaveRequest.cntStarts.lblStartDate.text = _month + "." + _day + "." + _year;
                 selectedStartDate = date;
             }
             else {
@@ -325,7 +325,7 @@
         }
         else {
             if (date > selectedStartDate) {
-                pgLeaveRequest.cntEnds.lblEndDate.text = _month + "." + _day + "." + _year;
+                pgNewLeaveRequest.cntEnds.lblEndDate.text = _month + "." + _day + "." + _year;
                 selectedEndDate = date;
             }
             else {
@@ -337,17 +337,17 @@
     }
 
     function calculateDaysBetween() {
-        if (pgLeaveRequest.lblTimeUnit.text === "HOUR") {
+        if (pgNewLeaveRequest.lblTimeUnit.text === "HOUR") {
             var hours = daysBetween(selectedStartDate, selectedEndDate, true);
 
-            pgLeaveRequest.lblSelectedDaysCount.text = hours;
-            pgLeaveRequest.lblSelectedDaysCountText.text = (hours == 1) ? 'hour' : 'hours';
+            pgNewLeaveRequest.lblSelectedDaysCount.text = hours;
+            pgNewLeaveRequest.lblSelectedDaysCountText.text = (hours == 1) ? 'hour' : 'hours';
         }
         else {
             var days = daysBetween(selectedStartDate.format("MM/dd/yyyy"), selectedEndDate.format("MM/dd/yyyy"));
 
-            pgLeaveRequest.lblSelectedDaysCount.text = days;
-            pgLeaveRequest.lblSelectedDaysCountText.text = (days == 1) ? 'day' : 'days';
+            pgNewLeaveRequest.lblSelectedDaysCount.text = days;
+            pgNewLeaveRequest.lblSelectedDaysCountText.text = (days == 1) ? 'day' : 'days';
 
         }
     }
@@ -404,9 +404,9 @@
 
     // We'll use this function when a new update occurs
     function fillVacationMetrics(TotalDays, Used, Remaining) {
-        pgLeaveRequest.cntVacationBoxes.boxTotalDays.lblTotalDays.text = TotalDays;
-        pgLeaveRequest.cntVacationBoxes.boxUsed.lblUsedDays.text = Used;
-        pgLeaveRequest.cntVacationBoxes.boxRemaining.lblRemainingDays.text = Remaining;
+        pgNewLeaveRequest.cntVacationBoxes.boxTotalDays.lblTotalDays.text = TotalDays;
+        pgNewLeaveRequest.cntVacationBoxes.boxUsed.lblUsedDays.text = Used;
+        pgNewLeaveRequest.cntVacationBoxes.boxRemaining.lblRemainingDays.text = Remaining;
     }
 
     function pickLeaveType() {
@@ -415,7 +415,7 @@
             leaveTypes,
             (leaveTypeSelectedIndex) ? leaveTypeSelectedIndex : 0,
             function(e) {
-                pgLeaveRequest.lblLeaveType.text = leaveTypes[e.index];
+                pgNewLeaveRequest.lblLeaveType.text = leaveTypes[e.index];
                 leaveTypeSelectedIndex = e.index;
             },
             function() {}
@@ -429,7 +429,7 @@
             timeUnits,
             (timeUnitSelectedIndex) ? timeUnitSelectedIndex : 0,
             function(e) {
-                pgLeaveRequest.lblTimeUnit.text = timeUnits[e.index];
+                pgNewLeaveRequest.lblTimeUnit.text = timeUnits[e.index];
                 timeUnitSelectedIndex = e.index;
 
                 if (timeUnits[e.index] === "HOUR") {
