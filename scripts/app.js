@@ -12,7 +12,7 @@ var oTimeTable;
 var oRequestList;
 var templateOutOfOfficeText = "Hello,\n\nI'm currently out of the office but I will return on {EndDate}. I will respond to your inquiry as soon as possible.\n\nBest\n{FullName}\n{Role}/{Team}";
 var lunchBreakDuration = 1;
-var urlMockServicePath = "https://github.com/smartface/sample-self-service/_self-service-mock/"
+var urlMockServicePath = "https://raw.githubusercontent.com/smartface/sample-self-service/master/_self-service-mock/"
 
 var isSliderDrawerOpen = false;
 
