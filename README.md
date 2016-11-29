@@ -3,7 +3,7 @@ A sample app to demonstrate Smartface and Oracle EBS/Fusion integration. You can
 
 # How to Use
 This version works with mock-ebs services. To use all functionality in this app, please follow these steps;
-* Change the [mock services](https://github.com/smartface/sample-self-service/_self-service-mock/) to match-up with your Real services. 
+* Change the [mock services](https://github.com/smartface/sample-self-service/tree/master/_self-service-mock/) to match-up with your Real services. 
 * If you dont have, setup an account on [Oracle Cloud](https://cloud.oracle.com). 
 * Create a new mobile backend for your project
 * Create separate mobile backend clients for your target platforms (Android and iOS)
