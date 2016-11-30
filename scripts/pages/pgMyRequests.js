@@ -294,6 +294,7 @@ reverseDefaultPageAnimation getUnit HeaderBar*/
 
         // Oracle MCS Analytics logging 
         smfOracle.logAndFlushAnalytics('pgMyRequests_onShow');
+        fixOverlayBug();
     }
 
 

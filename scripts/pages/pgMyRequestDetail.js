@@ -184,6 +184,7 @@ targetID filterOutByID oRequestList oProfile reverseDefaultPageAnimation daysBet
 
         // Oracle MCS Analytics logging 
         smfOracle.logAndFlushAnalytics('pgMyRequestDetail_onShow');
+        fixOverlayBug();
     }
 
     // Adding a new navigation or actionbar to the page

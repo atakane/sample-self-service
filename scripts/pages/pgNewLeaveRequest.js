@@ -247,6 +247,8 @@ oRequestList*/
         
         // Oracle MCS Analytics logging 
         smfOracle.logAndFlushAnalytics('pgNewLeaveRequest_onShow');
+        
+        fixOverlayBug();
     }
 
     // Adding a new navigation or actionbar to the page

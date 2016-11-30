@@ -127,6 +127,8 @@
 
         // Oracle MCS Analytics logging 
         smfOracle.logAndFlushAnalytics('pgAbout_onShow');
+        
+        fixOverlayBug();
     }
 
     // Adding a new navigation or actionbar to the page

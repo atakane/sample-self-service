@@ -239,6 +239,7 @@ oProfile*/
 
         // Oracle MCS Analytics logging 
         smfOracle.logAndFlushAnalytics('pgAbout_onShow');
+        fixOverlayBug();
     }
 
 

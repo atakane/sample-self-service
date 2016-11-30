@@ -31,7 +31,7 @@ createLabel isSliderDrawerOpen smfOracle*/
         left: 0,
         top: 0,
         width: "100%",
-        height: "42.05397%",
+        height: getUnit({iOS:'42.05397%', Android:'42.10937%'}),
         imageFillType: SMF.UI.ImageFillType.STRETCH
     });
 
@@ -85,9 +85,9 @@ createLabel isSliderDrawerOpen smfOracle*/
     var lblFullName = new SMF.UI.Label({
         name: "lblFullName",
         left: 0,
-        top: getUnit("29.4602%"),
+        top: getUnit({iOS:'29.4587%', Android:'28%'}),
         width: "100%",
-        height: getUnit("2.9985%"),
+        height: getUnit({iOS:'3%', Android:'5%'}),
         text: "",
         textAlignment: SMF.UI.TextAlignment.CENTER,
         font: new SMF.UI.Font({
@@ -166,7 +166,7 @@ createLabel isSliderDrawerOpen smfOracle*/
         left: getUnit("4.53333%"),
         top: getUnit("53.9062%"),
         width: "24%",
-        height: "25%",
+        height: "26%",
         text: "Out Of Office",
         textAlignment: SMF.UI.TextAlignment.LEFT,
         font: new SMF.UI.Font({
@@ -181,7 +181,7 @@ createLabel isSliderDrawerOpen smfOracle*/
         left: getUnit("29.3333%"),
         top: getUnit("53.9062%"),
         width: "30%",
-        height: "25%",
+        height: "26%",
         text: "Mode Off",
         textAlignment: SMF.UI.TextAlignment.LEFT,
         font: new SMF.UI.Font({
@@ -223,8 +223,8 @@ createLabel isSliderDrawerOpen smfOracle*/
 
     var lblNewRequestTextDate = new SMF.UI.Label({
         name: "lblNewRequestTextDate",
-        left: getUnit("29.5%"),
-        top: getUnit("89.5%"),
+        left: getUnit({iOS:'29.5%',Android:'21%'}),
+        top: getUnit({iOS:'89.45%',Android:'90%'}),
         width: getUnit("30%"),
         height: getUnit("10%"),
         text: "",
@@ -239,7 +239,7 @@ createLabel isSliderDrawerOpen smfOracle*/
     // New Request button
     var imgAdd = new SMF.UI.Image({
         image: "btn_plus.png",
-        left: getUnit("78.2666%"),
+        left: getUnit({iOS:'78.2666%', Android:'78.2777%'}),
         top: getUnit("88.9805%"),
         width: getUnit({
             iOS: 63,
@@ -287,10 +287,12 @@ createLabel isSliderDrawerOpen smfOracle*/
         pgStatus.lblTeamRole.text = pgStatus.sdSelfService.lblSliderTeamRole.text = oProfile.Role + " / " + oProfile.Team;
         pgStatus.cntOutOfOfficeBar.swtOutOfOffice.checked = oProfile.OutOfOffice;
         pgStatus.cntOutOfOfficeBar.lblOOOStatusText.text = (oProfile.OutOfOffice) ? "Mode On" : "Mode Off";
-        pgStatus.cntOutOfOfficeBar.lblOOOStatusText.fontColor = (oProfile.OutOfOffice) ? "#27bc66" : "#37404a"  
-        
+        pgStatus.cntOutOfOfficeBar.lblOOOStatusText.fontColor = (oProfile.OutOfOffice) ? "#27bc66" : "#37404a"
+
         // Oracle MCS Analytics logging 
         smfOracle.logAndFlushAnalytics('pgStatus_onShow');
+
+        fixOverlayBug();
     }
 
     // Used days bar

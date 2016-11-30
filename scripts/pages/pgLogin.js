@@ -83,6 +83,7 @@
         Dialog.removeWait();
         btnLogin.enabled = true;
         btnLogin.fillColor = "#00A1F1";
+        fixOverlayBug();
     }
 
     function pgLogin_btnLogin_onPressed(e) {

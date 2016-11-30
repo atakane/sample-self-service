@@ -178,6 +178,7 @@ HeaderBar isSliderDrawerOpen templateOutOfOfficeText Dialog isDate
         
         // Oracle MCS Analytics logging 
         smfOracle.logAndFlushAnalytics('pgOutOfOffice_onShow');
+        fixOverlayBug();
     }
 
     // Setting initial Out Of Office message as a template if app is opened first time
