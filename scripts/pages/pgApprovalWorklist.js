@@ -278,21 +278,25 @@ oProfile*/
     //filter requests menu item
     function filterMenu(e) {
         var item1 = {
-            title: "All requests",
+            title: "Waiting",
             icon: "icon.png", // Andrid 3.0- only
             onSelected: function(e) {
-
+                displayApprovalRequests('waiting');
             }
         };
         var item2 = {
             title: "Approved",
             icon: "icon.png", // Andrid 3.0- only
-            onSelected: function(e) {}
+            onSelected: function(e) {
+                displayApprovalRequests('approved');
+            }
         }
         var item3 = {
             title: "Rejected",
             icon: "icon.png", // Andrid 3.0- only
-            onSelected: function(e) {}
+            onSelected: function(e) {
+                displayApprovalRequests('rejected');
+            }
         }
 
         var item4 = {
@@ -310,8 +314,8 @@ oProfile*/
     }
 
     //Parsing storage objects 
-    function displayApprovalRequests() {
-
+    function displayApprovalRequests(status) {
+        if (!(status) || (status.length == 0)) status = 'waiting';
         /*
         Sample item 
        [
@@ -345,7 +349,7 @@ oProfile*/
         for (var i = 0; i < parsedResponse.length; i++) {
             var objRequestObject = {};
 
-            if (parsedResponse[i].Status === "waiting") {
+            if (parsedResponse[i].Status === status) {
                 objRequestObject.ID = parsedResponse[i].ID;
                 objRequestObject.EmployeeID = parsedResponse[i].EmployeeID;
                 objRequestObject.FullName = parsedResponse[i].FullName;
