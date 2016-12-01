@@ -14,9 +14,8 @@ oRequestList getUnit*/
         onKeyPress: pgNewLeaveRequest_onKeyPress,
         onShow: pgNewLeaveRequest_onShow
     });
-
-    // var sliderDrawer = new SliderDrawer();
-    // sliderDrawer.init(Pages.currentPage);
+    
+    // Creating Slider Drawer
     createSliderDrawer(Pages.pgNewLeaveRequest, 'sdSelfService');
 
     // Vacation metrics
@@ -231,9 +230,9 @@ oRequestList getUnit*/
         fillVacationMetrics(oTimeTable.TotalDays, oTimeTable.Used, oTimeTable.Remaining);
 
         // resetting every time
-        pgNewLeaveRequest.sdSelfService.imgSliderAvatar.image = oProfile.Avatar;
-        pgNewLeaveRequest.sdSelfService.lblSliderFullName.text = oProfile.FullName;
-        pgNewLeaveRequest.sdSelfService.lblSliderTeamRole.text = oProfile.Role + ' / ' + oProfile.Team;
+        pgNewLeaveRequest.sdSelfService.cntGeneral.cntTop.imgSliderAvatar.image = oProfile.Avatar;
+        pgNewLeaveRequest.sdSelfService.cntGeneral.cntTop.lblSliderFullName.text = oProfile.FullName;
+        pgNewLeaveRequest.sdSelfService.cntGeneral.cntTop.lblSliderTeamRole.text = oProfile.Role + ' / ' + oProfile.Team;
 
 
         pgNewLeaveRequest.txtAbsenceMessage.text = '';

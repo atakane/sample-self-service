@@ -171,9 +171,9 @@ HeaderBar isSliderDrawerOpen templateOutOfOfficeText Dialog isDate
         addHeaderBar();
 
         // resetting every time
-        pgOutOfOffice.imgAvatar.image = pgOutOfOffice.sdSelfService.imgSliderAvatar.image = oProfile.Avatar;
-        pgOutOfOffice.lblFullName.text = pgOutOfOffice.sdSelfService.lblSliderFullName.text = oProfile.FullName;
-        pgOutOfOffice.lblTeamRole.text = pgOutOfOffice.sdSelfService.lblSliderTeamRole.text = oProfile.Role + ' / ' + oProfile.Team;
+        pgOutOfOffice.imgAvatar.image = pgOutOfOffice.sdSelfService.cntGeneral.cntTop.imgSliderAvatar.image = oProfile.Avatar;
+        pgOutOfOffice.lblFullName.text = pgOutOfOffice.sdSelfService.cntGeneral.cntTop.lblSliderFullName.text = oProfile.FullName;
+        pgOutOfOffice.lblTeamRole.text = pgOutOfOffice.sdSelfService.cntGeneral.cntTop.lblSliderTeamRole.text = oProfile.Role + ' / ' + oProfile.Team;
 
         pgOutOfOffice.swtOutOfOffice.checked = oProfile.OutOfOffice;
 
