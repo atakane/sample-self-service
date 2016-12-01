@@ -293,6 +293,17 @@ oProfile getUnit daysBetween*/
         else {
             Pages.currentPage.actionBar.displayShowHomeEnabled = true;
             Pages.currentPage.actionBar.icon = 'menu.png';
+            
+            var itemFilter = new SMF.UI.Android.MenuItem({
+                id: "1",
+                icon: "filter.png",
+                showAsAction: SMF.UI.Android.ShowAsAction.ALWAYS,
+                onSelected: function(e) {
+                    filterMenu();
+                }
+            });
+            
+            Pages.currentPage.actionBar.menuItems = [itemFilter];
         }
     }
 
