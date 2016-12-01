@@ -7,19 +7,19 @@
         return this.substring(this.length - n, this.length);
     }
 
-	//http://stackoverflow.com/a/18405800
-	// First, checks if it isn't implemented yet.
-	if (!String.prototype.format) {
-		String.prototype.format = function() {
-			var args = arguments;
-			return this.replace(/{(\d+)}/g, function(match, number) {
-				return typeof args[number] != 'undefined' ?
-					args[number] :
-					match;
-			});
-		};
-	}
-	
+    //http://stackoverflow.com/a/18405800
+    // First, checks if it isn't implemented yet.
+    if (!String.prototype.format) {
+        String.prototype.format = function() {
+            var args = arguments;
+            return this.replace(/{(\d+)}/g, function(match, number) {
+                return typeof args[number] != 'undefined' ?
+                    args[number] :
+                    match;
+            });
+        };
+    }
+
     Date.prototype.addDays = function(days) {
         this.setDate(this.getDate() + parseInt(days));
         return this;
@@ -103,8 +103,7 @@ function createLabel(parent, name, text, left, top, width, height, textAlignment
             size: fontSize,
             bold: fontBold
         }),
-        fontColor: fontColor,
-        borderWidth: 0
+        fontColor: fontColor
     });
     if (onTouchEnded) {
         lblTemp.touchEnabled = true;
@@ -428,19 +427,62 @@ function getDateString(date) {
 // This filters help us to filter or filter out arrays by ID 
 // based on https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
 var targetID = 0;
+
 function filterByID(obj) {
-  if (obj.ID !== undefined && typeof(obj.ID) === 'number' && !isNaN(obj.ID) && !isNaN(targetID) &&  (obj.ID === targetID)) {
-    return true;
-  } else {
-    return false;
-  }
+    if (obj.ID !== undefined && typeof(obj.ID) === 'number' && !isNaN(obj.ID) && !isNaN(targetID) && (obj.ID === targetID)) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
 function filterOutByID(obj) {
-  if (obj.ID !== undefined && typeof(obj.ID) === 'number' && !isNaN(obj.ID) && !isNaN(targetID) &&  (obj.ID === targetID)) {
-    return false;
-  } else {
-    return true;
-  }
+    if (obj.ID !== undefined && typeof(obj.ID) === 'number' && !isNaN(obj.ID) && !isNaN(targetID) && (obj.ID === targetID)) {
+        return false;
+    }
+    else {
+        return true;
+    }
 }
 
+// Fixing Android overlay true bug
+function fixOverlayBug() {
+    if (Device.deviceOS === 'Android') {
+        var hiddenObject = new SMF.UI.Label({
+            left: '99%',
+            top: '99%',
+            height: '1%',
+            width: '1%',
+            text: '',
+            visible: false
+        })
+        Pages.currentPage.add(hiddenObject);
+    }
+}
+
+/**
+ *Adds appropriate suffix to given number.
+ */
+function numberSuffix(number) {
+
+    var suffix = "th";
+
+    //Lets deal with small numbers
+    var smallNumber = number % 100;
+
+    if (smallNumber < 11 || smallNumber > 13) {
+        switch (smallNumber % 10) {
+            case 1:
+                suffix = 'st';
+                break;
+            case 2:
+                suffix = 'nd';
+                break;
+            case 3:
+                suffix = 'rd';
+                break;
+        }
+    }
+    return number + suffix;
+}
