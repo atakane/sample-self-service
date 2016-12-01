@@ -33,7 +33,7 @@
         width: '80%',
         height: '8%',
         placeHolder: 'Username',
-        text: 'test',
+        text: '',
         horizontalGap: 15,
         roundedEdge: 0
     });
@@ -44,7 +44,7 @@
         width: '80%',
         height: '8%',
         placeHolder: 'Password',
-        text: 'Qwe12345',
+        text: '',
         isPassword: true,
         horizontalGap: 15,
         roundedEdge: 0
