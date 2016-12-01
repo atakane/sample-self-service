@@ -7,9 +7,10 @@
             "revision": 1,
             "channels": ["production", "test"],
             "meta": {
-                "whatIsWritten in data": "as data object in here",
-                "also": "it can be null or missing",
-                "this": "is not parsed by release server"
+                "title": "A new version is ready!",
+                "update": "We have fixed some bugs.",
+                "redirectURL": "", 
+                "isMandatory": false
             },
             "minimumSupportedVersion": "1.0.0",
             "currentReleaseChannel": "test"
