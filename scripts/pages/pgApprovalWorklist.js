@@ -301,8 +301,8 @@ oProfile getUnit daysBetween lunchBreakDuration*/
             Pages.currentPage.navigationItem.rightBarButtonItems = [itemFilter];
         }
         else {
-            Pages.currentPage.actionBar.displayShowHomeEnabled = true;
-            Pages.currentPage.actionBar.homeAsUpIndicator = 'menu.png';
+            Pages.currentPage.actionBar.displayHomeAsUpEnabled = true;
+			Pages.currentPage.actionBar.homeAsUpIndicator = 'menu.png';
             
             var itemFilter = new SMF.UI.Android.MenuItem({
                 id: "1",

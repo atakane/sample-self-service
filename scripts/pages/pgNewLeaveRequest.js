@@ -279,8 +279,8 @@ oRequestList getUnit lunchBreakDuration*/
             Pages.currentPage.navigationItem.leftBarButtonItems = [itemMenu];
         }
         else {
-            Pages.currentPage.actionBar.displayShowHomeEnabled = true;
-            Pages.currentPage.actionBar.homeAsUpIndicator = 'menu.png';
+            Pages.currentPage.actionBar.displayHomeAsUpEnabled = true;
+			Pages.currentPage.actionBar.homeAsUpIndicator = 'menu.png';
         }
 
     }
