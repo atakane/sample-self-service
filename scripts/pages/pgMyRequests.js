@@ -1,5 +1,5 @@
 /* globals smfOracle mcsUser mcsPassword Dialog defaultPageAnimation createSliderDrawer isSliderDrawerOpen
-reverseDefaultPageAnimation getUnit HeaderBar*/
+reverseDefaultPageAnimation getUnit HeaderBar daysBetween lunchBreakDuration*/
 (function() {
     var arrayRequests;
     var pgMyRequests = Pages.pgMyRequests = new SMF.UI.Page({
@@ -200,10 +200,25 @@ reverseDefaultPageAnimation getUnit HeaderBar*/
         // 'Remaining': 13
         // }
 
-        var startDate = (new Date(arrayRequests[e.rowIndex].StartDate)).format('MM/dd/yyyy');
-        var endDate = (new Date(arrayRequests[e.rowIndex].EndDate)).format('MM/dd/yyyy');
-        var days = daysBetween(startDate, endDate);
-        var leaveDetails = days + ' ' + ((days > 1) ? 'days' : 'day');
+        var startDate = (new Date(arrayRequests[e.rowIndex].StartDate)); 
+        var endDate = (new Date(arrayRequests[e.rowIndex].EndDate)) ;
+        
+        var leaveDetails
+        if (arrayRequests[e.rowIndex].TimeUnit === 'DAY') {
+            startDate = startDate.format('MM/dd/yyyy');
+            endDate = endDate.format('MM/dd/yyyy');
+            
+            var days = daysBetween(startDate, endDate);
+            leaveDetails = days + ' ' + ((days > 1) ? 'days' : 'day');
+        }
+        else {
+            var hours = daysBetween(startDate, endDate, true)  - ((endDate.format('HH') < 13) ? 0 : lunchBreakDuration);
+            leaveDetails = hours + ' ' + ((hours > 1) ? 'hours' : 'hour');
+            
+            startDate = startDate.format('MM/dd/yyyy HH:mm');
+            endDate = endDate.format('MM/dd/yyyy HH:mm');
+        }
+          
 
         getStatusLetter(arrayRequests[e.rowIndex].Status, this.controls[1]);
         this.controls[3].text = arrayRequests[e.rowIndex].LeaveType;
@@ -318,7 +333,7 @@ reverseDefaultPageAnimation getUnit HeaderBar*/
         }
         else {
             Pages.currentPage.actionBar.displayShowHomeEnabled = true;
-            Pages.currentPage.actionBar.icon = 'menu.png';
+            Pages.currentPage.actionBar.homeAsUpIndicator = 'menu.png';
         }
     }
 

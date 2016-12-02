@@ -226,7 +226,7 @@ HeaderBar isSliderDrawerOpen templateOutOfOfficeText Dialog isDate
         }
         else {
             Pages.currentPage.actionBar.displayShowHomeEnabled = true;
-            Pages.currentPage.actionBar.icon = 'menu.png';
+            Pages.currentPage.actionBar.homeAsUpIndicator = 'menu.png';
         }
 
     }

@@ -1,5 +1,5 @@
 /* globals getUnit createImage createLabel createRectangle createContainer createTextButtonWithCustomFont oRequestList
-    reverseDefaultPageAnimation Dialog
+    reverseDefaultPageAnimation Dialog lunchBreakDuration
 */
 
 (function() {
@@ -50,11 +50,13 @@
     // Start Date
     createLabel(pgApproveLeaveRequest, 'lblStart', 'STARTS', '4.5333%', getUnit({iOS:'42.5037%',Android:'44.5037%'}), '17%', getUnit({iOS:'2.9985%', Android:'5%'}), SMF.UI.TextAlignment.LEFT, false, '7pt', false, '#248afd');
     createLabel(pgApproveLeaveRequest, 'lblStartDate', '-', '4.5333%', getUnit({iOS:'47.3013%',Android:'49.3013%'}), '37.3333%', getUnit({iOS:'2.9985%', Android:'5%'}), SMF.UI.TextAlignment.LEFT, false, '12pt', false, '#4a4a4a');
-
+    createLabel(pgApproveLeaveRequest, 'lblStartTime', '', '4.5333%', getUnit({iOS:'51.3013%',Android:'53.3013%'}), '29.2%', getUnit({iOS:'2.9985%', Android:'5%'}), SMF.UI.TextAlignment.LEFT, false, '8pt', false, '#4a4a4a');
+    
     // End Date
     createLabel(pgApproveLeaveRequest, 'lblEnd', 'ENDS', '80.4667%', getUnit({iOS:'42.5037%',Android:'44.5037%'}), '15%', getUnit({iOS:'2.9985%', Android:'5%'}), SMF.UI.TextAlignment.RIGHT, false, '7pt', false, '#248afd');
     createLabel(pgApproveLeaveRequest, 'lblEndDate', '-', '60.4667%', getUnit({iOS:'47.3013%',Android:'49.3013%'}), '35%', getUnit({iOS:'2.9985%', Android:'5%'}), SMF.UI.TextAlignment.RIGHT, false, '12pt', false, '#4a4a4a');
-
+    createLabel(pgApproveLeaveRequest, 'lblEndTime', '', '60.4667%', getUnit({iOS:'51.3013%',Android:'53.3013%'}), '35%', getUnit({iOS:'2.9985%', Android:'5%'}), SMF.UI.TextAlignment.RIGHT, false, '8pt', false, '#4a4a4a');
+    
     //Day Count Box
     var cntBlueBox = new SMF.UI.Container({
         name: 'cntBlueBox',
@@ -265,13 +267,22 @@
 
     // Calculates the day-count between Start and End Dates
     function calculateDaysBetween() {
-        console.log('selectedStartDate = ' + selectedStartDate.format('MM/dd/yyyy'));
-        console.log('selectedEndDate = ' + selectedEndDate.format('MM/dd/yyyy'));
-
-        var days = daysBetween(selectedStartDate.format('MM/dd/yyyy'), selectedEndDate.format('MM/dd/yyyy'));
-
-        pgApproveLeaveRequest.cntBlueBox.lblSelectedDaysCount.text = days;
-        pgApproveLeaveRequest.cntBlueBox.lblSelectedDaysCountText.text = (days == 1) ? 'day' : 'days';
+        
+        var count, countText;
+        if (pgApproveLeaveRequest.lblTimeUnit.text === 'DAY') {
+            count = daysBetween(selectedStartDate.format('MM/dd/yyyy'), selectedEndDate.format('MM/dd/yyyy'));
+            countText = (count > 1) ? 'days' : 'day';
+            
+        }
+        else {
+            count = daysBetween(selectedStartDate, selectedEndDate, true)  - ((selectedEndDate.format('HH') < 13) ? 0 : lunchBreakDuration);
+            countText = (count > 1) ? 'hours' : 'hour';
+            pgApproveLeaveRequest.lblStartTime.text = selectedStartDate.format('HH:mm TT');
+            pgApproveLeaveRequest.lblEndTime.text = selectedEndDate.format('HH:mm TT');
+        }
+        
+        pgApproveLeaveRequest.cntBlueBox.lblSelectedDaysCount.text = count;
+        pgApproveLeaveRequest.cntBlueBox.lblSelectedDaysCountText.text = countText
     }
 
     // Drawing day-boxes 

@@ -1,6 +1,6 @@
 /* globals createSliderDrawer createImage createRectangle createLabel createAwesomeLabel Dialog createTextButtonWithCustomFont
 lunchBreakDuration daysBetween HeaderBar isSliderDrawerOpen oTimeTable oProfile reverseDefaultPageAnimation
-oRequestList getUnit*/
+oRequestList getUnit lunchBreakDuration*/
 
 (function() {
     var leaveTypeSelectedIndex;
@@ -67,7 +67,7 @@ oRequestList getUnit*/
     createLabel(cntStarts, 'lblStartDate', '-', 0, '30%', '100%', getUnit({iOS:'30%', Android:'60%'}), SMF.UI.TextAlignment.LEFT, false, '12pt', false, '#4a4a4a', function() {
         showDateTimePicker(true);
     });
-    createLabel(cntStarts, 'lblStartTime', '', 0, '70%', getUnit({iOS:'92%', Android:'85%'}), getUnit({iOS:'20%', Android:'40%'}), SMF.UI.TextAlignment.RIGHT, false, '8pt', false, '#4a4a4a', function() {
+    createLabel(cntStarts, 'lblStartTime', '', 0, '70%', getUnit({iOS:'92%', Android:'85%'}), getUnit({iOS:'20%', Android:'40%'}), SMF.UI.TextAlignment.LEFT, false, '8pt', false, '#4a4a4a', function() {
         showTimePicker(true);
     });
 
@@ -238,6 +238,8 @@ oRequestList getUnit*/
         pgNewLeaveRequest.txtAbsenceMessage.text = '';
         pgNewLeaveRequest.lblLeaveType.text = 'PERSONAL';
         pgNewLeaveRequest.lblTimeUnit.text = 'DAY';
+        pgNewLeaveRequest.cntStarts.lblStartTime.touchEnabled = false;
+        pgNewLeaveRequest.cntEnds.lblEndTime.touchEnabled = false;
         leaveTypeSelectedIndex = 0;
         timeUnitSelectedIndex = 0;
 
@@ -278,7 +280,7 @@ oRequestList getUnit*/
         }
         else {
             Pages.currentPage.actionBar.displayShowHomeEnabled = true;
-            Pages.currentPage.actionBar.icon = 'menu.png';
+            Pages.currentPage.actionBar.homeAsUpIndicator = 'menu.png';
         }
 
     }
@@ -383,8 +385,8 @@ oRequestList getUnit*/
 
     // Calculates the hour-count between Start and End Times
     function calculateHoursBetween() {
-        var hours = daysBetween(selectedStartDate, selectedEndDate, true) - lunchBreakDuration;
-
+        var hours = daysBetween(selectedStartDate, selectedEndDate, true)  - ((selectedEndDate.format('HH') < 13) ? 0 : lunchBreakDuration);
+        
         pgNewLeaveRequest.cntBlueBox.lblSelectedDaysCount.text = hours;
         pgNewLeaveRequest.cntBlueBox.lblSelectedDaysCountText.text = (hours == 1) ? 'hour' : 'hours';
     }
@@ -432,6 +434,10 @@ oRequestList getUnit*/
                     //disabling EndDate, it should be same as StartDate
                     pgNewLeaveRequest.cntEnds.lblEndDate.fontColor = '#a0a0a0';
                     pgNewLeaveRequest.cntEnds.lblEndDate.touchEnabled = false;
+                    
+                    pgNewLeaveRequest.cntStarts.lblStartTime.touchEnabled = true;
+                    pgNewLeaveRequest.cntEnds.lblEndTime.touchEnabled = true;
+                    
                     calculateHoursBetween();
                 }
                 else {
@@ -453,6 +459,13 @@ oRequestList getUnit*/
                     //enabling EndDate access
                     pgNewLeaveRequest.cntEnds.lblEndDate.fontColor = '#4a4a4a';
                     pgNewLeaveRequest.cntEnds.lblEndDate.touchEnabled = true;
+                
+                    //disabling Start & End Time
+                    pgNewLeaveRequest.cntStarts.lblStartTime.touchEnabled = false;
+                    pgNewLeaveRequest.cntEnds.lblEndTime.touchEnabled = false;
+                    
+                    pgNewLeaveRequest.cntStarts.lblStartTime.text = '';
+                    pgNewLeaveRequest.cntEnds.lblEndTime.text = '';
 
                 }
             },

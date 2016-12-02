@@ -1,5 +1,5 @@
 /* globals smfOracle mcsUser mcsPassword Dialog defaultPageAnimation createSliderDrawer reverseDefaultPageAnimation
-oProfile getUnit daysBetween*/
+oProfile getUnit daysBetween lunchBreakDuration*/
 (function() {
     var arrayRequests;
     var pgApprovalWorklist = Pages.pgApprovalWorklist = new SMF.UI.Page({
@@ -186,9 +186,19 @@ oProfile getUnit daysBetween*/
         var startDate = new Date(arrayRequests[e.rowIndex].StartDate);
         var endDate = arrayRequests[e.rowIndex].EndDate;
         var days = daysBetween(startDate, endDate);
-        var leaveDetails = arrayRequests[e.rowIndex].LeaveType + ', ' + days + ' ' + ((days > 1) ? 'days' : 'day');
-
-        var leaveText = ('{0}, starts {1}').format(leaveDetails, startDate.format('ddd, MMM. d'));
+        
+        var leaveDetails, leaveText;
+        if (arrayRequests[e.rowIndex].TimeUnit === 'DAY') {
+            var days = daysBetween(startDate.format('MM/dd/yyyy'), endDate.format('MM/dd/yyyy'));
+            leaveDetails = arrayRequests[e.rowIndex].LeaveType + ', ' + days + ' ' + ((days > 1) ? 'days' : 'day');
+            leaveText = ('{0}, starts {1}').format(leaveDetails, startDate.format('ddd, MMM. d'));
+        }
+        else {
+            var hours = daysBetween(startDate, endDate, true)  - ((endDate.format('HH') < 13) ? 0 : lunchBreakDuration);
+            leaveDetails = arrayRequests[e.rowIndex].LeaveType + ', ' + hours + ' ' + ((hours > 1) ? 'hours' : 'hour');
+            leaveText = ('{0}, at {1}').format(leaveDetails, startDate.format('ddd, MMM. d, HH:mm'));
+        }
+         
 
         this.controls[0].image = arrayRequests[e.rowIndex].Avatar;
         this.controls[2].text = arrayRequests[e.rowIndex].FullName;
@@ -292,7 +302,7 @@ oProfile getUnit daysBetween*/
         }
         else {
             Pages.currentPage.actionBar.displayShowHomeEnabled = true;
-            Pages.currentPage.actionBar.icon = 'menu.png';
+            Pages.currentPage.actionBar.homeAsUpIndicator = 'menu.png';
             
             var itemFilter = new SMF.UI.Android.MenuItem({
                 id: "1",
