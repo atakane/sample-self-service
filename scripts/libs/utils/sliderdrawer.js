@@ -1,12 +1,8 @@
-/* globals */
-// (function() {
-function createSliderDrawer(page, name, backgroundColor) {
-    // if (!(this instanceof SliderDrawer)) {
-    //     return new SliderDrawer();
-    // }
+/* globals createImage getUnit isSliderDrawerOpen createRectangle createLabel createTextButton*/
 
-    // Adding Slider Drawer
-    //slider drawer
+function createSliderDrawer(page, name, backgroundColor) {
+    
+    // Adding Slider Drawer 
     var sdSelfService = new SMF.UI.SliderDrawer({
         name: name,
         width: getUnit('89.6%'),
@@ -56,7 +52,7 @@ function createSliderDrawer(page, name, backgroundColor) {
     //Slider Menus
     createLabel(cntGeneral, 'lblLeaveManagement', 'Leave Management', '4.9333%', '37.5562%', '55%', 23, SMF.UI.TextAlignment.LEFT, false, '8pt', false, '#248afd');
 
-    createImage(cntGeneral, 'imgSliderMenuStatus', 'icon_status.png', '5.4666%', '44.4527%', 21, 19);
+    createImage(cntGeneral, 'imgSliderMenuStatus', 'icon_status.png', '5.4666%', '44.4527%', getUnit({iOS:21, Android:20.2}), getUnit({iOS:19,Android:18.2}),SMF.UI.ImageFillType.ASPECTFIT);
     createTextButton(cntGeneral,
         'btnStatus',
         'Status',
@@ -70,7 +66,7 @@ function createSliderDrawer(page, name, backgroundColor) {
         });
     //336
     createRectangle(cntGeneral, '4.4940%', '49.1754%', '95.506%', 1, '#e7e7e7');
-    createImage(cntGeneral, 'imgSliderMenuRequest', 'icon_request.png', '5.8666%', '51.4992%', 22, 20);
+    createImage(cntGeneral, 'imgSliderMenuRequest', 'icon_request.png', '5.8666%', '51.4992%', getUnit({iOS:22, Android:20.7}), getUnit({iOS:20, Android:18.7}),SMF.UI.ImageFillType.ASPECTFIT);
     createTextButton(cntGeneral,
         'btnRequest',
         'New Request',
@@ -85,7 +81,7 @@ function createSliderDrawer(page, name, backgroundColor) {
 
     createRectangle(cntGeneral, '4.4940%', '56.2968%', '95.506%', 1, '#e7e7e7');
 
-    createImage(cntGeneral, 'imgSliderMenuMyRequests', 'icon_info.png', '5.8666%', '58.6206%', 22, 20);
+    createImage(cntGeneral, 'imgSliderMenuMyRequests', 'icon_info.png', '5.8666%', '58.6206%', getUnit({iOS:22, Android:18.5}), getUnit({iOS:20, Android:18.5}),SMF.UI.ImageFillType.ASPECTFIT);
     createTextButton(cntGeneral,
         'btnMyRequests',
         'My Requests',
@@ -97,7 +93,6 @@ function createSliderDrawer(page, name, backgroundColor) {
         function(e) {
             (Pages.currentPage === Pages.pgMyRequests) ? sdSelfService.hide(): Pages.pgMyRequests.show();
         });
-
 
     createRectangle(cntGeneral, '4.4940%', '63.4182%', '95.506%', 1, '#e7e7e7');
 
@@ -139,7 +134,6 @@ function createSliderDrawer(page, name, backgroundColor) {
         });
         
     createRectangle(cntGeneral, '4.4940%', '93.02848%', '95.506%', 1, '#e7e7e7');
-
 
     createTextButton(cntGeneral,
         'btnLogout',

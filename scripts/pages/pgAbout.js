@@ -117,9 +117,9 @@
         addHeaderBar();
 
         // Updating logged in user's info on the this page's slider drawer
-        pgAbout.sdSelfService.imgSliderAvatar.image = oProfile.Avatar;
-        pgAbout.sdSelfService.lblSliderFullName.text = oProfile.FullName;
-        pgAbout.sdSelfService.lblSliderTeamRole.text = oProfile.Role + ' / ' + oProfile.Team;
+        pgAbout.sdSelfService.cntGeneral.cntTop.imgSliderAvatar.image = oProfile.Avatar;
+        pgAbout.sdSelfService.cntGeneral.cntTop.lblSliderFullName.text = oProfile.FullName;
+        pgAbout.sdSelfService.cntGeneral.cntTop.lblSliderTeamRole.text = oProfile.Role + ' / ' + oProfile.Team;
 
         // Oracle MCS Analytics logging 
         smfOracle.logAndFlushAnalytics('pgAbout_onShow');
@@ -145,8 +145,8 @@
             Pages.currentPage.navigationItem.leftBarButtonItems = [itemMenu];
         }
         else {
-            Pages.currentPage.actionBar.displayShowHomeEnabled = true;
-            Pages.currentPage.actionBar.icon = 'menu.png';
+            Pages.currentPage.actionBar.displayHomeAsUpEnabled = true;
+			Pages.currentPage.actionBar.homeAsUpIndicator = 'menu.png';
         }
     }
 })();
