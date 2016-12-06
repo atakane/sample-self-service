@@ -109,7 +109,7 @@ oRequestList getUnit lunchBreakDuration*/
     });
     
     pgNewLeaveRequest.add(cntBlueBox);
-    createLabel(cntBlueBox, 'lblSelectedDaysCount', '-', '0', getUnit({iOS:'28%',Android:'20%'}), '100%', getUnit({iOS:'30%', Android:'40%'}), SMF.UI.TextAlignment.CENTER, false, '16pt', true, '#ffffff');
+    createLabel(cntBlueBox, 'lblSelectedDaysCount', '-', '0', getUnit({iOS:'28%',Android:'3%'}), '100%', getUnit({iOS:'30%', Android:'45%'}), SMF.UI.TextAlignment.CENTER, false, '16pt', true, '#ffffff');
     createLabel(cntBlueBox, 'lblSelectedDaysCountText', 'day', '0', getUnit({iOS:'60%',Android:'60%'}), '100%', getUnit({iOS:'20%', Android:'20%'}), SMF.UI.TextAlignment.CENTER, false, '7pt', false, '#ffffff');
 
     createLabel(pgNewLeaveRequest, 'lblStart', 'DESCRIPTION', '4.4%', getUnit({iOS:'50.1199%',Android:'52.1199%'}), '55%', getUnit({iOS:'3%', Android:'6%'}), SMF.UI.TextAlignment.LEFT, false, '7pt', false, '#248afd');
@@ -487,7 +487,7 @@ oRequestList getUnit lunchBreakDuration*/
             roundedEdge: 0
         });
 
-        createLabel(boxTotalDays, 'lblTotalDays', '-', '0', getUnit({iOS:'20%',Android:'5%'}), '100%', getUnit({iOS:'40%',Android:'55%'}), SMF.UI.TextAlignment.CENTER, false, '12pt', true, '#979797');
+        createLabel(boxTotalDays, 'lblTotalDays', '-', '0', getUnit({iOS:'20%',Android:'2%'}), '100%', getUnit({iOS:'40%',Android:'61%'}), SMF.UI.TextAlignment.CENTER, false, '12pt', true, '#979797');
         createLabel(boxTotalDays, 'lblTotalDaysText', 'Total', '0', getUnit({iOS:'70%',Android:'65%'}), '100%', getUnit({iOS:'20%',Android:'30%'}), SMF.UI.TextAlignment.CENTER, false, '5pt', false, '#979797');
 
 
@@ -502,7 +502,7 @@ oRequestList getUnit lunchBreakDuration*/
             roundedEdge: 0
         });
 
-        createLabel(boxUsed, 'lblUsedDays', '-', '0', getUnit({iOS:'20%',Android:'5%'}), '100%', getUnit({iOS:'40%',Android:'55%'}), SMF.UI.TextAlignment.CENTER, false, '12pt', true, '#cca2b5');
+        createLabel(boxUsed, 'lblUsedDays', '-', '0', getUnit({iOS:'20%',Android:'2%'}), '100%', getUnit({iOS:'40%',Android:'61%'}), SMF.UI.TextAlignment.CENTER, false, '12pt', true, '#cca2b5');
         createLabel(boxUsed, 'lblUsedDaysText', 'Used', '0', getUnit({iOS:'70%',Android:'65%'}), '100%', getUnit({iOS:'20%',Android:'30%'}), SMF.UI.TextAlignment.CENTER, false, '5pt', false, '#cca2b5');
 
         var boxRemaining = new SMF.UI.Container({
@@ -516,7 +516,7 @@ oRequestList getUnit lunchBreakDuration*/
         });
 
         createImage(boxRemaining, 'imgRemaining', 'square_stripe.png', '0', '0', '100%', '100%', SMF.UI.ImageFillType.ASPECTFIT);
-        createLabel(boxRemaining, 'lblRemainingDays', '-', '0', getUnit({iOS:'20%',Android:'5%'}), '100%', getUnit({iOS:'40%',Android:'55%'}), SMF.UI.TextAlignment.CENTER, false, '12pt', true, '#37404a');
+        createLabel(boxRemaining, 'lblRemainingDays', '-', '0', getUnit({iOS:'20%',Android:'2%'}), '100%', getUnit({iOS:'40%',Android:'61%'}), SMF.UI.TextAlignment.CENTER, false, '12pt', true, '#37404a');
         createLabel(boxRemaining, 'lblRemainingDaysText', 'Rem.', 0, getUnit({iOS:'70%',Android:'65%'}), '100%', getUnit({iOS:'20%',Android:'30%'}), SMF.UI.TextAlignment.CENTER, false, '5pt', false, '#37404a');
 
         parent.add(boxTotalDays);

@@ -22,7 +22,7 @@ HeaderBar isSliderDrawerOpen templateOutOfOfficeText Dialog isDate
     createRectangle(pgOutOfOffice, '49.90%', getUnit({iOS:'29.5352%%',Android:'31.5352%'}), 1, '14.9925%', '#e7e7e7');
 
     //Profile
-    createImage(pgOutOfOffice, 'imgAvatar', '', '5.3333%', getUnit({iOS:'11.5442%',Android:'13.5442%'}), '14.4%', '8.0959%', SMF.UI.ImageFillType.ASPECTFIT);
+    createImage(pgOutOfOffice, 'imgAvatar', '', '5.3333%', getUnit({iOS:'11.5442%',Android:'14.5%'}), '14.4%', '8.0959%', SMF.UI.ImageFillType.ASPECTFIT);
     createLabel(pgOutOfOffice, 'lblFullName', '', '4.5333%', getUnit({iOS:'20%',Android:'22%'}), '53.3333%', '4.7376%', SMF.UI.TextAlignment.LEFT, false, '12pt', false, '#27bc66');
     createLabel(pgOutOfOffice, 'lblTeamRole', '', '4.5333%', getUnit({iOS:'24.7376%',Android:'26.7376%'}), '53.3333%', '3.4482%', SMF.UI.TextAlignment.LEFT, false, '7pt', false, '#444444');
 

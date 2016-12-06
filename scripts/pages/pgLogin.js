@@ -25,7 +25,7 @@
 
     // Welcome texts
     createLabel(pgLogin, 'lblWelcome', 'EBS\nSelf Service', '9.5%', '15%', '80%', '15%', SMF.UI.TextAlignment.TOP, true, '17pt', false, SMF.UI.Color.WHITE);
-    createLabel(pgLogin, 'lblWelcome2', 'Powered & secured by Oracle MCS & ICS', '10%', '29%', '80%', '8%', SMF.UI.TextAlignment.TOP, false, '7pt', false, SMF.UI.Color.WHITE);
+    createLabel(pgLogin, 'lblWelcome2', 'Powered & secured by Oracle MCS & ICS', '11%', '30%', '80%', '8%', SMF.UI.TextAlignment.TOP, false, '7pt', false, SMF.UI.Color.WHITE);
 
     var txtUserName = new SMF.UI.TextBox({
         top: '51%',
@@ -33,7 +33,7 @@
         width: '80%',
         height: '8%',
         placeHolder: 'Username',
-        text: 'test',
+        text: '',
         horizontalGap: 15,
         roundedEdge: 0
     });
@@ -44,7 +44,7 @@
         width: '80%',
         height: '8%',
         placeHolder: 'Password',
-        text: 'Qwe12345',
+        text: '',
         isPassword: true,
         horizontalGap: 15,
         roundedEdge: 0

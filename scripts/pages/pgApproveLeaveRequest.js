@@ -15,7 +15,7 @@
     });
 
     // Profile
-    createImage(pgApproveLeaveRequest, 'imgAvatar', '', '5.3333%', getUnit({iOS:'11.5442%',Android:'13.5442%'}), '14.4%', '8.0959%', SMF.UI.ImageFillType.ASPECTFIT);
+    createImage(pgApproveLeaveRequest, 'imgAvatar', '', '5.3333%', getUnit({iOS:'11.5442%',Android:'14.5%'}), '14.4%', '8.0959%', SMF.UI.ImageFillType.ASPECTFIT);
     createLabel(pgApproveLeaveRequest, 'lblFullName', '', '4.5333%', getUnit({iOS:'20%',Android:'22%'}), '53.3333%', '4.7376%', SMF.UI.TextAlignment.LEFT, false, '12pt', false, '#27bc66');
     createLabel(pgApproveLeaveRequest, 'lblTeamRole', '', '4.5333%', getUnit({iOS:'24.7376%',Android:'26.7376%'}), '53.3333%', '3.4482%', SMF.UI.TextAlignment.LEFT, false, '7pt', false, '#444444');
 
@@ -298,7 +298,7 @@
             roundedEdge: 0
         });
 
-        createLabel(boxTotalDays, 'lblTotalDays', '-', '0', getUnit({iOS:'20%',Android:'5%'}), '100%', getUnit({iOS:'40%',Android:'55%'}), SMF.UI.TextAlignment.CENTER, false, '12pt', true, '#979797');
+        createLabel(boxTotalDays, 'lblTotalDays', '-', '0', getUnit({iOS:'20%',Android:'2%'}), '100%', getUnit({iOS:'40%',Android:'61%'}), SMF.UI.TextAlignment.CENTER, false, '12pt', true, '#979797');
         createLabel(boxTotalDays, 'lblTotalDaysText', 'Total', '0', getUnit({iOS:'70%',Android:'65%'}), '100%', getUnit({iOS:'20%',Android:'30%'}), SMF.UI.TextAlignment.CENTER, false, '5pt', false, '#979797');
 
 
@@ -313,7 +313,7 @@
             roundedEdge: 0
         });
 
-        createLabel(boxUsed, 'lblUsedDays', '-', '0', getUnit({iOS:'20%',Android:'5%'}), '100%', getUnit({iOS:'40%',Android:'55%'}), SMF.UI.TextAlignment.CENTER, false, '12pt', true, '#cca2b5');
+        createLabel(boxUsed, 'lblUsedDays', '-', '0', getUnit({iOS:'20%',Android:'2%'}), '100%', getUnit({iOS:'40%',Android:'61%'}), SMF.UI.TextAlignment.CENTER, false, '12pt', true, '#cca2b5');
         createLabel(boxUsed, 'lblUsedDaysText', 'Used', '0', getUnit({iOS:'70%',Android:'65%'}), '100%', getUnit({iOS:'20%',Android:'30%'}), SMF.UI.TextAlignment.CENTER, false, '5pt', false, '#cca2b5');
 
         var boxRemaining = new SMF.UI.Container({
@@ -327,7 +327,7 @@
         });
 
         createImage(boxRemaining, 'imgRemaining', 'square_stripe.png', '0', '0', '100%', '100%', SMF.UI.ImageFillType.ASPECTFIT);
-        createLabel(boxRemaining, 'lblRemainingDays', '-', '0', getUnit({iOS:'20%',Android:'5%'}), '100%', getUnit({iOS:'40%',Android:'55%'}), SMF.UI.TextAlignment.CENTER, false, '12pt', true, '#37404a');
+        createLabel(boxRemaining, 'lblRemainingDays', '-', '0', getUnit({iOS:'20%',Android:'2%'}), '100%', getUnit({iOS:'40%',Android:'61%'}), SMF.UI.TextAlignment.CENTER, false, '12pt', true, '#37404a');
         createLabel(boxRemaining, 'lblRemainingDaysText', 'Rem.', 0, getUnit({iOS:'70%',Android:'65%'}), '100%', getUnit({iOS:'20%',Android:'30%'}), SMF.UI.TextAlignment.CENTER, false, '5pt', false, '#37404a');
 
         parent.add(boxTotalDays);

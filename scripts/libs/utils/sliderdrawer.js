@@ -45,8 +45,8 @@ function createSliderDrawer(page, name, backgroundColor) {
 
     createImage(cntTop, 'imgSliderProfileBackground', 'slider_rectangle.png', 0, 0, '100%', '100%', SMF.UI.ImageFillType.STRETCH);
     createImage(cntTop, 'imgSliderAvatar', '', getUnit('37.797%') ,getUnit({iOS:'24.4292%',Android:'14%'}), getUnit(80), getUnit(80), SMF.UI.ImageFillType.ASPECTFIT);
-    createLabel(cntTop, 'lblSliderFullName', '', 0, getUnit({iOS:'64.7534%',Android:'56.7534%'}), '100%', getUnit({iOS:'15%',Android:'20%'}), SMF.UI.TextAlignment.CENTER, false, '12pt', false, '#248afd');
-    createLabel(cntTop, 'lblSliderTeamRole', '', 0, getUnit({iOS:'78.8767%',Android:'76.8767%'}), '100%', getUnit(20), SMF.UI.TextAlignment.CENTER, false, '7pt', false, '#248afd');
+    createLabel(cntTop, 'lblSliderFullName', '', 0, getUnit({iOS:'64.7534%',Android:'65%'}), '100%', getUnit({iOS:'15%',Android:'20%'}), SMF.UI.TextAlignment.CENTER, false, '12pt', false, '#248afd');
+    createLabel(cntTop, 'lblSliderTeamRole', '', 0, getUnit({iOS:'78.8767%',Android:'81%'}), '100%', getUnit(20), SMF.UI.TextAlignment.CENTER, false, '7pt', false, '#248afd');
 
 
     //Slider Menus
