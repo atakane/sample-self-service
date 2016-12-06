@@ -269,82 +269,23 @@ function hideDialogToBox(targetPage, onDialogBoxHide) {
 }
 
 /* Animations */
-if (Device.deviceOS == 'iOS') {
-    var animationPush = {
-        motionEase: SMF.UI.MotionEase.ACCELERATING,
-        transitionEffect: SMF.UI.TransitionEffect.RIGHTTOLEFT,
-        transitionEffectType: SMF.UI.TransitionEffectType.PUSH,
-        fade: false,
-        reset: false
-    };
-    var animationReveal = {
-        motionEase: SMF.UI.MotionEase.ACCELERATING,
-        transitionEffect: SMF.UI.TransitionEffect.RIGHTTOLEFT,
-        transitionEffectType: SMF.UI.TransitionEffectType.REVEAL,
-        fade: false,
-        reset: false
-    };
-    var animationCover = {
-        motionEase: SMF.UI.MotionEase.ACCELERATING,
-        transitionEffect: SMF.UI.TransitionEffect.RIGHTTOLEFT,
-        transitionEffectType: SMF.UI.TransitionEffectType.COVER,
-        fade: false,
-        reset: false
-    };
-    var defaultPageAnimation = {
-        motionEase: SMF.UI.MotionEase.NONE,
-        transitionEffect: SMF.UI.TransitionEffect.RIGHTTOLEFT,
-        transitionEffectType: SMF.UI.TransitionEffectType.PUSH,
-        fade: false,
-        reset: false,
-        duration: 300 //Device.deviceOS === "iOS" ? 300 : 600
-    }
-    var reverseDefaultPageAnimation = {
-        motionEase: SMF.UI.MotionEase.ACCELERATEANDDECELERATE,
-        transitionEffect: SMF.UI.TransitionEffect.LEFTTORIGHT,
-        transitionEffectType: SMF.UI.TransitionEffectType.PUSH,
-        fade: false,
-        reset: false,
-        duration: 300 //Device.deviceOS === "iOS" ? 300 : 600
-    }
+var defaultPageAnimation = {
+    motionEase: Device.deviceOS === "iOS" ? SMF.UI.MotionEase.NONE : SMF.UI.MotionEase.NONE,
+    transitionEffect: Device.deviceOS === "iOS" ? SMF.UI.TransitionEffect.RIGHTTOLEFT : SMF.UI.TransitionEffect.NONE,
+    transitionEffectType: Device.deviceOS === "iOS" ? SMF.UI.TransitionEffectType.PUSH : SMF.UI.TransitionEffectType.NONE,
+    fade: Device.deviceOS === "iOS" ? false : true,
+    reset: false,
+    duration: 300
 }
-else {
-    var animationPush = {
-        motionEase: SMF.UI.MotionEase.NONE,
-        transitionEffect: SMF.UI.TransitionEffect.NONE,
-        transitionEffectType: SMF.UI.TransitionEffectType.NONE,
-        fade: true,
-        reset: false
-    };
-    var animationReveal = {
-        motionEase: SMF.UI.MotionEase.NONE,
-        transitionEffect: SMF.UI.TransitionEffect.NONE,
-        transitionEffectType: SMF.UI.TransitionEffectType.NONE,
-        fade: true,
-        reset: false
-    };
-    var animationCover = {
-        motionEase: SMF.UI.MotionEase.NONE,
-        transitionEffect: SMF.UI.TransitionEffect.NONE,
-        transitionEffectType: SMF.UI.TransitionEffectType.NONE,
-        fade: true,
-        reset: false
-    };
-    var defaultPageAnimation = {
-        motionEase: SMF.UI.MotionEase.NONE,
-        transitionEffect: SMF.UI.TransitionEffect.NONE,
-        transitionEffectType: SMF.UI.TransitionEffectType.NONE,
-        fade: true,
-        reset: false
-    }
-    var reverseDefaultPageAnimation = {
-        motionEase: SMF.UI.MotionEase.NONE,
-        transitionEffect: SMF.UI.TransitionEffect.NONE,
-        transitionEffectType: SMF.UI.TransitionEffectType.NONE,
-        fade: true,
-        reset: false
-    }
+var reverseDefaultPageAnimation = {
+    motionEase: Device.deviceOS === "iOS" ? SMF.UI.MotionEase.ACCELERATEANDDECELERATE : SMF.UI.MotionEase.NONE,
+    transitionEffect: Device.deviceOS === "iOS" ? SMF.UI.TransitionEffect.LEFTTORIGHT : SMF.UI.TransitionEffect.NONE,
+    transitionEffectType: Device.deviceOS === "iOS" ? SMF.UI.TransitionEffectType.PUSH : SMF.UI.TransitionEffectType.NONE,
+    fade: Device.deviceOS === "iOS" ? false : true,
+    reset: false,
+    duration: 300
 }
+
 //http://stackoverflow.com/a/14638191
 Date.prototype.format = function(format, utc) {
     return formatDate(this, format, utc);
