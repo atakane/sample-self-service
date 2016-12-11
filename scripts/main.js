@@ -11,7 +11,7 @@ const pgAbout = require('./pages/pgAbout.js');
 // const pgNewLeaveRequest = require('./pages/pgNewLeaveRequest.js');
 const pgApprovalWorklist = require('./pages/pgApprovalWorklist.js');
 // const pgApproveLeaveRequest = require('./pages/pgApproveLeaveRequest.js');
-// const pgMyRequests = require('./pages/pgMyRequests.js');
+const pgMyRequests = require('./pages/pgMyRequests.js');
 // const pgMyRequestDetail = require('./pages/pgMyRequestDetail.js');
 
 // Router
@@ -56,6 +56,7 @@ router.add('pgLogin', pgLogin, defaultPageAnimation);
 router.add('pgStatus', pgStatus, defaultPageAnimation);
 router.add('pgAbout', pgAbout, defaultPageAnimation);
 router.add('pgApprovalWorklist', pgApprovalWorklist, defaultPageAnimation);
+router.add('pgMyRequests', pgMyRequests, defaultPageAnimation);
 
 // Routing to the starting page of the application
 router.go('pgLogin');

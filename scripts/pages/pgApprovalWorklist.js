@@ -1,5 +1,11 @@
-/* globals smfOracle mcsUser mcsPassword Dialog defaultPageAnimation createSliderDrawer reverseDefaultPageAnimation
-oProfile getUnit daysBetween lunchBreakDuration*/
+/* globals*/
+
+/*
+TODO:
+- Add filter to actionbar
+- use Router options to pass recordID
+- use Router for pages.back
+*/
 const Page = require("js-base/component/page");
 const extend = require("js-base/core/extend");
 

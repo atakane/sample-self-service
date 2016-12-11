@@ -117,7 +117,7 @@ exports.createSliderDrawer = function (page, name) {
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
         '#444444', '#a0a0a0',
         function(e) {
-            (Pages.currentPage === Pages.pgMyRequests) ? sliderDrawer.hide(): Pages.pgMyRequests.show();
+             (Pages.currentPage === Pages.pgMyRequests) ? sliderDrawer.hide(): router.go('pgMyRequests');
         });
 
     SMFcomponents.createRectangle(cntGeneral, '4.4940%', '63.4182%', '95.506%', 1, '#e7e7e7');
