@@ -6,7 +6,7 @@ const permissions = require('js-base/utils/permissions');
 // Pages
 const pgLogin = require('./pages/pgLogin.js');
 const pgStatus = require('./pages/pgStatus.js');
-// const pgOutOfOffice = require('./pages/pgOutOfOffice.js');
+const pgOutOfOffice = require('./pages/pgOutOfOffice.js');
 const pgAbout = require('./pages/pgAbout.js');
 const pgNewLeaveRequest = require('./pages/pgNewLeaveRequest.js');
 const pgApprovalWorklist = require('./pages/pgApprovalWorklist.js');
@@ -54,6 +54,7 @@ var reverseDefaultPageAnimation = function() {
 // Adding routes
 router.add('pgLogin', pgLogin, defaultPageAnimation);
 router.add('pgStatus', pgStatus, defaultPageAnimation);
+router.add('pgOutOfOffice', pgOutOfOffice, defaultPageAnimation);
 router.add('pgAbout', pgAbout, defaultPageAnimation);
 router.add('pgNewLeaveRequest', pgNewLeaveRequest, defaultPageAnimation);
 router.add('pgApprovalWorklist', pgApprovalWorklist, defaultPageAnimation);
