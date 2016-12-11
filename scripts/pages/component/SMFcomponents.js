@@ -2,7 +2,7 @@
 const getUnit = require('./getUnit.js');
 
 exports.createContainer = function createContainer(parent, name, left, top, width, height, fillColor, backgroundTransparent, onTouchEnded, alpha) {
-    var cntTemp = new SMF.UI.Rectangle({
+    var newComponent = new SMF.UI.Rectangle({
         name: name,
         left: getUnit(left),
         top: getUnit(top),
@@ -15,13 +15,13 @@ exports.createContainer = function createContainer(parent, name, left, top, widt
         borderWidth: 0,
         roundedEdge: 0
     });
-    if (alpha) cntTemp.alpha = alpha;
+    if (alpha) newComponent.alpha = alpha;
 
-    parent.add(cntTemp);
+    parent.add(newComponent);
 }
 
 exports.createRectangle = function createRectangle(parent, left, top, width, height, fillColor) {
-    var recTemp = new SMF.UI.Rectangle({
+    var newComponent = new SMF.UI.Rectangle({
         name: "recTemp",
         left: getUnit(left),
         top: getUnit(top),
@@ -32,11 +32,11 @@ exports.createRectangle = function createRectangle(parent, left, top, width, hei
         roundedEdge: 0
     });
 
-    parent.add(recTemp);
+    parent.add(newComponent);
 }
 
 exports.createImage = function createImage(parent, name, image, left, top, width, height, imageFillType) {
-    var imgTemp = new SMF.UI.Image({
+    var newComponent = new SMF.UI.Image({
         name: name,
         image: image,
         left: getUnit(left),
@@ -45,11 +45,13 @@ exports.createImage = function createImage(parent, name, image, left, top, width
         height: getUnit(height),
         imageFillType: (imageFillType) ? imageFillType : SMF.UI.ImageFillType.NORMAL
     });
-    parent.add(imgTemp);
+    
+    parent[name] = newComponent;
+    parent.add(newComponent);
 }
 
 exports.createLabel = function createLabel(parent, name, text, left, top, width, height, textAlignment, multipleLine, fontSize, fontBold, fontColor, onTouchEnded) {
-    var lblTemp = new SMF.UI.Label({
+    var newComponent = new SMF.UI.Label({
         name: name,
         text: text,
         left: getUnit(left),
@@ -65,15 +67,16 @@ exports.createLabel = function createLabel(parent, name, text, left, top, width,
         fontColor: fontColor
     });
     if (onTouchEnded) {
-        lblTemp.touchEnabled = true;
-        lblTemp.onTouchEnded = onTouchEnded;
+        newComponent.touchEnabled = true;
+        newComponent.onTouchEnded = onTouchEnded;
     }
 
-    parent.add(lblTemp);
+    parent[name] = newComponent;
+    parent.add(newComponent);
 }
 
 exports.createAwesomeLabel = function createAwesomeLabel(parent, name, text, left, top, width, height, textAlignment, multipleLine, fontSize, fontBold, fontColor, onTouchEnded) {
-    var lblTemp = new SMF.UI.Label({
+    var newComponent = new SMF.UI.Label({
         name: name,
         text: text,
         left: getUnit(left),
@@ -91,15 +94,16 @@ exports.createAwesomeLabel = function createAwesomeLabel(parent, name, text, lef
         borderWidth: 0
     });
     if (onTouchEnded) {
-        lblTemp.touchEnabled = true;
-        lblTemp.onTouchEnded = onTouchEnded;
+        newComponent.touchEnabled = true;
+        newComponent.onTouchEnded = onTouchEnded;
     }
 
-    parent.add(lblTemp);
+    parent[name] = newComponent;
+    parent.add(newComponent);
 }
 
 exports.createTextButton = function createTextButton(parent, name, text, left, top, width, height, textAlignment, fontSize, fontBold, fillColor, pressedFillColor, fontColor, pressedFontColor, onPressed) {
-    var btnTemp = new SMF.UI.TextButton({
+    var newComponent = new SMF.UI.TextButton({
         name: name,
         text: text,
         left: getUnit(left),
@@ -118,11 +122,13 @@ exports.createTextButton = function createTextButton(parent, name, text, left, t
         onPressed: onPressed,
         roundedEdge: 0
     });
-    parent.add(btnTemp);
+    
+    parent[name] = newComponent;
+    parent.add(newComponent);
 }
 
 exports.createTextButtonWithCustomFont = function createTextButtonWithCustomFont(parent, name, text, left, top, width, height, textAlignment, font, fillColor, pressedFillColor, fontColor, pressedFontColor, onPressed) {
-    var btnTemp = new SMF.UI.TextButton({
+    var newComponent = new SMF.UI.TextButton({
         name: name,
         text: text,
         left: getUnit(left),
@@ -138,5 +144,7 @@ exports.createTextButtonWithCustomFont = function createTextButtonWithCustomFont
         onPressed: onPressed,
         roundedEdge: 0
     });
-    parent.add(btnTemp);
+    
+    parent[name] = newComponent;
+    parent.add(newComponent);
 }

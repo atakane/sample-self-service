@@ -57,8 +57,6 @@ const pgMyRequests = extend(Page)(
             useActiveItem: false,
             allowDeletingItem: false,
             onSelectedItem: function(e) {
-                Pages.pgMyRequestDetail.oRequest = arrayRequests[e.rowIndex];
-
                 router.go('pgMyRequestDetail',arrayRequests[e.rowIndex]);
             }
         });
