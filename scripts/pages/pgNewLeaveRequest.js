@@ -1,9 +1,8 @@
-/* globals smfOracle oTimeTable oProfile oRequestList*/
+/* globals smfOracle oTimeTable oProfile oRequestList lunchBreakDuration*/
 
 /*
 TODO:
 - use Router options to pass oRequest
-- use Router for pages.back
 */
 const Page = require("js-base/component/page");
 const extend = require("js-base/core/extend");
@@ -35,7 +34,6 @@ const pgNewLeaveRequest = extend(Page)(
         const actionBarWrapper = ActionBarWrapper(this._view, actionBarOptions.options);
         // Creating Slider Drawer
         SMFSliderDrawer.createSliderDrawer(this, 'sdSelfService');
-        
         
         var leaveTypeSelectedIndex;
         var timeUnitSelectedIndex;
@@ -257,9 +255,9 @@ const pgNewLeaveRequest = extend(Page)(
             fillVacationMetrics(oTimeTable.TotalDays, oTimeTable.Used, oTimeTable.Remaining);
     
             // resetting every time
-            Pages.currentPage.sdSelfService.cntGeneral.cntTop.imgSliderAvatar.image = oProfile.Avatar;
-            Pages.currentPage.sdSelfService.cntGeneral.cntTop.lblSliderFullName.text = oProfile.FullName;
-            Pages.currentPage.sdSelfService.cntGeneral.cntTop.lblSliderTeamRole.text = oProfile.Role + ' / ' + oProfile.Team;
+            this.sdSelfService.cntGeneral.cntTop.imgSliderAvatar.image = oProfile.Avatar;
+            this.sdSelfService.cntGeneral.cntTop.lblSliderFullName.text = oProfile.FullName;
+            this.sdSelfService.cntGeneral.cntTop.lblSliderTeamRole.text = oProfile.Role + ' / ' + oProfile.Team;
     
             this.txtAbsenceMessage.text = '';
             this.lblLeaveType.text = 'PERSONAL';

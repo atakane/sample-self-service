@@ -132,58 +132,7 @@ const pgStatus = extend(Page)(
         this.add(lblTeamRole);
 
         // Vacation metrics
-        // createVacationBoxes();
-        var boxTotalDays = new SMF.UI.Container({
-                name: 'boxTotalDays',
-                left: getUnit('4%'),
-                top: getUnit('56.6716%'),
-                width: getUnit('28%'),
-                height: getUnit('15.5922%'),
-                borderWidth: 1,
-                borderColor: '#979797',
-                roundedEdge: 0
-            });
-
-            SMFcomponents.createLabel(boxTotalDays, 'lblTotalDays', '-', '0', '0', '100%', '73%', SMF.UI.TextAlignment.CENTER, false, '23pt', true, '#979797');
-            SMFcomponents.createLabel(boxTotalDays, 'lblTotalDaysText', 'Total', '0', '73', '100%', '20%', SMF.UI.TextAlignment.CENTER, false, '6pt', true, '#979797');
-
-
-            var boxUsed = new SMF.UI.Container({
-                name: 'boxUsed',
-                left: getUnit('36%'),
-                top: getUnit('56.6716%'),
-                width: getUnit('28%'),
-                height: getUnit('15.5922%'),
-                borderWidth: 1,
-                borderColor: '#cca2b5',
-                roundedEdge: 0
-            });
-
-            SMFcomponents.createLabel(boxUsed, 'lblUsedDays', '-', '0', '0', '100%', '73%', SMF.UI.TextAlignment.CENTER, false, '24pt', true, '#cca2b5');
-            SMFcomponents.createLabel(boxUsed, 'lblUsedDaysText', 'Used', '0', '73', '100%', '20%', SMF.UI.TextAlignment.CENTER, false, '6pt', true, '#cca2b5');
-
-
-            var boxRemaining = new SMF.UI.Container({
-                name: 'boxRemaining',
-                left: getUnit('68%'),
-                top: getUnit('56.6716%'),
-                width: getUnit('28%'),
-                height: getUnit('15.5922%'),
-                borderWidth: 0,
-                roundedEdge: 0
-            });
-
-            SMFcomponents.createImage(boxRemaining, 'imgRemaining', 'square_stripe.png', '0', '0', '100%', '100%', SMF.UI.ImageFillType.ASPECTFIT);
-            SMFcomponents.createLabel(boxRemaining, 'lblRemainingDays', '-', '0', '0', '100%', '73%', SMF.UI.TextAlignment.CENTER, false, '25pt', true, '#37404a');
-            SMFcomponents.createLabel(boxRemaining, 'lblRemainingDaysText', 'Remaining', '0', '73', '100%', '20%', SMF.UI.TextAlignment.CENTER, false, '6pt', true, '#37404a');
-
-
-            this.add(boxTotalDays);
-            this.add(boxUsed);
-            this.add(boxRemaining);
-        
-        
-        /////////////////
+        createVacationBoxes.call(this);
 
         // Out Of Office Status
         var cntOutOfOfficeBar = new SMF.UI.Container({
@@ -374,7 +323,7 @@ const pgStatus = extend(Page)(
             Pages.currentPage.lblTeamRole.text = Pages.currentPage.sdSelfService.cntGeneral.cntTop.lblSliderTeamRole.text = oProfile.Role + ' / ' + oProfile.Team;
             Pages.currentPage.cntOutOfOfficeBar.swtOutOfOffice.checked = oProfile.OutOfOffice;
             Pages.currentPage.cntOutOfOfficeBar.lblOOOStatusText.text = (oProfile.OutOfOffice) ? 'Mode On' : 'Mode Off';
-            Pages.currentPage.cntOutOfOfficeBar.lblOOOStatusText.fontColor = (oProfile.OutOfOffice) ? '#27bc66' : '#37404a'
+            Pages.currentPage.cntOutOfOfficeBar.lblOOOStatusText.fontColor = (oProfile.OutOfOffice) ? '#27bc66' : '#37404a';
 
             // Oracle MCS Analytics logging 
             smfOracle.logAndFlushAnalytics('pgStatus_onShow');
@@ -443,16 +392,16 @@ const pgStatus = extend(Page)(
             SMFcomponents.createLabel(boxRemaining, 'lblRemainingDaysText', 'Remaining', '0', '73', '100%', '20%', SMF.UI.TextAlignment.CENTER, false, '6pt', true, '#37404a');
 
 
-            Pages.pgStatus.add(boxTotalDays);
-            Pages.currentPage.add(boxUsed);
-            Pages.currentPage.add(boxRemaining);
+            this.add(boxTotalDays);
+            this.add(boxUsed);
+            this.add(boxRemaining);
         }
 
         // We trigger this function when a new update occurs
         function fillVacationMetrics(TotalDays, Used, Remaining) {
-            boxTotalDays.lblTotalDays.text = TotalDays;
-            boxUsed.lblUsedDays.text = Used;
-            boxRemaining.lblRemainingDays.text = Remaining;
+            Pages.currentPage.boxTotalDays.lblTotalDays.text = TotalDays;
+            Pages.currentPage.boxUsed.lblUsedDays.text = Used;
+            Pages.currentPage.boxRemaining.lblRemainingDays.text = Remaining;
         }
 
     },

@@ -1,4 +1,4 @@
-/* globals smfOracle mcsUser mcsPassword Dialog defaultPageAnimation reverseDefaultPageAnimation createSliderDrawer oProfile isSliderDrawerOpen HeaderBar*/
+/* globals smfOracle oProfile*/
 const Page = require("js-base/component/page");
 const extend = require("js-base/core/extend");
 
@@ -24,6 +24,7 @@ const pgLogin = extend(Page)(
 
         actionBarOptions.setTitle('About');
         const actionBarWrapper = ActionBarWrapper(this._view, actionBarOptions.options);
+        
         // Creating Slider Drawer
         SMFSliderDrawer.createSliderDrawer(this, 'sdSelfService');
 
@@ -34,7 +35,7 @@ const pgLogin = extend(Page)(
          */
         function pgAbout_onKeyPress(e) {
             if (e.keyCode === 4) {
-                Pages.back(reverseDefaultPageAnimation);
+                router.back();
             }
         }
 
@@ -130,7 +131,6 @@ const pgLogin = extend(Page)(
             Dialog.removeWait();
 
             // Adding header bar (actionbar for Android, navigationbar for iOS)
-            //addHeaderBar();
             actionBarWrapper.reload();
             actionBarOptions.eventCallback(function(e) {
                 if (e.type == "menu")
@@ -145,31 +145,6 @@ const pgLogin = extend(Page)(
             // Oracle MCS Analytics logging 
             smfOracle.logAndFlushAnalytics('pgAbout_onShow');
         }
-
-        // // Adding a new navigation or actionbar to the page
-        // function addHeaderBar() {
-
-        //     var headerBar = new HeaderBar();
-        //     headerBar.init(Pages.currentPage);
-
-        //     headerBar.setTitleView(Pages.currentPage, 'About', '#248afd', null, 0, 0, 240, 44, 20);
-
-        //     // Preparing left items 
-        //     if (Device.deviceOS !== 'Android') {
-        //         var itemMenu = new SMF.UI.iOS.BarButtonItem({
-        //             image: 'menu.png',
-        //             onSelected: function() {
-        //                 (!isSliderDrawerOpen) ? Pages.pgAbout.sdSelfService.show(): Pages.pgAbout.sdSelfService.hide();
-        //             }
-        //         });
-
-        //         Pages.currentPage.navigationItem.leftBarButtonItems = [itemMenu];
-        //     }
-        //     else {
-        //         Pages.currentPage.actionBar.displayHomeAsUpEnabled = true;
-        //         Pages.currentPage.actionBar.homeAsUpIndicator = 'menu.png';
-        //     }
-        // }
     },
     //Page Public Methods
     function(_proto) {
