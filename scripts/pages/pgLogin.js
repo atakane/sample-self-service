@@ -1,6 +1,7 @@
 /* globals smfOracle mcsUser mcsPassword Dialog defaultPageAnimation createImage createLabel SMFAjax urlMockServicePath oProfile oTimeTable oRequestList*/
 const Page = require("js-base/component/page");
 const extend = require("js-base/core/extend");
+
 const SMFcomponents = require('./component/SMFcomponents.js');
 const SMFAjax = require('js-base/utils/SMFAjax');
 const Dialog = require('smf-dialog');

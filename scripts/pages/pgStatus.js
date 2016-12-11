@@ -1,7 +1,7 @@
-/* globals createSliderDrawer getUnit defaultPageAnimation createImage oProfile oTimeTable HeaderBar
-createLabel isSliderDrawerOpen smfOracle*/
+/* globals smfOracle oTimeTable oProfile*/
 const Page = require("js-base/component/page");
 const extend = require("js-base/core/extend");
+
 const SMFcomponents = require('./component/SMFcomponents.js');
 const SMFSliderDrawer = require('./component/SMFSliderDrawer.js');
 
@@ -16,7 +16,7 @@ const pgStatus = extend(Page)(
     function(_super) {
         _super(this, {
             name: 'pgStatus',
-            onKeyPress: pgStatus_onKeyPress,
+            // onKeyPress: pgStatus_onKeyPress,
             onShow: pgStatus_onShow,
             myProfile: [],
             myTimeTable: []
@@ -26,17 +26,6 @@ const pgStatus = extend(Page)(
 
         // Creating Slider Drawer
         SMFSliderDrawer.createSliderDrawer(this, 'sdSelfService');
-
-        /**
-         * Creates action(s) that are run when the user press the key of the devices.
-         * @param {KeyCodeEventArguments} e Uses to for key code argument. It returns e.keyCode parameter.
-         * @this Pages.pgStatus
-         */
-        function pgStatus_onKeyPress(e) {
-            if (e.keyCode === 4) {
-                Pages.back();
-            }
-        }
 
         // Home Background
         var imgHome = new SMF.UI.Image({
@@ -458,9 +447,9 @@ const pgStatus = extend(Page)(
 
         // We trigger this function when a new update occurs
         function fillVacationMetrics(TotalDays, Used, Remaining) {
-            Pages.pgStatus.boxTotalDays.lblTotalDays.text = TotalDays;
-            Pages.pgStatus.boxUsed.lblUsedDays.text = Used;
-            Pages.pgStatus.boxRemaining.lblRemainingDays.text = Remaining;
+            boxTotalDays.lblTotalDays.text = TotalDays;
+            boxUsed.lblUsedDays.text = Used;
+            boxRemaining.lblRemainingDays.text = Remaining;
         }
 
     },
