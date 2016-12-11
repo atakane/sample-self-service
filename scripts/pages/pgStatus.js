@@ -11,6 +11,9 @@ const ActionBarWrapper = require("js-base/component/action-bar.js");
 const tinyUtils = require('./component/tinyUtils.js');
 const getUnit = require('./component/getUnit.js');
 
+// Router
+const router = require('js-base/core/router');
+
 const pgStatus = extend(Page)(
     //Page Constructor
     function(_super) {
@@ -193,7 +196,7 @@ const pgStatus = extend(Page)(
             fillColor: '#e7e7e7',
             backgroundTransparent: false,
             onTouchEnded: function(e) {
-                Pages.pgOutOfOffice.show(defaultPageAnimation);
+                router.go('pgOutOfOffice');
             }
         });
         var swtOutOfOffice = new SMF.UI.SwitchButton({
@@ -322,7 +325,7 @@ const pgStatus = extend(Page)(
             }),
             imageFillType: SMF.UI.ImageFillType.ASPECTFIT,
             onTouchEnded: function(e) {
-                Pages.pgNewLeaveRequest.show(defaultPageAnimation);
+                router.go('pgNewLeaveRequest');
             }
         });
         this.add(imgAdd);
