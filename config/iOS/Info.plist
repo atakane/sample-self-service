@@ -117,5 +117,11 @@
 			<string>{768, 1024}</string>
 		</dict>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>In order to use upload functionality we need necessary permissions.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>In order to use upload functionality we need necessary permissions.</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>In order to use upload functionality we need necessary permissions.</string>	
 </dict>
 </plist>
