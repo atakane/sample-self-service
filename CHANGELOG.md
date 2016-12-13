@@ -7,16 +7,10 @@
 -----------------------------------------------------------------
 ```
 
-## smartface-coding-standards v0.4.0
+## smartface-coding-standards v1.0.1
 
-* **Breaking change**: Recommended setting do not include react anymore; instead there is a separate `.eslintrc-react-recommended` file.
+* Android layout fixes. A few bugs eleminated.
 
-## smartface-coding-standards v0.3.3
+## smartface-coding-standards v1.0.0
 
-* Just a version bump, nothing special.
-
-## smartface-coding-standards v0.3.0
-
-* Synchronized versions of all `@volkan/smartface-*` repositories to `v.0.3.0`.
-* Updated the [README](README.md).
-* Added React support to the recommended ruleset.
+* First release
