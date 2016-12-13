@@ -7,10 +7,10 @@
 -----------------------------------------------------------------
 ```
 
-## smartface-coding-standards v1.0.1
+## sample-self-service v1.0.1
 
 * Android layout fixes. A few bugs eleminated.
 
-## smartface-coding-standards v1.0.0
+## sample-self-service v1.0.0
 
 * First release
