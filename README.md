@@ -1,7 +1,18 @@
+<h3 align="center">
+  <img height=75 src="https://github.com/smartface/sample-self-service/blob/master/temp/smartface_logo.png" alt="smartface Logo" />
+</h3>
+
 # Self Service from Smartface
+[![Twitter: @Smartface_io](https://img.shields.io/badge/contact-@Smartface_io-blue.svg?style=flat)](https://twitter.com/smartface_io)
+[![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://github.com/smartface/sample-self-service/blob/master/LICENSE)
+
 A sample app to demonstrate Smartface and Oracle EBS/Fusion integration. You can freely use the code in your apps.
 
-# How to Use
+<img width=250 src="https://github.com/smartface/sample-self-service/blob/master/temp/sc1.png">
+<img width=250 src="https://github.com/smartface/sample-self-service/blob/master/temp/sc2.png" hspace="30">
+<img width=250 src="https://github.com/smartface/sample-self-service/blob/master/temp/sc3.png">
+
+## How to Use
 This version works with mock-ebs services. To use all functionality in this app, please follow these steps;
 * Change the [mock services](https://github.com/smartface/sample-self-service/tree/master/_self-service-mock/) to match-up with your Real services. 
 * If you dont have, setup an account on [Oracle Cloud](https://cloud.oracle.com). 
@@ -13,9 +24,25 @@ This version works with mock-ebs services. To use all functionality in this app,
 * To use Remote App Update feature update your [`config/project.rau.json`](https://github.com/smartface/sample-file-manager/blob/master/config/project.rau.json) You can unleash your app's power by reading [Remote App Update Guides](https://smartface.atlassian.net/wiki/display/GUIDE/Remote+App+Update+Guides)
 * Integrate your EBS rest services to MCS custom connectors, and relay from there. 
 
+## Dependencies
+
+This repository depends on [smartface.io](https://smartface.io) runtime.
+You need to clone this repository inside a [**Smartface.io Cloud IDE Workspace**](https://cloud.smartface.io/Home/Index)
+
+## Need Help?
+
+Please [submit an issue](https://github.com/smartface/sample-self-service/issues) on GitHub and provide information about your problem.
 
 ## Support & Documentation & Useful Links
 - [Guides](https://www.smartface.io/guides)
 - [API Docs](https://docs.smartface.io)
 - [Smartface Cloud Dashboard](https://cloud.smartface.io)
 - [Download Smartface On-Device Emulator](https://smf.to/app) (Works only from your device)
+
+## Code of Conduct
+We are committed to making participation in this project a harassment-free experience for everyone, regardless of the level of experience, gender, gender identity and expression, sexual orientation, disability, personal appearance, body size, race, ethnicity, age, religion, or nationality.
+Please read and follow our [Code of Conduct](https://github.com/smartface/sample-self-service/blob/master/CODE_OF_CONDUCT.md).
+
+## License
+
+This project is licensed under the terms of the MIT license. See the [LICENSE](LICENSE) file.
