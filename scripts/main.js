@@ -10,7 +10,7 @@ const pgOutOfOffice = require('./pages/pgOutOfOffice.js');
 const pgAbout = require('./pages/pgAbout.js');
 const pgNewLeaveRequest = require('./pages/pgNewLeaveRequest.js');
 const pgApprovalWorklist = require('./pages/pgApprovalWorklist.js');
-// const pgApproveLeaveRequest = require('./pages/pgApproveLeaveRequest.js');
+const pgApproveLeaveRequest = require('./pages/pgApproveLeaveRequest.js');
 const pgMyRequests = require('./pages/pgMyRequests.js');
 const pgMyRequestDetail = require('./pages/pgMyRequestDetail.js');
 
@@ -58,6 +58,7 @@ router.add('pgOutOfOffice', pgOutOfOffice, defaultPageAnimation);
 router.add('pgAbout', pgAbout, defaultPageAnimation);
 router.add('pgNewLeaveRequest', pgNewLeaveRequest, defaultPageAnimation);
 router.add('pgApprovalWorklist', pgApprovalWorklist, defaultPageAnimation);
+router.add('pgApproveLeaveRequest', pgApproveLeaveRequest, defaultPageAnimation);
 router.add('pgMyRequests', pgMyRequests, defaultPageAnimation);
 router.add('pgMyRequestDetail', pgMyRequestDetail, defaultPageAnimation);
 

@@ -5,8 +5,8 @@ const extend = require("js-base/core/extend");
 const SMFcomponents = require('./component/SMFcomponents.js');
 const SMFSliderDrawer = require('./component/SMFSliderDrawer.js');
 
-const actionBarOptions = require("./actionbar/pgStatus.actionbar.js");
-const ActionBarWrapper = require("js-base/component/action-bar.js");
+const headerBarOptions = require("./headerbar/pgStatus.headerbar.js");
+const HeaderBarWrapper = require("js-base/component/header-bar.js");
 
 const tinyUtils = require('./component/tinyUtils.js');
 const getUnit = require('./component/getUnit.js');
@@ -19,13 +19,10 @@ const pgStatus = extend(Page)(
     function(_super) {
         _super(this, {
             name: 'pgStatus',
-            // onKeyPress: pgStatus_onKeyPress,
-            onShow: pgStatus_onShow,
-            myProfile: [],
-            myTimeTable: []
+            onShow: pgStatus_onShow
         });
 
-        const wrapper = ActionBarWrapper(this._view, actionBarOptions.options);
+        const headerBarWrapper = HeaderBarWrapper(this._view, headerBarOptions.options);
 
         // Creating Slider Drawer
         SMFSliderDrawer.createSliderDrawer(this, 'sdSelfService');
@@ -290,11 +287,10 @@ const pgStatus = extend(Page)(
 
             // Adding header bar (actionbar for Android, navigationbar for iOS)
             // addHeaderBar();
-            wrapper.reload();
-            actionBarOptions.eventCallback(function(e) {
+            headerBarWrapper.reload();
+            headerBarOptions.eventCallback(function(e) {
                 if (e.type == "menu")
-                    // Pages.currentPage.sdSelfService._view.toggle();
-                    SMFSliderDrawer.toggle();
+                    Pages.currentPage.sdSelfService.show();
             });
 
             fillUsedDaysBar();
@@ -409,7 +405,7 @@ const pgStatus = extend(Page)(
     function(_proto) {
         // for injection of routing data
         _proto.setRouteParams = function() {};
-        _proto.changeStateHandlder = function(state) {};
+        _proto.stateChangedHandler = function(state) {};
     });
 
 module.exports = pgStatus;

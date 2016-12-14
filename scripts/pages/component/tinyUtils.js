@@ -46,10 +46,13 @@ exports.getDateString = function getDateString(date) {
 
 // This filters help us to filter or filter out arrays by ID 
 // based on https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
-var targetID = 0;
+var _targetID;
+exports.setTargetID = function(targetID){
+    _targetID = targetID;
+};
 
 function filterByID(obj) {
-    if (obj.ID !== undefined && typeof(obj.ID) === 'number' && !isNaN(obj.ID) && !isNaN(targetID) && (obj.ID === targetID)) {
+    if (obj.ID !== undefined && typeof(obj.ID) === 'number' && !isNaN(obj.ID) && !isNaN(_targetID) && (obj.ID === _targetID)) {
         return true;
     }
     else {
@@ -57,8 +60,8 @@ function filterByID(obj) {
     }
 }
 
-function filterOutByID(obj) {
-    if (obj.ID !== undefined && typeof(obj.ID) === 'number' && !isNaN(obj.ID) && !isNaN(targetID) && (obj.ID === targetID)) {
+exports.filterOutByID = function(obj) {
+    if (obj.ID !== undefined && typeof(obj.ID) === 'number' && !isNaN(obj.ID) && !isNaN(_targetID) && (obj.ID === _targetID)) {
         return false;
     }
     else {

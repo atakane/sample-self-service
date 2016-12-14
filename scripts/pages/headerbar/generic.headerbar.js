@@ -1,4 +1,4 @@
-const ActionWrapper = require("js-base/component/action-bar");
+const ActionWrapper = require("js-base/component/header-bar");
 var eventCallback;
 
 const options = {
@@ -7,38 +7,7 @@ const options = {
   backgroundColor: "#ffffff",
   enabled: true
 };
-        // headerBar.setLeftItemImage('back.png', function() {
-        //     Pages.back(reverseDefaultPageAnimation);
-        // });
-        //         this.setLeftItemImage = function(image, OnPressListener) {
 
-        //     if (this.isAndroid == true) {
-
-
-        //         this.actionBar.displayShowTitleEnabled = true;
-        //         this.actionBar.title = "";
-        //         this.actionBar.subtitle = "";
-        //         this.actionBar.displayShowHomeEnabled = false;
-        //         this.actionBar.homeAsUpIndicator = image;
-        //         this.actionBar.displayHomeAsUpEnabled = true;
-        //         this.actionBar.onHomeIconItemSelected = OnPressListener;
-
-
-        //         /*
-        //         this.actionBar.displayHomeAsUpEnabled = true;
-        //         this.actionBar.displayShowHomeEnabled = false;
-        //         this.actionBar.icon = image;
-        //         this.actionBar.onHomeIconItemSelected = OnPressListener;
-        //         */
-        //     }
-        //     else {
-        //         var item1 = new SMF.UI.iOS.BarButtonItem({
-        //             image: image,
-        //             onSelected: OnPressListener
-        //         });
-        //         this.navigationItem.leftBarButtonItems = [item1];
-        //     }
-        // }
 var _textColor = '#248afd';
 var _fontSize = 20;
 

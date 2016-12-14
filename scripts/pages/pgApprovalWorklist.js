@@ -13,8 +13,8 @@ const SMFSliderDrawer = require('./component/SMFSliderDrawer.js');
 const Dialog = require('smf-dialog');
 
 // Actionbar
-const actionBarOptions = require("./actionbar/generic.actionbar.js");
-const ActionBarWrapper = require("js-base/component/action-bar.js");
+const headerBarOptions = require("./headerbar/pgApprovalWorklist.headerbar.js");
+const HeaderBarWrapper = require("js-base/component/header-bar.js");
 
 const tinyUtils = require('./component/tinyUtils.js');
 const getUnit = require('./component/getUnit.js');
@@ -32,8 +32,9 @@ const pgApprovalWorklist = extend(Page)(
             backgroundImage: 'stripe.png'
         });
 
-        actionBarOptions.setTitle('Approval Worklist');
-        const actionBarWrapper = ActionBarWrapper(this._view, actionBarOptions.options);
+        headerBarOptions.setTitle('Approval Worklist');
+        const headerBarWrapper = HeaderBarWrapper(this._view, headerBarOptions.options);
+        
         // Creating Slider Drawer
         SMFSliderDrawer.createSliderDrawer(this, 'sdSelfService');
         
@@ -56,9 +57,7 @@ const pgApprovalWorklist = extend(Page)(
             useActiveItem: false,
             allowDeletingItem: false,
             onSelectedItem: function(e) {
-                Pages.pgApproveLeaveRequest.recordID = e.rowIndex;
-                Pages.pgApproveLeaveRequest.oRequest = arrayRequests[e.rowIndex];
-                Pages.pgApproveLeaveRequest.show(defaultPageAnimation);
+                router.go('pgApproveLeaveRequest',{'rowIndex': e.rowIndex, 'request' : arrayRequests[e.rowIndex]});
             }
         });
     
@@ -270,7 +269,7 @@ const pgApprovalWorklist = extend(Page)(
          */
         function pgApprovalWorklist_onKeyPress(e) {
             if (e.keyCode === 4) {
-                Pages.back(reverseDefaultPageAnimation);
+                router.back();
             }
         }
     
@@ -284,8 +283,16 @@ const pgApprovalWorklist = extend(Page)(
             Dialog.removeWait();
     
             // Adding header bar (actionbar for Android, navigationbar for iOS)
-            actionBarWrapper.reload()
-    
+            headerBarWrapper.reload();
+            headerBarOptions.eventCallback(function(e) {
+                if (e.type == "menu") {
+                    Pages.currentPage.sdSelfService.show();
+                }
+                if (e.type == "filter") {
+                    filterMenu.call(this);
+                }
+            });
+            
             // Updating logged in user's info on the this page's slider drawer
             Pages.currentPage.sdSelfService.cntGeneral.cntTop.imgSliderAvatar.image = oProfile.Avatar;
             Pages.currentPage.sdSelfService.cntGeneral.cntTop.lblSliderFullName.text = oProfile.FullName;
@@ -298,50 +305,6 @@ const pgApprovalWorklist = extend(Page)(
             tinyUtils.fixOverlayBug();
         }
     
-    
-        // Adding a new navigation or actionbar to the page
-    //     function addHeaderBar() {
-    
-    //         var headerBar = new HeaderBar();
-    //         headerBar.init(Pages.currentPage);
-    
-    //         headerBar.setTitleView(Pages.currentPage, 'Approval Worklist', '#248afd', null, 0, 0, 240, 44, 20);
-    
-    //         // Preparing left items 
-    //         if (Device.deviceOS !== 'Android') {
-    //             var itemMenu = new SMF.UI.iOS.BarButtonItem({
-    //                 image: 'menu.png',
-    //                 onSelected: function() {
-    //                     (!isSliderDrawerOpen) ? Pages.pgApprovalWorklist.sdSelfService.show(): Pages.pgApprovalWorklist.sdSelfService.hide();
-    //                 }
-    //             });
-    
-    //             var itemFilter = new SMF.UI.iOS.BarButtonItem({
-    //                 image: 'filter.png',
-    //                 onSelected: function() {
-    //                     filterMenu();
-    //                 }
-    //             });
-    
-    //             Pages.currentPage.navigationItem.leftBarButtonItems = [itemMenu];
-    //             Pages.currentPage.navigationItem.rightBarButtonItems = [itemFilter];
-    //         }
-    //         else {
-    //             Pages.currentPage.actionBar.displayHomeAsUpEnabled = true;
-    // 			Pages.currentPage.actionBar.homeAsUpIndicator = 'menu.png';
-                
-    //             var itemFilter = new SMF.UI.Android.MenuItem({
-    //                 id: "1",
-    //                 icon: "filter.png",
-    //                 showAsAction: SMF.UI.Android.ShowAsAction.ALWAYS,
-    //                 onSelected: function(e) {
-    //                     filterMenu();
-    //                 }
-    //             });
-                
-    //             Pages.currentPage.actionBar.menuItems = [itemFilter];
-    //         }
-    //     }
     
         //filter requests menu item
         function filterMenu(e) {
@@ -450,7 +413,7 @@ const pgApprovalWorklist = extend(Page)(
             rptApprovalList.refresh();
             Dialog.removeWait();
             
-            this.lblNoData.visible = (arrayRequests.length == 0);
+            lblNoData.visible = (arrayRequests.length == 0);
             rptApprovalList.visible = !(arrayRequests.length == 0);
         }
     },
@@ -458,7 +421,7 @@ const pgApprovalWorklist = extend(Page)(
     function(_proto) {
         // for injection of routing data
         _proto.setRouteParams = function() {};
-        _proto.changeStateHandlder = function(state) {};
+        _proto.stateChangedHandler = function(state) {};
     });
 
 module.exports = pgApprovalWorklist;

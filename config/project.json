@@ -114,10 +114,7 @@
 						"active": false
 					}
 				},
-				"playerPath": {
-					"ARM": null,
-					"x86": null
-				}
+				"playerPath": null
 			},
 			"keys": {
 				"project3DesKey": "kRqnqG+KKC5N4nemYjv5ywPGy5wHi1j0",

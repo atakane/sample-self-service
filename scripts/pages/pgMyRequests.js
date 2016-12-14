@@ -2,7 +2,6 @@
 
 /*
 TODO:
-- use Router options to pass oRequest
 - use Router for pages.back
 */
 const Page = require("js-base/component/page");
@@ -12,8 +11,8 @@ const SMFSliderDrawer = require('./component/SMFSliderDrawer.js');
 const Dialog = require('smf-dialog');
 
 // Actionbar
-const actionBarOptions = require("./actionbar/generic.actionbar.js");
-const ActionBarWrapper = require("js-base/component/action-bar.js");
+const headerBarOptions = require("./headerbar/generic.headerbar.js");
+const HeaderBarWrapper = require("js-base/component/header-bar.js");
 
 const tinyUtils = require('./component/tinyUtils.js');
 const getUnit = require('./component/getUnit.js');
@@ -31,8 +30,9 @@ const pgMyRequests = extend(Page)(
         backgroundImage: 'stripe.png'
     });
 
-        actionBarOptions.setTitle('My Leave Requests');
-        const actionBarWrapper = ActionBarWrapper(this._view, actionBarOptions.options);
+        headerBarOptions.setTitle('My Leave Requests');
+        const headerBarWrapper = HeaderBarWrapper(this._view, headerBarOptions.options);
+        
         // Creating Slider Drawer
         SMFSliderDrawer.createSliderDrawer(this, 'sdSelfService');
         
@@ -324,7 +324,11 @@ const pgMyRequests = extend(Page)(
             Dialog.removeWait();
     
             // Adding header bar (actionbar for Android, navigationbar for iOS)
-            actionBarWrapper.reload();
+            headerBarWrapper.reload();
+            headerBarOptions.eventCallback(function(e) {
+                if (e.type == "menu")
+                    Pages.currentPage.sdSelfService.show();
+            });            
     
             // Updating logged in user's info on the this page's slider drawer
             Pages.currentPage.sdSelfService.cntGeneral.cntTop.imgSliderAvatar.image = oProfile.Avatar;
@@ -408,7 +412,7 @@ const pgMyRequests = extend(Page)(
     function(_proto) {
         // for injection of routing data
         _proto.setRouteParams = function() {};
-        _proto.changeStateHandlder = function(state) {};
+        _proto.stateChangedHandler = function(state) {};
     });
-
+    
 module.exports = pgMyRequests;

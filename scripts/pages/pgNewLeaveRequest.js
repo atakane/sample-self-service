@@ -12,8 +12,8 @@ const SMFSliderDrawer = require('./component/SMFSliderDrawer.js');
 const Dialog = require('smf-dialog');
 
 // Actionbar
-const actionBarOptions = require("./actionbar/generic.actionbar.js");
-const ActionBarWrapper = require("js-base/component/action-bar.js");
+const headerBarOptions = require("./headerbar/generic.headerbar.js");
+const HeaderBarWrapper = require("js-base/component/header-bar.js");
 
 const tinyUtils = require('./component/tinyUtils.js');
 const getUnit = require('./component/getUnit.js');
@@ -30,8 +30,8 @@ const pgNewLeaveRequest = extend(Page)(
         onShow: pgNewLeaveRequest_onShow
     });
 
-        actionBarOptions.setTitle('New Leave Request');
-        const actionBarWrapper = ActionBarWrapper(this._view, actionBarOptions.options);
+        headerBarOptions.setTitle('New Leave Request');
+        const headerBarWrapper = HeaderBarWrapper(this._view, headerBarOptions.options);
         // Creating Slider Drawer
         SMFSliderDrawer.createSliderDrawer(this, 'sdSelfService');
         
@@ -250,7 +250,11 @@ const pgNewLeaveRequest = extend(Page)(
             Dialog.removeWait();
     
             // Adding header bar (actionbar for Android, navigationbar for iOS)
-            actionBarWrapper.reload();
+            headerBarWrapper.reload();
+            headerBarOptions.eventCallback(function(e) {
+                if (e.type == "menu")
+                    Pages.currentPage.sdSelfService.show();
+            });            
     
             fillVacationMetrics(oTimeTable.TotalDays, oTimeTable.Used, oTimeTable.Remaining);
     
@@ -533,7 +537,7 @@ const pgNewLeaveRequest = extend(Page)(
     function(_proto) {
         // for injection of routing data
         _proto.setRouteParams = function() {};
-        _proto.changeStateHandlder = function(state) {};
+        _proto.stateChangedHandler = function(state) {};
     });
 
 module.exports = pgNewLeaveRequest;

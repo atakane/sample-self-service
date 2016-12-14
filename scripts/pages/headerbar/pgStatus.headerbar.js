@@ -1,4 +1,4 @@
-const ActionWrapper = require("js-base/component/action-bar");
+const ActionWrapper = require("js-base/component/header-bar");
 var eventCallback;
 
 const options = {
@@ -37,7 +37,7 @@ if(Device.deviceOS == "iOS") {
       image: "self_service.png"
     },
     overlay: true,
-    homeAsUpIndicator: "menu.png",
+    homeAsUpIndicator: "back.png",
     onHomeIconItemSelected: function(){
       eventCallback({type: "menu"});
     },

@@ -211,7 +211,7 @@ const pgLogin = extend(Page)(
     function(_proto) {
         // for injection of routing data
         _proto.setRouteParams = function() {};
-        _proto.changeStateHandlder = function(state) {};
+        _proto.stateChangedHandler = function(state) {};
     });
 
 module.exports = pgLogin;

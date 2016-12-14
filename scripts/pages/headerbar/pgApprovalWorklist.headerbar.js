@@ -1,4 +1,4 @@
-const ActionWrapper = require("js-base/component/action-bar");
+const ActionWrapper = require("js-base/component/header-bar");
 var eventCallback;
 
 const options = {
@@ -13,7 +13,12 @@ var _fontSize = 20;
 
 if (Device.deviceOS == "iOS") {
   options.ios = {
-    rightBarButtonItems: [],
+    rightBarButtonItems: [new SMF.UI.iOS.BarButtonItem({
+      image : "filter.png",
+      onSelected: function(){
+        eventCallback({type: "filter"});
+      }
+    })],
     leftBarButtonItems: [new SMF.UI.iOS.BarButtonItem({
       image: "menu.png",
       onSelected: function() {
@@ -54,14 +59,20 @@ else {
     displayShowHomeEnabled: true,
     alpha: 1,
     displayHomeAsUpEnabled: true,
-    menuItems: []
+    menuItems: [new SMF.UI.Android.MenuItem({
+        id: "1",
+        icon: "filter.png",
+        showAsAction: SMF.UI.Android.ShowAsAction.ALWAYS,
+        onSelected: function(e) {
+            eventCallback({type: "filter"});
+        }
+    })]
   };
 }
 
 
 module.exports = {
   eventCallback: function(cb) {
-    console.log("event" + cb);
     eventCallback = cb;
   },
   setTitle: function(title) {

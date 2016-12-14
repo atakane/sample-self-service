@@ -1,6 +1,7 @@
 /* globals */
 const getUnit = require('./getUnit.js');
 
+
 exports.createContainer = function createContainer(parent, name, left, top, width, height, fillColor, backgroundTransparent, onTouchEnded, alpha) {
     var newComponent = new SMF.UI.Rectangle({
         name: name,
@@ -17,6 +18,7 @@ exports.createContainer = function createContainer(parent, name, left, top, widt
     });
     if (alpha) newComponent.alpha = alpha;
 
+    parent[name] = newComponent;
     parent.add(newComponent);
 }
 

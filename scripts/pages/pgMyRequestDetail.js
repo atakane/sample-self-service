@@ -1,19 +1,14 @@
-/* globals smfOracle oTimeTable oProfile oRequestList lunchBreakDuration*/
+/* globals smfOracle oProfile oRequestList lunchBreakDuration*/
 
-/*
-TODO:
-- use Router options to pass oRequest
-*/
 const Page = require("js-base/component/page");
 const extend = require("js-base/core/extend");
 
 const SMFcomponents = require('./component/SMFcomponents.js');
-const SMFSliderDrawer = require('./component/SMFSliderDrawer.js');
 const Dialog = require('smf-dialog');
 
 // Actionbar
-const actionBarOptions = require("./actionbar/generic.actionbar.js");
-const ActionBarWrapper = require("js-base/component/action-bar.js");
+const headerBarOptions = require("./headerbar/generic.headerbar.back.js");
+const HeaderBarWrapper = require("js-base/component/header-bar.js");
 
 const tinyUtils = require('./component/tinyUtils.js');
 const getUnit = require('./component/getUnit.js');
@@ -30,14 +25,17 @@ const pgMyRequestDetail = extend(Page)(
             name: 'pgMyRequestDetail',
             onKeyPress: pgMyRequestDetail_onKeyPress,
             onShow: pgMyRequestDetail_onShow
+        },
+        "", 
+        {
+            oRequest: []
         });
     
+        var self = this;
         
-        actionBarOptions.setTitle('My Leave Request');
-        const actionBarWrapper = ActionBarWrapper(this._view, actionBarOptions.options);
-        // Creating Slider Drawer
-        SMFSliderDrawer.createSliderDrawer(this, 'sdSelfService');
-         
+        headerBarOptions.setTitle('My Leave Request');
+        const headerBarWrapper = HeaderBarWrapper(this._view, headerBarOptions.options);
+
         var selectedStartDate;
         var selectedEndDate;
          
@@ -151,9 +149,10 @@ const pgMyRequestDetail = extend(Page)(
                     firstButtonText: 'Delete',
                     secondButtonText: 'Cancel',
                     onFirstButtonPressed: function() {
-                        targetID = pgMyRequestDetail.oRequest.ID;
-                        console.log(targetID);
-                        oRequestList = oRequestList.filter(filterOutByID)
+                        
+                        // console.log(self, self.state);
+                        tinyUtils.setTargetID(self.getState().oRequest.ID);
+                        oRequestList = oRequestList.filter(tinyUtils.filterOutByID)
     
                         //Updating Stats (this should return from real service when we connected. For now updating the mock)
                         oProfile.LeaveRequestCount = oProfile.LeaveRequestCount - 1;
@@ -196,10 +195,11 @@ const pgMyRequestDetail = extend(Page)(
             Dialog.removeWait();
     
             // Adding header bar (actionbar for Android, navigationbar for iOS)
-            actionBarWrapper.reload();
-    
-    
-
+            headerBarWrapper.reload();
+            headerBarOptions.eventCallback(function(e) {
+                if (e.type == "back")
+                    router.back();
+            });
     
             // Oracle MCS Analytics logging 
             smfOracle.logAndFlushAnalytics('pgMyRequestDetail_onShow');
@@ -226,7 +226,7 @@ const pgMyRequestDetail = extend(Page)(
             setDateLabels.call(this, selectedEndDate, false);
         
             // Calculating the day-count according to given Start and End dates
-            calculateDaysBetween();
+            this.calculateDaysBetween();
         }
     
         // Setting the date labels according to their relations between each other
@@ -254,13 +254,16 @@ const pgMyRequestDetail = extend(Page)(
                 }
     
             }
-            calculateDaysBetween();
+            this.calculateDaysBetween();
         }
+        
+        // var calculateDaysBetween = calculateDaysBetweenFunc.bind(this);
+        // calculateDaysBetween()
     
         // Calculates the day-count between Start and End Dates
-        function calculateDaysBetween() {
+        this.calculateDaysBetween = function () {
             var count, countText;
-            if (Pages.currentPage.lblTimeUnit.text === 'DAY') {
+            if (this.lblTimeUnit.text === 'DAY') {
                 count = tinyUtils.daysBetween(selectedStartDate.format('MM/dd/yyyy'), selectedEndDate.format('MM/dd/yyyy'));
                 countText = (count > 1) ? 'days' : 'day';
     
@@ -268,12 +271,12 @@ const pgMyRequestDetail = extend(Page)(
             else {
                 count = tinyUtils.daysBetween(selectedStartDate, selectedEndDate, true) - ((selectedEndDate.format('HH') < 13) ? 0 : lunchBreakDuration);
                 countText = (count > 1) ? 'hours' : 'hour';
-                Pages.currentPage.lblStartTime.text = selectedStartDate.format('HH:mm TT');
-                Pages.currentPage.lblEndTime.text = selectedEndDate.format('HH:mm TT');
+                this.lblStartTime.text = selectedStartDate.format('HH:mm TT');
+                this.text = selectedEndDate.format('HH:mm TT');
             }
     
-            Pages.currentPage.cntBlueBox.lblSelectedDaysCount.text = count;
-            Pages.currentPage.cntBlueBox.lblSelectedDaysCountText.text = countText
+            cntBlueBox.lblSelectedDaysCount.text = count;
+            cntBlueBox.lblSelectedDaysCountText.text = countText
         }
     
         // Drawing day-boxes 
@@ -336,15 +339,16 @@ const pgMyRequestDetail = extend(Page)(
     //Page Public Methods
     function(_proto) {
         // for injection of routing data
-        _proto.setRouteParams = function(req) {
-             // inherited from UIComponent
-            this._changeState({
-                oRequest: req
-            })
-           
+        _proto.setRouteParams = function(request) {
+            // inherited from UIComponent
+            if (request) {
+                this._changeState({
+                    oRequest: request
+                });
+            }
         };
         _proto.stateChangedHandler = function(state) {
-            this.updatePageObjects(state.oRequest)
+            this.updatePageObjects(state.oRequest);
         };
     });
    

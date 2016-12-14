@@ -6,8 +6,8 @@ const SMFSliderDrawer = require('./component/SMFSliderDrawer.js');
 const Dialog = require('smf-dialog');
 
 // Actionbar
-const actionBarOptions = require("./actionbar/generic.actionbar.js");
-const ActionBarWrapper = require("js-base/component/action-bar.js");
+const headerBarOptions = require("./headerbar/generic.headerbar.js");
+const HeaderBarWrapper = require("js-base/component/header-bar.js");
 
 // Router
 const router = require('js-base/core/router');
@@ -22,8 +22,8 @@ const pgLogin = extend(Page)(
             backgroundImage: 'stripe.png'
         });
 
-        actionBarOptions.setTitle('About');
-        const actionBarWrapper = ActionBarWrapper(this._view, actionBarOptions.options);
+        headerBarOptions.setTitle('About');
+        const headerBarWrapper = HeaderBarWrapper(this._view, headerBarOptions.options);
         
         // Creating Slider Drawer
         SMFSliderDrawer.createSliderDrawer(this, 'sdSelfService');
@@ -131,10 +131,10 @@ const pgLogin = extend(Page)(
             Dialog.removeWait();
 
             // Adding header bar (actionbar for Android, navigationbar for iOS)
-            actionBarWrapper.reload();
-            actionBarOptions.eventCallback(function(e) {
+            headerBarWrapper.reload();
+            headerBarOptions.eventCallback(function(e) {
                 if (e.type == "menu")
-                    SMFSliderDrawer.toggle();
+                    Pages.currentPage.sdSelfService.show();
             });
 
             // Updating logged in user's info on the this page's slider drawer
@@ -150,7 +150,7 @@ const pgLogin = extend(Page)(
     function(_proto) {
         // for injection of routing data
         _proto.setRouteParams = function() {};
-        _proto.changeStateHandlder = function(state) {};
+        _proto.stateChangedHandler = function(state) {};
     });
 
 module.exports = pgLogin;

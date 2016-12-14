@@ -88,7 +88,7 @@ exports.createSliderDrawer = function (page, name) {
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
         '#444444', '#a0a0a0',
         function(e) {
-            (Pages.currentPage === Pages.pgStatus) ? sliderDrawer.hide(): Pages.pgStatus.show();
+            (Pages.currentPage === Pages.pgStatus) ? sliderDrawer.hide(): router.go('pgStatus');
         });
     //336
     SMFcomponents.createRectangle(cntGeneral, '4.4940%', '49.1754%', '95.506%', 1, '#e7e7e7');
@@ -144,7 +144,7 @@ exports.createSliderDrawer = function (page, name) {
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
         '#248afd', '#1961c1',
         function(e) {
-            (Pages.currentPage === Pages.pgOutOfOffice) ? sliderDrawer.hide():  router.go('pgOutOfOffice');
+            (Pages.currentPage === Pages.pgOutOfOffice) ? sliderDrawer.hide(): router.go('pgOutOfOffice');
         });
     SMFcomponents.createRectangle(cntGeneral, '4.4940%', '76.0569%', '95.506%', 1, '#e7e7e7');
     SMFcomponents.createTextButton(cntGeneral,
@@ -156,7 +156,7 @@ exports.createSliderDrawer = function (page, name) {
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
         '#248afd', '#1961c1',
         function(e) {
-            (Pages.currentPage === Pages.pgAbout) ? sliderDrawer.hide(): router.go('pgAbout');
+            (Pages.currentPage === Pages.pgAbout) ? sliderDrawer.hide(): router.go('pgAbout'); 
         });
         
     SMFcomponents.createRectangle(cntGeneral, '4.4940%', '93.02848%', '95.506%', 1, '#e7e7e7');
