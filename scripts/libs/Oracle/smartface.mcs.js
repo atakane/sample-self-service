@@ -1,6 +1,5 @@
 /* globals mcs mcs_config Analytics AnalyticsEvent Deferred getCollection postObject readObject*/
 // Based on MCS Jquery plugin at http://www.ateam-oracle.com/hybrid-mobile-apps-using-the-mobile-cloud-service-javascript-sdk-with-oracle-jet/
-// https://smartface.atlassian.net/wiki/display/GUIDE/Using+Oracle+Mobile+Cloud+Service+%28MCS%29+to+Develop+Native+iOS+and+Android+Apps+with+Smartface
 
 include("libs/Oracle/mcs.js");
 include("libs/Oracle/oracle_mobile_cloud_config.js");
@@ -51,6 +50,38 @@ SMF.Oracle.MobileCloudService = function MobileCloudService(backendName) {
 
         // setting platform properties
         console.log('setting platform values');
+
+        /*  Getting Lang Long without using device GPS
+            Oracle MCS doesnt resolve client's IP address to get geo-location
+            If you want to use device GPS you can use Device.GPSStatus as described in http://docs.smartface.io/#!/api/Device-static-property-GPSStatus
+            Suggested way is to use permission.lib to manage Device permission issues while requesting GPS access.
+            Please check global.setGPSStatus on https://smartface.atlassian.net/wiki/display/GUIDE/Application+Permission+Management
+        */
+        var oReq = new XMLHttpRequest();
+        oReq.onload = function(e) {
+            /*
+            {
+                "ip" : "8.8.8.8"
+                "city" : "Mountain View"
+                "region" : "California"
+                "country" : "US"
+                "postal" : "94040"
+                "latitude" : 37.3845
+                "longitude" : -122.0881
+                "timezone" : "America/Los_Angeles"
+                }
+            */
+
+            if (this.responseText) {
+                var parsedData = JSON.parse(this.responseText);
+                console.log('IP info: ' + JSON.prune(parsedData));
+                mcs.MobileBackendManager.platform.latitude = parsedData.latitude.toString();
+                mcs.MobileBackendManager.platform.longitude = parsedData.longitude.toString();
+            }
+        };
+        oReq.open("GET", "https://ipapi.co/json/", true);
+        oReq.send();
+
         mcs.MobileBackendManager.platform.model = Device.brandModel;
         mcs.MobileBackendManager.platform.manufacturer = Device.brandName;
         mcs.MobileBackendManager.platform.osName = Device.deviceOS;
