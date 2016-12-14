@@ -29,12 +29,11 @@ if(Device.deviceOS == "iOS") {
   options.android = {
     hideOnContentScroll: false,
     titleView: {
-      type: SMF.UI.TitleViewType.IMAGE,
-      left: 70,
-      width: 44,
-      height: 44,
-      top: 0,
-      image: "self_service.png"
+      type: SMF.UI.TitleViewType.TEXT,
+      text: 'Self Service',
+      textColor: '#248afd',
+      textSize: 20,
+      alignment: SMF.UI.Alignment.CENTER
     },
     overlay: true,
     homeAsUpIndicator: "back.png",
