@@ -4,17 +4,17 @@ var mcs_config = {
   "mobileBackends": {
     "smartfaceOracleMCS": {
       "default": true,
-      "baseUrl": "https://smartfacemobileenv-mobiledom.mobileenv.em2.oraclecloud.com:443",
-      "applicationKey": Device.deviceOS === "Android" ? "981a4721-d0fe-4475-8a9e-06171eea6630" : "0f7cf14e-941b-4234-9542-7e6afbc3334c",
+      "baseUrl": "https://smartface-mobilebel.mobileenv.em2.oraclecloud.com:443",
+      "applicationKey": Device.deviceOS === "Android" ? "a286e7b4-a765-4895-a718-e1f9a57f1c5e" : "0e891fef-57d8-443a-9532-715106182720",
       "authorization": {
         "basicAuth": {
-          "backendId": "94ff5160-6662-453e-b93f-ce1c30811734",
-          "anonymousToken": "TU9CSUxFRE9NX1NNQVJURkFDRU1PQklMRUVOVl9NT0JJTEVfQU5PTllNT1VTX0FQUElEOllhX3c3cmhkbmNzaTV6"
+          "backendId": "4a3a3740-5071-4bfe-8821-267fd3d09f55",
+          "anonymousToken": "TU9CSUxFQkVMX1NNQVJURkFDRV9NT0JJTEVfQU5PTllNT1VTX0FQUElEOmZzOXEzakltbm9iX2hw"
         },
         "oAuth": {
-          "clientId": "2667ba30-55d5-4f56-aae3-03b79e7216c3",
-          "clientSecret": "TbRieZwCygTCdfbiKQs1",
-          "tokenEndpoint": "https://mobiledom.identity.europe.oraclecloud.com/oam/oauth2/tokens"
+          "clientId": "16199e66-4f64-4fef-90c4-7d9231ff265a",
+          "clientSecret": "sozSvQZSTOphhcljZFa0",
+          "tokenEndpoint": "https://mobilebel.identity.europe.oraclecloud.com/oam/oauth2/tokens"
         },
         "facebookAuth": {
           "facebookAppId": "YOUR_FACEBOOK_APP_ID",
