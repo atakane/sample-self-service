@@ -36,6 +36,13 @@ function Application_OnStart(e) {
 
 	// Creating a new Oracle MCS instance 
 	smfOracle = new SMF.Oracle.MobileCloudService('smartfaceOracleMCS');
+	
+	// logging in as anonymous user to log Analytics events
+	// if you need you can auth user with .authenticate
+	smfOracle.authAnonymous();
+	
+	// logging an event
+	smfOracle.logAnalytics('Application_OnStart');
 
 	initRequire("./main.js");
 }

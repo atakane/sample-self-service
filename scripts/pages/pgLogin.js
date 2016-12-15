@@ -92,6 +92,7 @@ const pgLogin = extend(Page)(
          * @this Pages.pgLogin
          */
         function pgLogin_onShow() {
+            smfOracle.logAnalytics('pgLogin_onShow');
             SMF.UI.statusBar.style = SMF.UI.StatusBarStyle.LIGHTCONTENT;
             Dialog.removeWait();
             btnLogin.enabled = true;
