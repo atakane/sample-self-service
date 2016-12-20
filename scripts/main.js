@@ -13,6 +13,10 @@ const pgApprovalWorklist = require('./pages/pgApprovalWorklist.js');
 const pgApproveLeaveRequest = require('./pages/pgApproveLeaveRequest.js');
 const pgMyRequests = require('./pages/pgMyRequests.js');
 const pgMyRequestDetail = require('./pages/pgMyRequestDetail.js');
+const style = (Device.deviceOS === 'iOS') ? require('./pages/style/ios.style.js') : require('./pages/style/android.style.js');
+const styler  = require("js-base/core/styler").styler;
+
+styler(style);
 
 // Router
 const router = require('js-base/core/router'); 

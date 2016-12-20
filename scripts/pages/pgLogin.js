@@ -57,7 +57,7 @@ const pgLogin = extend(Page)(
             width: '80%',
             height: '8%',
             placeHolder: 'Password',
-            text: 'Qwe12345',
+            text: 'Smartface1',
             isPassword: true,
             horizontalGap: 15,
             roundedEdge: 0

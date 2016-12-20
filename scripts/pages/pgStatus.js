@@ -9,7 +9,8 @@ const headerBarOptions = require("./headerbar/pgStatus.headerbar.js");
 const HeaderBarWrapper = require("js-base/component/header-bar.js");
 
 const tinyUtils = require('./component/tinyUtils.js');
-const getUnit = require('./component/getUnit.js');
+
+const componentStyler = require("js-base/core/styler").componentStyler();
 
 // Router
 const router = require('js-base/core/router');
@@ -34,12 +35,10 @@ const pgStatus = extend(Page)(
             left: 0,
             top: 0,
             width: '100%',
-            height: getUnit({
-                iOS: '42.05397%',
-                Android: '42.10937%'
-            }),
             imageFillType: SMF.UI.ImageFillType.STRETCH
         });
+
+        componentStyler(".pgStatus.imgHome")(imgHome);
 
         // Progress bar (Earned & Used days ratio)
         var cntProgressBar = new SMF.UI.Container({
@@ -80,26 +79,17 @@ const pgStatus = extend(Page)(
         var imgAvatar = new SMF.UI.Image({
             name: 'imgAvatar',
             image: '',
-            left: getUnit('39.4666%'),
-            top: getUnit('14.2428%'),
-            width: getUnit(80),
-            height: getUnit(80),
+            left: '39.4666%',
+            top: '14.2428%',
             imageFillType: SMF.UI.ImageFillType.ASPECTFIT
         });
+        componentStyler(".pgStatus.imgAvatar")(imgAvatar);
         this.add(imgAvatar);
 
         var lblFullName = new SMF.UI.Label({
             name: 'lblFullName',
             left: 0,
-            top: getUnit({
-                iOS: '29.4587%',
-                Android: '28%'
-            }),
             width: '100%',
-            height: getUnit({
-                iOS: '3%',
-                Android: '5%'
-            }),
             text: '',
             textAlignment: SMF.UI.TextAlignment.CENTER,
             font: new SMF.UI.Font({
@@ -109,14 +99,15 @@ const pgStatus = extend(Page)(
             multipleLine: false,
             fontColor: SMF.UI.Color.WHITE
         });
+        componentStyler(".pgStatus.lblFullName")(lblFullName);
         this.add(lblFullName);
 
         var lblTeamRole = new SMF.UI.Label({
             name: 'lblTeamRole',
             left: 0,
-            top: getUnit('33.4332%'),
+            top: '33.4332%',
             width: '100%',
-            height: getUnit('2.9985%'),
+            height: '2.9985%',
             text: '',
             textAlignment: SMF.UI.TextAlignment.CENTER,
             font: new SMF.UI.Font({
@@ -136,8 +127,8 @@ const pgStatus = extend(Page)(
             name: 'cntOutOfOfficeBar',
             left: 0,
             width: '100%',
-            top: getUnit('75.1874%'),
-            height: getUnit('9.5952%'),
+            top: '75.1874%',
+            height: '9.5952%',
             borderWidth: 0,
             fillColor: '#e7e7e7',
             backgroundTransparent: false,
@@ -147,8 +138,8 @@ const pgStatus = extend(Page)(
         });
         var swtOutOfOffice = new SMF.UI.SwitchButton({
             name: 'swtOutOfOffice',
-            left: getUnit('5.73333%'),
-            top: getUnit('30.4687%'),
+            left: '5.73333%',
+            top: '30.4687%',
             checked: false,
             onTintColor: '#248afd',
             tintColor: '#248afd',
@@ -159,8 +150,8 @@ const pgStatus = extend(Page)(
 
         var lblOOOStatusTitle = new SMF.UI.Label({
             name: 'lblOOOStatusTitle',
-            left: getUnit('4.53333%'),
-            top: getUnit('21.875%'),
+            left: '4.53333%',
+            top: '21.875%',
             width: '60%',
             height: '29%',
             text: 'OUT OF OFFICE STATUS',
@@ -174,8 +165,8 @@ const pgStatus = extend(Page)(
 
         var lblOOOStatusTitle2 = new SMF.UI.Label({
             name: 'lblOOOStatusTitle2',
-            left: getUnit('4.53333%'),
-            top: getUnit('53.9062%'),
+            left: '4.53333%',
+            top: '53.9062%',
             width: '27%',
             height: '29%',
             text: 'Out Of Office',
@@ -189,8 +180,8 @@ const pgStatus = extend(Page)(
 
         var lblOOOStatusText = new SMF.UI.Label({
             name: 'lblOOOStatusText',
-            left: getUnit('31%'),
-            top: getUnit('53.9062%'),
+            left: '31%',
+            top: '53.9062%',
             width: '30%',
             height: '29%',
             text: 'Mode Off',
@@ -204,12 +195,13 @@ const pgStatus = extend(Page)(
 
         var imgDetail = new SMF.UI.Image({
             image: 'right_arrow.png',
-            left: getUnit('90.66666%'),
-            top: getUnit('40.625%'),
-            width: getUnit(12),
-            height: getUnit(20),
+            left: '90.66666%',
+            top: '40.625%',
+            width: 12,
+            height: 20,
             imageFillType: SMF.UI.ImageFillType.NORMAL
         });
+        componentStyler(".pgStatus.imgDetail")(imgDetail);
         cntOutOfOfficeBar.add(imgDetail);
 
         this.add(cntOutOfOfficeBar);
@@ -218,10 +210,10 @@ const pgStatus = extend(Page)(
         // Latest Leave Request details
         var lblNewRequestText = new SMF.UI.Label({
             name: 'lblNewRequestText',
-            left: getUnit('4.53333%'),
-            top: getUnit('88.5%'),
-            width: getUnit('65%'),
-            height: getUnit('10%'),
+            left: '4.53333%',
+            top: '88.5%',
+            width: '65%',
+            height: '10%',
             text: '',
             textAlignment: SMF.UI.TextAlignment.LEFT,
             font: new SMF.UI.Font({
@@ -234,16 +226,8 @@ const pgStatus = extend(Page)(
 
         var lblNewRequestTextDate = new SMF.UI.Label({
             name: 'lblNewRequestTextDate',
-            left: getUnit({
-                iOS: '29.5%',
-                Android: '21%'
-            }),
-            top: getUnit({
-                iOS: '89.45%',
-                Android: '90%'
-            }),
-            width: getUnit('30%'),
-            height: getUnit('10%'),
+            width: '30%',
+            height: '10%',
             text: '',
             textAlignment: SMF.UI.TextAlignment.LEFT,
             font: new SMF.UI.Font({
@@ -251,29 +235,19 @@ const pgStatus = extend(Page)(
             }),
             fontColor: '#37404a'
         });
+        componentStyler(".pgStatus.lblNewRequestTextDate")(lblNewRequestTextDate);
         this.add(lblNewRequestTextDate);
 
         // New Request button
         var imgAdd = new SMF.UI.Image({
             image: 'btn_plus.png',
-            left: getUnit({
-                iOS: '78.2666%',
-                Android: '78.2777%'
-            }),
-            top: getUnit('88.9805%'),
-            width: getUnit({
-                iOS: 63,
-                Android: 61
-            }),
-            height: getUnit({
-                iOS: 66,
-                Android: 64
-            }),
+            top: '88.9805%',
             imageFillType: SMF.UI.ImageFillType.ASPECTFIT,
             onTouchEnded: function(e) {
                 router.go('pgNewLeaveRequest');
             }
         });
+        componentStyler(".pgStatus.imgAdd")(imgAdd);
         this.add(imgAdd);
 
         /**
@@ -345,10 +319,10 @@ const pgStatus = extend(Page)(
         function createVacationBoxes() {
             var boxTotalDays = new SMF.UI.Container({
                 name: 'boxTotalDays',
-                left: getUnit('4%'),
-                top: getUnit('56.6716%'),
-                width: getUnit('28%'),
-                height: getUnit('15.5922%'),
+                left: '4%',
+                top: '56.6716%',
+                width: '28%',
+                height: '15.5922%',
                 borderWidth: 1,
                 borderColor: '#979797',
                 roundedEdge: 0
@@ -360,10 +334,10 @@ const pgStatus = extend(Page)(
 
             var boxUsed = new SMF.UI.Container({
                 name: 'boxUsed',
-                left: getUnit('36%'),
-                top: getUnit('56.6716%'),
-                width: getUnit('28%'),
-                height: getUnit('15.5922%'),
+                left: '36%',
+                top: '56.6716%',
+                width: '28%',
+                height: '15.5922%',
                 borderWidth: 1,
                 borderColor: '#cca2b5',
                 roundedEdge: 0
@@ -375,10 +349,10 @@ const pgStatus = extend(Page)(
 
             var boxRemaining = new SMF.UI.Container({
                 name: 'boxRemaining',
-                left: getUnit('68%'),
-                top: getUnit('56.6716%'),
-                width: getUnit('28%'),
-                height: getUnit('15.5922%'),
+                left: '68%',
+                top: '56.6716%',
+                width: '28%',
+                height: '15.5922%',
                 borderWidth: 0,
                 roundedEdge: 0
             });

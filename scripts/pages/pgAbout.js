@@ -66,6 +66,7 @@ const pgLogin = extend(Page)(
             multipleLine: true,
             borderWidth: 0
         });
+        
 
         var lblWelcome2 = new SMF.UI.Label({
             top: '29%',

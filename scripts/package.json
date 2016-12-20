@@ -17,5 +17,7 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.16.0",
-    "rx": "^4.1.0"
+    "rx": "^4.1.0",
+    "smf-dialog": "^1.0.1"
   }
+}

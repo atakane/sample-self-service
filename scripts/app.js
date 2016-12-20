@@ -1,12 +1,7 @@
 /* globals lang defaultPageAnimation Dialog*/
 include('i18n/i18n.js');
-// include('libs/Smartface/permissions.js');
 include('libs/utils/JSON.prune.js');
 include("libs/Oracle/smartface.mcs.js");
-// include("libs/utils/smartface.tiny.utils.js");
-// include("libs/utils/dialog.js");
-// include("libs/utils/headerbar.js");
-// include('libs/Smartface/SMFAjax.js');
 
 //Require
 include("node_modules/js-base/utils/require.js");
