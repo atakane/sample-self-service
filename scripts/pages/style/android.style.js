@@ -24,5 +24,57 @@ module.exports = {
       width: 61,
       height: 64
     }
+  },
+  ".pgOutOfOffice": {
+    ".myRectangle1Top": {
+      top: '31.5352%'
+    },
+    ".myRectangle2Top": {
+      top: '46.5277%'
+    },
+    ".imgAvatar": {
+      top: '14.5%'
+    },
+    ".lblFullName": {
+      top: '22%'
+    },
+    ".lblTeamRole": {
+      top: '26.7376%'
+    },
+    ".swtOutOfOffice": {
+      top: '15.6431%'
+    },
+    ".lblOOOStatusTitle": {
+      top: '23.2893%'
+    },
+    ".lblOOOStatusText": {
+      top: '26.2878%'
+    },
+    ".level1Top": {
+      top: '33.1844%',
+      height: '5%'
+    },
+    ".level2Top": {
+      top: '37.9820%',
+      height: '5%'
+    },
+    ".cntBlueBox": {
+      top: '31.5352%'
+    },
+    ".lblSelectedDaysCount": {
+      top: '20%',
+      height: '40%'
+    },
+    ".lblOutOfOfficeMessage": {
+      top: '49.1514%',
+      height: '6%'
+    },
+    ".txtOutOfOfficeMessage": {
+      top: '56.1514%'
+    },
+    ".recOverlay": {
+      top: '31.5352%',
+      height: '58.8696%'
+    }
   }
 };

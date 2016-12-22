@@ -19,6 +19,8 @@ const HeaderBarWrapper = require("js-base/component/header-bar.js");
 const tinyUtils = require('./component/tinyUtils.js');
 const getUnit = require('./component/getUnit.js');
 
+const colors = require('./style/colors.js');
+
 // Router
 const router = require('js-base/core/router');
 
@@ -96,7 +98,7 @@ const pgApprovalWorklist = extend(Page)(
                 size: '11pt',
                 bold: false
             }),
-            fontColor: '#248afd',
+            fontColor: colors.BlueMedium,
             borderWidth: 0
         });
     
@@ -113,7 +115,7 @@ const pgApprovalWorklist = extend(Page)(
                 size: '7pt',
                 bold: false
             }),
-            fontColor: '#4a4a4a',
+            fontColor: colors.Gray29,
             borderWidth: 0
         });
     
@@ -130,7 +132,7 @@ const pgApprovalWorklist = extend(Page)(
                 size: '6pt',
                 bold: false
             }),
-            fontColor: '#4a4a4a',
+            fontColor: colors.Gray29,
             borderWidth: 0
         });
     
@@ -150,7 +152,7 @@ const pgApprovalWorklist = extend(Page)(
             top:getUnit({iOS: ((Device.screenHeight - 64) / 7)-1, Android: 79}),
             width: getUnit('100%'),
             height: 1,
-            fillColor: '#FFFFFF',
+            fillColor: colors.White,
             borderWidth: 0,
             roundedEdge: 0
         });
@@ -165,7 +167,7 @@ const pgApprovalWorklist = extend(Page)(
         rptApprovalList.itemTemplate.add(lblLeaveDetails);
         rptApprovalList.itemTemplate.add(imgDetail);
         rptApprovalList.itemTemplate.add(recHorizontalLine);
-        rptApprovalList.itemTemplate.fillColor = '#e7e7e7';
+        rptApprovalList.itemTemplate.fillColor = colors.GrayLighter;
     
         //activeItemTemplate
         var imgAvatar2 = imgAvatar.clone();
@@ -184,7 +186,7 @@ const pgApprovalWorklist = extend(Page)(
         rptApprovalList.activeItemTemplate.add(lblLeaveDetails2);
         rptApprovalList.activeItemTemplate.add(imgDetail2);
         rptApprovalList.activeItemTemplate.add(recHorizontalLine2);
-        rptApprovalList.activeItemTemplate.fillColor = '#FFFFFF';
+        rptApprovalList.activeItemTemplate.fillColor = colors.White;
     
         rptApprovalList.pullDownItem.height = '8%';
     

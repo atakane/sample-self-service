@@ -13,10 +13,22 @@ const pgApprovalWorklist = require('./pages/pgApprovalWorklist.js');
 const pgApproveLeaveRequest = require('./pages/pgApproveLeaveRequest.js');
 const pgMyRequests = require('./pages/pgMyRequests.js');
 const pgMyRequestDetail = require('./pages/pgMyRequestDetail.js');
-const style = (Device.deviceOS === 'iOS') ? require('./pages/style/ios.style.js') : require('./pages/style/android.style.js');
+
+//Styler
+const merge = require('deepmerge');
 const styler  = require("js-base/core/styler").styler;
 
-styler(style);
+//Style files
+const styleGeneric = require('./pages/style/generic.style.js');
+const stylePgOutOfOffice = require('./pages/style/pgOutOfOffice.style.js');
+const styleOSSpecific = (Device.deviceOS === 'iOS') ? require('./pages/style/ios.style.js') : require('./pages/style/android.style.js');
+
+//merging styles to simplify style usage
+//by that way  we can use same object hieararchy within style files.
+var mergedStyle = merge.all([styleGeneric,stylePgOutOfOffice,styleOSSpecific]);
+
+//passing style object to styler
+styler(mergedStyle);
 
 // Router
 const router = require('js-base/core/router'); 
@@ -35,7 +47,7 @@ else {
 }
 
 /* Default Animations */
-var defaultPageAnimation = function() {
+var defaultPageAnimation = function(page) {
     return [
         Device.deviceOS === "iOS" ? SMF.UI.MotionEase.NONE : SMF.UI.MotionEase.NONE,
         Device.deviceOS === "iOS" ? SMF.UI.TransitionEffect.RIGHTTOLEFT : SMF.UI.TransitionEffect.NONE,

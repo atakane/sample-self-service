@@ -20,6 +20,7 @@ exports.createContainer = function createContainer(parent, name, left, top, widt
 
     parent[name] = newComponent;
     parent.add(newComponent);
+    return newComponent;
 }
 
 exports.createRectangle = function createRectangle(parent, left, top, width, height, fillColor) {
@@ -33,8 +34,10 @@ exports.createRectangle = function createRectangle(parent, left, top, width, hei
         borderWidth: 0,
         roundedEdge: 0
     });
-
+    
     parent.add(newComponent);
+    return newComponent;
+    
 }
 
 exports.createImage = function createImage(parent, name, image, left, top, width, height, imageFillType) {
@@ -50,6 +53,7 @@ exports.createImage = function createImage(parent, name, image, left, top, width
     
     parent[name] = newComponent;
     parent.add(newComponent);
+    return newComponent;
 }
 
 exports.createLabel = function createLabel(parent, name, text, left, top, width, height, textAlignment, multipleLine, fontSize, fontBold, fontColor, onTouchEnded) {
@@ -75,6 +79,7 @@ exports.createLabel = function createLabel(parent, name, text, left, top, width,
 
     parent[name] = newComponent;
     parent.add(newComponent);
+    return newComponent;
 }
 
 exports.createAwesomeLabel = function createAwesomeLabel(parent, name, text, left, top, width, height, textAlignment, multipleLine, fontSize, fontBold, fontColor, onTouchEnded) {
@@ -102,6 +107,7 @@ exports.createAwesomeLabel = function createAwesomeLabel(parent, name, text, lef
 
     parent[name] = newComponent;
     parent.add(newComponent);
+    return newComponent;
 }
 
 exports.createTextButton = function createTextButton(parent, name, text, left, top, width, height, textAlignment, fontSize, fontBold, fillColor, pressedFillColor, fontColor, pressedFontColor, onPressed) {
@@ -127,6 +133,7 @@ exports.createTextButton = function createTextButton(parent, name, text, left, t
     
     parent[name] = newComponent;
     parent.add(newComponent);
+    return newComponent;
 }
 
 exports.createTextButtonWithCustomFont = function createTextButtonWithCustomFont(parent, name, text, left, top, width, height, textAlignment, font, fillColor, pressedFillColor, fontColor, pressedFontColor, onPressed) {
@@ -149,4 +156,5 @@ exports.createTextButtonWithCustomFont = function createTextButtonWithCustomFont
     
     parent[name] = newComponent;
     parent.add(newComponent);
+    return newComponent;
 }

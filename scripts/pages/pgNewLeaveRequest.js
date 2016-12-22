@@ -59,19 +59,19 @@ const pgNewLeaveRequest = extend(Page)(
     
         //Lines
         SMFcomponents.createImage(this, 'imgShadowLine', 'shadow_line.png', '0', getUnit({iOS:'21.0644%',Android:'23.0644%'}), '100%', '6', SMF.UI.ImageFillType.STRETCH);
-        SMFcomponents.createRectangle(this, 0, getUnit({iOS:'32.5037%',Android:'34.5037%'}), '100%', 1, '#e7e7e7');
-        SMFcomponents.createRectangle(this, 0, getUnit({iOS:'47.4962%',Android:'49.4962%'}), '100%', 1, '#e7e7e7');
+        SMFcomponents.createRectangle(this, 0, getUnit({iOS:'32.5037%',Android:'34.5037%'}), '100%', 1, colors.GrayLighter);
+        SMFcomponents.createRectangle(this, 0, getUnit({iOS:'47.4962%',Android:'49.4962%'}), '100%', 1, colors.GrayLighter);
     
         // Request Details
         // FontAwesome 'Down arrow' UTF8 code: uf107
-        SMFcomponents.createLabel(this, 'lblLeaveTypeText', 'LEAVE TYPE', '4.5333%', getUnit({iOS:'23.68815%',Android:'25.68815%'}), '40%', getUnit({iOS:'2.9985%', Android:'5%'}), SMF.UI.TextAlignment.LEFT, false, '7pt', false, '#248afd');
-        SMFcomponents.createAwesomeLabel(this, 'lblDown1', JSON.parse('""'), '29%', getUnit({iOS:'23.68815%',Android:'25.68815%'}), '10%', getUnit({iOS:'2.9985%', Android:'5%'}), SMF.UI.TextAlignment.LEFT, false, '7pt', false, '#248afd');
+        SMFcomponents.createLabel(this, 'lblLeaveTypeText', 'LEAVE TYPE', '4.5333%', getUnit({iOS:'23.68815%',Android:'25.68815%'}), '40%', getUnit({iOS:'2.9985%', Android:'5%'}), SMF.UI.TextAlignment.LEFT, false, '7pt', false, colors.BlueMedium);
+        SMFcomponents.createAwesomeLabel(this, 'lblDown1', JSON.parse('""'), '29%', getUnit({iOS:'23.68815%',Android:'25.68815%'}), '10%', getUnit({iOS:'2.9985%', Android:'5%'}), SMF.UI.TextAlignment.LEFT, false, '7pt', false, colors.BlueMedium);
     
-        SMFcomponents.createLabel(this, 'lblTimeUnitText', 'TIME UNIT', '62%', getUnit({iOS:'23.68815%',Android:'25.68815%'}), '30%', getUnit({iOS:'2.9985%', Android:'5%'}), SMF.UI.TextAlignment.RIGHT, false, '7pt', false, '#248afd');
-        SMFcomponents.createAwesomeLabel(this, 'lblDown2', JSON.parse('""'), '90%', getUnit({iOS:'23.68815%',Android:'25.68815%'}), '5%', getUnit({iOS:'2.9985%', Android:'5%'}), SMF.UI.TextAlignment.RIGHT, false, '7pt', false, '#248afd');
+        SMFcomponents.createLabel(this, 'lblTimeUnitText', 'TIME UNIT', '62%', getUnit({iOS:'23.68815%',Android:'25.68815%'}), '30%', getUnit({iOS:'2.9985%', Android:'5%'}), SMF.UI.TextAlignment.RIGHT, false, '7pt', false, colors.BlueMedium);
+        SMFcomponents.createAwesomeLabel(this, 'lblDown2', JSON.parse('""'), '90%', getUnit({iOS:'23.68815%',Android:'25.68815%'}), '5%', getUnit({iOS:'2.9985%', Android:'5%'}), SMF.UI.TextAlignment.RIGHT, false, '7pt', false, colors.BlueMedium);
     
-        SMFcomponents.createLabel(this, 'lblLeaveType', 'PERSONAL', '4.5333%', getUnit({iOS:'27.5%',Android:'29.5%'}), '40%', getUnit({iOS:'2.9985%', Android:'5%'}), SMF.UI.TextAlignment.LEFT, false, '10pt', false, '#4a4a4a', pickLeaveType);
-        SMFcomponents.createLabel(this, 'lblTimeUnit', 'DAY', '60.4667%', getUnit({iOS:'27%',Android:'29%'}), '35%', getUnit({iOS:'2.9985%', Android:'5%'}), SMF.UI.TextAlignment.RIGHT, false, '10pt', false, '#4a4a4a', pickTimeUnit);
+        SMFcomponents.createLabel(this, 'lblLeaveType', 'PERSONAL', '4.5333%', getUnit({iOS:'27.5%',Android:'29.5%'}), '40%', getUnit({iOS:'2.9985%', Android:'5%'}), SMF.UI.TextAlignment.LEFT, false, '10pt', false, colors.Gray29, pickLeaveType);
+        SMFcomponents.createLabel(this, 'lblTimeUnit', 'DAY', '60.4667%', getUnit({iOS:'27%',Android:'29%'}), '35%', getUnit({iOS:'2.9985%', Android:'5%'}), SMF.UI.TextAlignment.RIGHT, false, '10pt', false, colors.Gray29, pickTimeUnit);
     
         // Start Date
         var cntStarts = new SMF.UI.Container({
@@ -84,13 +84,13 @@ const pgNewLeaveRequest = extend(Page)(
             backgroundTransparent: true
         });
     
-        SMFcomponents.createLabel(cntStarts, 'lblStart', 'STARTS', 0, 0, '100%', getUnit({iOS:'15%', Android:'30%'}), SMF.UI.TextAlignment.LEFT, false, '7pt', false, '#248afd');
-        SMFcomponents.createAwesomeLabel(cntStarts, 'lblDown3', JSON.parse('""'), '60%', 0, '50%', getUnit({iOS:'15%', Android:'30%'}), SMF.UI.TextAlignment.LEFT, false, '7pt', false, '#248afd');
+        SMFcomponents.createLabel(cntStarts, 'lblStart', 'STARTS', 0, 0, '100%', getUnit({iOS:'15%', Android:'30%'}), SMF.UI.TextAlignment.LEFT, false, '7pt', false, colors.BlueMedium);
+        SMFcomponents.createAwesomeLabel(cntStarts, 'lblDown3', JSON.parse('""'), '60%', 0, '50%', getUnit({iOS:'15%', Android:'30%'}), SMF.UI.TextAlignment.LEFT, false, '7pt', false, colors.BlueMedium);
     
-        SMFcomponents.createLabel(cntStarts, 'lblStartDate', '-', 0, '30%', '100%', getUnit({iOS:'30%', Android:'60%'}), SMF.UI.TextAlignment.LEFT, false, '12pt', false, '#4a4a4a', function() {
+        SMFcomponents.createLabel(cntStarts, 'lblStartDate', '-', 0, '30%', '100%', getUnit({iOS:'30%', Android:'60%'}), SMF.UI.TextAlignment.LEFT, false, '12pt', false, colors.Gray29, function() {
             showDateTimePicker(true);
         });
-        SMFcomponents.createLabel(cntStarts, 'lblStartTime', '', 0, '70%', getUnit({iOS:'92%', Android:'85%'}), getUnit({iOS:'20%', Android:'40%'}), SMF.UI.TextAlignment.LEFT, false, '8pt', false, '#4a4a4a', function() {
+        SMFcomponents.createLabel(cntStarts, 'lblStartTime', '', 0, '70%', getUnit({iOS:'92%', Android:'85%'}), getUnit({iOS:'20%', Android:'40%'}), SMF.UI.TextAlignment.LEFT, false, '8pt', false, colors.Gray29, function() {
             showTimePicker(true);
         });
     
@@ -107,13 +107,13 @@ const pgNewLeaveRequest = extend(Page)(
             backgroundTransparent: true
         });
     
-        SMFcomponents.createLabel(cntEnds, 'lblEnd', 'ENDS', 0, 0, '87%', getUnit({iOS:'15%', Android:'30%'}), SMF.UI.TextAlignment.RIGHT, false, '7pt', false, '#248afd');
-        SMFcomponents.createAwesomeLabel(cntEnds, 'lblDown4', JSON.parse('""'), 0, 0, '97%', getUnit({iOS:'15%', Android:'30%'}), SMF.UI.TextAlignment.RIGHT, false, '7pt', false, '#248afd');
+        SMFcomponents.createLabel(cntEnds, 'lblEnd', 'ENDS', 0, 0, '87%', getUnit({iOS:'15%', Android:'30%'}), SMF.UI.TextAlignment.RIGHT, false, '7pt', false, colors.BlueMedium);
+        SMFcomponents.createAwesomeLabel(cntEnds, 'lblDown4', JSON.parse('""'), 0, 0, '97%', getUnit({iOS:'15%', Android:'30%'}), SMF.UI.TextAlignment.RIGHT, false, '7pt', false, colors.BlueMedium);
     
-        SMFcomponents.createLabel(cntEnds, 'lblEndDate', '11.25.16', 0, '30%', '100%', getUnit({iOS:'30%', Android:'60%'}), SMF.UI.TextAlignment.RIGHT, false, '12pt', false, '#4a4a4a', function() {
+        SMFcomponents.createLabel(cntEnds, 'lblEndDate', '11.25.16', 0, '30%', '100%', getUnit({iOS:'30%', Android:'60%'}), SMF.UI.TextAlignment.RIGHT, false, '12pt', false, colors.Gray29, function() {
             showDateTimePicker(false);
         });
-        SMFcomponents.createLabel(cntEnds, 'lblEndTime', '', 0, '70%', '100%', getUnit({iOS:'20%', Android:'40%'}), SMF.UI.TextAlignment.RIGHT, false, '8pt', false, '#4a4a4a', function() {
+        SMFcomponents.createLabel(cntEnds, 'lblEndTime', '', 0, '70%', '100%', getUnit({iOS:'20%', Android:'40%'}), SMF.UI.TextAlignment.RIGHT, false, '8pt', false, colors.Gray29, function() {
             showTimePicker(false);
         });
     
@@ -127,16 +127,16 @@ const pgNewLeaveRequest = extend(Page)(
             top: getUnit({iOS:'32.5037%',Android:'34.5037%'}),
             height: getUnit('14.9925%'),
             borderWidth: 0,
-            fillColor: '#248afd',
+            fillColor: colors.BlueMedium,
             backgroundTransparent: false
         });
         
         this.add(cntBlueBox);
         
-        SMFcomponents.createLabel(cntBlueBox, 'lblSelectedDaysCount', '-', '0', getUnit({iOS:'28%',Android:'3%'}), '100%', getUnit({iOS:'30%', Android:'45%'}), SMF.UI.TextAlignment.CENTER, false, '16pt', true, '#ffffff');
-        SMFcomponents.createLabel(cntBlueBox, 'lblSelectedDaysCountText', 'day', '0', getUnit({iOS:'60%',Android:'60%'}), '100%', getUnit({iOS:'20%', Android:'20%'}), SMF.UI.TextAlignment.CENTER, false, '7pt', false, '#ffffff');
+        SMFcomponents.createLabel(cntBlueBox, 'lblSelectedDaysCount', '-', '0', getUnit({iOS:'28%',Android:'3%'}), '100%', getUnit({iOS:'30%', Android:'45%'}), SMF.UI.TextAlignment.CENTER, false, '16pt', true, colors.White);
+        SMFcomponents.createLabel(cntBlueBox, 'lblSelectedDaysCountText', 'day', '0', getUnit({iOS:'60%',Android:'60%'}), '100%', getUnit({iOS:'20%', Android:'20%'}), SMF.UI.TextAlignment.CENTER, false, '7pt', false, colors.White);
     
-        SMFcomponents.createLabel(this, 'lblStart', 'DESCRIPTION', '4.4%', getUnit({iOS:'50.1199%',Android:'52.1199%'}), '55%', getUnit({iOS:'3%', Android:'6%'}), SMF.UI.TextAlignment.LEFT, false, '7pt', false, '#248afd');
+        SMFcomponents.createLabel(this, 'lblStart', 'DESCRIPTION', '4.4%', getUnit({iOS:'50.1199%',Android:'52.1199%'}), '55%', getUnit({iOS:'3%', Android:'6%'}), SMF.UI.TextAlignment.LEFT, false, '7pt', false, colors.BlueMedium);
         //
         var txtAbsenceMessage = new SMF.UI.TextBox({
             name: 'txtAbsenceMessage',
@@ -153,7 +153,7 @@ const pgNewLeaveRequest = extend(Page)(
             font: new SMF.UI.Font({
                 size: '7pt'
             }),
-            fontColor: '#37404a',
+            fontColor: colors.BlueDark,
             horizontalGap:0
         })
         this.add(txtAbsenceMessage);
@@ -173,7 +173,7 @@ const pgNewLeaveRequest = extend(Page)(
             0, '90.4048%', '100%', '9.5952%',
             SMF.UI.TextAlignment.CENTER,
             myFont,
-            '#7ed321', '#5b9918',
+            colors.Green, colors.GreenDarker,
             SMF.UI.Color.WHITE, SMF.UI.Color.WHITESMOKE,
             function(e) {
                 alert({
@@ -434,7 +434,7 @@ const pgNewLeaveRequest = extend(Page)(
                         setDateLabels(newEndDate, false);
     
                         //disabling EndDate, it should be same as StartDate
-                        Pages.currentPage.cntEnds.lblEndDate.fontColor = '#a0a0a0';
+                        Pages.currentPage.cntEnds.lblEndDate.fontColor = colors.GrayLight;
                         Pages.currentPage.cntEnds.lblEndDate.touchEnabled = false;
                         
                         Pages.currentPage.cntStarts.lblStartTime.touchEnabled = true;
@@ -459,7 +459,7 @@ const pgNewLeaveRequest = extend(Page)(
     
     
                         //enabling EndDate access
-                        Pages.currentPage.cntEnds.lblEndDate.fontColor = '#4a4a4a';
+                        Pages.currentPage.cntEnds.lblEndDate.fontColor = colors.Gray29;
                         Pages.currentPage.cntEnds.lblEndDate.touchEnabled = true;
                     
                         //disabling Start & End Time
@@ -518,8 +518,8 @@ const pgNewLeaveRequest = extend(Page)(
             });
     
             SMFcomponents.createImage(boxRemaining, 'imgRemaining', 'square_stripe.png', '0', '0', '100%', '100%', SMF.UI.ImageFillType.ASPECTFIT);
-            SMFcomponents.createLabel(boxRemaining, 'lblRemainingDays', '-', '0', getUnit({iOS:'20%',Android:'2%'}), '100%', getUnit({iOS:'40%',Android:'61%'}), SMF.UI.TextAlignment.CENTER, false, '12pt', true, '#37404a');
-            SMFcomponents.createLabel(boxRemaining, 'lblRemainingDaysText', 'Rem.', 0, getUnit({iOS:'70%',Android:'65%'}), '100%', getUnit({iOS:'20%',Android:'30%'}), SMF.UI.TextAlignment.CENTER, false, '5pt', false, '#37404a');
+            SMFcomponents.createLabel(boxRemaining, 'lblRemainingDays', '-', '0', getUnit({iOS:'20%',Android:'2%'}), '100%', getUnit({iOS:'40%',Android:'61%'}), SMF.UI.TextAlignment.CENTER, false, '12pt', true, colors.BlueDark);
+            SMFcomponents.createLabel(boxRemaining, 'lblRemainingDaysText', 'Rem.', 0, getUnit({iOS:'70%',Android:'65%'}), '100%', getUnit({iOS:'20%',Android:'30%'}), SMF.UI.TextAlignment.CENTER, false, '5pt', false, colors.BlueDark);
     
             parent.add(boxTotalDays);
             parent.add(boxUsed);

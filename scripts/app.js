@@ -19,6 +19,9 @@ var lunchBreakDuration = 1;
 var urlMockServicePath = "https://raw.githubusercontent.com/smartface/sample-self-service/master/_self-service-mock/"
 
 var isSliderDrawerOpen = false;
+var fontAwesome = new SMF.UI.Font({
+	name: 'FontAwesome'
+});
 
 /**
  * Triggered when application is started.
@@ -26,16 +29,16 @@ var isSliderDrawerOpen = false;
  * @this Application
  */
 function Application_OnStart(e) {
-	
+
 	SMF.UI.statusBar.visible = true;
 
 	// Creating a new Oracle MCS instance 
 	smfOracle = new SMF.Oracle.MobileCloudService('smartfaceOracleMCS');
-	
+
 	// logging in as anonymous user to log Analytics events
 	// if you need you can auth user with .authenticate
 	smfOracle.authAnonymous();
-	
+
 	// logging an event
 	smfOracle.logAnalytics('Application_OnStart');
 

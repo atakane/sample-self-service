@@ -1,3 +1,4 @@
+const colors = require('pages/style/colors.js');
 const ActionWrapper = require("js-base/component/header-bar");
 var eventCallback;
 
@@ -8,7 +9,7 @@ const options = {
   enabled: true
 };
 
-var _textColor = '#248afd';
+var _textColor = colors.BlueMedium;
 var _fontSize = 20;
 
 if (Device.deviceOS == "iOS") {

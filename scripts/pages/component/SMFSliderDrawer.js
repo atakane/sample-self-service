@@ -1,30 +1,7 @@
 /* globals*/
-// const SliderDrawerBaseComponent = require("js-base/component/slider-drawer");
-
-
-// const SliderDrawerComp = function(params){
-//   this._view = new SMF.UI.SliderDrawer(params);
-//   this._isShowed = false;
-// };
-
-// SliderDrawerComp.prototype.show = function(){
-//   this._view.show();
-//   this._isShowed = true;
-// };
-
-// SliderDrawerComp.prototype.hide = function(){
-//   this._view.hide();
-//   this._isShowed = false;
-// };
-
-// SliderDrawerComp.prototype.toggle = function(){
-//   this._isShowed ? this.hide() : this.show();
-// };
-
-// module.exports = SliderDrawerComp;
-
 const SMFcomponents = require('./SMFcomponents.js');
 const getUnit = require('./getUnit.js');
+const colors = require('pages/style/colors.js');
 
 // Router
 const router = require('js-base/core/router'); 
@@ -71,12 +48,12 @@ exports.createSliderDrawer = function (page, name) {
 
     SMFcomponents.createImage(cntTop, 'imgSliderProfileBackground', 'slider_rectangle.png', 0, 0, '100%', '100%', SMF.UI.ImageFillType.STRETCH);
     SMFcomponents.createImage(cntTop, 'imgSliderAvatar', '', getUnit('37.797%') ,getUnit({iOS:'24.4292%',Android:'14%'}), getUnit(80), getUnit(80), SMF.UI.ImageFillType.ASPECTFIT);
-    SMFcomponents.createLabel(cntTop, 'lblSliderFullName', '', 0, getUnit({iOS:'64.7534%',Android:'65%'}), '100%', getUnit({iOS:'15%',Android:'20%'}), SMF.UI.TextAlignment.CENTER, false, '12pt', false, '#248afd');
-    SMFcomponents.createLabel(cntTop, 'lblSliderTeamRole', '', 0, getUnit({iOS:'78.8767%',Android:'81%'}), '100%', getUnit(20), SMF.UI.TextAlignment.CENTER, false, '7pt', false, '#248afd');
+    SMFcomponents.createLabel(cntTop, 'lblSliderFullName', '', 0, getUnit({iOS:'64.7534%',Android:'65%'}), '100%', getUnit({iOS:'15%',Android:'20%'}), SMF.UI.TextAlignment.CENTER, false, '12pt', false, colors.BlueMedium);
+    SMFcomponents.createLabel(cntTop, 'lblSliderTeamRole', '', 0, getUnit({iOS:'78.8767%',Android:'81%'}), '100%', getUnit(20), SMF.UI.TextAlignment.CENTER, false, '7pt', false, colors.BlueMedium);
 
 
     //Slider Menus
-    SMFcomponents.createLabel(cntGeneral, 'lblLeaveManagement', 'Leave Management', '4.9333%', '37.5562%', '55%', 23, SMF.UI.TextAlignment.LEFT, false, '8pt', false, '#248afd');
+    SMFcomponents.createLabel(cntGeneral, 'lblLeaveManagement', 'Leave Management', '4.9333%', '37.5562%', '55%', 23, SMF.UI.TextAlignment.LEFT, false, '8pt', false, colors.BlueMedium);
 
     SMFcomponents.createImage(cntGeneral, 'imgSliderMenuStatus', 'icon_status.png', '5.4666%', '44.4527%', getUnit({iOS:21, Android:20.2}), getUnit({iOS:19,Android:18.2}),SMF.UI.ImageFillType.ASPECTFIT);
     SMFcomponents.createTextButton(cntGeneral,
@@ -86,12 +63,12 @@ exports.createSliderDrawer = function (page, name) {
         SMF.UI.TextAlignment.LEFT,
         '9pt', false,
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
-        '#444444', '#a0a0a0',
+        colors.GrayDark, colors.GrayLight,
         function(e) {
-            (Pages.currentPage === Pages.pgStatus) ? sliderDrawer.hide(): router.go('pgStatus');
+            (Pages.currentPage === Pages.pgStatus) ? sliderDrawer.hide(): router.goTransitionless('pgStatus');
         });
     //336
-    SMFcomponents.createRectangle(cntGeneral, '4.4940%', '49.1754%', '95.506%', 1, '#e7e7e7');
+    SMFcomponents.createRectangle(cntGeneral, '4.4940%', '49.1754%', '95.506%', 1, colors.GrayLighter);
     SMFcomponents.createImage(cntGeneral, 'imgSliderMenuRequest', 'icon_request.png', '5.8666%', '51.4992%', getUnit({iOS:22, Android:20.7}), getUnit({iOS:20, Android:18.7}),SMF.UI.ImageFillType.ASPECTFIT);
     SMFcomponents.createTextButton(cntGeneral,
         'btnRequest',
@@ -100,12 +77,12 @@ exports.createSliderDrawer = function (page, name) {
         SMF.UI.TextAlignment.LEFT,
         '9pt', false,
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
-        '#444444', '#a0a0a0',
+        colors.GrayDark, colors.GrayLight,
         function(e) {
-            (Pages.currentPage === Pages.pgNewLeaveRequest) ? sliderDrawer.hide(): router.go('pgNewLeaveRequest');
+            (Pages.currentPage === Pages.pgNewLeaveRequest) ? sliderDrawer.hide(): router.goTransitionless('pgNewLeaveRequest');
         });
 
-    SMFcomponents.createRectangle(cntGeneral, '4.4940%', '56.2968%', '95.506%', 1, '#e7e7e7');
+    SMFcomponents.createRectangle(cntGeneral, '4.4940%', '56.2968%', '95.506%', 1, colors.GrayLighter);
 
     SMFcomponents.createImage(cntGeneral, 'imgSliderMenuMyRequests', 'icon_info.png', '5.8666%', '58.6206%', getUnit({iOS:22, Android:18.5}), getUnit({iOS:20, Android:18.5}),SMF.UI.ImageFillType.ASPECTFIT);
     SMFcomponents.createTextButton(cntGeneral,
@@ -115,12 +92,12 @@ exports.createSliderDrawer = function (page, name) {
         SMF.UI.TextAlignment.LEFT,
         '9pt', false,
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
-        '#444444', '#a0a0a0',
+        colors.GrayDark, colors.GrayLight,
         function(e) {
-             (Pages.currentPage === Pages.pgMyRequests) ? sliderDrawer.hide(): router.go('pgMyRequests');
+             (Pages.currentPage === Pages.pgMyRequests) ? sliderDrawer.hide(): router.goTransitionless('pgMyRequests');
         });
 
-    SMFcomponents.createRectangle(cntGeneral, '4.4940%', '63.4182%', '95.506%', 1, '#e7e7e7');
+    SMFcomponents.createRectangle(cntGeneral, '4.4940%', '63.4182%', '95.506%', 1, colors.GrayLighter);
 
     SMFcomponents.createTextButton(cntGeneral,
         'btnApprovals',
@@ -129,12 +106,12 @@ exports.createSliderDrawer = function (page, name) {
         SMF.UI.TextAlignment.LEFT,
         '8pt', false,
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
-        '#248afd', '#1961c1',
+        colors.BlueMedium, '#1961c1',
         function(e) {
-            (Pages.currentPage === Pages.pgApprovalWorklist) ? sliderDrawer.hide(): router.go('pgApprovalWorklist');
+            (Pages.currentPage === Pages.pgApprovalWorklist) ? sliderDrawer.hide(): router.goTransitionless('pgApprovalWorklist');
         });
 
-    SMFcomponents.createRectangle(cntGeneral, '4.4940%', '69.79%', '95.506%', 1, '#e7e7e7');
+    SMFcomponents.createRectangle(cntGeneral, '4.4940%', '69.79%', '95.506%', 1, colors.GrayLighter);
     SMFcomponents.createTextButton(cntGeneral,
         'btnOutOfOffice',
         'Out Of Office',
@@ -142,23 +119,12 @@ exports.createSliderDrawer = function (page, name) {
         SMF.UI.TextAlignment.LEFT,
         '8pt', false,
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
-        '#248afd', '#1961c1',
+        colors.BlueMedium, '#1961c1',
         function(e) {
-            (Pages.currentPage === Pages.pgOutOfOffice) ? sliderDrawer.hide(): router.go('pgOutOfOffice');
+            (Pages.currentPage === Pages.pgOutOfOffice) ? sliderDrawer.hide(): router.goTransitionless('pgOutOfOffice');
         });
-    SMFcomponents.createRectangle(cntGeneral, '4.4940%', '76.0569%', '95.506%', 1, '#e7e7e7');
+    SMFcomponents.createRectangle(cntGeneral, '4.4940%', '76.0569%', '95.506%', 1, colors.GrayLighter);
     
-    
-//     /* Animations */
-// var defaultPageAnimation = {
-//     motionEase: Device.deviceOS === "iOS" ? SMF.UI.MotionEase.NONE : SMF.UI.MotionEase.NONE,
-//     transitionEffect: Device.deviceOS === "iOS" ? SMF.UI.TransitionEffect.RIGHTTOLEFT : SMF.UI.TransitionEffect.NONE,
-//     transitionEffectType: Device.deviceOS === "iOS" ? SMF.UI.TransitionEffectType.PUSH : SMF.UI.TransitionEffectType.NONE,
-//     fade: Device.deviceOS === "iOS" ? false : true,
-//     reset: false,
-//     duration: 300
-// }
-
     SMFcomponents.createTextButton(cntGeneral,
         'btnAbout',
         'About',
@@ -166,12 +132,12 @@ exports.createSliderDrawer = function (page, name) {
         SMF.UI.TextAlignment.LEFT,
         '8pt', false,
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
-        '#248afd', '#1961c1',
+        colors.BlueMedium, '#1961c1',
         function(e) {
-            (Pages.currentPage === Pages.pgAbout) ? sliderDrawer.hide(): router.go('pgAbout'); //Pages.pgAbout.show(defaultPageAnimation); 
+            (Pages.currentPage === Pages.pgAbout) ? sliderDrawer.hide(): router.goTransitionless('pgAbout');
         });
         
-    SMFcomponents.createRectangle(cntGeneral, '4.4940%', '93.02848%', '95.506%', 1, '#e7e7e7');
+    SMFcomponents.createRectangle(cntGeneral, '4.4940%', '93.02848%', '95.506%', 1, colors.GrayLighter);
 
     SMFcomponents.createTextButton(cntGeneral,
         'btnLogout',

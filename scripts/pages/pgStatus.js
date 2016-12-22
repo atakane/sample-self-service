@@ -10,6 +10,7 @@ const HeaderBarWrapper = require("js-base/component/header-bar.js");
 
 const tinyUtils = require('./component/tinyUtils.js');
 
+const colors = require('pages/style/colors.js');
 const componentStyler = require("js-base/core/styler").componentStyler();
 
 // Router
@@ -130,7 +131,7 @@ const pgStatus = extend(Page)(
             top: '75.1874%',
             height: '9.5952%',
             borderWidth: 0,
-            fillColor: '#e7e7e7',
+            fillColor: colors.GrayLighter,
             backgroundTransparent: false,
             onTouchEnded: function(e) {
                 router.go('pgOutOfOffice');
@@ -141,8 +142,8 @@ const pgStatus = extend(Page)(
             left: '5.73333%',
             top: '30.4687%',
             checked: false,
-            onTintColor: '#248afd',
-            tintColor: '#248afd',
+            onTintColor: colors.BlueMedium,
+            tintColor: colors.BlueMedium,
             touchEnabled: false,
             visible: false
         });
@@ -174,7 +175,7 @@ const pgStatus = extend(Page)(
             font: new SMF.UI.Font({
                 size: '7pt'
             }),
-            fontColor: '#a0a0a0'
+            fontColor: colors.GrayLight
         });
         cntOutOfOfficeBar.add(lblOOOStatusTitle2);
 
@@ -189,7 +190,7 @@ const pgStatus = extend(Page)(
             font: new SMF.UI.Font({
                 size: '7pt'
             }),
-            fontColor: '#37404a'
+            fontColor: colors.BlueDark
         });
         cntOutOfOfficeBar.add(lblOOOStatusText);
 
@@ -220,7 +221,7 @@ const pgStatus = extend(Page)(
                 size: '7pt'
             }),
             multipleLine: true,
-            fontColor: '#a0a0a0'
+            fontColor: colors.GrayLight
         });
         this.add(lblNewRequestText);
 
@@ -233,7 +234,7 @@ const pgStatus = extend(Page)(
             font: new SMF.UI.Font({
                 size: '7pt'
             }),
-            fontColor: '#37404a'
+            fontColor: colors.BlueDark
         });
         componentStyler(".pgStatus.lblNewRequestTextDate")(lblNewRequestTextDate);
         this.add(lblNewRequestTextDate);
@@ -293,7 +294,7 @@ const pgStatus = extend(Page)(
             Pages.currentPage.lblTeamRole.text = Pages.currentPage.sdSelfService.cntGeneral.cntTop.lblSliderTeamRole.text = oProfile.Role + ' / ' + oProfile.Team;
             Pages.currentPage.cntOutOfOfficeBar.swtOutOfOffice.checked = oProfile.OutOfOffice;
             Pages.currentPage.cntOutOfOfficeBar.lblOOOStatusText.text = (oProfile.OutOfOffice) ? 'Mode On' : 'Mode Off';
-            Pages.currentPage.cntOutOfOfficeBar.lblOOOStatusText.fontColor = (oProfile.OutOfOffice) ? '#27bc66' : '#37404a';
+            Pages.currentPage.cntOutOfOfficeBar.lblOOOStatusText.fontColor = (oProfile.OutOfOffice) ? colors.GreenDark : colors.BlueDark;
 
             // Oracle MCS Analytics logging 
             smfOracle.logAndFlushAnalytics('pgStatus_onShow');
@@ -358,8 +359,8 @@ const pgStatus = extend(Page)(
             });
 
             SMFcomponents.createImage(boxRemaining, 'imgRemaining', 'square_stripe.png', '0', '0', '100%', '100%', SMF.UI.ImageFillType.ASPECTFIT);
-            SMFcomponents.createLabel(boxRemaining, 'lblRemainingDays', '-', '0', '0', '100%', '73%', SMF.UI.TextAlignment.CENTER, false, '25pt', true, '#37404a');
-            SMFcomponents.createLabel(boxRemaining, 'lblRemainingDaysText', 'Remaining', '0', '73', '100%', '20%', SMF.UI.TextAlignment.CENTER, false, '6pt', true, '#37404a');
+            SMFcomponents.createLabel(boxRemaining, 'lblRemainingDays', '-', '0', '0', '100%', '73%', SMF.UI.TextAlignment.CENTER, false, '25pt', true, colors.BlueDark);
+            SMFcomponents.createLabel(boxRemaining, 'lblRemainingDaysText', 'Remaining', '0', '73', '100%', '20%', SMF.UI.TextAlignment.CENTER, false, '6pt', true, colors.BlueDark);
 
 
             this.add(boxTotalDays);

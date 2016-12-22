@@ -31,7 +31,7 @@ if(Device.deviceOS == "iOS") {
     titleView: {
       type: SMF.UI.TitleViewType.TEXT,
       text: 'Self Service',
-      textColor: '#248afd',
+      textColor: colors.BlueMedium,
       textSize: 20,
       alignment: SMF.UI.Alignment.CENTER
     },
