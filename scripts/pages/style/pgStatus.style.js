@@ -135,6 +135,14 @@ module.exports = {
                 fontColor: colors.BlueDark
             }
         },
+        ".imgOutOfOfficeShadowLine": {
+            image: 'shadow_line.png',
+            left: '0',
+            top: '74.8875%',
+            width: '100%',
+            height: 6,
+            imageFillType: SMF.UI.ImageFillType.STRETCH
+        },
         ".imgDetail": {
             image: 'right_arrow.png',
             left: '90.66666%',

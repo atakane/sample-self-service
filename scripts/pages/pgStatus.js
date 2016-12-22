@@ -2,7 +2,6 @@
 const Page = require("js-base/component/page");
 const extend = require("js-base/core/extend");
 
-const SMFcomponents = require('./component/SMFcomponents.js');
 const SMFSliderDrawer = require('./component/SMFSliderDrawer.js');
 
 const headerBarOptions = require("./headerbar/pgStatus.headerbar.js");
@@ -113,8 +112,11 @@ const pgStatus = extend(Page)(
         cntOutOfOfficeBar.add(imgDetail);
 
         this.add(cntOutOfOfficeBar);
-        SMFcomponents.createImage(this, 'imgOutOfOfficeShadowLine', 'shadow_line.png', '0', '74.8875%', '100%', '6', SMF.UI.ImageFillType.STRETCH);
-
+        
+        var imgOutOfOfficeShadowLine = new SMF.UI.Image({});
+        componentStyler(".pgStatus.imgOutOfOfficeShadowLine")(imgOutOfOfficeShadowLine);
+        this.add(imgOutOfOfficeShadowLine);
+        
         // Latest Leave Request details
         var lblNewRequestText = new SMF.UI.Label({
             name: 'lblNewRequestText',
