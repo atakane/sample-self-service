@@ -82,7 +82,7 @@ const pgOutOfOffice = extend(Page)(
             onChange: function(e) {
                 Pages.currentPage.lblOOOStatusText.text = this.checked == true ? 'Mode On' : 'Mode Off';
                 Pages.currentPage.lblOOOStatusText.fontColor = this.checked == true ? colors.GreenDark : colors.BlueDark
-                Pages.currentPage.cntOverlay.visible = !this.checked;
+                Pages.currentPage.recOverlay.visible = !this.checked;
             }
         });
         componentStyler(".pgOutOfOffice.swtOutOfOffice")(swtOutOfOffice);
@@ -274,7 +274,7 @@ const pgOutOfOffice = extend(Page)(
         //     });
 
 
-        // SMFcomponents.createContainer(this, 'cntOverlay', 0, getUnit({
+        // SMFcomponents.createContainer(this, 'recOverlay', 0, getUnit({
         //     iOS: '29.5352%',
         //     Android: '31.5352%'
         // }), '100%', getUnit({

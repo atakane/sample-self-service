@@ -2,13 +2,14 @@
 const Page = require("js-base/component/page");
 const extend = require("js-base/core/extend");
 
-const SMFcomponents = require('./component/SMFcomponents.js');
 const SMFAjax = require('js-base/utils/SMFAjax');
 const Dialog = require('smf-dialog');
 const tinyUtils = require('./component/tinyUtils.js');
 
+const componentStyler = require("js-base/core/styler").componentStyler();
+
 // Router
-const router = require('js-base/core/router'); 
+const router = require('js-base/core/router');
 
 const pgLogin = extend(Page)(
     //Page Constructor
@@ -34,45 +35,43 @@ const pgLogin = extend(Page)(
 
 
         // top image
-        SMFcomponents.createImage(this, 'imgHome', 'home_back.png', '0', '0', '100%', '40%', SMF.UI.ImageFillType.STRETCH);
+        var imgHome = new SMF.UI.Image({
+            name: 'imgHome'
+        });
+        componentStyler(".pgLogin.imgHome")(imgHome);
+        this.add(imgHome);
 
         // Welcome texts
-        SMFcomponents.createLabel(this, 'lblWelcome', 'EBS\nSelf Service', '9.5%', '15%', '80%', '15%', SMF.UI.TextAlignment.TOP, true, '17pt', false, SMF.UI.Color.WHITE);
-        SMFcomponents.createLabel(this, 'lblWelcome2', 'Powered & secured by Oracle MCS & ICS', '11%', '30%', '80%', '8%', SMF.UI.TextAlignment.TOP, false, '7pt', false, SMF.UI.Color.WHITE);
-
-        var txtUserName = new SMF.UI.TextBox({
-            top: '51%',
-            left: '10%',
-            width: '80%',
-            height: '8%',
-            placeHolder: 'Username',
-            text: 'test',
-            horizontalGap: 15,
-            roundedEdge: 0
+        var lblWelcome = new SMF.UI.Label({
+            name: 'lblWelcome',
+            text: 'EBS\nSelf Service'
         });
+        componentStyler(".17pt .pgLogin.lblWelcome")(lblWelcome);
+        this.add(lblWelcome);
+
+        var lblWelcome2 = new SMF.UI.Label({
+            name: 'lblWelcome2',
+            text: 'Powered & secured by Oracle MCS & ICS'
+        });
+        componentStyler(".7pt .pgLogin.lblWelcome2")(lblWelcome2);
+        this.add(lblWelcome2);
+
+        //Username and password inputs
+        var txtUserName = new SMF.UI.TextBox({
+            name: 'txtUserName'
+        });
+        componentStyler(".pgLogin.txtUserName")(txtUserName);
 
         var txtPassword = new SMF.UI.TextBox({
-            top: '60%',
-            left: '10%',
-            width: '80%',
-            height: '8%',
-            placeHolder: 'Password',
-            text: 'Smartface1',
-            isPassword: true,
-            horizontalGap: 15,
-            roundedEdge: 0
+            name: 'txtPassword'
         });
+        componentStyler(".pgLogin.txtPassword")(txtPassword);
 
         var btnLogin = new SMF.UI.TextButton({
-            top: '69%',
-            left: '10%',
-            width: '80%',
-            height: '8%',
-            text: 'Login',
-            textAlignment: SMF.UI.TextAlignment.CENTER,
+            name: 'btnLogin',
             onPressed: pgLogin_btnLogin_onPressed,
-            roundedEdge: 1
         });
+        componentStyler(".pgLogin.btnLogin")(btnLogin);
         (Device.deviceOS === 'Android') && (btnLogin.effects.ripple.enabled = true);
 
         this.add(txtUserName);
@@ -80,10 +79,20 @@ const pgLogin = extend(Page)(
         this.add(btnLogin);
 
         // Warning text
-        SMFcomponents.createLabel(this, 'lblInfoText', 'Please login with your MCS realm user.', '10%', '78%', '80%', '8%', SMF.UI.TextAlignment.TOP, false, '6pt', false, SMF.UI.Color.BLACK);
+        var lblInfoText = new SMF.UI.Label({
+            name: 'lblInfoText',
+            text: 'Please login with your MCS realm user.'
+        });
+        componentStyler(".textTop .6pt .pgLogin.lblInfoText")(lblInfoText);
+        this.add(lblInfoText);
 
         // Version text
-        SMFcomponents.createLabel(this, 'lblVersion', 'v.' + Application.version, '0', '97%', '99%', '3%', SMF.UI.TextAlignment.RIGHT, false, '4pt', false, SMF.UI.Color.BLACK);
+        var lblVersion = new SMF.UI.Label({
+            name: 'lblVersion',
+            text: 'v.' + Application.version
+        });
+        componentStyler(".textRight .4pt .pgLogin.lblVersion")(lblVersion);
+        this.add(lblVersion);
 
 
         /**
@@ -173,7 +182,7 @@ const pgLogin = extend(Page)(
             // Get self service details from EBS service
             // For now we're going dummy
             Dialog.showWait();
-            
+
             getDataFromService(function() {
                 // Routing to the Status Page
                 router.go('pgStatus');

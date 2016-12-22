@@ -21,13 +21,14 @@ const styler = require("js-base/core/styler").styler;
 //Style files
 const styleGeneric = require('./pages/style/generic.style.js');
 
+const stylePgLogin = require('./pages/style/pgLogin.style.js');
 const stylePgStatus = require('./pages/style/pgStatus.style.js');
 const stylePgOutOfOffice = require('./pages/style/pgOutOfOffice.style.js');
 const styleOSSpecific = (Device.deviceOS === 'iOS') ? require('./pages/style/ios.style.js') : require('./pages/style/android.style.js');
 
 //merging styles to simplify style usage
 //by that way  we can use same object hieararchy within style files.
-var mergedStyle = merge.all([styleGeneric, stylePgStatus, stylePgOutOfOffice, styleOSSpecific]);
+var mergedStyle = merge.all([styleGeneric, stylePgLogin, stylePgStatus, stylePgOutOfOffice, styleOSSpecific]);
 
 //passing style object to styler
 styler(mergedStyle);

@@ -18,6 +18,8 @@ const HeaderBarWrapper = require("js-base/component/header-bar.js");
 const tinyUtils = require('./component/tinyUtils.js');
 const getUnit = require('./component/getUnit.js');
 
+const colors = require('pages/style/colors.js');
+
 // Router
 const router = require('js-base/core/router');
 

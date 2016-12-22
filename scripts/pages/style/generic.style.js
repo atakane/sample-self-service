@@ -11,9 +11,18 @@ module.exports = {
         textAlignment: SMF.UI.TextAlignment.CENTER,
         multipleLine: false
     },
+    ".textTop": {
+        textAlignment: SMF.UI.TextAlignment.TOP
+    },
     ".23pt": {
         font: {
             size: '23pt',
+            bold: false
+        },
+    },
+    ".17pt": {
+        font: {
+            size: '17pt',
             bold: false
         },
     },
@@ -38,6 +47,12 @@ module.exports = {
     ".6pt": {
         font: {
             size: '6pt',
+            bold: false
+        },
+    },
+    ".4pt": {
+        font: {
+            size: '4pt',
             bold: false
         },
     },
