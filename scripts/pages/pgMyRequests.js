@@ -17,7 +17,10 @@ const HeaderBarWrapper = require("js-base/component/header-bar.js");
 const tinyUtils = require('./component/tinyUtils.js');
 const getUnit = require('./component/getUnit.js');
 
+
+const merge = require('deepmerge');
 const colors = require('./style/colors.js');
+const componentStyler = require("js-base/core/styler").componentStyler();
 
 // Router
 const router = require('js-base/core/router');
@@ -25,156 +28,95 @@ const router = require('js-base/core/router');
 const pgMyRequests = extend(Page)(
     //Page Constructor
     function(_super) {
-        _super(this, { 
-        name: 'pgMyRequests',
-        onKeyPress: pgMyRequests_onKeyPress,
-        onShow: pgMyRequests_onShow,
-        backgroundImage: 'stripe.png'
-    });
+        _super(this, {
+            name: 'pgMyRequests',
+            onKeyPress: pgMyRequests_onKeyPress,
+            onShow: pgMyRequests_onShow,
+            backgroundImage: 'stripe.png'
+        });
 
         headerBarOptions.setTitle('My Leave Requests');
         const headerBarWrapper = HeaderBarWrapper(this._view, headerBarOptions.options);
-        
+
         // Creating Slider Drawer
         SMFSliderDrawer.createSliderDrawer(this, 'sdSelfService');
-        
+
         var arrayRequests;
-    
-    
+
+
         // Creating a repeatbox to show our requests
-        var rptApprovalList = new SMF.UI.RepeatBox({
+        //styling the repeater
+        //We used a different way here beacause of the by-design nature of repeater component
+        var rptDefault = {
             name: 'rptApprovalList',
-            top: getUnit({iOS:64,Android:80}),
-            left: '0%',
-            width: '100%',
-            height: '90%',
-            borderWidth: 0,
-            showScrollbar: true,
-            autoSize: false,
-            touchEnabled: true,
-            enableScroll: true,
-            backgroundTransparent: false,
-            enablePullUpToRefresh: false,
-            enablePullDownToRefresh: false,
-            useActiveItem: false,
-            allowDeletingItem: false,
             onSelectedItem: function(e) {
-                router.go('pgMyRequestDetail',arrayRequests[e.rowIndex]);
+                router.go('pgMyRequestDetail', arrayRequests[e.rowIndex]);
             }
-        });
-    
+        };
+        var rptParams = {};
+        componentStyler(".Generic.repeater")(rptParams);
+        rptParams = merge.all([rptDefault, rptParams]);
+
+        var rptApprovalList = new SMF.UI.RepeatBox(rptParams);
+
+        //styling repeater item templates
+        var paramItemTemplate = {};
+        componentStyler(".Generic.itemTemplate")(paramItemTemplate);
+
+        rptApprovalList.itemTemplate.fillColor = paramItemTemplate.fillColor;
+        rptApprovalList.itemTemplate.height = paramItemTemplate.height;
+
+        var paramActiveItemTemplate = {};
+        componentStyler(".Generic.activeItemTemplate")(paramActiveItemTemplate);
+        rptApprovalList.activeItemTemplate.fillColor = paramActiveItemTemplate.fillColor;
+        rptApprovalList.activeItemTemplate.height = paramActiveItemTemplate.height;
+
         var imgStatusCircle = new SMF.UI.Image({
             name: 'imgStatusCircle',
-            image: 'white_circle.png',
-            left: '3%',
-            top: getUnit({iOS: ((((Device.screenHeight - 64) / 7) - 60) / 2), Android: 10}),
-            width: getUnit(60),
-            height: getUnit(60),
-            imageFillType: SMF.UI.ImageFillType.ASPECTFIT
         });
-    
+        componentStyler(".Generic.imgCircle")(imgStatusCircle);
+
         var lblStatusLetter = new SMF.UI.Label({
             name: 'lblStatusLetter',
-            text: 'W',
-            left: '3%',
-            top: getUnit({iOS: ((((Device.screenHeight - 64) / 7) - 60) / 2), Android: 9}),
-            width: getUnit(60),
-            height: getUnit(60),
-            textAlignment: SMF.UI.TextAlignment.CENTER,
-            multipleLine: false,
-            font: new SMF.UI.Font({
-                size: '12pt',
-                bold: false
-            }),
-            fontColor: colors.BlueMedium
+            text: 'W'
+
         });
-    
+        componentStyler(".textCenter .12pt .pgMyRequests.lblStatusLetter")(lblStatusLetter);
+
         var recVerticalLine = new SMF.UI.Rectangle({
             name: 'recVerticalLine',
-            left: getUnit('22%'),
-            top: getUnit('17%'),
-            width: getUnit(1),
-            height: '71%',
-            fillColor: colors.Gray,
-            borderWidth: 0,
-            roundedEdge: 0
         });
-    
+        componentStyler(".Generic.verticalLine")(recVerticalLine);
+
         var lblFullName = new SMF.UI.Label({
             name: 'lblFullName',
             text: '-',
-            left: '25%',
-            top: getUnit({iOS:'9%',Android:'8%'}),
-            width: '60%',
-            height: '40%',
-            textAlignment: SMF.UI.TextAlignment.LEFT,
-            multipleLine: false,
-            font: new SMF.UI.Font({
-                size: '11pt',
-                bold: false
-            }),
-            fontColor: colors.BlueMedium,
-            borderWidth: 0
         });
-    
-    
+        componentStyler(".textLeft .11pt .Generic.lblTopLine")(lblFullName);
+
+
         var lblTeamRole = new SMF.UI.Label({
             name: 'lblTeamRole',
             text: '-',
-            left: '25%',
-            top: getUnit({iOS:'46%',Android:'40%'}),
-            width: '60%',
-            height: getUnit({iOS:'20%',Android:'30%'}),
-            textAlignment: SMF.UI.TextAlignment.LEFT,
-            multipleLine: false,
-            font: new SMF.UI.Font({
-                size: '7pt',
-                bold: false
-            }),
-            fontColor: colors.Gray29,
-            borderWidth: 0
         });
-    
+        componentStyler(".textLeft .7pt .Generic.lblMiddleLine")(lblTeamRole);
+
         var lblLeaveDetails = new SMF.UI.Label({
             name: 'lblLeaveDetails',
             text: '-',
-            left: '25%',
-            top: '63%',
-            width: '60%',
-            height: '30%',
-            textAlignment: SMF.UI.TextAlignment.LEFT,
-            multipleLine: false,
-            font: new SMF.UI.Font({
-                size: '7pt',
-                bold: false
-            }),
-            fontColor: colors.Gray29,
-            borderWidth: 0
         });
-    
+        componentStyler(".textLeft .6pt .Generic.lblMiddleLine .Generic.lblBottomLine")(lblLeaveDetails);
+
         var imgDetail = new SMF.UI.Image({
-            name: 'imgDetail',
-            image: 'right_arrow.png',
-            left: '88%',
-            top: '38%',
-            width: '10%',
-            height: '30%',
-            imageFillType: SMF.UI.ImageFillType.NORMAL
+            name: 'imgDetail'
         });
-    
+        componentStyler(".Generic.imgArrow")(imgDetail);
+
         var recHorizontalLine = new SMF.UI.Rectangle({
-            name: 'recHorizontalLine',
-            left: getUnit(0),
-            top:getUnit({iOS: ((Device.screenHeight - 64) / 7)-1, Android: 79}),
-            width: getUnit('100%'),
-            height: 1,
-            fillColor: colors.White,
-            borderWidth: 0,
-            roundedEdge: 0
+            name: 'recHorizontalLine'
         });
-    
-        //adding files to repeatbox's itemtemplate
-        rptApprovalList.itemTemplate.height = getUnit({iOS: (Device.screenHeight - 64) / 7, Android: 80});
+        componentStyler(".Generic.horizontalLine")(recHorizontalLine);
+
         rptApprovalList.itemTemplate.add(imgStatusCircle);
         rptApprovalList.itemTemplate.add(lblStatusLetter);
         rptApprovalList.itemTemplate.add(recVerticalLine);
@@ -183,8 +125,7 @@ const pgMyRequests = extend(Page)(
         rptApprovalList.itemTemplate.add(lblLeaveDetails);
         rptApprovalList.itemTemplate.add(imgDetail);
         rptApprovalList.itemTemplate.add(recHorizontalLine);
-        rptApprovalList.itemTemplate.fillColor = colors.GrayLighter;
-    
+
         //activeItemTemplate
         var imgStatusCircle2 = imgStatusCircle.clone();
         var lblStatusLetter2 = lblStatusLetter.clone();
@@ -194,8 +135,7 @@ const pgMyRequests = extend(Page)(
         var lblLeaveDetails2 = lblLeaveDetails.clone();
         var imgDetail2 = imgDetail.clone();
         var recHorizontalLine2 = recHorizontalLine.clone();
-    
-        rptApprovalList.itemTemplate.height = getUnit({iOS: (Device.screenHeight - 64) / 7, Android: 80});
+
         rptApprovalList.activeItemTemplate.add(imgStatusCircle2);
         rptApprovalList.activeItemTemplate.add(lblStatusLetter2);
         rptApprovalList.activeItemTemplate.add(recVerticalLine2);
@@ -204,10 +144,9 @@ const pgMyRequests = extend(Page)(
         rptApprovalList.activeItemTemplate.add(lblLeaveDetails2);
         rptApprovalList.activeItemTemplate.add(imgDetail2);
         rptApprovalList.activeItemTemplate.add(recHorizontalLine2);
-        rptApprovalList.activeItemTemplate.fillColor = colors.White;
-    
+
         rptApprovalList.pullDownItem.height = '8%';
-    
+
         //onRowRender will work for each item bound
         rptApprovalList.onRowRender = function(e) {
             // {
@@ -227,38 +166,38 @@ const pgMyRequests = extend(Page)(
             // 'Used': 16,
             // 'Remaining': 13
             // }
-    
-            var startDate = (new Date(arrayRequests[e.rowIndex].StartDate)); 
-            var endDate = (new Date(arrayRequests[e.rowIndex].EndDate)) ;
-            
+
+            var startDate = (new Date(arrayRequests[e.rowIndex].StartDate));
+            var endDate = (new Date(arrayRequests[e.rowIndex].EndDate));
+
             var leaveDetails
             if (arrayRequests[e.rowIndex].TimeUnit === 'DAY') {
                 startDate = startDate.format('MM/dd/yyyy');
                 endDate = endDate.format('MM/dd/yyyy');
-                
+
                 var days = tinyUtils.daysBetween(startDate, endDate);
                 leaveDetails = days + ' ' + ((days > 1) ? 'days' : 'day');
             }
             else {
-                var hours = tinyUtils.daysBetween(startDate, endDate, true)  - ((endDate.format('HH') < 13) ? 0 : lunchBreakDuration);
+                var hours = tinyUtils.daysBetween(startDate, endDate, true) - ((endDate.format('HH') < 13) ? 0 : lunchBreakDuration);
                 leaveDetails = hours + ' ' + ((hours > 1) ? 'hours' : 'hour');
-                
+
                 startDate = startDate.format('MM/dd/yyyy HH:mm');
                 endDate = endDate.format('MM/dd/yyyy HH:mm');
             }
-              
-    
+
+
             getStatusLetter(arrayRequests[e.rowIndex].Status, this.controls[1]);
             this.controls[3].text = arrayRequests[e.rowIndex].LeaveType;
             this.controls[4].text = startDate + ' - ' + endDate;
             this.controls[5].text = leaveDetails
-    
+
             getStatusLetter(arrayRequests[e.rowIndex].Status, this.controls[9]);
             this.controls[11].text = arrayRequests[e.rowIndex].LeaveType;
             this.controls[12].text = startDate + ' - ' + endDate;
             this.controls[13].text = leaveDetails
         };
-    
+
         function getStatusLetter(status, statusObject) {
             // for mock system status may be used as string, 
             // this switch written here to prevent further problems. 
@@ -274,37 +213,25 @@ const pgMyRequests = extend(Page)(
                     break;
                 case 'REJECTED':
                     statusObject.text = 'R';
-                    statusObject.fontColor = '#ee2736';
+                    statusObject.fontColor = colors.RedDark;
                     break;
             }
         }
-    
+
         //adding repeatbox to the page
         this.add(rptApprovalList);
-    
+
         // If you want, you can add some legend here
         // createLabel(pgMyRequests, 'lblLegend', 'W: Waiting\nA: Approved\nR: Rejected', '5%', '0%', '90%', '10%', SMF.UI.TextAlignment.LEFT, true, '5pt', false, colors.Gray);
-    
+
         //adding label for no-data
         var lblNoData = new SMF.UI.Label({
             name: 'lblNoData',
-            text: 'You dont have any "Leave Request" yet.',
-            left: 0,
-            top: 0,
-            width: '100%',
-            height: '100%',
-            textAlignment: SMF.UI.TextAlignment.CENTER,
-            multipleLine: true,
-            font: new SMF.UI.Font({
-                size: '7pt',
-                bold: false
-            }),
-            fontColor: colors.Gray29,
-            borderWidth: 0,
-            visible: false
+            text: 'You dont have any "Leave Request" yet.'
         });
+        componentStyler(".allArea .textCenter .7pt .Generic.lblNoData")(lblNoData);
         this.add(lblNoData);
-    
+        
         /**
          * Creates action(s) that are run when the user press the key of the devices.
          * @param {KeyCodeEventArguments} e Uses to for key code argument. It returns e.keyCode parameter.
@@ -315,7 +242,7 @@ const pgMyRequests = extend(Page)(
                 Pages.back(reverseDefaultPageAnimation);
             }
         }
-    
+
         /**
          * Creates action(s) that are run when the page is appeared
          * @param {EventArguments} e Returns some attributes about the specified functions
@@ -324,30 +251,30 @@ const pgMyRequests = extend(Page)(
         function pgMyRequests_onShow() {
             // Hiding 'wait' dialog
             Dialog.removeWait();
-    
+
             // Adding header bar (actionbar for Android, navigationbar for iOS)
             headerBarWrapper.reload();
             headerBarOptions.eventCallback(function(e) {
                 if (e.type == "menu")
                     Pages.currentPage.sdSelfService.show();
-            });            
-    
+            });
+
             // Updating logged in user's info on the this page's slider drawer
             Pages.currentPage.sdSelfService.cntGeneral.cntTop.imgSliderAvatar.image = oProfile.Avatar;
             Pages.currentPage.sdSelfService.cntGeneral.cntTop.lblSliderFullName.text = oProfile.FullName;
             Pages.currentPage.sdSelfService.cntGeneral.cntTop.lblSliderTeamRole.text = oProfile.Role + ' / ' + oProfile.Team;
-                        
+
             displayApprovalRequests.call(this);
-    
+
             // Oracle MCS Analytics logging 
             smfOracle.logAndFlushAnalytics('pgMyRequests_onShow');
             tinyUtils.fixOverlayBug();
         }
-    
+
 
         //Parsing storage objects 
         function displayApprovalRequests() {
-    
+
             /*
             Sample item 
            [
@@ -370,13 +297,13 @@ const pgMyRequests = extend(Page)(
                     'Remaining': 13
             }]
             */
-    
+
             var parsedResponse = oRequestList;
             arrayRequests = [];
-    
+
             for (var i = 0; i < parsedResponse.length; i++) {
                 var objRequestObject = {};
-    
+
                 if (parsedResponse[i].EmployeeID === oProfile.EmployeeID) {
                     objRequestObject.ID = parsedResponse[i].ID;
                     objRequestObject.EmployeeID = parsedResponse[i].EmployeeID;
@@ -394,18 +321,18 @@ const pgMyRequests = extend(Page)(
                     objRequestObject.TotalDays = parsedResponse[i].TotalDays;
                     objRequestObject.Used = parsedResponse[i].Used;
                     objRequestObject.Remaining = parsedResponse[i].Remaining;
-    
+
                     arrayRequests.push(objRequestObject);
                 }
             }
-    
-    
+
+
             //binding objects array
             rptApprovalList.closePullItems();
             rptApprovalList.dataSource = arrayRequests;
             rptApprovalList.refresh();
             Dialog.removeWait();
-    
+
             this.lblNoData.visible = (arrayRequests.length == 0);
             rptApprovalList.visible = !(arrayRequests.length == 0);
         }
@@ -416,5 +343,5 @@ const pgMyRequests = extend(Page)(
         _proto.setRouteParams = function() {};
         _proto.stateChangedHandler = function(state) {};
     });
-    
+
 module.exports = pgMyRequests;

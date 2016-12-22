@@ -19,7 +19,9 @@ const HeaderBarWrapper = require("js-base/component/header-bar.js");
 const tinyUtils = require('./component/tinyUtils.js');
 const getUnit = require('./component/getUnit.js');
 
+const merge = require('deepmerge');
 const colors = require('./style/colors.js');
+const componentStyler = require("js-base/core/styler").componentStyler();
 
 // Router
 const router = require('js-base/core/router');
@@ -36,130 +38,81 @@ const pgApprovalWorklist = extend(Page)(
 
         headerBarOptions.setTitle('Approval Worklist');
         const headerBarWrapper = HeaderBarWrapper(this._view, headerBarOptions.options);
-        
+
         // Creating Slider Drawer
         SMFSliderDrawer.createSliderDrawer(this, 'sdSelfService');
-        
+
         var arrayRequests;
-    
+
         //creating a repeatbox to show our files
-        var rptApprovalList = new SMF.UI.RepeatBox({
-            top: getUnit({iOS:64,Android:80}),
-            left: '0%',
-            width: '100%',
-            height: '100%',
-            borderWidth: 0,
-            showScrollbar: true,
-            autoSize: false,
-            touchEnabled: true,
-            enableScroll: true,
-            backgroundTransparent: false,
-            enablePullUpToRefresh: false,
-            enablePullDownToRefresh: false,
-            useActiveItem: false,
-            allowDeletingItem: false,
+        var rptDefault = {
+            name: 'rptApprovalList',
             onSelectedItem: function(e) {
-                router.go('pgApproveLeaveRequest',{'rowIndex': e.rowIndex, 'request' : arrayRequests[e.rowIndex]});
+                router.go('pgApproveLeaveRequest', {
+                    'rowIndex': e.rowIndex,
+                    'request': arrayRequests[e.rowIndex]
+                });
             }
-        });
-    
+        };
+        var rptParams = {};
+        componentStyler(".Generic.repeater")(rptParams);
+        rptParams = merge.all([rptDefault, rptParams]);
+
+        var rptApprovalList = new SMF.UI.RepeatBox(rptParams);
+
+        //styling repeater item templates
+        var paramItemTemplate = {};
+        componentStyler(".Generic.itemTemplate")(paramItemTemplate);
+
+        rptApprovalList.itemTemplate.fillColor = paramItemTemplate.fillColor;
+        rptApprovalList.itemTemplate.height = paramItemTemplate.height;
+
+        var paramActiveItemTemplate = {};
+        componentStyler(".Generic.activeItemTemplate")(paramActiveItemTemplate);
+        rptApprovalList.activeItemTemplate.fillColor = paramActiveItemTemplate.fillColor;
+        rptApprovalList.activeItemTemplate.height = paramActiveItemTemplate.height;
         // Profile
         var imgAvatar = new SMF.UI.Image({
             name: 'imgAvatar',
             image: 'avatar.png',
-            left: '3%',
-            top: getUnit({iOS: ((((Device.screenHeight - 64) / 7) - 60) / 2), Android: 10}),
-            width: getUnit(60),
-            height: getUnit(60),
-            imageFillType: SMF.UI.ImageFillType.ASPECTFIT
         });
-    
+        componentStyler(".Generic.imgCircle")(imgAvatar);
+
         var recVerticalLine = new SMF.UI.Rectangle({
-            name: 'recVerticalLine',
-            left: getUnit('22%'),
-            top: getUnit('17%'),
-            width: getUnit(1),
-            height: '71%',
-            fillColor: colors.Gray,
-            borderWidth: 0,
-            roundedEdge: 0
+            name: 'recVerticalLine'
         });
-    
+        componentStyler(".Generic.verticalLine")(recVerticalLine);
+
         var lblFullName = new SMF.UI.Label({
             name: 'lblFullName',
-            text: '-',
-            left: '25%',
-            top: getUnit({iOS:'9%',Android:'8%'}),
-            width: '60%',
-            height: '40%',
-            textAlignment: SMF.UI.TextAlignment.LEFT,
-            multipleLine: false,
-            font: new SMF.UI.Font({
-                size: '11pt',
-                bold: false
-            }),
-            fontColor: colors.BlueMedium,
-            borderWidth: 0
+            text: '-'
         });
-    
+        componentStyler(".textLeft .11pt .Generic.lblTopLine")(lblFullName);
+
+
         var lblTeamRole = new SMF.UI.Label({
             name: 'lblTeamRole',
-            text: '-',
-            left: '25%',
-            top: getUnit({iOS:'46%',Android:'40%'}),
-            width: '60%',
-            height: getUnit({iOS:'20%',Android:'30%'}),
-            textAlignment: SMF.UI.TextAlignment.LEFT,
-            multipleLine: false,
-            font: new SMF.UI.Font({
-                size: '7pt',
-                bold: false
-            }),
-            fontColor: colors.Gray29,
-            borderWidth: 0
+            text: '-'
         });
-    
+        componentStyler(".textLeft .7pt .Generic.lblMiddleLine")(lblTeamRole);
+
         var lblLeaveDetails = new SMF.UI.Label({
             name: 'lblLeaveDetails',
-            text: '-',
-            left: '25%',
-            top: '63%',
-            width: '75%',
-            height: '30%',
-            textAlignment: SMF.UI.TextAlignment.LEFT,
-            multipleLine: false,
-            font: new SMF.UI.Font({
-                size: '6pt',
-                bold: false
-            }),
-            fontColor: colors.Gray29,
-            borderWidth: 0
+            text: '-'
         });
-    
+        componentStyler(".textLeft .6pt .Generic.lblMiddleLine .Generic.lblBottomLine")(lblLeaveDetails);
+
         var imgDetail = new SMF.UI.Image({
-            name: 'imgDetail',
-            image: 'right_arrow.png',
-            left: '88%',
-            top: '38%',
-            width: '10%',
-            height: '30%',
-            imageFillType: SMF.UI.ImageFillType.NORMAL
+            name: 'imgDetail'
         });
-    
+        componentStyler(".Generic.imgArrow")(imgDetail);
+
         var recHorizontalLine = new SMF.UI.Rectangle({
-            name: 'recHorizontalLine',
-            left: getUnit(0),
-            top:getUnit({iOS: ((Device.screenHeight - 64) / 7)-1, Android: 79}),
-            width: getUnit('100%'),
-            height: 1,
-            fillColor: colors.White,
-            borderWidth: 0,
-            roundedEdge: 0
+            name: 'recHorizontalLine'
         });
-    
+        componentStyler(".Generic.horizontalLine")(recHorizontalLine);
+
         //adding files to repeatbox's itemtemplate
-        
-        rptApprovalList.itemTemplate.height = getUnit({iOS: (Device.screenHeight - 64) / 7, Android: 80});
         rptApprovalList.itemTemplate.add(imgAvatar);
         rptApprovalList.itemTemplate.add(recVerticalLine);
         rptApprovalList.itemTemplate.add(lblFullName);
@@ -168,7 +121,7 @@ const pgApprovalWorklist = extend(Page)(
         rptApprovalList.itemTemplate.add(imgDetail);
         rptApprovalList.itemTemplate.add(recHorizontalLine);
         rptApprovalList.itemTemplate.fillColor = colors.GrayLighter;
-    
+
         //activeItemTemplate
         var imgAvatar2 = imgAvatar.clone();
         var recVerticalLine2 = recVerticalLine.clone();
@@ -177,8 +130,11 @@ const pgApprovalWorklist = extend(Page)(
         var lblLeaveDetails2 = lblLeaveDetails.clone();
         var imgDetail2 = imgDetail.clone();
         var recHorizontalLine2 = recHorizontalLine.clone();
-    
-        rptApprovalList.activeItemTemplate.height =getUnit({iOS: (Device.screenHeight - 64) / 7, Android: 80});
+
+        rptApprovalList.activeItemTemplate.height = getUnit({
+            iOS: (Device.screenHeight - 64) / 7,
+            Android: 80
+        });
         rptApprovalList.activeItemTemplate.add(imgAvatar2);
         rptApprovalList.activeItemTemplate.add(recVerticalLine2);
         rptApprovalList.activeItemTemplate.add(lblFullName2);
@@ -187,9 +143,9 @@ const pgApprovalWorklist = extend(Page)(
         rptApprovalList.activeItemTemplate.add(imgDetail2);
         rptApprovalList.activeItemTemplate.add(recHorizontalLine2);
         rptApprovalList.activeItemTemplate.fillColor = colors.White;
-    
+
         rptApprovalList.pullDownItem.height = '8%';
-    
+
         //onRowRender will work for each item bound
         rptApprovalList.onRowRender = function(e) {
             // {
@@ -209,11 +165,11 @@ const pgApprovalWorklist = extend(Page)(
             // 'Used': 16,
             // 'Remaining': 13
             // }
-    
+
             var startDate = new Date(arrayRequests[e.rowIndex].StartDate);
             var endDate = arrayRequests[e.rowIndex].EndDate;
             var days = tinyUtils.daysBetween(startDate, endDate);
-            
+
             var leaveDetails, leaveText;
             if (arrayRequests[e.rowIndex].TimeUnit === 'DAY') {
                 var days = tinyUtils.daysBetween(startDate.format('MM/dd/yyyy'), endDate.format('MM/dd/yyyy'));
@@ -221,49 +177,37 @@ const pgApprovalWorklist = extend(Page)(
                 leaveText = ('{0}, starts {1}').format(leaveDetails, startDate.format('ddd, MMM. d'));
             }
             else {
-                var hours = tinyUtils.daysBetween(startDate, endDate, true)  - ((endDate.format('HH') < 13) ? 0 : lunchBreakDuration);
+                var hours = tinyUtils.daysBetween(startDate, endDate, true) - ((endDate.format('HH') < 13) ? 0 : lunchBreakDuration);
                 leaveDetails = arrayRequests[e.rowIndex].LeaveType + ', ' + hours + ' ' + ((hours > 1) ? 'hours' : 'hour');
                 leaveText = ('{0}, at {1}').format(leaveDetails, startDate.format('ddd, MMM. d, HH:mm'));
             }
-             
-    
+
+
             this.controls[0].image = arrayRequests[e.rowIndex].Avatar;
             this.controls[2].text = arrayRequests[e.rowIndex].FullName;
             this.controls[3].text = arrayRequests[e.rowIndex].Role + ' / ' + arrayRequests[e.rowIndex].Team;
             this.controls[4].text = leaveText;
-    
-    
+
+
             this.controls[7].image = arrayRequests[e.rowIndex].Avatar;
             this.controls[9].text = arrayRequests[e.rowIndex].FullName;
             this.controls[10].text = arrayRequests[e.rowIndex].Role + ' / ' + arrayRequests[e.rowIndex].Team;
             this.controls[11].text = leaveText;
-    
+
         };
-    
-    
+
+
         //adding repeatbox to the page
         this.add(rptApprovalList);
-    
+
         //adding label for no-data
         var lblNoData = new SMF.UI.Label({
             name: 'lblNoData',
             text: 'No requests found!',
-            left: 0,
-            top: 0,
-            width: "100%",
-            height: "100%",
-            textAlignment: SMF.UI.TextAlignment.CENTER,
-            multipleLine: true,
-            font: new SMF.UI.Font({
-                size: "7pt",
-                bold: false
-            }),
-            fontColor: "#4a4a4a",
-            borderWidth: 0,
-            visible: false
         });
+        componentStyler(".allArea .textCenter .7pt .Generic.lblNoData")(lblNoData);
         this.add(lblNoData);
-        
+
         /**
          * Creates action(s) that are run when the user press the key of the devices.
          * @param {KeyCodeEventArguments} e Uses to for key code argument. It returns e.keyCode parameter.
@@ -274,7 +218,7 @@ const pgApprovalWorklist = extend(Page)(
                 router.back();
             }
         }
-    
+
         /**
          * Creates action(s) that are run when the page is appeared
          * @param {EventArguments} e Returns some attributes about the specified functions
@@ -283,7 +227,7 @@ const pgApprovalWorklist = extend(Page)(
         function pgApprovalWorklist_onShow() {
             // Hiding 'wait' dialog
             Dialog.removeWait();
-    
+
             // Adding header bar (actionbar for Android, navigationbar for iOS)
             headerBarWrapper.reload();
             headerBarOptions.eventCallback(function(e) {
@@ -294,20 +238,20 @@ const pgApprovalWorklist = extend(Page)(
                     filterMenu.call(this);
                 }
             });
-            
+
             // Updating logged in user's info on the this page's slider drawer
             Pages.currentPage.sdSelfService.cntGeneral.cntTop.imgSliderAvatar.image = oProfile.Avatar;
             Pages.currentPage.sdSelfService.cntGeneral.cntTop.lblSliderFullName.text = oProfile.FullName;
             Pages.currentPage.sdSelfService.cntGeneral.cntTop.lblSliderTeamRole.text = oProfile.Role + ' / ' + oProfile.Team;
-    
+
             displayApprovalRequests.call(this);
-    
+
             // Oracle MCS Analytics logging 
             smfOracle.logAndFlushAnalytics('pgAbout_onShow');
             tinyUtils.fixOverlayBug();
         }
-    
-    
+
+
         //filter requests menu item
         function filterMenu(e) {
             var item1 = {
@@ -331,7 +275,7 @@ const pgApprovalWorklist = extend(Page)(
                     displayApprovalRequests('rejected');
                 }
             }
-    
+
             var item4 = {
                 title: 'Cancel',
                 itemType: SMF.UI.MenuItemType.cancel, //  iOS Only
@@ -345,7 +289,7 @@ const pgApprovalWorklist = extend(Page)(
             });
             menu1.show();
         }
-    
+
         //Parsing storage objects 
         function displayApprovalRequests(status) {
             if (!(status) || (status.length == 0)) status = 'waiting';
@@ -371,17 +315,17 @@ const pgApprovalWorklist = extend(Page)(
                     'Remaining': 13
             }]
             */
-    
-    
+
+
             var parsedResponse = oRequestList;
             arrayRequests = [];
-    
+
             //if (parsedResponse.length > 0)
             // lblWelcome2.text = 'You have ' + (parsedResponse.length) + ' file(s) in your storage';
-    
+
             for (var i = 0; i < parsedResponse.length; i++) {
                 var objRequestObject = {};
-    
+
                 if (parsedResponse[i].Status === status) {
                     objRequestObject.ID = parsedResponse[i].ID;
                     objRequestObject.EmployeeID = parsedResponse[i].EmployeeID;
@@ -399,22 +343,22 @@ const pgApprovalWorklist = extend(Page)(
                     objRequestObject.TotalDays = parsedResponse[i].TotalDays;
                     objRequestObject.Used = parsedResponse[i].Used;
                     objRequestObject.Remaining = parsedResponse[i].Remaining;
-    
+
                     arrayRequests.push(objRequestObject);
                     // arrayRequests.sort(function(a, b) {
                     //     return new Date(b.EndDate) - new Date(a.EndDate);
                     // });
                 }
             }
-    
-    
+
+
             //binding objects array
             // rptBoxObjects.pullDownItemTemplate.visible = true;
             rptApprovalList.closePullItems();
             rptApprovalList.dataSource = arrayRequests;
             rptApprovalList.refresh();
             Dialog.removeWait();
-            
+
             lblNoData.visible = (arrayRequests.length == 0);
             rptApprovalList.visible = !(arrayRequests.length == 0);
         }

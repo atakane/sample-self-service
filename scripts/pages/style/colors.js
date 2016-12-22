@@ -13,5 +13,7 @@ module.exports = {
     Pink: '#f64b95',
     PinkDark: '#ebc0d3',
     PinkDarker: '#cca2b5',
-    Gray: '#979797'
+    Gray: '#979797',
+    RedDark:'#ee2736',
+    RedDarker:'#eb2c3d'
 }

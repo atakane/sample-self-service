@@ -2,6 +2,30 @@ module.exports = {
   ".Generic": {
     ".imgHome": {
       height: '42.10937%'
+    },
+    ".repeater": {
+      top: '80dp'
+    },
+    ".itemTemplate": {
+      height: '80dp'
+    },
+    ".imgCircle": {
+      height: '10dp',
+      width: '60dp',
+      height: '60dp'
+    },
+    ".verticalLine": {
+      width: '1dp'
+    },
+    ".horizontalLine": {
+      top: 79
+    },
+    ".lblMiddleLine": {
+      top: '8%',
+    },
+    ".lblBottomLine": {
+      top: '40%',
+      height: '30%',
     }
   },
   ".pgStatus": {
@@ -77,6 +101,13 @@ module.exports = {
     ".recOverlay": {
       top: '31.5352%',
       height: '58.8696%'
+    }
+  },
+  ".pgMyRequests": {
+    ".lblStatusLetter": {
+      height: '9dp',
+      width: '60dp',
+      height: '60dp'
     }
   }
 };

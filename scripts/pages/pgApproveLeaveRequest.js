@@ -139,7 +139,7 @@ const pgApproveLeaveRequest = extend(Page)(
             '0', '90.4048%', '50%', '9.5952%',
             SMF.UI.TextAlignment.CENTER,
             myFont,
-            '#ee2736', '#eb2c3d',
+            colors.RedDark, colors.RedDarker,
             SMF.UI.Color.WHITE, SMF.UI.Color.WHITESMOKE,
             function(e) {
                 alert({
