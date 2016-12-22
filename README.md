@@ -14,15 +14,15 @@ A sample app to demonstrate Smartface and Oracle EBS/Fusion integration. You can
 
 ## How to Use
 This version works with mock-ebs services. To use all functionality in this app, please follow these steps;
-* Change the [mock services](https://github.com/smartface/sample-self-service/tree/master/_self-service-mock/) to match-up with your Real services. 
-* If you dont have, setup an account on [Oracle Cloud](https://cloud.oracle.com). 
+* Change the [mock services](https://github.com/smartface/sample-self-service/tree/master/_self-service-mock/) to match-up with your Real services.
+* If you dont have, setup an account on [Oracle Cloud](https://cloud.oracle.com).
 * Create a new mobile backend for your project
 * Create separate mobile backend clients for your target platforms (Android and iOS)
 * Get tokens and keys for that backend from Oracle MCS dashboard
 * Write your tokens and keys into [`libs/Oracle/oracle_mobile_cloud_config.js`](https://github.com/smartface/sample-file-manager/blob/master/scripts/libs/Oracle/oracle_mobile_cloud_config.js)
 * If you want to use Push Notifications, update `googleCloudMessaging` value in [`config/project.json`] (https://github.com/smartface/sample-file-manager/blob/master/config/project.json). You need to get your Sender ID from your Google GCM / Firebase account. It is recommended to read our detailed [Push Notification Services Guide](https://smartface.atlassian.net/wiki/display/GUIDE/Push+Notification+Services)
 * To use Remote App Update feature update your [`config/project.rau.json`](https://github.com/smartface/sample-file-manager/blob/master/config/project.rau.json) You can unleash your app's power by reading [Remote App Update Guides](https://smartface.atlassian.net/wiki/display/GUIDE/Remote+App+Update+Guides)
-* Integrate your EBS rest services to MCS custom connectors, and relay from there. 
+* Integrate your EBS rest services to MCS custom connectors, and relay from there.
 
 ## Dependencies
 
@@ -45,4 +45,4 @@ Please read and follow our [Code of Conduct](https://github.com/smartface/sample
 
 ## License
 
-This project is licensed under the terms of the MIT license. See the [LICENSE](LICENSE) file.
+This project is licensed under the terms of the MIT license. See the [LICENSE](LICENSE) file. Within the scope of this license, all modifications to the source code, regardless of the fact that it is used commercially or not, shall be committed as a contribution back to this repository.
