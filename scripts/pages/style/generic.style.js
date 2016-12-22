@@ -66,6 +66,24 @@ module.exports = {
         top: 0,
         width: '100%',
         height: '100%',
+    },
+    ".Generic": {
+        ".imgHome": {
+            left: 0,
+            image: 'home_back.png',
+            left: 0,
+            top: 0,
+            width: '100%',
+            height: '40%',
+            imageFillType: SMF.UI.ImageFillType.STRETCH
+        },
+        ".lblVersion": {
+            left: '0',
+            top: '97%',
+            width: '99%',
+            height: '3%',
+            fontColor: SMF.UI.Color.BLACK
+        }
     }
 }
 

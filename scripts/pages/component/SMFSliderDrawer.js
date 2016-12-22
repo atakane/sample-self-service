@@ -148,7 +148,7 @@ exports.createSliderDrawer = function (page, name) {
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
         colors.Pink, colors.PinkDark,
         function(e) {
-            router.go('pgLogin');
+            router.goTransitionless('pgLogin');
         });
 
     page.add(sliderDrawer);

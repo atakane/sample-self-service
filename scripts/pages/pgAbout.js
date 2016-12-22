@@ -9,6 +9,8 @@ const Dialog = require('smf-dialog');
 const headerBarOptions = require("./headerbar/generic.headerbar.js");
 const HeaderBarWrapper = require("js-base/component/header-bar.js");
 
+const componentStyler = require("js-base/core/styler").componentStyler();
+
 // Router
 const router = require('js-base/core/router');
 
@@ -39,82 +41,42 @@ const pgLogin = extend(Page)(
             }
         }
 
-        // Home Background
+        // top image
         var imgHome = new SMF.UI.Image({
-            name: 'imgHome',
-            image: 'home_back.png',
-            left: 0,
-            top: 0,
-            width: '100%',
-            height: '40%',
-            imageFillType: SMF.UI.ImageFillType.STRETCH
+            name: 'imgHome'
         });
+        componentStyler(".Generic.imgHome")(imgHome);
+        this.add(imgHome);
 
+        // Welcome texts
         var lblWelcome = new SMF.UI.Label({
-            top: '15%',
-            left: '10%',
-            width: '80%',
-            height: '15%',
-            text: 'EBS\nSelf Service',
-            textAlignment: SMF.UI.TextAlignment.TOP,
-            font: new SMF.UI.Font({
-                size: '17pt'
-            }),
-            fontColor: SMF.UI.Color.WHITE,
-            touchEnabled: false,
-            showScrollBar: false,
-            multipleLine: true,
-            borderWidth: 0
+            name: 'lblWelcome',
+            text: 'EBS\nSelf Service'
         });
-        
+        componentStyler(".17pt .pgLogin.lblWelcome")(lblWelcome);
+        this.add(lblWelcome);
 
         var lblWelcome2 = new SMF.UI.Label({
-            top: '29%',
-            left: '10%',
-            width: '80%',
-            height: '8%',
-            text: 'Powered & secured by Oracle MCS & ICS',
-            textAlignment: SMF.UI.TextAlignment.TOP,
-            font: new SMF.UI.Font({
-                size: '7pt'
-            }),
-            fontColor: SMF.UI.Color.WHITE,
-            touchEnabled: false,
-            showScrollBar: false,
-            borderWidth: 0
+            name: 'lblWelcome2',
+            text: 'Powered & secured by Oracle MCS & ICS'
         });
-
+        componentStyler(".7pt .pgLogin.lblWelcome2")(lblWelcome2);
+        this.add(lblWelcome2);
+        
+        // Version text
         var lblVersion = new SMF.UI.Label({
-            top: '97%',
-            left: '0%',
-            width: '99%',
-            height: '3%',
-            text: 'v.' + Application.version,
-            textAlignment: SMF.UI.TextAlignment.RIGHT,
-            font: new SMF.UI.Font({
-                size: '4pt'
-            }),
-            fontColor: SMF.UI.Color.BLACK,
-            touchEnabled: false,
-            showScrollBar: false,
-            borderWidth: 0,
-            multipleLine: false
+            name: 'lblVersion',
+            text: 'v.' + Application.version
         });
+        componentStyler(".textRight .4pt .Generic.lblVersion")(lblVersion);
+        this.add(lblVersion);
 
         // About text
         var lblInfoText = new SMF.UI.Label({
-            top: '45%',
-            left: '6%',
-            width: '88%',
-            height: '49%',
-            text: 'This app is an employee self-service app that is integrated with Oracle Integration Cloud Service (ICS). Through ICS, this app can be integrated with all Oracle systems such as E-Business Suite or Applications Cloud.\n\nIt is a fully native app developed with the Smartface Cloud Platform. Full source code is available and enterprises can extend this app in the cloud development environment, only with JavaScript knowledge.',
-            textAlignment: SMF.UI.TextAlignment.TOP,
-            font: new SMF.UI.Font({
-                size: '8pt'
-            }),
-            multipleLine: true,
-            borderWidth: 0
+            name: 'lblInfoText',
+            text: 'This app is an employee self-service app which is integrated with Oracle Integration Cloud Service (ICS). Through ICS, this app can be integrated with all Oracle systems such as E-Business Suite or Applications Cloud.\n\nIt is a fully native app developed with the Smartface Cloud Platform. Full source code is available and enterprises can extend this app in the cloud development environment, only with JavaScript knowledge.'
         });
+        componentStyler(".8pt .pgAbout.lblInfoText")(lblInfoText);
 
         this.add(imgHome);
         this.add(lblWelcome);

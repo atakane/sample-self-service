@@ -1,8 +1,10 @@
 module.exports = {
-  ".pgStatus": {
+  ".Generic": {
     ".imgHome": {
       height: '42.10937%'
-    },
+    }
+  },
+  ".pgStatus": {
     ".imgAvatar": {
       width: '80dp',
       height: '80dp'

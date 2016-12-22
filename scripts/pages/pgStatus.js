@@ -32,7 +32,7 @@ const pgStatus = extend(Page)(
         var imgHome = new SMF.UI.Image({
             name: 'imgHome'
         });
-        componentStyler(".pgStatus.imgHome")(imgHome);
+        componentStyler(".Generic.imgHome")(imgHome);
 
         // Progress bar (Earned & Used days ratio)
         var cntProgressBar = new SMF.UI.Container({

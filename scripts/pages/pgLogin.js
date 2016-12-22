@@ -38,7 +38,7 @@ const pgLogin = extend(Page)(
         var imgHome = new SMF.UI.Image({
             name: 'imgHome'
         });
-        componentStyler(".pgLogin.imgHome")(imgHome);
+        componentStyler(".Generic.imgHome")(imgHome);
         this.add(imgHome);
 
         // Welcome texts
@@ -91,7 +91,7 @@ const pgLogin = extend(Page)(
             name: 'lblVersion',
             text: 'v.' + Application.version
         });
-        componentStyler(".textRight .4pt .pgLogin.lblVersion")(lblVersion);
+        componentStyler(".textRight .4pt .Generic.lblVersion")(lblVersion);
         this.add(lblVersion);
 
 

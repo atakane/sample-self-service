@@ -2,15 +2,6 @@ const colors = require('./colors.js');
 
 module.exports = {
     ".pgLogin": {
-        ".imgHome": {
-            left: 0,
-            image: 'home_back.png',
-            left: 0,
-            top: 0,
-            width: '100%',
-            height: '40%',
-            imageFillType: SMF.UI.ImageFillType.STRETCH
-        },
         ".lblWelcome": {
             left: '9.5%',
             top: '15%',
@@ -64,13 +55,6 @@ module.exports = {
             top: '78%',
             width: '80%',
             height: '8%',
-            fontColor: SMF.UI.Color.BLACK
-        },
-        ".lblVersion": {
-            left: '0',
-            top: '97%',
-            width: '99%',
-            height: '3%',
             fontColor: SMF.UI.Color.BLACK
         }
     }
