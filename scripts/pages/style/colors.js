@@ -9,5 +9,9 @@ module.exports = {
     GrayDark: '#444444',
     BlueMedium: '#248afd',
     BlueDark: '#37404a',
-    White: SMF.UI.Color.WHITE
+    White: SMF.UI.Color.WHITE,
+    Pink: '#f64b95',
+    PinkDark: '#ebc0d3',
+    PinkDarker: '#cca2b5',
+    Gray: '#979797'
 }

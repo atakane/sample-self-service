@@ -146,7 +146,7 @@ exports.createSliderDrawer = function (page, name) {
         SMF.UI.TextAlignment.LEFT,
         '8pt', false,
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
-        '#f64b95', '#ebc0d3',
+        colors.Pink, colors.PinkDark,
         function(e) {
             router.go('pgLogin');
         });

@@ -16,22 +16,24 @@ const pgMyRequestDetail = require('./pages/pgMyRequestDetail.js');
 
 //Styler
 const merge = require('deepmerge');
-const styler  = require("js-base/core/styler").styler;
+const styler = require("js-base/core/styler").styler;
 
 //Style files
 const styleGeneric = require('./pages/style/generic.style.js');
+
+const stylePgStatus = require('./pages/style/pgStatus.style.js');
 const stylePgOutOfOffice = require('./pages/style/pgOutOfOffice.style.js');
 const styleOSSpecific = (Device.deviceOS === 'iOS') ? require('./pages/style/ios.style.js') : require('./pages/style/android.style.js');
 
 //merging styles to simplify style usage
 //by that way  we can use same object hieararchy within style files.
-var mergedStyle = merge.all([styleGeneric,stylePgOutOfOffice,styleOSSpecific]);
+var mergedStyle = merge.all([styleGeneric, stylePgStatus, stylePgOutOfOffice, styleOSSpecific]);
 
 //passing style object to styler
 styler(mergedStyle);
 
 // Router
-const router = require('js-base/core/router'); 
+const router = require('js-base/core/router');
 
 
 // Check for permissions & RAU updates
@@ -48,23 +50,23 @@ else {
 
 /* Default Animations */
 var defaultPageAnimation = function(page) {
-    return [
-        Device.deviceOS === "iOS" ? SMF.UI.MotionEase.NONE : SMF.UI.MotionEase.NONE,
-        Device.deviceOS === "iOS" ? SMF.UI.TransitionEffect.RIGHTTOLEFT : SMF.UI.TransitionEffect.NONE,
-        Device.deviceOS === "iOS" ? SMF.UI.TransitionEffectType.PUSH : SMF.UI.TransitionEffectType.NONE,
-        Device.deviceOS === "iOS" ? false : true,
-        false
-    ];
+	return [
+		Device.deviceOS === "iOS" ? SMF.UI.MotionEase.NONE : SMF.UI.MotionEase.NONE,
+		Device.deviceOS === "iOS" ? SMF.UI.TransitionEffect.RIGHTTOLEFT : SMF.UI.TransitionEffect.NONE,
+		Device.deviceOS === "iOS" ? SMF.UI.TransitionEffectType.PUSH : SMF.UI.TransitionEffectType.NONE,
+		Device.deviceOS === "iOS" ? false : true,
+		false
+	];
 }
 
 var reverseDefaultPageAnimation = function() {
-    return [
-        Device.deviceOS === "iOS" ? SMF.UI.MotionEase.ACCELERATEANDDECELERATE : SMF.UI.MotionEase.NONE,
-        Device.deviceOS === "iOS" ? SMF.UI.TransitionEffect.RIGHTTOLEFT : SMF.UI.TransitionEffect.NONE,
-        Device.deviceOS === "iOS" ? SMF.UI.TransitionEffectType.PUSH : SMF.UI.TransitionEffectType.NONE,
-        Device.deviceOS === "iOS" ? false : true,
-        false
-    ];
+	return [
+		Device.deviceOS === "iOS" ? SMF.UI.MotionEase.ACCELERATEANDDECELERATE : SMF.UI.MotionEase.NONE,
+		Device.deviceOS === "iOS" ? SMF.UI.TransitionEffect.RIGHTTOLEFT : SMF.UI.TransitionEffect.NONE,
+		Device.deviceOS === "iOS" ? SMF.UI.TransitionEffectType.PUSH : SMF.UI.TransitionEffectType.NONE,
+		Device.deviceOS === "iOS" ? false : true,
+		false
+	];
 }
 
 // Adding routes

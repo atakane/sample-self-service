@@ -80,7 +80,7 @@ const pgApprovalWorklist = extend(Page)(
             top: getUnit('17%'),
             width: getUnit(1),
             height: '71%',
-            fillColor: '#979797',
+            fillColor: colors.Gray,
             borderWidth: 0,
             roundedEdge: 0
         });

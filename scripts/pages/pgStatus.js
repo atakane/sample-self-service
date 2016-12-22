@@ -31,44 +31,23 @@ const pgStatus = extend(Page)(
 
         // Home Background
         var imgHome = new SMF.UI.Image({
-            name: 'imgHome',
-            image: 'home_back.png',
-            left: 0,
-            top: 0,
-            width: '100%',
-            imageFillType: SMF.UI.ImageFillType.STRETCH
+            name: 'imgHome'
         });
-
         componentStyler(".pgStatus.imgHome")(imgHome);
 
         // Progress bar (Earned & Used days ratio)
         var cntProgressBar = new SMF.UI.Container({
-            name: 'cntProgressBar',
-            left: 0,
-            width: '100%',
-            top: '41.82908%',
-            height: '8.2458%',
-            borderWidth: 0
+            name: 'cntProgressBar'
         });
+        componentStyler(".pgStatus.cntProgressBar")(cntProgressBar);
 
-        var imgProgressBackground = new SMF.UI.Image({
-            image: 'slider_stripe.png',
-            left: 0,
-            top: 0,
-            width: '100%',
-            height: '100%',
-            imageFillType: SMF.UI.ImageFillType.STRETCH
-        })
+        var imgProgressBackground = new SMF.UI.Image({});
+        componentStyler(".pgStatus.imgProgressBackground")(imgProgressBackground);
+
         var recProgress = new SMF.UI.Rectangle({
-            name: 'recProgress',
-            left: 0,
-            top: 0,
-            width: '0',
-            height: '100%',
-            fillColor: '#ebc0d3',
-            borderWidth: 0,
-            roundedEdge: 0
+            name: 'recProgress'
         })
+        componentStyler(".pgStatus.recProgress")(recProgress);
 
         cntProgressBar.add(imgProgressBackground);
         cntProgressBar.add(recProgress);
@@ -79,45 +58,21 @@ const pgStatus = extend(Page)(
         // Profile
         var imgAvatar = new SMF.UI.Image({
             name: 'imgAvatar',
-            image: '',
-            left: '39.4666%',
-            top: '14.2428%',
-            imageFillType: SMF.UI.ImageFillType.ASPECTFIT
+            image: ''
         });
         componentStyler(".pgStatus.imgAvatar")(imgAvatar);
         this.add(imgAvatar);
 
         var lblFullName = new SMF.UI.Label({
-            name: 'lblFullName',
-            left: 0,
-            width: '100%',
-            text: '',
-            textAlignment: SMF.UI.TextAlignment.CENTER,
-            font: new SMF.UI.Font({
-                size: '12pt',
-                bold: false
-            }),
-            multipleLine: false,
-            fontColor: SMF.UI.Color.WHITE
+            name: 'lblFullName'
         });
-        componentStyler(".pgStatus.lblFullName")(lblFullName);
+        componentStyler(".textCenter .12pt .pgStatus.lblFullName")(lblFullName);
         this.add(lblFullName);
 
         var lblTeamRole = new SMF.UI.Label({
-            name: 'lblTeamRole',
-            left: 0,
-            top: '33.4332%',
-            width: '100%',
-            height: '2.9985%',
-            text: '',
-            textAlignment: SMF.UI.TextAlignment.CENTER,
-            font: new SMF.UI.Font({
-                size: '7pt',
-                bold: false
-            }),
-            multipleLine: false,
-            fontColor: SMF.UI.Color.WHITE
+            name: 'lblTeamRole'
         });
+        componentStyler(".textCenter .7pt .pgStatus.lblTeamRole")(lblTeamRole);
         this.add(lblTeamRole);
 
         // Vacation metrics
@@ -126,82 +81,34 @@ const pgStatus = extend(Page)(
         // Out Of Office Status
         var cntOutOfOfficeBar = new SMF.UI.Container({
             name: 'cntOutOfOfficeBar',
-            left: 0,
-            width: '100%',
-            top: '75.1874%',
-            height: '9.5952%',
-            borderWidth: 0,
-            fillColor: colors.GrayLighter,
-            backgroundTransparent: false,
             onTouchEnded: function(e) {
                 router.go('pgOutOfOffice');
             }
         });
-        var swtOutOfOffice = new SMF.UI.SwitchButton({
-            name: 'swtOutOfOffice',
-            left: '5.73333%',
-            top: '30.4687%',
-            checked: false,
-            onTintColor: colors.BlueMedium,
-            tintColor: colors.BlueMedium,
-            touchEnabled: false,
-            visible: false
-        });
-        cntOutOfOfficeBar.add(swtOutOfOffice);
+        componentStyler(".pgStatus.cntOutOfOfficeBar")(cntOutOfOfficeBar);
 
         var lblOOOStatusTitle = new SMF.UI.Label({
             name: 'lblOOOStatusTitle',
-            left: '4.53333%',
-            top: '21.875%',
-            width: '60%',
-            height: '29%',
             text: 'OUT OF OFFICE STATUS',
-            textAlignment: SMF.UI.TextAlignment.LEFT,
-            font: new SMF.UI.Font({
-                size: '7pt'
-            }),
-            fontColor: '#cca2b5'
         });
+        componentStyler(".textLeft .7pt .pgStatus.cntOutOfOfficeBar.lblOOOStatusTitle")(lblOOOStatusTitle);
         cntOutOfOfficeBar.add(lblOOOStatusTitle);
 
         var lblOOOStatusTitle2 = new SMF.UI.Label({
             name: 'lblOOOStatusTitle2',
-            left: '4.53333%',
-            top: '53.9062%',
-            width: '27%',
-            height: '29%',
             text: 'Out Of Office',
-            textAlignment: SMF.UI.TextAlignment.LEFT,
-            font: new SMF.UI.Font({
-                size: '7pt'
-            }),
-            fontColor: colors.GrayLight
         });
+        componentStyler(".textLeft .7pt .pgStatus.cntOutOfOfficeBar.lblOOOStatusTitle2")(lblOOOStatusTitle2);
         cntOutOfOfficeBar.add(lblOOOStatusTitle2);
 
         var lblOOOStatusText = new SMF.UI.Label({
             name: 'lblOOOStatusText',
-            left: '31%',
-            top: '53.9062%',
-            width: '30%',
-            height: '29%',
-            text: 'Mode Off',
-            textAlignment: SMF.UI.TextAlignment.LEFT,
-            font: new SMF.UI.Font({
-                size: '7pt'
-            }),
-            fontColor: colors.BlueDark
+            text: 'Mode Off'
         });
+        componentStyler(".textLeft .7pt .pgStatus.cntOutOfOfficeBar.lblOOOStatusText")(lblOOOStatusText);
         cntOutOfOfficeBar.add(lblOOOStatusText);
 
-        var imgDetail = new SMF.UI.Image({
-            image: 'right_arrow.png',
-            left: '90.66666%',
-            top: '40.625%',
-            width: 12,
-            height: 20,
-            imageFillType: SMF.UI.ImageFillType.NORMAL
-        });
+        var imgDetail = new SMF.UI.Image({});
         componentStyler(".pgStatus.imgDetail")(imgDetail);
         cntOutOfOfficeBar.add(imgDetail);
 
@@ -211,39 +118,20 @@ const pgStatus = extend(Page)(
         // Latest Leave Request details
         var lblNewRequestText = new SMF.UI.Label({
             name: 'lblNewRequestText',
-            left: '4.53333%',
-            top: '88.5%',
-            width: '65%',
-            height: '10%',
-            text: '',
-            textAlignment: SMF.UI.TextAlignment.LEFT,
-            font: new SMF.UI.Font({
-                size: '7pt'
-            }),
-            multipleLine: true,
-            fontColor: colors.GrayLight
+            text: ''
         });
+        componentStyler(".textLeft .7pt .pgStatus.lblNewRequestText")(lblNewRequestText);
         this.add(lblNewRequestText);
 
         var lblNewRequestTextDate = new SMF.UI.Label({
             name: 'lblNewRequestTextDate',
-            width: '30%',
-            height: '10%',
             text: '',
-            textAlignment: SMF.UI.TextAlignment.LEFT,
-            font: new SMF.UI.Font({
-                size: '7pt'
-            }),
-            fontColor: colors.BlueDark
         });
-        componentStyler(".pgStatus.lblNewRequestTextDate")(lblNewRequestTextDate);
+        componentStyler(".textLeft .7pt .pgStatus.lblNewRequestTextDate")(lblNewRequestTextDate);
         this.add(lblNewRequestTextDate);
 
         // New Request button
         var imgAdd = new SMF.UI.Image({
-            image: 'btn_plus.png',
-            top: '88.9805%',
-            imageFillType: SMF.UI.ImageFillType.ASPECTFIT,
             onTouchEnded: function(e) {
                 router.go('pgNewLeaveRequest');
             }
@@ -268,10 +156,13 @@ const pgStatus = extend(Page)(
                     Pages.currentPage.sdSelfService.show();
             });
 
+            //Filling used days bar with a smooth animation
             fillUsedDaysBar();
 
+            //Fillin Vacation Metrics
             fillVacationMetrics(oTimeTable.TotalDays, oTimeTable.Used, oTimeTable.Remaining);
 
+            //Writing the user's last leave-request details 
             if ((oProfile.LeaveRequestCount) && !isNaN(oProfile.LeaveRequestCount) && (oProfile.LeaveRequestCount > 0)) {
                 lblNewRequestText.text = 'You have ' + oProfile.LeaveRequestCount + ' request(s) in total. The last one is on';
                 lblNewRequestTextDate.text = (new Date(oProfile.LastRequestStartDate)).format('MM/dd/yyyy');
@@ -292,7 +183,6 @@ const pgStatus = extend(Page)(
             Pages.currentPage.imgAvatar.image = Pages.currentPage.sdSelfService.cntGeneral.cntTop.imgSliderAvatar.image = oProfile.Avatar;
             Pages.currentPage.lblFullName.text = Pages.currentPage.sdSelfService.cntGeneral.cntTop.lblSliderFullName.text = oProfile.FullName;
             Pages.currentPage.lblTeamRole.text = Pages.currentPage.sdSelfService.cntGeneral.cntTop.lblSliderTeamRole.text = oProfile.Role + ' / ' + oProfile.Team;
-            Pages.currentPage.cntOutOfOfficeBar.swtOutOfOffice.checked = oProfile.OutOfOffice;
             Pages.currentPage.cntOutOfOfficeBar.lblOOOStatusText.text = (oProfile.OutOfOffice) ? 'Mode On' : 'Mode Off';
             Pages.currentPage.cntOutOfOfficeBar.lblOOOStatusText.fontColor = (oProfile.OutOfOffice) ? colors.GreenDark : colors.BlueDark;
 
@@ -319,49 +209,67 @@ const pgStatus = extend(Page)(
         // Drawing day-boxes 
         function createVacationBoxes() {
             var boxTotalDays = new SMF.UI.Container({
-                name: 'boxTotalDays',
-                left: '4%',
-                top: '56.6716%',
-                width: '28%',
-                height: '15.5922%',
-                borderWidth: 1,
-                borderColor: '#979797',
-                roundedEdge: 0
+                name: 'boxTotalDays'
             });
+            componentStyler(".pgStatus.boxTotalDays")(boxTotalDays);
 
-            SMFcomponents.createLabel(boxTotalDays, 'lblTotalDays', '-', '0', '0', '100%', '73%', SMF.UI.TextAlignment.CENTER, false, '23pt', true, '#979797');
-            SMFcomponents.createLabel(boxTotalDays, 'lblTotalDaysText', 'Total', '0', '73', '100%', '20%', SMF.UI.TextAlignment.CENTER, false, '6pt', true, '#979797');
+            // Total Days
+            var lblTotalDays = new SMF.UI.Label({
+                name: 'lblTotalDays'
+            });
+            componentStyler(".textCenter .23pt .bold .pgStatus.boxDaysText1 .pgStatus.lblTotalDays")(lblTotalDays);
+            boxTotalDays.add(lblTotalDays);
 
+            var lblTotalDaysText = new SMF.UI.Label({
+                name: 'lblTotalDaysText',
+                text: 'Total'
+            });
+            componentStyler(".textCenter .6pt .pgStatus.boxDaysText2 .pgStatus.lblTotalDays")(lblTotalDaysText);
+            boxTotalDays.add(lblTotalDaysText);
 
+            // Used Days
             var boxUsed = new SMF.UI.Container({
-                name: 'boxUsed',
-                left: '36%',
-                top: '56.6716%',
-                width: '28%',
-                height: '15.5922%',
-                borderWidth: 1,
-                borderColor: '#cca2b5',
-                roundedEdge: 0
+                name: 'boxUsed'
             });
+            componentStyler(".pgStatus.boxUsed")(boxUsed);
 
-            SMFcomponents.createLabel(boxUsed, 'lblUsedDays', '-', '0', '0', '100%', '73%', SMF.UI.TextAlignment.CENTER, false, '24pt', true, '#cca2b5');
-            SMFcomponents.createLabel(boxUsed, 'lblUsedDaysText', 'Used', '0', '73', '100%', '20%', SMF.UI.TextAlignment.CENTER, false, '6pt', true, '#cca2b5');
+            var lblUsedDays = new SMF.UI.Label({
+                name: 'lblUsedDays'
+            });
+            componentStyler(".textCenter .23pt .bold .pgStatus.boxDaysText1 .pgStatus.lblUsedDays")(lblUsedDays);
+            boxUsed.add(lblUsedDays);
 
+            var lblUsedDaysText = new SMF.UI.Label({
+                name: 'lblUsedDaysText',
+                text: 'Used'
+            });
+            componentStyler(".textCenter .6pt .pgStatus.boxDaysText2 .pgStatus.lblUsedDays")(lblUsedDaysText);
+            boxUsed.add(lblUsedDaysText);
 
+            // Remaining Days
             var boxRemaining = new SMF.UI.Container({
-                name: 'boxRemaining',
-                left: '68%',
-                top: '56.6716%',
-                width: '28%',
-                height: '15.5922%',
-                borderWidth: 0,
-                roundedEdge: 0
+                name: 'boxRemaining'
             });
+            componentStyler(".pgStatus.boxRemaining")(boxRemaining);
 
-            SMFcomponents.createImage(boxRemaining, 'imgRemaining', 'square_stripe.png', '0', '0', '100%', '100%', SMF.UI.ImageFillType.ASPECTFIT);
-            SMFcomponents.createLabel(boxRemaining, 'lblRemainingDays', '-', '0', '0', '100%', '73%', SMF.UI.TextAlignment.CENTER, false, '25pt', true, colors.BlueDark);
-            SMFcomponents.createLabel(boxRemaining, 'lblRemainingDaysText', 'Remaining', '0', '73', '100%', '20%', SMF.UI.TextAlignment.CENTER, false, '6pt', true, colors.BlueDark);
+            var imgRemaining = new SMF.UI.Image({
+                name: 'imgRemaining'
+            });
+            componentStyler(".allArea .pgStatus.imgRemaining")(imgRemaining);
+            boxRemaining.add(imgRemaining);
 
+            var lblRemainingDays = new SMF.UI.Label({
+                name: 'lblRemainingDays'
+            });
+            componentStyler(".textCenter .23pt .bold .pgStatus.boxDaysText1 .pgStatus.lblRemainingDays")(lblRemainingDays);
+            boxRemaining.add(lblRemainingDays);
+
+            var lblRemainingDaysText = new SMF.UI.Label({
+                name: 'lblRemainingDaysText',
+                text: 'Remaining'
+            });
+            componentStyler(".textCenter .6pt .pgStatus.boxDaysText2 .pgStatus.lblRemainingDays")(lblRemainingDaysText);
+            boxRemaining.add(lblRemainingDaysText);
 
             this.add(boxTotalDays);
             this.add(boxUsed);

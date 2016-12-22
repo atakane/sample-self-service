@@ -11,6 +11,12 @@ module.exports = {
         textAlignment: SMF.UI.TextAlignment.CENTER,
         multipleLine: false
     },
+    ".23pt": {
+        font: {
+            size: '23pt',
+            bold: false
+        },
+    },
     ".16pt": {
         font: {
             size: '16pt',
@@ -29,9 +35,28 @@ module.exports = {
             bold: false
         },
     },
+    ".6pt": {
+        font: {
+            size: '6pt',
+            bold: false
+        },
+    },
     ".bold": {
         font: {
             bold: true
         },
+    },
+    ".allArea": {
+        left: 0,
+        top: 0,
+        width: '100%',
+        height: '100%',
     }
 }
+
+
+/* 
+Application.homeBackgroundImage
+Application.positiveColor
+Application.negativeColor
+*/

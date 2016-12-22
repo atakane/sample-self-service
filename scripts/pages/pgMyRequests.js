@@ -95,7 +95,7 @@ const pgMyRequests = extend(Page)(
             top: getUnit('17%'),
             width: getUnit(1),
             height: '71%',
-            fillColor: '#979797',
+            fillColor: colors.Gray,
             borderWidth: 0,
             roundedEdge: 0
         });
@@ -283,7 +283,7 @@ const pgMyRequests = extend(Page)(
         this.add(rptApprovalList);
     
         // If you want, you can add some legend here
-        // createLabel(pgMyRequests, 'lblLegend', 'W: Waiting\nA: Approved\nR: Rejected', '5%', '0%', '90%', '10%', SMF.UI.TextAlignment.LEFT, true, '5pt', false, '#979797');
+        // createLabel(pgMyRequests, 'lblLegend', 'W: Waiting\nA: Approved\nR: Rejected', '5%', '0%', '90%', '10%', SMF.UI.TextAlignment.LEFT, true, '5pt', false, colors.Gray);
     
         //adding label for no-data
         var lblNoData = new SMF.UI.Label({

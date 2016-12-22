@@ -485,12 +485,12 @@ const pgNewLeaveRequest = extend(Page)(
                 width: getUnit('13.8933%'),
                 height: getUnit('37.0106%'),
                 borderWidth: 1,
-                borderColor: '#979797',
+                borderColor: colors.Gray,
                 roundedEdge: 0
             });
     
-            SMFcomponents.createLabel(boxTotalDays, 'lblTotalDays', '-', '0', getUnit({iOS:'20%',Android:'2%'}), '100%', getUnit({iOS:'40%',Android:'61%'}), SMF.UI.TextAlignment.CENTER, false, '12pt', true, '#979797');
-            SMFcomponents.createLabel(boxTotalDays, 'lblTotalDaysText', 'Total', '0', getUnit({iOS:'70%',Android:'65%'}), '100%', getUnit({iOS:'20%',Android:'30%'}), SMF.UI.TextAlignment.CENTER, false, '5pt', false, '#979797');
+            SMFcomponents.createLabel(boxTotalDays, 'lblTotalDays', '-', '0', getUnit({iOS:'20%',Android:'2%'}), '100%', getUnit({iOS:'40%',Android:'61%'}), SMF.UI.TextAlignment.CENTER, false, '12pt', true, colors.Gray);
+            SMFcomponents.createLabel(boxTotalDays, 'lblTotalDaysText', 'Total', '0', getUnit({iOS:'70%',Android:'65%'}), '100%', getUnit({iOS:'20%',Android:'30%'}), SMF.UI.TextAlignment.CENTER, false, '5pt', false, colors.Gray);
     
     
             var boxUsed = new SMF.UI.Container({
@@ -500,12 +500,12 @@ const pgNewLeaveRequest = extend(Page)(
                 width: getUnit('13.8933%'),
                 height: getUnit('37.0106%'),
                 borderWidth: 1,
-                borderColor: '#cca2b5',
+                borderColor: colors.PinkDarker,
                 roundedEdge: 0
             });
     
-            SMFcomponents.createLabel(boxUsed, 'lblUsedDays', '-', '0', getUnit({iOS:'20%',Android:'2%'}), '100%', getUnit({iOS:'40%',Android:'61%'}), SMF.UI.TextAlignment.CENTER, false, '12pt', true, '#cca2b5');
-            SMFcomponents.createLabel(boxUsed, 'lblUsedDaysText', 'Used', '0', getUnit({iOS:'70%',Android:'65%'}), '100%', getUnit({iOS:'20%',Android:'30%'}), SMF.UI.TextAlignment.CENTER, false, '5pt', false, '#cca2b5');
+            SMFcomponents.createLabel(boxUsed, 'lblUsedDays', '-', '0', getUnit({iOS:'20%',Android:'2%'}), '100%', getUnit({iOS:'40%',Android:'61%'}), SMF.UI.TextAlignment.CENTER, false, '12pt', true, colors.PinkDarker);
+            SMFcomponents.createLabel(boxUsed, 'lblUsedDaysText', 'Used', '0', getUnit({iOS:'70%',Android:'65%'}), '100%', getUnit({iOS:'20%',Android:'30%'}), SMF.UI.TextAlignment.CENTER, false, '5pt', false, colors.PinkDarker);
     
             var boxRemaining = new SMF.UI.Container({
                 name: 'boxRemaining',
