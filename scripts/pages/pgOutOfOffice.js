@@ -200,10 +200,11 @@ const pgOutOfOffice = extend(Page)(
 
         // Save Button
         // FontAwesome 'check icon' UTF8 code:uf00c
+        //TODO: height will be moved to style file after styler-fix
         var btnSave = new SMF.UI.TextButton({
             name: 'btnSave',
-            text: JSON.parse('""'),
             font: fontAwesome,
+            height: '9.5952%',
             onPressed: function(e) {
                 alert({
                     title: 'Warning!',
@@ -231,55 +232,6 @@ const pgOutOfOffice = extend(Page)(
         });
         componentStyler(".pgOutOfOffice.recOverlay")(recOverlay);
         this.add(recOverlay);
-
-
-
-        // Custom icon font
-        var myFont = new SMF.UI.Font({
-            name: 'FontAwesome',
-            size: '12pt',
-            bold: false
-        });
-
-        // Save Button
-        // FontAwesome 'check icon' UTF8 code:uf00c
-        // SMFcomponents.createTextButtonWithCustomFont(this,
-        //     'btnSave',
-        //     JSON.parse('""'),
-        //     0, '90.4048%', '100%', '9.5952%',
-        //     SMF.UI.TextAlignment.CENTER,
-        //     myFont,
-        //     '#7ed321', '#5b9918',
-        //     SMF.UI.Color.WHITE, SMF.UI.Color.WHITESMOKE,
-        //     function(e) {
-        //         alert({
-        //             title: 'Warning!',
-        //             message: 'Do you want to update your "Out of Office" status?',
-        //             firstButtonText: 'Update',
-        //             secondButtonText: 'Cancel',
-        //             onFirstButtonPressed: function() {
-        //                 oProfile.OutOfOffice = Pages.currentPage.swtOutOfOffice.checked;
-        //                 oProfile.OutOfOfficeMessage = Pages.currentPage.txtOutOfOfficeMessage.text;
-
-        //                 oProfile.OutOfOfficeStart = selectedStartDate;
-        //                 oProfile.OutOfOfficeEnd = selectedEndDate;
-
-        //                 alert('Your "Out of Office" status has been updated.');
-        //             },
-        //             onSecondButtonPressed: function() {}
-        //         });
-
-        //     });
-
-
-        // SMFcomponents.createContainer(this, 'recOverlay', 0, getUnit({
-        //     iOS: '29.5352%',
-        //     Android: '31.5352%'
-        // }), '100%', getUnit({
-        //     iOS: '60.8696%',
-        //     Android: '58.8696%'
-        // }), colors.GrayLighter, false, function() {}, 0.8);
-
 
 
         /**

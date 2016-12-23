@@ -199,9 +199,11 @@ const pgMyRequestDetail = extend(Page)(
 
         // Delete Button
         // FontAwesome 'delete icon' UTF8 code: 'uf08b'
+        //TODO: height will be moved to style file after styler-fix
         var btnDelete = new SMF.UI.TextButton({
             name: 'btnDelete',
             font: fontAwesome,
+            height: '9.5952%',
             onPressed: function(e) {
                 alert({
                     title: 'Warning!',
@@ -222,7 +224,6 @@ const pgMyRequestDetail = extend(Page)(
                             message: 'This leave request deleted.',
                             firstButtonText: 'OK',
                             onFirstButtonPressed: function() {
-                                // Pages.pgMyRequests.show(reverseDefaultPageAnimation);
                                 router.back();
                             }
                         });

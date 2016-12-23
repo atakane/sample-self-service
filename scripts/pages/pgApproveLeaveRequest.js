@@ -204,9 +204,11 @@ const pgApproveLeaveRequest = extend(Page)(
 
         // Reject Button
         // FontAwesome 'close icon' UTF8 code: uf00d
+        //TODO: height will be moved to style file after styler-fix
         var btnReject = new SMF.UI.TextButton({
             name: 'btnReject',
-            font: fontAwesome,
+            font: fontAwesome,      
+            height: '9.5952%',
             onPressed: function(e) {
                 alert({
                     title: 'Warning!',
@@ -234,9 +236,11 @@ const pgApproveLeaveRequest = extend(Page)(
 
         // Save button
         // FontAwesome 'check icon' UTF8 code: uf00c
+        //TODO: height will be moved to style file after styler-fix
         var btnSave = new SMF.UI.TextButton({
             name: 'btnSave',
             font: fontAwesome,
+            height: '9.5952%',
             onPressed: function(e) {
                 alert({
                     title: 'Warning!',

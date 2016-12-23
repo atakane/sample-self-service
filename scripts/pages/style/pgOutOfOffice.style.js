@@ -126,10 +126,11 @@ module.exports = {
             fontColor: colors.BlueDark
         },
         ".btnSave": {
+            text: JSON.parse('""'),
             left: 0,
             top: '90.4048%',
             width: '100%',
-            height: '9.5952%',
+            // height: '9.5952%',
             fillColor: colors.Green,
             pressedFillColor: colors.GreenDarker,
             fontColor: SMF.UI.Color.WHITE,

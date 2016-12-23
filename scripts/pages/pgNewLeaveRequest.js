@@ -229,9 +229,9 @@ const pgNewLeaveRequest = extend(Page)(
 
         // Save Button
         // FontAwesome 'check icon' UTF8 code: uf00c
+        //TODO: height will be moved to style file after styler-fix
         var btnSave = new SMF.UI.TextButton({
             name: 'btnSave',
-            text: JSON.parse('""'),
             font: fontAwesome,
             onPressed: function(e) {
                 alert({
