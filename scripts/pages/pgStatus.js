@@ -168,12 +168,6 @@ const pgStatus = extend(Page)(
             if ((oProfile.LeaveRequestCount) && !isNaN(oProfile.LeaveRequestCount) && (oProfile.LeaveRequestCount > 0)) {
                 lblNewRequestText.text = 'You have ' + oProfile.LeaveRequestCount + ' request(s) in total. The last one is on';
                 lblNewRequestTextDate.text = (new Date(oProfile.LastRequestStartDate)).format('MM/dd/yyyy');
-                if (Device.deviceOS == 'Android') {
-                    var tmp = lblNewRequestText.text;
-                    var tmp2 = lblNewRequestTextDate.text;
-                    lblNewRequestText.text = lblNewRequestTextDate.text = "";
-                    lblNewRequestText.attributedText = tmp + "<b> " + tmp2 + "</b>";
-                }
             }
             else {
                 lblNewRequestText.text = 'You don\'t have any upcoming leave request.';
