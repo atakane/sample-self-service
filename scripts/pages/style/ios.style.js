@@ -37,6 +37,9 @@ module.exports = {
     ".lblTotalDaysText": {
       top: '70%',
       height: '20%'
+    },
+    ".cntDescriptionBack": {
+      top: '55.847%'
     }
   },
   ".pgStatus": {
@@ -195,7 +198,7 @@ module.exports = {
       height: '2.9985%'
     },
     ".lblStart": {
-      top:'42.5037%',
+      top: '42.5037%',
       height: '2.9985%'
     },
     ".lblStartDate": {

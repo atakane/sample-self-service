@@ -224,6 +224,20 @@ module.exports = {
         ".lblRemainingDays": {
             fontColor: colors.BlueDark
         },
+        ".cntDescriptionBack": {
+            left: 0,
+            width: '100%',
+            height: '44.153%',
+            fillColor: colors.GrayLighter,
+            borderWidth: 0,
+            roundedEdge: 0,
+            backgroundTransparent: false
+        },
+        ".txtDisabled": {
+            touchEnabled: false,
+            enabled: false,
+            backgroundTransparent: true
+        },
     }
 }
 

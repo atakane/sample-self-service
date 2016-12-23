@@ -68,6 +68,7 @@ const pgApproveLeaveRequest = extend(Page)(
 
         createVacationBoxes(cntVacationBoxes);
 
+        //Lines
         var myRectangle1 = new SMF.UI.Rectangle({});
         componentStyler(".pgApproveLeaveRequest.horizontalRectangle .pgApproveLeaveRequest.myRectangle1Top")(myRectangle1);
         this.add(myRectangle1);
@@ -79,8 +80,6 @@ const pgApproveLeaveRequest = extend(Page)(
         var myRectangle3 = new SMF.UI.Rectangle({});
         componentStyler(".pgApproveLeaveRequest.horizontalRectangle .pgApproveLeaveRequest.myRectangle3Top")(myRectangle3);
         this.add(myRectangle3);
-
-
 
         // Request Details
         var lblLeaveTypeText = new SMF.UI.Label({
@@ -111,7 +110,6 @@ const pgApproveLeaveRequest = extend(Page)(
         componentStyler(".textRight .10pt .pgApproveLeaveRequest.lblLeaveType .pgApproveLeaveRequest.lblTimeUnit")(lblTimeUnit);
         this.add(lblTimeUnit);
 
-
         // Start Date
         var lblStart = new SMF.UI.Label({
             name: 'lblStart',
@@ -134,12 +132,8 @@ const pgApproveLeaveRequest = extend(Page)(
         componentStyler(".textLeft .8pt .pgApproveLeaveRequest.lblStartTime")(lblStartTime);
         this.add(lblStartTime);
 
-
         // End Date
-        // SMFcomponents.createLabel(this, 'lblEnd', 'ENDS', '80.4667%', getUnit({iOS:'42.5037%',Android:'44.5037%'}), '15%', getUnit({iOS:'2.9985%', Android:'5%'}), SMF.UI.TextAlignment.RIGHT, false, '7pt', false, colors.BlueMedium);
-        // SMFcomponents.createLabel(this, 'lblEndDate', '-', '60.4667%', getUnit({iOS:'47.3013%',Android:'49.3013%'}), '35%', getUnit({iOS:'2.9985%', Android:'5%'}), SMF.UI.TextAlignment.RIGHT, false, '12pt', false, colors.Gray29);
-        // SMFcomponents.createLabel(this, 'lblEndTime', '', '60.4667%', getUnit({iOS:'51.3013%',Android:'53.3013%'}), '35%', getUnit({iOS:'2.9985%', Android:'5%'}), SMF.UI.TextAlignment.RIGHT, false, '8pt', false, colors.Gray29);
-        var lblEnd = new SMF.UI.Label({
+       var lblEnd = new SMF.UI.Label({
             name: 'lblEnd',
             text: 'ENDS'
         });
@@ -162,23 +156,6 @@ const pgApproveLeaveRequest = extend(Page)(
 
 
         //Day Count Box
-        // var cntBlueBox = new SMF.UI.Container({
-        //     name: 'cntBlueBox',
-        //     left: '40%',
-        //     width: '20%',
-        //     top: getUnit({iOS:'40.8545%',Android:'42.8545%'}),
-        //     height: getUnit('14.9925%'),
-        //     borderWidth: 0,
-        //     fillColor: colors.BlueMedium,
-        //     backgroundTransparent: false
-        // });
-
-        // this.add(cntBlueBox);
-        // SMFcomponents.createLabel(cntBlueBox, 'lblSelectedDaysCount', '-', '0', getUnit({iOS:'28%',Android:'20%'}), '100%', getUnit({iOS:'30%', Android:'40%'}), SMF.UI.TextAlignment.CENTER, false, '16pt', true, colors.White);
-        // SMFcomponents.createLabel(cntBlueBox, 'lblSelectedDaysCountText', 'day', '0', getUnit({iOS:'60%',Android:'60%'}), '100%', getUnit({iOS:'20%', Android:'20%'}), SMF.UI.TextAlignment.CENTER, false, '7pt', false, colors.White);
-
-        // SMFcomponents.createContainer(this, 'cntDescriptionBack', 0, getUnit({iOS:'55.847%',Android:'57.847%'}), '100%', '44.153%', colors.GrayLighter, false);
-
         var cntBlueBox = new SMF.UI.Container({
             name: 'cntBlueBox'
         });
@@ -199,6 +176,13 @@ const pgApproveLeaveRequest = extend(Page)(
         componentStyler(".textCenter .7pt .pgOutOfOffice.lblSelectedDaysCountText")(lblSelectedDaysCountText);
         cntBlueBox.add(lblSelectedDaysCountText);
 
+        //Description area back
+        var cntDescriptionBack = new SMF.UI.Container({
+            name: 'cntDescriptionBack'
+        });
+        componentStyler(".Generic.cntDescriptionBack")(cntDescriptionBack);
+        this.add(cntDescriptionBack);
+        
         //Leave Details
         var lblDescription = new SMF.UI.Label({
             name: 'lblDescription',
@@ -208,25 +192,6 @@ const pgApproveLeaveRequest = extend(Page)(
         this.add(lblDescription);
 
         // Textbox for Absence Message
-        // this.txtAbsenceMessage = new SMF.UI.TextBox({
-        //     name: 'txtAbsenceMessage',
-        //     text: '',
-        //     left: getUnit('4.5333%'),
-        //     top: getUnit({iOS:'62.8935%',Android:'64.8935%'}),
-        //     width: getUnit('90.9334%'),
-        //     height: getUnit({iOS:'27.5113%', Android:'25.5113%'}),
-        //     multipleLine: true,
-        //     textAlignment: SMF.UI.TextAlignment.TOP,
-        //     borderWidth: 0,
-        //     roundedEdge: 0,
-        //     font: new SMF.UI.Font({
-        //         size: '7pt'
-        //     }),
-        //     fontColor: colors.BlueDark,
-        //     touchEnabled: false,
-        //     enabled: false,
-        //     backgroundTransparent: true
-        // })
         var txtAbsenceMessage = new SMF.UI.TextBox({
             name: 'txtAbsenceMessage',
             placeHolder: 'Please add your "Absence" reason briefly',
@@ -234,15 +199,8 @@ const pgApproveLeaveRequest = extend(Page)(
             touchEnabled: false,
             enabled: false
         });
-        componentStyler(".7pt .pgOutOfOffice.txtOutOfOfficeMessage .pgApproveLeaveRequest.txtAbsenceMessage")(txtAbsenceMessage);
+        componentStyler(".7pt .Generic.txtDisabled .pgOutOfOffice.txtOutOfOfficeMessage .pgApproveLeaveRequest.txtAbsenceMessage")(txtAbsenceMessage);
         this.add(txtAbsenceMessage);
-
-        // Custom icon font
-        var myFont = new SMF.UI.Font({
-            name: 'FontAwesome',
-            size: '12pt',
-            bold: false
-        });
 
         // Reject Button
         // FontAwesome 'close icon' UTF8 code: uf00d
@@ -411,8 +369,7 @@ const pgApproveLeaveRequest = extend(Page)(
             cntBlueBox.lblSelectedDaysCount.text = count;
             cntBlueBox.lblSelectedDaysCountText.text = countText
         }
-
-        // Drawing day-boxes 
+        
         // Drawing day-boxes 
         function createVacationBoxes(parent) {
             //Total days box and texts

@@ -69,6 +69,20 @@ module.exports = {
             fillColor: colors.BlueMedium,
             backgroundTransparent: false
         },
+        ".btnDelete": {
+            // FontAwesome 'delete icon' UTF8 code: 'uf08b'
+            text:JSON.parse('""'),
+            left: 0,
+            top: '90.4048%',
+            width: '100%',
+            height: '9.5952%',
+            fillColor: colors.RedDark,
+            pressedFillColor: colors.RedDarker,
+            fontColor: SMF.UI.Color.WHITE,
+            pressedFontColor: SMF.UI.Color.WHITESMOKE,
+            roundedEdge: 0,
+            textAlignment: SMF.UI.TextAlignment.CENTER,
+        },
         ".btnReject": {
             // FontAwesome 'close icon' UTF8 code: uf00d
             text:JSON.parse('""'),

@@ -24,9 +24,8 @@ const pgLogin = extend(Page)(
             backgroundImage: 'stripe.png'
         });
 
-        headerBarOptions.setTitle('About');
         const headerBarWrapper = HeaderBarWrapper(this._view, headerBarOptions.options);
-        
+
         // Creating Slider Drawer
         SMFSliderDrawer.createSliderDrawer(this, 'sdSelfService');
 
@@ -62,7 +61,7 @@ const pgLogin = extend(Page)(
         });
         componentStyler(".7pt .pgLogin.lblWelcome2")(lblWelcome2);
         this.add(lblWelcome2);
-        
+
         // Version text
         var lblVersion = new SMF.UI.Label({
             name: 'lblVersion',
@@ -94,6 +93,7 @@ const pgLogin = extend(Page)(
             Dialog.removeWait();
 
             // Adding header bar (actionbar for Android, navigationbar for iOS)
+            headerBarOptions.setTitle('About');
             headerBarWrapper.reload();
             headerBarOptions.eventCallback(function(e) {
                 if (e.type == "menu")
