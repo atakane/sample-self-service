@@ -1,4 +1,4 @@
-/* globals smfOracle oTimeTable oProfile oRequestList lunchBreakDuration*/
+/* globals smfOracle oTimeTable oProfile oRequestList lunchBreakDuration fontAwesome*/
 
 /*
 TODO:
@@ -7,7 +7,6 @@ TODO:
 const Page = require("js-base/component/page");
 const extend = require("js-base/core/extend");
 
-const SMFcomponents = require('./component/SMFcomponents.js');
 const SMFSliderDrawer = require('./component/SMFSliderDrawer.js');
 const Dialog = require('smf-dialog');
 
@@ -16,9 +15,9 @@ const headerBarOptions = require("./headerbar/generic.headerbar.js");
 const HeaderBarWrapper = require("js-base/component/header-bar.js");
 
 const tinyUtils = require('./component/tinyUtils.js');
-const getUnit = require('./component/getUnit.js');
 
 const colors = require('pages/style/colors.js');
+const componentStyler = require("js-base/core/styler").componentStyler();
 
 // Router
 const router = require('js-base/core/router');
@@ -26,158 +25,215 @@ const router = require('js-base/core/router');
 const pgNewLeaveRequest = extend(Page)(
     //Page Constructor
     function(_super) {
-        _super(this, { 
-        name: 'pgNewLeaveRequest',
-        onKeyPress: pgNewLeaveRequest_onKeyPress,
-        onShow: pgNewLeaveRequest_onShow
-    });
+        _super(this, {
+            name: 'pgNewLeaveRequest',
+            onKeyPress: pgNewLeaveRequest_onKeyPress,
+            onShow: pgNewLeaveRequest_onShow
+        });
 
-        headerBarOptions.setTitle('New Leave Request');
         const headerBarWrapper = HeaderBarWrapper(this._view, headerBarOptions.options);
+
         // Creating Slider Drawer
         SMFSliderDrawer.createSliderDrawer(this, 'sdSelfService');
-        
+
         var leaveTypeSelectedIndex;
         var timeUnitSelectedIndex;
-    
+
         var selectedStartDate;
         var selectedEndDate;
-    
+
         // Vacation metrics
         var cntVacationBoxes = new SMF.UI.Container({
-            name: 'cntVacationBoxes',
-            left: getUnit(0),
-            top: getUnit({iOS:'0',Android:'2%'}),
-            width: getUnit('100%'),
-            height: getUnit('21.0644%'),
-            fillColor: SMF.UI.Color.WHITE,
-            backgroundTransparent: false,
-            borderWidth: 0,
-            roundedEdge: 0
+            name: 'cntVacationBoxes'
         });
+        componentStyler(".Generic.cntLittleBoxes")(cntVacationBoxes);
         this.add(cntVacationBoxes);
-    
-        createVacationBoxes.call(this,cntVacationBoxes);
-    
+
+        createVacationBoxes.call(this, cntVacationBoxes);
+
         //Lines
-        SMFcomponents.createImage(this, 'imgShadowLine', 'shadow_line.png', '0', getUnit({iOS:'21.0644%',Android:'23.0644%'}), '100%', '6', SMF.UI.ImageFillType.STRETCH);
-        SMFcomponents.createRectangle(this, 0, getUnit({iOS:'32.5037%',Android:'34.5037%'}), '100%', 1, colors.GrayLighter);
-        SMFcomponents.createRectangle(this, 0, getUnit({iOS:'47.4962%',Android:'49.4962%'}), '100%', 1, colors.GrayLighter);
-    
+        var imgShadowLine = new SMF.UI.Image({});
+        componentStyler(".pgNewLeaveRequest.imgShadowLine")(imgShadowLine);
+        this.add(imgShadowLine);
+
+        var myRectangle1 = new SMF.UI.Rectangle({});
+        componentStyler(".pgNewLeaveRequest.horizontalRectangle .pgNewLeaveRequest.myRectangle1Top")(myRectangle1);
+        this.add(myRectangle1);
+
+        var myRectangle2 = new SMF.UI.Rectangle({});
+        componentStyler(".pgNewLeaveRequest.horizontalRectangle .pgNewLeaveRequest.myRectangle2Top")(myRectangle2);
+        this.add(myRectangle2);
+
         // Request Details
         // FontAwesome 'Down arrow' UTF8 code: uf107
-        SMFcomponents.createLabel(this, 'lblLeaveTypeText', 'LEAVE TYPE', '4.5333%', getUnit({iOS:'23.68815%',Android:'25.68815%'}), '40%', getUnit({iOS:'2.9985%', Android:'5%'}), SMF.UI.TextAlignment.LEFT, false, '7pt', false, colors.BlueMedium);
-        SMFcomponents.createAwesomeLabel(this, 'lblDown1', JSON.parse('""'), '29%', getUnit({iOS:'23.68815%',Android:'25.68815%'}), '10%', getUnit({iOS:'2.9985%', Android:'5%'}), SMF.UI.TextAlignment.LEFT, false, '7pt', false, colors.BlueMedium);
-    
-        SMFcomponents.createLabel(this, 'lblTimeUnitText', 'TIME UNIT', '62%', getUnit({iOS:'23.68815%',Android:'25.68815%'}), '30%', getUnit({iOS:'2.9985%', Android:'5%'}), SMF.UI.TextAlignment.RIGHT, false, '7pt', false, colors.BlueMedium);
-        SMFcomponents.createAwesomeLabel(this, 'lblDown2', JSON.parse('""'), '90%', getUnit({iOS:'23.68815%',Android:'25.68815%'}), '5%', getUnit({iOS:'2.9985%', Android:'5%'}), SMF.UI.TextAlignment.RIGHT, false, '7pt', false, colors.BlueMedium);
-    
-        SMFcomponents.createLabel(this, 'lblLeaveType', 'PERSONAL', '4.5333%', getUnit({iOS:'27.5%',Android:'29.5%'}), '40%', getUnit({iOS:'2.9985%', Android:'5%'}), SMF.UI.TextAlignment.LEFT, false, '10pt', false, colors.Gray29, pickLeaveType);
-        SMFcomponents.createLabel(this, 'lblTimeUnit', 'DAY', '60.4667%', getUnit({iOS:'27%',Android:'29%'}), '35%', getUnit({iOS:'2.9985%', Android:'5%'}), SMF.UI.TextAlignment.RIGHT, false, '10pt', false, colors.Gray29, pickTimeUnit);
-    
+        var lblLeaveTypeText = new SMF.UI.Label({
+            name: 'lblLeaveTypeText',
+            text: 'LEAVE TYPE'
+        });
+        componentStyler(".textLeft .7pt .pgNewLeaveRequest.lblLeaveTypeText")(lblLeaveTypeText);
+        this.add(lblLeaveTypeText);
+
+        var lblDown1 = new SMF.UI.Label({
+            text: JSON.parse('""'),
+            font: fontAwesome
+        });
+        componentStyler(".textLeft .7pt .pgNewLeaveRequest.lblLeaveTypeText .pgNewLeaveRequest.lblDown1")(lblDown1);
+        this.add(lblDown1);
+
+        var lblTimeUnitText = new SMF.UI.Label({
+            name: 'lblTimeUnitText',
+            text: 'TIME UNIT'
+        });
+        componentStyler(".textRight .7pt .pgNewLeaveRequest.lblLeaveTypeText .pgNewLeaveRequest.lblTimeUnitText")(lblTimeUnitText);
+        this.add(lblTimeUnitText);
+
+        var lblDown2 = lblDown1.clone();
+        componentStyler(".textRight .7pt .pgNewLeaveRequest.lblLeaveTypeText .pgNewLeaveRequest.lblDown2")(lblDown2);
+        this.add(lblDown2);
+
+        var lblLeaveType = new SMF.UI.Label({
+            name: 'lblLeaveType',
+            text: 'PERSONAL',
+            touchEnabled: true,
+            onTouchEnded: pickLeaveType
+        });
+        componentStyler(".textLeft .10pt .pgNewLeaveRequest.lblLeaveType")(lblLeaveType);
+        this.add(lblLeaveType);
+
+
+        var lblTimeUnit = new SMF.UI.Label({
+            name: 'lblTimeUnit',
+            text: 'DAY',
+            touchEnabled: true,
+            onTouchEnded: pickTimeUnit
+        });
+        componentStyler(".textRight .10pt .pgNewLeaveRequest.lblLeaveType .pgNewLeaveRequest.lblTimeUnit")(lblTimeUnit);
+        this.add(lblTimeUnit);
+
         // Start Date
         var cntStarts = new SMF.UI.Container({
-            name: 'cntStarts',
-            left: '4.53%',
-            top: getUnit({iOS:'34.8%',Android:'36.8%'}),
-            height: '12%',
-            width: '29%',
-            borderWidth: 0,
-            backgroundTransparent: true
+            name: 'cntStarts'
         });
-    
-        SMFcomponents.createLabel(cntStarts, 'lblStart', 'STARTS', 0, 0, '100%', getUnit({iOS:'15%', Android:'30%'}), SMF.UI.TextAlignment.LEFT, false, '7pt', false, colors.BlueMedium);
-        SMFcomponents.createAwesomeLabel(cntStarts, 'lblDown3', JSON.parse('""'), '60%', 0, '50%', getUnit({iOS:'15%', Android:'30%'}), SMF.UI.TextAlignment.LEFT, false, '7pt', false, colors.BlueMedium);
-    
-        SMFcomponents.createLabel(cntStarts, 'lblStartDate', '-', 0, '30%', '100%', getUnit({iOS:'30%', Android:'60%'}), SMF.UI.TextAlignment.LEFT, false, '12pt', false, colors.Gray29, function() {
-            showDateTimePicker(true);
+        componentStyler(".pgNewLeaveRequest.cntStarts")(cntStarts);
+
+        var lblStart = new SMF.UI.Label({
+            name: 'lblStart',
+            text: 'STARTS'
         });
-        SMFcomponents.createLabel(cntStarts, 'lblStartTime', '', 0, '70%', getUnit({iOS:'92%', Android:'85%'}), getUnit({iOS:'20%', Android:'40%'}), SMF.UI.TextAlignment.LEFT, false, '8pt', false, colors.Gray29, function() {
-            showTimePicker(true);
+        componentStyler(".textLeft .7pt .pgNewLeaveRequest.lblStart")(lblStart);
+        cntStarts.add(lblStart);
+
+        var lblDown3 = lblDown1.clone();
+        componentStyler(".textLeft .7pt .pgNewLeaveRequest.lblStart .pgNewLeaveRequest.lblDown3")(lblDown3);
+        cntStarts.add(lblDown3);
+
+        var lblStartDate = new SMF.UI.Label({
+            name: 'lblStartDate',
+            text: '-',
+            onTouchEnded: function() {
+                showDateTimePicker(true);
+            }
         });
-    
+        componentStyler(".textLeft .12pt .pgNewLeaveRequest.lblStartDate")(lblStartDate);
+        cntStarts.add(lblStartDate);
+
+        var lblStartTime = new SMF.UI.Label({
+            name: 'lblStartTime',
+            text: '',
+            onTouchEnded: function() {
+                showTimePicker(true);
+            }
+        });
+        componentStyler(".textLeft .8pt .pgNewLeaveRequest.lblStartTime")(lblStartTime);
+        cntStarts.add(lblStartTime);
+
         this.add(cntStarts);
-    
+
         // End Date
         var cntEnds = new SMF.UI.Container({
             name: 'cntEnds',
-            left: '65%',
-            top: getUnit({iOS:'34.8%',Android:'36.8%'}),
-            height: '12%',
-            width: '30.6%',
-            borderWidth: 0,
-            backgroundTransparent: true
+
         });
-    
-        SMFcomponents.createLabel(cntEnds, 'lblEnd', 'ENDS', 0, 0, '87%', getUnit({iOS:'15%', Android:'30%'}), SMF.UI.TextAlignment.RIGHT, false, '7pt', false, colors.BlueMedium);
-        SMFcomponents.createAwesomeLabel(cntEnds, 'lblDown4', JSON.parse('""'), 0, 0, '97%', getUnit({iOS:'15%', Android:'30%'}), SMF.UI.TextAlignment.RIGHT, false, '7pt', false, colors.BlueMedium);
-    
-        SMFcomponents.createLabel(cntEnds, 'lblEndDate', '11.25.16', 0, '30%', '100%', getUnit({iOS:'30%', Android:'60%'}), SMF.UI.TextAlignment.RIGHT, false, '12pt', false, colors.Gray29, function() {
-            showDateTimePicker(false);
+        componentStyler(".pgNewLeaveRequest.cntEnds")(cntEnds);
+
+        var lblEnd = new SMF.UI.Label({
+            name: 'lblEnd',
+            text: 'ENDS'
         });
-        SMFcomponents.createLabel(cntEnds, 'lblEndTime', '', 0, '70%', '100%', getUnit({iOS:'20%', Android:'40%'}), SMF.UI.TextAlignment.RIGHT, false, '8pt', false, colors.Gray29, function() {
-            showTimePicker(false);
+        componentStyler(".textRight .7pt .pgNewLeaveRequest.lblEnd")(lblEnd);
+        cntEnds.add(lblEnd);
+
+        var lblDown4 = lblDown1.clone();
+        componentStyler(".textRight .7pt .pgNewLeaveRequest.lblEnd .pgNewLeaveRequest.lblDown4")(lblDown4);
+        cntEnds.add(lblDown4);
+
+        var lblEndDate = new SMF.UI.Label({
+            name: 'lblEndDate',
+            text: '',
+            onTouchEnded: function() {
+                showDateTimePicker(false);
+            }
         });
-    
+        componentStyler(".textRight .12pt .pgNewLeaveRequest.lblEndDate")(lblEndDate);
+        cntEnds.add(lblEndDate);
+
+        var lblEndTime = new SMF.UI.Label({
+            name: 'lblEndTime',
+            text: '',
+            onTouchEnded: function() {
+                showTimePicker(false);
+            }
+        });
+        componentStyler(".textRight .8pt .pgNewLeaveRequest.lblEndTime")(lblEndTime);
+        cntEnds.add(lblEndTime);
+
         this.add(cntEnds);
-    
+
         //Day Count Box
         var cntBlueBox = new SMF.UI.Container({
-            name: 'cntBlueBox',
-            left: '40%',
-            width: '20%',
-            top: getUnit({iOS:'32.5037%',Android:'34.5037%'}),
-            height: getUnit('14.9925%'),
-            borderWidth: 0,
-            fillColor: colors.BlueMedium,
-            backgroundTransparent: false
+            name: 'cntBlueBox'
         });
-        
+        componentStyler(".pgOutOfOffice.cntBlueBox .pgNewLeaveRequest.cntBlueBox")(cntBlueBox);
         this.add(cntBlueBox);
-        
-        SMFcomponents.createLabel(cntBlueBox, 'lblSelectedDaysCount', '-', '0', getUnit({iOS:'28%',Android:'3%'}), '100%', getUnit({iOS:'30%', Android:'45%'}), SMF.UI.TextAlignment.CENTER, false, '16pt', true, colors.White);
-        SMFcomponents.createLabel(cntBlueBox, 'lblSelectedDaysCountText', 'day', '0', getUnit({iOS:'60%',Android:'60%'}), '100%', getUnit({iOS:'20%', Android:'20%'}), SMF.UI.TextAlignment.CENTER, false, '7pt', false, colors.White);
-    
-        SMFcomponents.createLabel(this, 'lblStart', 'DESCRIPTION', '4.4%', getUnit({iOS:'50.1199%',Android:'52.1199%'}), '55%', getUnit({iOS:'3%', Android:'6%'}), SMF.UI.TextAlignment.LEFT, false, '7pt', false, colors.BlueMedium);
-        //
+
+        var lblSelectedDaysCount = new SMF.UI.Label({
+            name: 'lblSelectedDaysCount',
+            text: '-'
+        });
+        componentStyler(".textCenter .16pt .bold .pgOutOfOffice.lblSelectedDaysCount")(lblSelectedDaysCount);
+        cntBlueBox.add(lblSelectedDaysCount);
+
+        var lblSelectedDaysCountText = new SMF.UI.Label({
+            name: 'lblSelectedDaysCountText',
+            text: 'day'
+        });
+        componentStyler(".textCenter .7pt .pgOutOfOffice.lblSelectedDaysCountText")(lblSelectedDaysCountText);
+        cntBlueBox.add(lblSelectedDaysCountText);
+
+        //Leave Details
+        var lblDescription = new SMF.UI.Label({
+            name: 'lblDescription',
+            text: 'DESCRIPTION'
+        });
+        componentStyler(".textLeft .7pt .pgOutOfOffice.lblOutOfOfficeMessage .pgNewLeaveRequest.lblDescription")(lblDescription);
+        this.add(lblDescription);
+
+        //Message Text
         var txtAbsenceMessage = new SMF.UI.TextBox({
             name: 'txtAbsenceMessage',
             placeHolder: 'Please add your "Absence" reason briefly',
-            text: '',
-            left: getUnit('4.5333%'),
-            top: getUnit({iOS:'54.5427%',Android:'57.5427%'}),
-            width: getUnit('90.9334%'),
-            height: getUnit({iOS:'34.8621%',Android:'31.8621%'}),
-            multipleLine: true,
-            textAlignment: SMF.UI.TextAlignment.TOP,
-            borderWidth: 0,
-            roundedEdge: 0,
-            font: new SMF.UI.Font({
-                size: '7pt'
-            }),
-            fontColor: colors.BlueDark,
-            horizontalGap:0
-        })
-        this.add(txtAbsenceMessage);
-    
-        // Custom icon font
-        var myFont = new SMF.UI.Font({
-            name: 'FontAwesome',
-            size: '12pt',
-            bold: false
+            text: ''
         });
-    
+        componentStyler(".7pt .pgOutOfOffice.txtOutOfOfficeMessage .pgNewLeaveRequest.txtOutOfOfficeMessage")(txtAbsenceMessage);
+        this.add(txtAbsenceMessage);
+
         // Save Button
         // FontAwesome 'check icon' UTF8 code: uf00c
-        SMFcomponents.createTextButtonWithCustomFont(this,
-            'btnSave',
-            JSON.parse('""'),
-            0, '90.4048%', '100%', '9.5952%',
-            SMF.UI.TextAlignment.CENTER,
-            myFont,
-            colors.Green, colors.GreenDarker,
-            SMF.UI.Color.WHITE, SMF.UI.Color.WHITESMOKE,
-            function(e) {
+        var btnSave = new SMF.UI.TextButton({
+            name: 'btnSave',
+            text: JSON.parse('""'),
+            font: fontAwesome,
+            onPressed: function(e) {
                 alert({
                     title: 'Warning!',
                     message: 'Do you want to make this request?',
@@ -188,7 +244,7 @@ const pgNewLeaveRequest = extend(Page)(
                         oProfile.LeaveRequestCount = oProfile.LeaveRequestCount + 1;
                         oProfile.LastRequestStartDate = selectedStartDate;
                         oProfile.LastRequestID = oProfile.LastRequestID + 1;
-    
+
                         //Sample Mock Request 
                         var myRequest = {
                             'ID': oProfile.LastRequestID,
@@ -208,9 +264,9 @@ const pgNewLeaveRequest = extend(Page)(
                             'Used': oTimeTable.Used,
                             'Remaining': oTimeTable.Remaining
                         }
-    
+
                         oRequestList.push(myRequest);
-    
+
                         alert({
                             title: 'Request submitted',
                             message: 'Your "Leave of Absence" request has been forwarded for approval.',
@@ -222,11 +278,11 @@ const pgNewLeaveRequest = extend(Page)(
                     },
                     onSecondButtonPressed: function() {}
                 });
-    
-    
-            });
-    
-    
+            }
+        });
+        componentStyler(".12pt .pgOutOfOffice.btnSave")(btnSave);
+        this.add(btnSave);
+
         /**
          * Creates action(s) that are run when the user press the key of the devices.
          * @param {KeyCodeEventArguments} e Uses to for key code argument. It returns e.keyCode parameter.
@@ -238,7 +294,7 @@ const pgNewLeaveRequest = extend(Page)(
                 router.back();
             }
         }
-    
+
         /**
          * Creates action(s) that are run when the page is appeared
          * @param {EventArguments} e Returns some attributes about the specified functions
@@ -247,49 +303,50 @@ const pgNewLeaveRequest = extend(Page)(
         function pgNewLeaveRequest_onShow() {
             //We are going w/ dark mode. Our navbar is white.
             SMF.UI.statusBar.style = SMF.UI.StatusBarStyle.DEFAULT;
-    
+
             // Hiding 'wait' dialog
             Dialog.removeWait();
-    
+
             // Adding header bar (actionbar for Android, navigationbar for iOS)
+            headerBarOptions.setTitle('New Leave Request');
             headerBarWrapper.reload();
             headerBarOptions.eventCallback(function(e) {
                 if (e.type == "menu")
                     Pages.currentPage.sdSelfService.show();
-            });            
-    
+            });
+
             fillVacationMetrics(oTimeTable.TotalDays, oTimeTable.Used, oTimeTable.Remaining);
-    
+
             // resetting every time
             this.sdSelfService.cntGeneral.cntTop.imgSliderAvatar.image = oProfile.Avatar;
             this.sdSelfService.cntGeneral.cntTop.lblSliderFullName.text = oProfile.FullName;
             this.sdSelfService.cntGeneral.cntTop.lblSliderTeamRole.text = oProfile.Role + ' / ' + oProfile.Team;
-    
+
             this.txtAbsenceMessage.text = '';
             this.lblLeaveType.text = 'PERSONAL';
             this.lblTimeUnit.text = 'DAY';
             this.cntStarts.lblStartTime.touchEnabled = false;
             this.cntEnds.lblEndTime.touchEnabled = false;
-            
+
             leaveTypeSelectedIndex = 0;
             timeUnitSelectedIndex = 0;
-    
+
             // dates
             selectedStartDate = new Date();
             selectedEndDate = (new Date()).addDays(7);
-    
+
             setDateLabels(selectedStartDate, true);
             setDateLabels(selectedEndDate, false);
-    
+
             // Calculating the day-count according to given Start and End dates
             calculateDaysBetween();
-            
+
             // Oracle MCS Analytics logging 
             smfOracle.logAndFlushAnalytics('pgNewLeaveRequest_onShow');
-            
+
             tinyUtils.fixOverlayBug();
         }
-    
+
         // Showing Date Picker
         function showDateTimePicker(isStartDate) {
             SMF.UI.showDatePicker({
@@ -300,7 +357,7 @@ const pgNewLeaveRequest = extend(Page)(
                 showWorkingDate: true,
                 onSelect: function(e) {
                     var sDate = new Date(e.date);
-    
+
                     if (Pages.currentPage.lblTimeUnit.text === 'DAY')
                         Pages.currentPage.cntStarts.lblStartTime.text = Pages.currentPage.cntEnds.lblEndTime.text = '';
                     setDateLabels(sDate, isStartDate);
@@ -308,7 +365,7 @@ const pgNewLeaveRequest = extend(Page)(
                 onCancel: function(e) {}
             });
         }
-    
+
         // Showing Time Picker
         function showTimePicker(isStartDate) {
             SMF.UI.showTimePicker({
@@ -319,16 +376,16 @@ const pgNewLeaveRequest = extend(Page)(
                 maxTime: '18:30',
                 onSelect: function(e) {
                     var t = new Date(e.time);
-    
+
                     var selectedTime = t.format('h:mm TT'); // ie; 6:45 PM
-    
+
                     if (isStartDate) {
                         selectedStartDate = new Date(selectedStartDate.format('MM/dd/yyyy') + ' ' + t.format('hh:mm:00'));
                         Pages.currentPage.cntStarts.lblStartTime.text = selectedTime;
                     }
                     else {
                         selectedEndDate = new Date(selectedEndDate.format('MM/dd/yyyy') + ' ' + t.format('HH:mm:00'));
-    
+
                         Pages.currentPage.cntEnds.lblEndTime.text = selectedTime;
                     }
                     calculateHoursBetween();
@@ -336,17 +393,17 @@ const pgNewLeaveRequest = extend(Page)(
                 onCancel: function() {}
             });
         }
-    
+
         // Assigning date-labels' texts
         function setDateLabels(date, isStartDate) {
             var _day = ('00' + date.getDate()).right(2);
             var _month = ('00' + (date.getMonth() + 1)).right(2);
             var _year = date.getFullYear().toString().right(2);
-    
+
             var _time = date.format('h:mm TT');
 
             if (isStartDate) {
-                    if (Pages.currentPage.lblTimeUnit.text === 'DAY') {
+                if (Pages.currentPage.lblTimeUnit.text === 'DAY') {
                     if (date < selectedEndDate) {
                         Pages.currentPage.cntStarts.lblStartDate.text = _month + '.' + _day + '.' + _year;
                         selectedStartDate = date;
@@ -366,7 +423,7 @@ const pgNewLeaveRequest = extend(Page)(
                 if (date > selectedStartDate) {
                     Pages.currentPage.cntEnds.lblEndDate.text = _month + '.' + _day + '.' + _year;
                     selectedEndDate = date;
-    
+
                     if (Pages.currentPage.lblTimeUnit.text === 'HOUR') {
                         Pages.currentPage.cntEnds.lblEndTime.text = _time;
                     }
@@ -374,27 +431,27 @@ const pgNewLeaveRequest = extend(Page)(
                 else {
                     alert('"End Date" should be after "Start Date"');
                 }
-    
+
             }
             calculateDaysBetween();
         }
-    
+
         // Calculates the day-count between Start and End Dates
         function calculateDaysBetween() {
             var days = tinyUtils.daysBetween(selectedStartDate.format('MM/dd/yyyy'), selectedEndDate.format('MM/dd/yyyy'));
-    
+
             Pages.currentPage.cntBlueBox.lblSelectedDaysCount.text = days;
             Pages.currentPage.cntBlueBox.lblSelectedDaysCountText.text = (days == 1) ? 'day' : 'days';
         }
-    
+
         // Calculates the hour-count between Start and End Times
         function calculateHoursBetween() {
-            var hours = tinyUtils.daysBetween(selectedStartDate, selectedEndDate, true)  - ((selectedEndDate.format('HH') < 13) ? 0 : lunchBreakDuration);
-            
+            var hours = tinyUtils.daysBetween(selectedStartDate, selectedEndDate, true) - ((selectedEndDate.format('HH') < 13) ? 0 : lunchBreakDuration);
+
             Pages.currentPage.cntBlueBox.lblSelectedDaysCount.text = hours;
             Pages.currentPage.cntBlueBox.lblSelectedDaysCountText.text = (hours == 1) ? 'hour' : 'hours';
         }
-    
+
         // Show Leave-Type picker
         function pickLeaveType() {
             var leaveTypes = ['PERSONAL', 'MEDICAL'];
@@ -407,9 +464,9 @@ const pgNewLeaveRequest = extend(Page)(
                 },
                 function() {}
             );
-    
+
         }
-    
+
         // Show Time-Unit picker
         function pickTimeUnit() {
             var timeUnits = ['DAY', 'HOUR'];
@@ -419,115 +476,138 @@ const pgNewLeaveRequest = extend(Page)(
                 function(e) {
                     Pages.currentPage.lblTimeUnit.text = timeUnits[e.index];
                     timeUnitSelectedIndex = e.index;
-    
+
                     if (timeUnits[e.index] === 'HOUR') {
                         var newStartDate = new Date(selectedStartDate);
                         newStartDate.setHours(9);
                         newStartDate.setMinutes(0);
-    
+
                         selectedStartDate = newStartDate;
                         setDateLabels(newStartDate, true);
-    
+
                         var newEndDate = new Date(selectedStartDate);
                         newEndDate.setHours(18);
                         newEndDate.setMinutes(00);
-    
+
                         selectedEndDate = newEndDate;
                         setDateLabels(newEndDate, false);
-    
+
                         //disabling EndDate, it should be same as StartDate
                         Pages.currentPage.cntEnds.lblEndDate.fontColor = colors.GrayLight;
                         Pages.currentPage.cntEnds.lblEndDate.touchEnabled = false;
-                        
+
                         Pages.currentPage.cntStarts.lblStartTime.touchEnabled = true;
                         Pages.currentPage.cntEnds.lblEndTime.touchEnabled = true;
-                        
+
                         calculateHoursBetween();
                     }
                     else {
                         var newStartDate = new Date(selectedStartDate);
                         newStartDate.setHours(0);
                         newStartDate.setMinutes(0);
-    
+
                         selectedStartDate = newStartDate;
                         setDateLabels(newStartDate, true);
-    
+
                         var newEndDate = new Date(selectedEndDate);
                         newEndDate.setHours(23);
                         newEndDate.setMinutes(59);
-    
+
                         selectedEndDate = newEndDate;
                         setDateLabels(newEndDate, false);
-    
-    
+
+
                         //enabling EndDate access
                         Pages.currentPage.cntEnds.lblEndDate.fontColor = colors.Gray29;
                         Pages.currentPage.cntEnds.lblEndDate.touchEnabled = true;
-                    
+
                         //disabling Start & End Time
                         Pages.currentPage.cntStarts.lblStartTime.touchEnabled = false;
                         Pages.currentPage.cntEnds.lblEndTime.touchEnabled = false;
-                        
+
                         Pages.currentPage.cntStarts.lblStartTime.text = '';
                         Pages.currentPage.cntEnds.lblEndTime.text = '';
-    
                     }
                 },
                 function() {}
             );
-    
+
         }
-    
+
         // Drawing day-boxes 
         function createVacationBoxes(parent) {
+            //Total days box and texts
             var boxTotalDays = new SMF.UI.Container({
                 name: 'boxTotalDays',
-                left: getUnit('3.76%'),
-                top: getUnit('55.87188%'),
-                width: getUnit('13.8933%'),
-                height: getUnit('37.0106%'),
-                borderWidth: 1,
-                borderColor: colors.Gray,
-                roundedEdge: 0
             });
-    
-            SMFcomponents.createLabel(boxTotalDays, 'lblTotalDays', '-', '0', getUnit({iOS:'20%',Android:'2%'}), '100%', getUnit({iOS:'40%',Android:'61%'}), SMF.UI.TextAlignment.CENTER, false, '12pt', true, colors.Gray);
-            SMFcomponents.createLabel(boxTotalDays, 'lblTotalDaysText', 'Total', '0', getUnit({iOS:'70%',Android:'65%'}), '100%', getUnit({iOS:'20%',Android:'30%'}), SMF.UI.TextAlignment.CENTER, false, '5pt', false, colors.Gray);
-    
-    
+            componentStyler(".Generic.boxTotalDays")(boxTotalDays);
+
+            var lblTotalDays = new SMF.UI.Label({
+                name: 'lblTotalDays',
+                text: '-'
+            });
+            componentStyler(".textCenter .12pt .Generic.lblTotalDays")(lblTotalDays);
+            boxTotalDays.add(lblTotalDays);
+
+            var lblTotalDaysText = new SMF.UI.Label({
+                name: 'lblTotalDaysText',
+                text: 'Total'
+            });
+            componentStyler(".textCenter .5pt .Generic.lblTotalDays .Generic.lblTotalDaysText")(lblTotalDaysText);
+            boxTotalDays.add(lblTotalDaysText);
+
+            //Used days box and texts
             var boxUsed = new SMF.UI.Container({
                 name: 'boxUsed',
-                left: getUnit('19.41333%'),
-                top: getUnit('55.87188%'),
-                width: getUnit('13.8933%'),
-                height: getUnit('37.0106%'),
-                borderWidth: 1,
-                borderColor: colors.PinkDarker,
-                roundedEdge: 0
             });
-    
-            SMFcomponents.createLabel(boxUsed, 'lblUsedDays', '-', '0', getUnit({iOS:'20%',Android:'2%'}), '100%', getUnit({iOS:'40%',Android:'61%'}), SMF.UI.TextAlignment.CENTER, false, '12pt', true, colors.PinkDarker);
-            SMFcomponents.createLabel(boxUsed, 'lblUsedDaysText', 'Used', '0', getUnit({iOS:'70%',Android:'65%'}), '100%', getUnit({iOS:'20%',Android:'30%'}), SMF.UI.TextAlignment.CENTER, false, '5pt', false, colors.PinkDarker);
-    
+            componentStyler(".Generic.boxUsed")(boxUsed);
+
+            var lblUsedDays = new SMF.UI.Label({
+                name: 'lblUsedDays',
+                text: '-'
+            });
+            componentStyler(".textCenter .12pt .Generic.lblTotalDays .Generic.lblUsedDays")(lblUsedDays);
+            boxUsed.add(lblUsedDays);
+
+            var lblUsedDaysText = new SMF.UI.Label({
+                name: 'lblTotalDaysText',
+                text: 'Used'
+            });
+            componentStyler(".textCenter .5pt .Generic.lblTotalDaysText .Generic.lblUsedDays")(lblUsedDaysText);
+            boxUsed.add(lblUsedDaysText);
+
+
+            //Remaining days box and texts
             var boxRemaining = new SMF.UI.Container({
                 name: 'boxRemaining',
-                left: getUnit('35.2%'),
-                top: getUnit('55.87188%'),
-                width: getUnit('13.8933%'),
-                height: getUnit('37.0106%'),
-                borderWidth: 0,
-                roundedEdge: 0
             });
-    
-            SMFcomponents.createImage(boxRemaining, 'imgRemaining', 'square_stripe.png', '0', '0', '100%', '100%', SMF.UI.ImageFillType.ASPECTFIT);
-            SMFcomponents.createLabel(boxRemaining, 'lblRemainingDays', '-', '0', getUnit({iOS:'20%',Android:'2%'}), '100%', getUnit({iOS:'40%',Android:'61%'}), SMF.UI.TextAlignment.CENTER, false, '12pt', true, colors.BlueDark);
-            SMFcomponents.createLabel(boxRemaining, 'lblRemainingDaysText', 'Rem.', 0, getUnit({iOS:'70%',Android:'65%'}), '100%', getUnit({iOS:'20%',Android:'30%'}), SMF.UI.TextAlignment.CENTER, false, '5pt', false, colors.BlueDark);
-    
+            componentStyler(".Generic.boxRemaining")(boxRemaining);
+
+            var imgRemaining = new SMF.UI.Image({
+                name: 'imgRemaining'
+            });
+            componentStyler(".allArea .pgStatus.imgRemaining")(imgRemaining);
+            boxRemaining.add(imgRemaining);
+
+            var lblRemainingDays = new SMF.UI.Label({
+                name: 'lblRemainingDays',
+                text: '-'
+            });
+            componentStyler(".textCenter .12pt .Generic.lblTotalDays .Generic.lblRemainingDays")(lblRemainingDays);
+            boxRemaining.add(lblRemainingDays);
+
+            var lblRemainingDaysText = new SMF.UI.Label({
+                name: 'lblRemainingDaysText',
+                text: 'Rem.'
+            });
+            componentStyler(".textCenter .5pt .Generic.lblTotalDaysText .Generic.lblRemainingDays")(lblRemainingDaysText);
+            boxRemaining.add(lblRemainingDaysText);
+
             parent.add(boxTotalDays);
             parent.add(boxUsed);
             parent.add(boxRemaining);
         }
-    
+
         // We trigger this function when a new update occurs
         function fillVacationMetrics(TotalDays, Used, Remaining) {
             cntVacationBoxes.boxTotalDays.lblTotalDays.text = TotalDays;

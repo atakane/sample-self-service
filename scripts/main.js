@@ -26,13 +26,15 @@ const stylePgStatus = require('./pages/style/pgStatus.style.js');
 const stylePgOutOfOffice = require('./pages/style/pgOutOfOffice.style.js');
 const stylePgAbout = require('./pages/style/pgAbout.style.js');
 const stylePgMyRequests = require('./pages/style/pgMyRequests.style.js');
+const stylePgNewLeaveRequest = require('./pages/style/pgNewLeaveRequest.style.js');
+const stylePgApproveLeaveRequest = require('./pages/style/pgApproveLeaveRequest.style.js');
 const styleOSSpecific = (Device.deviceOS === 'iOS') ? require('./pages/style/ios.style.js') : require('./pages/style/android.style.js');
 
-//merging styles to simplify style usage
-//by that way  we can use same object hieararchy within style files.
-var mergedStyle = merge.all([styleGeneric, stylePgLogin, stylePgStatus, stylePgOutOfOffice, stylePgAbout,stylePgMyRequests, styleOSSpecific]);
+// merging styles to simplify style usage
+// by that way  we can use same object hieararchy within style files.
+var mergedStyle = merge.all([styleGeneric, stylePgLogin, stylePgStatus, stylePgOutOfOffice, stylePgAbout, stylePgMyRequests, stylePgNewLeaveRequest, stylePgApproveLeaveRequest, styleOSSpecific]);
 
-//passing style object to styler
+// passing style object to styler
 styler(mergedStyle);
 
 // Router

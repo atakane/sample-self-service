@@ -10,14 +10,6 @@ module.exports = {
             borderWidth: 0,
             roundedEdge: 0
         },
-        ".verticalRectangle": {
-            left: '49.90%',
-            width: '100%',
-            height: 1,
-            fillColor: colors.GrayLighter,
-            borderWidth: 0,
-            roundedEdge: 0
-        },
         ".imgAvatar": {
             image: '',
             left: '5.3333%',

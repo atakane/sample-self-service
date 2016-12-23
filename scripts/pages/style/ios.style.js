@@ -26,6 +26,17 @@ module.exports = {
     ".lblMiddleLine": {
       top: '46%',
       height: '20%'
+    },
+    ".cntLittleBoxes": {
+      top: 0
+    },
+    ".lblTotalDays": {
+      top: '20%',
+      height: '40%'
+    },
+    ".lblTotalDaysText": {
+      top: '70%',
+      height: '20%'
     }
   },
   ".pgStatus": {
@@ -110,4 +121,113 @@ module.exports = {
       height: 60
     }
   },
+  ".pgNewLeaveRequest": {
+    ".imgShadowLine": {
+      top: '21.0644%'
+    },
+    ".lblLeaveTypeText": {
+      top: '23.68815%',
+      height: '2.9985%'
+    },
+    ".lblLeaveType": {
+      top: '27.5%',
+      height: '2.9985%'
+    },
+    ".myRectangle1Top": {
+      top: '32.5037%'
+    },
+    ".myRectangle2Top": {
+      top: '47.4962%'
+    },
+    ".cntStarts": {
+      top: '34.8%',
+    },
+    ".lblStart": {
+      height: '15%'
+    },
+    ".lblStartDate": {
+      height: '30%'
+    },
+    ".lblStartTime": {
+      width: '92%',
+      height: '20%'
+    },
+    ".cntEnds": {
+      top: '34.8%',
+    },
+    ".lblEnd": {
+      height: '15%'
+    },
+    ".lblEndDate": {
+      height: '30%'
+    },
+    ".lblEndTime": {
+      height: '20%'
+    },
+    ".cntBlueBox": {
+      top: '32.5037%'
+    },
+    ".lblDescription": {
+      top: '50.1199%',
+      height: '3%'
+    },
+    ".txtOutOfOfficeMessage": {
+      top: '54.5427%',
+      height: '34.8621%'
+    }
+  },
+  ".pgApproveLeaveRequest": {
+    ".myRectangle1Top": {
+      top: '29.4152%'
+    },
+    ".myRectangle2Top": {
+      top: '40.8545%'
+    },
+    ".myRectangle3Top": {
+      top: '55.847%'
+    },
+    ".lblLeaveTypeText": {
+      top: '32.0389%',
+      height: '2.9985%'
+    },
+    ".lblLeaveType": {
+      top: '35.8508%',
+      height: '2.9985%'
+    },
+    ".lblStart": {
+      top:'42.5037%',
+      height: '2.9985%'
+    },
+    ".lblStartDate": {
+      top: '47.3013%',
+      height: '2.9985%'
+    },
+    ".lblStartTime": {
+      top: '51.3013%',
+      height: '2.9985%'
+    },
+    ".lblEnd": {
+      top: '42.5037%',
+      height: '2.9985%'
+    },
+    ".lblEndDate": {
+      top: '47.3013%',
+      height: '2.9985%'
+    },
+    ".lblEndTime": {
+      top: '51.3013%',
+      height: '2.9985%'
+    },
+    ".cntBlueBox": {
+      top: '40.8545%'
+    },
+    ".lblDescription": {
+      top: '58.4707%',
+      height: '3%'
+    },
+    ".txtAbsenceMessage": {
+      top: '62.8935%',
+      height: '27.5113%'
+    }
+  }
 };

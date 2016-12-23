@@ -174,7 +174,6 @@ const pgStatus = extend(Page)(
                     lblNewRequestText.text = lblNewRequestTextDate.text = "";
                     lblNewRequestText.attributedText = tmp + "<b> " + tmp2 + "</b>";
                 }
-
             }
             else {
                 lblNewRequestText.text = 'You don\'t have any upcoming leave request.';

@@ -58,6 +58,12 @@ module.exports = {
             bold: false
         },
     },
+    ".5pt": {
+        font: {
+            size: '5pt',
+            bold: false
+        },
+    },
     ".4pt": {
         font: {
             size: '4pt',
@@ -167,7 +173,57 @@ module.exports = {
             fontColor: colors.Gray29,
             borderWidth: 0,
             visible: false
-        }
+        },
+        ".cntLittleBoxes": {
+            left: 0,
+            width: '100%',
+            height: '21.0644%',
+            fillColor: SMF.UI.Color.WHITE,
+            backgroundTransparent: false,
+            borderWidth: 0,
+            roundedEdge: 0
+        },
+        ".cntLittleBoxesRight": {
+            left: '48%'
+        },
+        ".boxTotalDays": {
+            left: '3.76%',
+            top: '55.87188%',
+            width: '13.8933%',
+            height: '37.0106%',
+            borderWidth: 1,
+            borderColor: colors.Gray,
+            roundedEdge: 0
+        },
+        ".lblTotalDays": {
+            left: 0,
+            width: '100%',
+            borderWidth: 0,
+            fontColor: colors.Gray
+        },
+        '.boxUsed': {
+            left: '19.41333%',
+            top: '55.87188%',
+            width: '13.8933%',
+            height: '37.0106%',
+            borderWidth: 1,
+            borderColor: colors.PinkDarker,
+            roundedEdge: 0
+        },
+        ".lblUsedDays": {
+            fontColor: colors.PinkDarker
+        },
+        '.boxRemaining': {
+            left: '35.2%',
+            top: '55.87188%',
+            width: '13.8933%',
+            height: '37.0106%',
+            borderWidth: 0,
+            roundedEdge: 0
+        },
+        ".lblRemainingDays": {
+            fontColor: colors.BlueDark
+        },
     }
 }
 

@@ -35,7 +35,6 @@ const pgMyRequests = extend(Page)(
             backgroundImage: 'stripe.png'
         });
 
-        headerBarOptions.setTitle('My Leave Requests');
         const headerBarWrapper = HeaderBarWrapper(this._view, headerBarOptions.options);
 
         // Creating Slider Drawer
@@ -253,6 +252,7 @@ const pgMyRequests = extend(Page)(
             Dialog.removeWait();
 
             // Adding header bar (actionbar for Android, navigationbar for iOS)
+            headerBarOptions.setTitle('My Leave Requests');
             headerBarWrapper.reload();
             headerBarOptions.eventCallback(function(e) {
                 if (e.type == "menu")

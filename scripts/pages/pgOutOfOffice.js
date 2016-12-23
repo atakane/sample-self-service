@@ -16,7 +16,6 @@ const headerBarOptions = require("./headerbar/generic.headerbar.js");
 const HeaderBarWrapper = require("js-base/component/header-bar.js");
 
 const tinyUtils = require('./component/tinyUtils.js');
-const getUnit = require('./component/getUnit.js');
 
 const colors = require('pages/style/colors.js');
 const componentStyler = require("js-base/core/styler").componentStyler();
@@ -33,7 +32,6 @@ const pgOutOfOffice = extend(Page)(
             onShow: pgOutOfOffice_onShow
         });
 
-        headerBarOptions.setTitle('Out of Office');
         const headerBarWrapper = HeaderBarWrapper(this._view, headerBarOptions.options);
 
         // Creating Slider Drawer
@@ -51,9 +49,9 @@ const pgOutOfOffice = extend(Page)(
         componentStyler(".pgOutOfOffice.horizontalRectangle .pgOutOfOffice.myRectangle2Top")(myRectangle2);
         this.add(myRectangle2);
 
-        var myRectangle3 = new SMF.UI.Rectangle({});
-        componentStyler(".pgOutOfOffice.verticalRectangle .pgOutOfOffice.myRectangle1Top")(myRectangle3);
-        this.add(myRectangle3);
+        // var myRectangle3 = new SMF.UI.Rectangle({});
+        // componentStyler(".pgOutOfOffice.verticalRectangle .pgOutOfOffice.myRectangle1Top")(myRectangle3);
+        // this.add(myRectangle3);
 
         // Profile Section
         // Profile Image
@@ -309,6 +307,7 @@ const pgOutOfOffice = extend(Page)(
             Dialog.removeWait();
 
             // Adding header bar (actionbar for Android, navigationbar for iOS)
+            headerBarOptions.setTitle('Out of Office');
             headerBarWrapper.reload();
             headerBarOptions.eventCallback(function(e) {
                 if (e.type == "menu")
