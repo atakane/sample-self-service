@@ -1,5 +1,5 @@
 require('babel-polyfill/dist/polyfill.js');
-require('./pages/component/extendedPrototypes.js');
+require('js-extended-prototypes/extendPrototype.js');
 
 const permissions = require('js-base/utils/permissions');
 

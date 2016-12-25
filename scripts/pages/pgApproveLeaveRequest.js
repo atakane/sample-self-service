@@ -3,7 +3,7 @@
 const Page = require("js-base/component/page");
 const extend = require("js-base/core/extend");
 const Dialog = require('smf-dialog');
-const tinyUtils = require('./component/tinyUtils.js');
+const tinyUtils = require('js-tinyutils/tinyUtils.js');
 
 // Actionbar
 const headerBarOptions = require("./headerbar/generic.headerbar.back.js");

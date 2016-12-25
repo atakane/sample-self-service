@@ -4,7 +4,7 @@ const extend = require("js-base/core/extend");
 
 const SMFAjax = require('js-base/utils/SMFAjax');
 const Dialog = require('smf-dialog');
-const tinyUtils = require('./component/tinyUtils.js');
+const tinyUtils = require('js-tinyutils/tinyUtils.js');
 
 // styler
 const componentStyler = require("js-base/core/styler").componentStyler();

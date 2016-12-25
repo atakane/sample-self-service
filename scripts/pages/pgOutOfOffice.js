@@ -5,7 +5,7 @@ const extend = require("js-base/core/extend");
 
 const SMFSliderDrawer = require('./component/SMFSliderDrawer.js');
 const Dialog = require('smf-dialog');
-const tinyUtils = require('./component/tinyUtils.js');
+const tinyUtils = require('js-tinyutils/tinyUtils.js');
 const colors = require('pages/style/colors.js');
 
 // Actionbar
