@@ -1,30 +1,25 @@
 /* globals smfOracle oProfile templateOutOfOfficeText fontAwesome*/
 
-/*
-TODO:
-- use Router options to pass oRequest
-*/
 const Page = require("js-base/component/page");
 const extend = require("js-base/core/extend");
 
-const SMFcomponents = require('./component/SMFcomponents.js');
 const SMFSliderDrawer = require('./component/SMFSliderDrawer.js');
 const Dialog = require('smf-dialog');
+const tinyUtils = require('./component/tinyUtils.js');
+const colors = require('pages/style/colors.js');
 
 // Actionbar
 const headerBarOptions = require("./headerbar/generic.headerbar.js");
 const HeaderBarWrapper = require("js-base/component/header-bar.js");
 
-const tinyUtils = require('./component/tinyUtils.js');
-
-const colors = require('pages/style/colors.js');
+// styler
 const componentStyler = require("js-base/core/styler").componentStyler();
 
 // Router
 const router = require('js-base/core/router');
 
 const pgOutOfOffice = extend(Page)(
-    //Page Constructor
+    // Page Constructor
     function(_super) {
         _super(this, {
             name: 'pgOutOfOffice',
@@ -40,7 +35,7 @@ const pgOutOfOffice = extend(Page)(
         var selectedStartDate;
         var selectedEndDate;
 
-        //Lines
+        // Lines
         var myRectangle1 = new SMF.UI.Rectangle({});
         componentStyler(".pgOutOfOffice.horizontalRectangle .pgOutOfOffice.myRectangle1Top")(myRectangle1);
         this.add(myRectangle1);
@@ -74,7 +69,7 @@ const pgOutOfOffice = extend(Page)(
         componentStyler(".textLeft .7pt .pgOutOfOffice.lblTeamRole")(lblTeamRole);
         this.add(lblTeamRole);
 
-        //Out of Office switch
+        // Out of Office switch
         var swtOutOfOffice = new SMF.UI.SwitchButton({
             name: 'swtOutOfOffice',
             onChange: function(e) {
@@ -109,8 +104,12 @@ const pgOutOfOffice = extend(Page)(
         componentStyler(".textLeft .7pt .pgOutOfOffice.lblStart .pgOutOfOffice.level1Top")(lblStart);
         this.add(lblStart);
 
-        var lblDown1 = SMFcomponents.createAwesomeLabel(this, 'lblDown1', JSON.parse('""'), '21.5%', 0, '10%', 0, SMF.UI.TextAlignment.LEFT, false, '7pt', false, colors.BlueMedium);
-        componentStyler(".pgOutOfOffice.level1Top")(lblDown1);
+        var lblDown1 = new SMF.UI.Label({
+            text: JSON.parse('""'),
+            font: fontAwesome
+        });
+        componentStyler(".textLeft .7pt .pgOutOfOffice.lblStartDown .pgOutOfOffice.level1Top")(lblDown1);
+        this.add(lblDown1);
 
         var lblStartDate = new SMF.UI.Label({
             name: 'lblStartDate',
@@ -138,8 +137,9 @@ const pgOutOfOffice = extend(Page)(
         componentStyler(".textRight .7pt .pgOutOfOffice.lblEnd .pgOutOfOffice.level1Top")(lblEnd);
         this.add(lblEnd);
 
-        var lblDown2 = SMFcomponents.createAwesomeLabel(this, 'lblDown2', JSON.parse('""'), '90%', 0, '5%', 0, SMF.UI.TextAlignment.RIGHT, false, '7pt', false, colors.BlueMedium);
-        componentStyler(".pgOutOfOffice.level1Top")(lblDown2);
+        var lblDown2 = lblDown1.clone();
+        componentStyler(".textRight .7pt .pgOutOfOffice.lblEndDown .pgOutOfOffice.level1Top")(lblDown2);
+        this.add(lblDown2);
 
         var lblEndDate = new SMF.UI.Label({
             name: 'lblEndDate',
@@ -159,7 +159,7 @@ const pgOutOfOffice = extend(Page)(
         componentStyler(".pgOutOfOffice.level2Top .pgOutOfOffice.cntSelectEndDate")(cntSelectEndDate);
         this.add(cntSelectEndDate);
 
-        //Day Count Box
+        // Day Count Box
         var cntBlueBox = new SMF.UI.Container({
             name: 'cntBlueBox'
         });
@@ -200,7 +200,7 @@ const pgOutOfOffice = extend(Page)(
 
         // Save Button
         // FontAwesome 'check icon' UTF8 code:uf00c
-        //TODO: height will be moved to style file after styler-fix
+        // TODO: height will be moved to style file after styler-fix
         var btnSave = new SMF.UI.TextButton({
             name: 'btnSave',
             font: fontAwesome,
@@ -227,7 +227,7 @@ const pgOutOfOffice = extend(Page)(
         componentStyler(".12pt .pgOutOfOffice.btnSave")(btnSave);
         this.add(btnSave);
 
-        var recOverlay =new SMF.UI.Rectangle({
+        var recOverlay = new SMF.UI.Rectangle({
             name: 'recOverlay',
         });
         componentStyler(".pgOutOfOffice.recOverlay")(recOverlay);
@@ -251,9 +251,9 @@ const pgOutOfOffice = extend(Page)(
          * @this Pages.pgOutOfOffice
          */
         function pgOutOfOffice_onShow() {
-            //We are going w/ dark mode. Our navbar is white.
+            // We are going w/ dark mode. Our navbar is white.
             SMF.UI.statusBar.style = SMF.UI.StatusBarStyle.DEFAULT;
-            console.log(JSON.prune(Pages.currentPage.btnSave,1));
+            console.log(JSON.prune(Pages.currentPage.btnSave, 1));
 
             // Hiding 'wait' dialog
             Dialog.removeWait();
@@ -321,7 +321,7 @@ const pgOutOfOffice = extend(Page)(
                     setDateLabels(sDate, isStartDate);
                 },
                 onCancel: function(e) {
-                    //alert('Picker cancelled!');
+                    // alert('Picker cancelled!');
                 }
             });
         }
@@ -362,7 +362,7 @@ const pgOutOfOffice = extend(Page)(
             cntBlueBox.lblSelectedDaysCountText.text = (days == 1) ? 'day' : 'days';
         }
     },
-    //Page Public Methods
+    // Page Public Methods
     function(_proto) {
         // for injection of routing data
         _proto.setRouteParams = function() {};

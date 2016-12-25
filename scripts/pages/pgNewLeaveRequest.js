@@ -9,21 +9,21 @@ const extend = require("js-base/core/extend");
 
 const SMFSliderDrawer = require('./component/SMFSliderDrawer.js');
 const Dialog = require('smf-dialog');
+const tinyUtils = require('./component/tinyUtils.js');
+const colors = require('pages/style/colors.js');
 
 // Actionbar
 const headerBarOptions = require("./headerbar/generic.headerbar.js");
 const HeaderBarWrapper = require("js-base/component/header-bar.js");
 
-const tinyUtils = require('./component/tinyUtils.js');
-
-const colors = require('pages/style/colors.js');
+// styler
 const componentStyler = require("js-base/core/styler").componentStyler();
 
 // Router
 const router = require('js-base/core/router');
 
 const pgNewLeaveRequest = extend(Page)(
-    //Page Constructor
+    // Page Constructor
     function(_super) {
         _super(this, {
             name: 'pgNewLeaveRequest',
@@ -51,7 +51,7 @@ const pgNewLeaveRequest = extend(Page)(
 
         createVacationBoxes.call(this, cntVacationBoxes);
 
-        //Lines
+        // Lines
         var imgShadowLine = new SMF.UI.Image({});
         componentStyler(".pgNewLeaveRequest.imgShadowLine")(imgShadowLine);
         this.add(imgShadowLine);
@@ -189,7 +189,7 @@ const pgNewLeaveRequest = extend(Page)(
 
         this.add(cntEnds);
 
-        //Day Count Box
+        // Day Count Box
         var cntBlueBox = new SMF.UI.Container({
             name: 'cntBlueBox'
         });
@@ -210,7 +210,7 @@ const pgNewLeaveRequest = extend(Page)(
         componentStyler(".textCenter .7pt .pgOutOfOffice.lblSelectedDaysCountText")(lblSelectedDaysCountText);
         cntBlueBox.add(lblSelectedDaysCountText);
 
-        //Leave Details
+        // Leave Details
         var lblDescription = new SMF.UI.Label({
             name: 'lblDescription',
             text: 'DESCRIPTION'
@@ -218,7 +218,7 @@ const pgNewLeaveRequest = extend(Page)(
         componentStyler(".textLeft .7pt .pgOutOfOffice.lblOutOfOfficeMessage .pgNewLeaveRequest.lblDescription")(lblDescription);
         this.add(lblDescription);
 
-        //Message Text
+        // Message Text
         var txtAbsenceMessage = new SMF.UI.TextBox({
             name: 'txtAbsenceMessage',
             placeHolder: 'Please add your "Absence" reason briefly',
@@ -229,7 +229,7 @@ const pgNewLeaveRequest = extend(Page)(
 
         // Save Button
         // FontAwesome 'check icon' UTF8 code: uf00c
-        //TODO: height will be moved to style file after styler-fix
+        // TODO: height will be moved to style file after styler-fix
         var btnSave = new SMF.UI.TextButton({
             name: 'btnSave',
             font: fontAwesome,
@@ -240,12 +240,12 @@ const pgNewLeaveRequest = extend(Page)(
                     firstButtonText: 'Submit',
                     secondButtonText: 'Cancel',
                     onFirstButtonPressed: function() {
-                        //Updating Stats (this should return from real service when we connected. For now updating the mock)
+                        // Updating Stats (this should return from real service when we connected. For now updating the mock)
                         oProfile.LeaveRequestCount = oProfile.LeaveRequestCount + 1;
                         oProfile.LastRequestStartDate = selectedStartDate;
                         oProfile.LastRequestID = oProfile.LastRequestID + 1;
 
-                        //Sample Mock Request 
+                        // Sample Mock Request 
                         var myRequest = {
                             'ID': oProfile.LastRequestID,
                             'EmployeeID': oProfile.EmployeeID,
@@ -301,7 +301,7 @@ const pgNewLeaveRequest = extend(Page)(
          * @this Pages.pgOutOfOffice
          */
         function pgNewLeaveRequest_onShow() {
-            //We are going w/ dark mode. Our navbar is white.
+            // We are going w/ dark mode. Our navbar is white.
             SMF.UI.statusBar.style = SMF.UI.StatusBarStyle.DEFAULT;
 
             // Hiding 'wait' dialog
@@ -492,7 +492,7 @@ const pgNewLeaveRequest = extend(Page)(
                         selectedEndDate = newEndDate;
                         setDateLabels(newEndDate, false);
 
-                        //disabling EndDate, it should be same as StartDate
+                        // disabling EndDate, it should be same as StartDate
                         Pages.currentPage.cntEnds.lblEndDate.fontColor = colors.GrayLight;
                         Pages.currentPage.cntEnds.lblEndDate.touchEnabled = false;
 
@@ -517,11 +517,11 @@ const pgNewLeaveRequest = extend(Page)(
                         setDateLabels(newEndDate, false);
 
 
-                        //enabling EndDate access
+                        // enabling EndDate access
                         Pages.currentPage.cntEnds.lblEndDate.fontColor = colors.Gray29;
                         Pages.currentPage.cntEnds.lblEndDate.touchEnabled = true;
 
-                        //disabling Start & End Time
+                        // disabling Start & End Time
                         Pages.currentPage.cntStarts.lblStartTime.touchEnabled = false;
                         Pages.currentPage.cntEnds.lblEndTime.touchEnabled = false;
 
@@ -536,7 +536,7 @@ const pgNewLeaveRequest = extend(Page)(
 
         // Drawing day-boxes 
         function createVacationBoxes(parent) {
-            //Total days box and texts
+            // Total days box and texts
             var boxTotalDays = new SMF.UI.Container({
                 name: 'boxTotalDays',
             });
@@ -556,7 +556,7 @@ const pgNewLeaveRequest = extend(Page)(
             componentStyler(".textCenter .5pt .Generic.lblTotalDays .Generic.lblTotalDaysText")(lblTotalDaysText);
             boxTotalDays.add(lblTotalDaysText);
 
-            //Used days box and texts
+            // Used days box and texts
             var boxUsed = new SMF.UI.Container({
                 name: 'boxUsed',
             });
@@ -577,7 +577,7 @@ const pgNewLeaveRequest = extend(Page)(
             boxUsed.add(lblUsedDaysText);
 
 
-            //Remaining days box and texts
+            // Remaining days box and texts
             var boxRemaining = new SMF.UI.Container({
                 name: 'boxRemaining',
             });
@@ -615,7 +615,7 @@ const pgNewLeaveRequest = extend(Page)(
             cntVacationBoxes.boxRemaining.lblRemainingDays.text = Remaining;
         }
     },
-    //Page Public Methods
+    // Page Public Methods
     function(_proto) {
         // for injection of routing data
         _proto.setRouteParams = function() {};

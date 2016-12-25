@@ -57,6 +57,13 @@ module.exports = {
             width: '17%',
             fontColor: colors.BlueMedium
         },
+        ".lblStartDown": {
+            left: '21.5%',
+            top:0,
+            width: '10%',
+            height:0,
+            fontColor: colors.BlueMedium
+        },
         ".lblStartDate": {
             left: '4.5333%',
             width: '37.3333%',
@@ -74,6 +81,13 @@ module.exports = {
         ".lblEnd": {
             left: '75.4667%',
             width: '17%',
+            fontColor: colors.BlueMedium
+        },
+        ".lblEndDown": {
+            left: '90%',
+            top:0,
+            width: '5%',
+            height:0,
             fontColor: colors.BlueMedium
         },
         ".lblEndDate": {

@@ -2,22 +2,21 @@
 
 const Page = require("js-base/component/page");
 const extend = require("js-base/core/extend");
-
 const Dialog = require('smf-dialog');
+const tinyUtils = require('./component/tinyUtils.js');
 
 // Actionbar
 const headerBarOptions = require("./headerbar/generic.headerbar.back.js");
 const HeaderBarWrapper = require("js-base/component/header-bar.js");
 
-const tinyUtils = require('./component/tinyUtils.js');
-
+// styler
 const componentStyler = require("js-base/core/styler").componentStyler();
 
 // Router
 const router = require('js-base/core/router');
 
 const pgApproveLeaveRequest = extend(Page)(
-    //Page Constructor
+    // Page Constructor
     function(_super) {
         _super(this, {
                 name: 'pgApproveLeaveRequest',
@@ -68,7 +67,7 @@ const pgApproveLeaveRequest = extend(Page)(
 
         createVacationBoxes(cntVacationBoxes);
 
-        //Lines
+        // Lines
         var myRectangle1 = new SMF.UI.Rectangle({});
         componentStyler(".pgApproveLeaveRequest.horizontalRectangle .pgApproveLeaveRequest.myRectangle1Top")(myRectangle1);
         this.add(myRectangle1);
@@ -155,7 +154,7 @@ const pgApproveLeaveRequest = extend(Page)(
         this.add(lblEndTime);
 
 
-        //Day Count Box
+        // Day Count Box
         var cntBlueBox = new SMF.UI.Container({
             name: 'cntBlueBox'
         });
@@ -176,14 +175,14 @@ const pgApproveLeaveRequest = extend(Page)(
         componentStyler(".textCenter .7pt .pgOutOfOffice.lblSelectedDaysCountText")(lblSelectedDaysCountText);
         cntBlueBox.add(lblSelectedDaysCountText);
 
-        //Description area back
+        // Description area back
         var cntDescriptionBack = new SMF.UI.Container({
             name: 'cntDescriptionBack'
         });
         componentStyler(".Generic.cntDescriptionBack")(cntDescriptionBack);
         this.add(cntDescriptionBack);
         
-        //Leave Details
+        // Leave Details
         var lblDescription = new SMF.UI.Label({
             name: 'lblDescription',
             text: 'DESCRIPTION'
@@ -204,7 +203,7 @@ const pgApproveLeaveRequest = extend(Page)(
 
         // Reject Button
         // FontAwesome 'close icon' UTF8 code: uf00d
-        //TODO: height will be moved to style file after styler-fix
+        // TODO: height will be moved to style file after styler-fix
         var btnReject = new SMF.UI.TextButton({
             name: 'btnReject',
             font: fontAwesome,      
@@ -236,7 +235,7 @@ const pgApproveLeaveRequest = extend(Page)(
 
         // Save button
         // FontAwesome 'check icon' UTF8 code: uf00c
-        //TODO: height will be moved to style file after styler-fix
+        // TODO: height will be moved to style file after styler-fix
         var btnSave = new SMF.UI.TextButton({
             name: 'btnSave',
             font: fontAwesome,
@@ -284,7 +283,7 @@ const pgApproveLeaveRequest = extend(Page)(
          * @this Pages.pgOutOfOffice
          */
         function pgApproveLeaveRequest_onShow() {
-            //We are going w/ dark mode. Our navbar is white.
+            // We are going w/ dark mode. Our navbar is white.
             SMF.UI.statusBar.style = SMF.UI.StatusBarStyle.DEFAULT;
 
             // Hiding 'wait' dialog
@@ -376,7 +375,7 @@ const pgApproveLeaveRequest = extend(Page)(
         
         // Drawing day-boxes 
         function createVacationBoxes(parent) {
-            //Total days box and texts
+            // Total days box and texts
             var boxTotalDays = new SMF.UI.Container({
                 name: 'boxTotalDays',
             });
@@ -396,7 +395,7 @@ const pgApproveLeaveRequest = extend(Page)(
             componentStyler(".textCenter .5pt .Generic.lblTotalDays .Generic.lblTotalDaysText")(lblTotalDaysText);
             boxTotalDays.add(lblTotalDaysText);
 
-            //Used days box and texts
+            // Used days box and texts
             var boxUsed = new SMF.UI.Container({
                 name: 'boxUsed',
             });
@@ -417,7 +416,7 @@ const pgApproveLeaveRequest = extend(Page)(
             boxUsed.add(lblUsedDaysText);
 
 
-            //Remaining days box and texts
+            // Remaining days box and texts
             var boxRemaining = new SMF.UI.Container({
                 name: 'boxRemaining',
             });
@@ -455,7 +454,7 @@ const pgApproveLeaveRequest = extend(Page)(
             cntVacationBoxes.boxRemaining.lblRemainingDays.text = Remaining;
         }
     },
-    //Page Public Methods
+    // Page Public Methods
     function(_proto) {
         // for injection of routing data
         // _proto.setRouteParams = function(targetRowIndex, request) {

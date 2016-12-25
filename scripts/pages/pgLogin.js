@@ -6,13 +6,14 @@ const SMFAjax = require('js-base/utils/SMFAjax');
 const Dialog = require('smf-dialog');
 const tinyUtils = require('./component/tinyUtils.js');
 
+// styler
 const componentStyler = require("js-base/core/styler").componentStyler();
 
 // Router
 const router = require('js-base/core/router');
 
 const pgLogin = extend(Page)(
-    //Page Constructor
+    // Page Constructor
     function(_super) {
         _super(this, {
             name: 'pgLogin',
@@ -56,7 +57,7 @@ const pgLogin = extend(Page)(
         componentStyler(".7pt .pgLogin.lblWelcome2")(lblWelcome2);
         this.add(lblWelcome2);
 
-        //Username and password inputs
+        // Username and password inputs
         var txtUserName = new SMF.UI.TextBox({
             name: 'txtUserName'
         });
@@ -125,23 +126,23 @@ const pgLogin = extend(Page)(
 
             if ((mcsUser) && (mcsPassword)) {
                 var successCallback = function(e) {
-                    //analytics log for auth.
+                    // analytics log for auth.
                     smfOracle.logAnalytics('user authenticated');
 
                     Dialog.showWait();
 
-                    //Registering for Push notification
+                    // Registering for Push notification
 
-                    //Resgistering device to Google and Apple servers
+                    // Resgistering device to Google and Apple servers
                     Notifications.remote.registerForPushNotifications({
                         OnSuccess: function(e) {
-                            //alert('registerForPushNotifications Success:' + JSON.prune(e));
+                            // alert('registerForPushNotifications Success:' + JSON.prune(e));
 
                             var registrationID = Notifications.remote.token;
                             var appId = 'io.smartface.sample.filemanager';
                             var appVersion = Application.version;
 
-                            //Registering device to Oracle MCS
+                            // Registering device to Oracle MCS
                             smfOracle.registerNotification(registrationID, appId, appVersion, function(err) {
                                 if (!err) getUserInfo();
                             });
@@ -156,7 +157,7 @@ const pgLogin = extend(Page)(
                 };
 
                 var failureCallback = function(e) {
-                    //analytics log for auth fail
+                    // analytics log for auth fail
                     smfOracle.logAnalytics('[error] auth failed ' + e);
                     console.log(mcsUser + ' authentication failed ' + e);
 
@@ -177,7 +178,7 @@ const pgLogin = extend(Page)(
             }
         }
 
-        //Downloads collection objects and assign them to repeatbox
+        // Downloads collection objects and assign them to repeatbox
         function getUserInfo() {
             // Get self service details from EBS service
             // For now we're going dummy
@@ -217,7 +218,7 @@ const pgLogin = extend(Page)(
             });
         }
     },
-    //Page Public Methods
+    // Page Public Methods
     function(_proto) {
         // for injection of routing data
         _proto.setRouteParams = function() {};

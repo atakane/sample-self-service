@@ -1,32 +1,26 @@
 /* globals*/
 
-/*
-TODO:
-- use Router for pages.back
-*/
 const Page = require("js-base/component/page");
 const extend = require("js-base/core/extend");
 
 const SMFSliderDrawer = require('./component/SMFSliderDrawer.js');
 const Dialog = require('smf-dialog');
+const tinyUtils = require('./component/tinyUtils.js');
+const merge = require('deepmerge');
+const colors = require('./style/colors.js');
 
 // Actionbar
 const headerBarOptions = require("./headerbar/generic.headerbar.js");
 const HeaderBarWrapper = require("js-base/component/header-bar.js");
 
-const tinyUtils = require('./component/tinyUtils.js');
-const getUnit = require('./component/getUnit.js');
-
-
-const merge = require('deepmerge');
-const colors = require('./style/colors.js');
+// styler
 const componentStyler = require("js-base/core/styler").componentStyler();
 
 // Router
 const router = require('js-base/core/router');
 
 const pgMyRequests = extend(Page)(
-    //Page Constructor
+    // Page Constructor
     function(_super) {
         _super(this, {
             name: 'pgMyRequests',
@@ -44,8 +38,8 @@ const pgMyRequests = extend(Page)(
 
 
         // Creating a repeatbox to show our requests
-        //styling the repeater
-        //We used a different way here beacause of the by-design nature of repeater component
+        // styling the repeater
+        // We used a different way here beacause of the by-design nature of repeater component
         var rptDefault = {
             name: 'rptApprovalList',
             onSelectedItem: function(e) {
@@ -58,7 +52,7 @@ const pgMyRequests = extend(Page)(
 
         var rptApprovalList = new SMF.UI.RepeatBox(rptParams);
 
-        //styling repeater item templates
+        // styling repeater item templates
         var paramItemTemplate = {};
         componentStyler(".Generic.itemTemplate")(paramItemTemplate);
 
@@ -125,7 +119,7 @@ const pgMyRequests = extend(Page)(
         rptApprovalList.itemTemplate.add(imgDetail);
         rptApprovalList.itemTemplate.add(recHorizontalLine);
 
-        //activeItemTemplate
+        // activeItemTemplate
         var imgStatusCircle2 = imgStatusCircle.clone();
         var lblStatusLetter2 = lblStatusLetter.clone();
         var recVerticalLine2 = recVerticalLine.clone();
@@ -146,7 +140,7 @@ const pgMyRequests = extend(Page)(
 
         rptApprovalList.pullDownItem.height = '8%';
 
-        //onRowRender will work for each item bound
+        // onRowRender will work for each item bound
         rptApprovalList.onRowRender = function(e) {
             // {
             // 'ID' : 1,
@@ -217,13 +211,13 @@ const pgMyRequests = extend(Page)(
             }
         }
 
-        //adding repeatbox to the page
+        // adding repeatbox to the page
         this.add(rptApprovalList);
 
         // If you want, you can add some legend here
         // createLabel(pgMyRequests, 'lblLegend', 'W: Waiting\nA: Approved\nR: Rejected', '5%', '0%', '90%', '10%', SMF.UI.TextAlignment.LEFT, true, '5pt', false, colors.Gray);
 
-        //adding label for no-data
+        // adding label for no-data
         var lblNoData = new SMF.UI.Label({
             name: 'lblNoData',
             text: 'You dont have any "Leave Request" yet.'
@@ -272,7 +266,7 @@ const pgMyRequests = extend(Page)(
         }
 
 
-        //Parsing storage objects 
+        // Parsing storage objects 
         function displayApprovalRequests() {
 
             /*
@@ -327,7 +321,7 @@ const pgMyRequests = extend(Page)(
             }
 
 
-            //binding objects array
+            // binding objects array
             rptApprovalList.closePullItems();
             rptApprovalList.dataSource = arrayRequests;
             rptApprovalList.refresh();
@@ -337,7 +331,7 @@ const pgMyRequests = extend(Page)(
             rptApprovalList.visible = !(arrayRequests.length == 0);
         }
     },
-    //Page Public Methods
+    // Page Public Methods
     function(_proto) {
         // for injection of routing data
         _proto.setRouteParams = function() {};

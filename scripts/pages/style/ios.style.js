@@ -232,5 +232,39 @@ module.exports = {
       top: '62.8935%',
       height: '27.5113%'
     }
+  },
+  ".sliderDrawer": {
+    ".cntTop": {
+      top: 0,
+      height: '33.7331%'
+    },
+    ".imgSliderAvatar": {
+      top: '24.4292%',
+      width: 80,
+      height: 80
+    },
+    ".lblSliderFullName": {
+      top: '64.7534%',
+      height: '15%'
+    },
+    ".lblSliderTeamRole": {
+      top: '78.8767%',
+      height: 20
+    },
+    ".lblLeaveManagement": {
+      heigth: 23
+    },
+    ".imgSliderMenuStatus": {
+      width: 21,
+      height: 19
+    },
+    ".imgSliderMenuRequest": {
+      width: 22,
+      height: 20
+    },
+    ".imgSliderMenuMyRequests": {
+      width: 22,
+      height: 20
+    }
   }
 };

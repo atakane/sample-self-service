@@ -9,13 +9,14 @@ const Dialog = require('smf-dialog');
 const headerBarOptions = require("./headerbar/generic.headerbar.js");
 const HeaderBarWrapper = require("js-base/component/header-bar.js");
 
+// styler
 const componentStyler = require("js-base/core/styler").componentStyler();
 
 // Router
 const router = require('js-base/core/router');
 
 const pgLogin = extend(Page)(
-    //Page Constructor
+    // Page Constructor
     function(_super) {
         _super(this, {
             name: 'pgAbout',
@@ -109,7 +110,7 @@ const pgLogin = extend(Page)(
             smfOracle.logAndFlushAnalytics('pgAbout_onShow');
         }
     },
-    //Page Public Methods
+    // Page Public Methods
     function(_proto) {
         // for injection of routing data
         _proto.setRouteParams = function() {};

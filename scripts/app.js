@@ -1,16 +1,18 @@
-/* globals lang defaultPageAnimation Dialog*/
+/* globals lang initRequire*/
 include('i18n/i18n.js');
 include('libs/utils/JSON.prune.js');
 include("libs/Oracle/smartface.mcs.js");
 
-//Require
+// Require
 include("node_modules/js-base/utils/require.js");
 
 Application.onStart = Application_OnStart;
 Application.onUnhandledError = Application_OnError;
 Application.onMaximize = Application_onMaximize;
 
+// Global objects
 var smfOracle;
+var backendName = "smartfaceOracleMCS";
 var oProfile;
 var oTimeTable;
 var oRequestList;
@@ -29,11 +31,11 @@ var fontAwesome = new SMF.UI.Font({
  * @this Application
  */
 function Application_OnStart(e) {
-
+	// Showing the statusbar
 	SMF.UI.statusBar.visible = true;
 
 	// Creating a new Oracle MCS instance 
-	smfOracle = new SMF.Oracle.MobileCloudService('smartfaceOracleMCS');
+	smfOracle = new SMF.Oracle.MobileCloudService(backendName);
 
 	// logging in as anonymous user to log Analytics events
 	// if you need you can auth user with .authenticate

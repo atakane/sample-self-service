@@ -5,23 +5,22 @@ const extend = require("js-base/core/extend");
 
 const SMFSliderDrawer = require('./component/SMFSliderDrawer.js');
 const Dialog = require('smf-dialog');
+const tinyUtils = require('./component/tinyUtils.js');
+const merge = require('deepmerge');
+const colors = require('./style/colors.js');
 
 // Actionbar
 const headerBarOptions = require("./headerbar/pgApprovalWorklist.headerbar.js");
 const HeaderBarWrapper = require("js-base/component/header-bar.js");
 
-const tinyUtils = require('./component/tinyUtils.js');
-const getUnit = require('./component/getUnit.js');
-
-const merge = require('deepmerge');
-const colors = require('./style/colors.js');
+// styler
 const componentStyler = require("js-base/core/styler").componentStyler();
 
 // Router
 const router = require('js-base/core/router');
 
 const pgApprovalWorklist = extend(Page)(
-    //Page Constructor
+    // Page Constructor
     function(_super) {
         _super(this, {
             name: 'pgApprovalWorklist',
@@ -38,7 +37,7 @@ const pgApprovalWorklist = extend(Page)(
 
         var arrayRequests;
 
-        //creating a repeatbox to show our files
+        // creating a repeatbox to show our files
         var rptDefault = {
             name: 'rptApprovalList',
             onSelectedItem: function(e) {
@@ -54,7 +53,7 @@ const pgApprovalWorklist = extend(Page)(
 
         var rptApprovalList = new SMF.UI.RepeatBox(rptParams);
 
-        //styling repeater item templates
+        // styling repeater item templates
         var paramItemTemplate = {};
         componentStyler(".Generic.itemTemplate")(paramItemTemplate);
 
@@ -106,7 +105,7 @@ const pgApprovalWorklist = extend(Page)(
         });
         componentStyler(".Generic.horizontalLine")(recHorizontalLine);
 
-        //adding files to repeatbox's itemtemplate
+        // adding files to repeatbox's itemtemplate
         rptApprovalList.itemTemplate.add(imgAvatar);
         rptApprovalList.itemTemplate.add(recVerticalLine);
         rptApprovalList.itemTemplate.add(lblFullName);
@@ -116,7 +115,7 @@ const pgApprovalWorklist = extend(Page)(
         rptApprovalList.itemTemplate.add(recHorizontalLine);
         rptApprovalList.itemTemplate.fillColor = colors.GrayLighter;
 
-        //activeItemTemplate
+        // activeItemTemplate
         var imgAvatar2 = imgAvatar.clone();
         var recVerticalLine2 = recVerticalLine.clone();
         var lblFullName2 = lblFullName.clone();
@@ -125,10 +124,6 @@ const pgApprovalWorklist = extend(Page)(
         var imgDetail2 = imgDetail.clone();
         var recHorizontalLine2 = recHorizontalLine.clone();
 
-        rptApprovalList.activeItemTemplate.height = getUnit({
-            iOS: (Device.screenHeight - 64) / 7,
-            Android: 80
-        });
         rptApprovalList.activeItemTemplate.add(imgAvatar2);
         rptApprovalList.activeItemTemplate.add(recVerticalLine2);
         rptApprovalList.activeItemTemplate.add(lblFullName2);
@@ -140,7 +135,7 @@ const pgApprovalWorklist = extend(Page)(
 
         rptApprovalList.pullDownItem.height = '8%';
 
-        //onRowRender will work for each item bound
+        // onRowRender will work for each item bound
         rptApprovalList.onRowRender = function(e) {
             // {
             // 'ID' : 1,
@@ -191,10 +186,10 @@ const pgApprovalWorklist = extend(Page)(
         };
 
 
-        //adding repeatbox to the page
+        // adding repeatbox to the page
         this.add(rptApprovalList);
 
-        //adding label for no-data
+        // adding label for no-data
         var lblNoData = new SMF.UI.Label({
             name: 'lblNoData',
             text: 'No requests found!',
@@ -246,7 +241,7 @@ const pgApprovalWorklist = extend(Page)(
         }
 
 
-        //filter requests menu item
+        // filter requests menu item
         function filterMenu(e) {
             var item1 = {
                 title: 'Waiting',
@@ -284,7 +279,7 @@ const pgApprovalWorklist = extend(Page)(
             menu1.show();
         }
 
-        //Parsing storage objects 
+        // Parsing storage objects 
         function displayApprovalRequests(status) {
             if (!(status) || (status.length == 0)) status = 'waiting';
             /*
@@ -314,7 +309,7 @@ const pgApprovalWorklist = extend(Page)(
             var parsedResponse = oRequestList;
             arrayRequests = [];
 
-            //if (parsedResponse.length > 0)
+            // if (parsedResponse.length > 0)
             // lblWelcome2.text = 'You have ' + (parsedResponse.length) + ' file(s) in your storage';
 
             for (var i = 0; i < parsedResponse.length; i++) {
@@ -346,7 +341,7 @@ const pgApprovalWorklist = extend(Page)(
             }
 
 
-            //binding objects array
+            // binding objects array
             // rptBoxObjects.pullDownItemTemplate.visible = true;
             rptApprovalList.closePullItems();
             rptApprovalList.dataSource = arrayRequests;
@@ -357,7 +352,7 @@ const pgApprovalWorklist = extend(Page)(
             rptApprovalList.visible = !(arrayRequests.length == 0);
         }
     },
-    //Page Public Methods
+    // Page Public Methods
     function(_proto) {
         // for injection of routing data
         _proto.setRouteParams = function() {};

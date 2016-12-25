@@ -1,3 +1,7 @@
+// Extended prototype functions for JavaScript's String and Date objects.
+// Some of them taken from Q&A sites, references added.
+
+
 // Returns n characters of the string from left
 if (!String.prototype.left) {
     String.prototype.left = function(n) {
@@ -18,7 +22,7 @@ if (!String.prototype.withSuffix) {
         if (!isNaN(n)) {
             var suffix = "th";
 
-            //Lets deal with small numbers
+            // Lets deal with small numbers
             var smallNumber = n % 100;
 
             if (smallNumber < 11 || smallNumber > 13) {
@@ -76,7 +80,7 @@ if (!Date.prototype.addDays) {
 
 
 // Adds formatDate to Date prototype.
-//http://stackoverflow.com/a/14638191
+// http://stackoverflow.com/a/14638191
 if (!Date.prototype.format) {
     Date.prototype.format = function(format, utc) {
         return formatDate(this, format, utc);

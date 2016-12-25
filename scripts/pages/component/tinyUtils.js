@@ -1,4 +1,5 @@
-// Tiny utils 
+// Tiny Utils functions for daily routines.
+// Some of them taken from Q&A sites, references added.daily
 
 // Returns true if the expression is a valid date, time, or datetime value
 exports.isDate = function isDate(n) {
@@ -16,7 +17,7 @@ exports.formatBytes = function formatBytes(bytes, decimals) {
 }
 
 // Days between 2 dates calculation with UTC calculations
-// Based on http://stackoverflow.com/a/11252167/4371020
+// Based on http:// stackoverflow.com/a/11252167/4371020
 function treatAsUTC(date) {
     var result = new Date(date);
     result.setMinutes(result.getMinutes() - result.getTimezoneOffset());
@@ -30,7 +31,7 @@ exports.daysBetween = function daysBetween(startDate, endDate, calculateAsHours)
 
 exports.getDateString = function getDateString(date) {
     var dd = date.getDate();
-    var mm = date.getMonth() + 1; //January is 0!
+    var mm = date.getMonth() + 1; // January is 0!
     var yy = date.getFullYear().toString().right(2);
 
     if (dd < 10) {
@@ -45,7 +46,7 @@ exports.getDateString = function getDateString(date) {
 }
 
 // This filters help us to filter or filter out arrays by ID 
-// based on https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+// based on https:// developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
 var _targetID;
 exports.setTargetID = function(targetID){
     _targetID = targetID;

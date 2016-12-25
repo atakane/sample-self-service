@@ -1,4 +1,4 @@
-// Color names are based on or inspired by http://www.color-hex.com/
+// Color names are based on or inspired by http:// www.color-hex.com/
 module.exports = {
     GrayLighter: '#e7e7e7',
     GrayLight: '#a0a0a0',
@@ -8,6 +8,7 @@ module.exports = {
     GreenDarker: '#5b9918',
     GrayDark: '#444444',
     BlueMedium: '#248afd',
+    BlueNavy:'#1961c1',
     BlueDark: '#37404a',
     White: SMF.UI.Color.WHITE,
     Pink: '#f64b95',

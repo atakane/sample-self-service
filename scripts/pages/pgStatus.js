@@ -3,20 +3,21 @@ const Page = require("js-base/component/page");
 const extend = require("js-base/core/extend");
 
 const SMFSliderDrawer = require('./component/SMFSliderDrawer.js');
+const tinyUtils = require('./component/tinyUtils.js');
+const colors = require('pages/style/colors.js');
 
+// Actionbar
 const headerBarOptions = require("./headerbar/pgStatus.headerbar.js");
 const HeaderBarWrapper = require("js-base/component/header-bar.js");
 
-const tinyUtils = require('./component/tinyUtils.js');
-
-const colors = require('pages/style/colors.js');
+// Styler
 const componentStyler = require("js-base/core/styler").componentStyler();
 
 // Router
 const router = require('js-base/core/router');
 
 const pgStatus = extend(Page)(
-    //Page Constructor
+    // Page Constructor
     function(_super) {
         _super(this, {
             name: 'pgStatus',
@@ -147,7 +148,7 @@ const pgStatus = extend(Page)(
          * @this Pages.pgStatus
          */
         function pgStatus_onShow() {
-            //We are going w/ dark mode. Our navbar is white.
+            // We are going w/ dark mode. Our navbar is white.
             SMF.UI.statusBar.style = SMF.UI.StatusBarStyle.DEFAULT;
 
             // Adding header bar (actionbar for Android, navigationbar for iOS)
@@ -158,13 +159,13 @@ const pgStatus = extend(Page)(
                     Pages.currentPage.sdSelfService.show();
             });
 
-            //Filling used days bar with a smooth animation
+            // Filling used days bar with a smooth animation
             fillUsedDaysBar();
 
-            //Fillin Vacation Metrics
+            // Fillin Vacation Metrics
             fillVacationMetrics(oTimeTable.TotalDays, oTimeTable.Used, oTimeTable.Remaining);
 
-            //Writing the user's last leave-request details 
+            // Writing the user's last leave-request details 
             if ((oProfile.LeaveRequestCount) && !isNaN(oProfile.LeaveRequestCount) && (oProfile.LeaveRequestCount > 0)) {
                 lblNewRequestText.text = 'You have ' + oProfile.LeaveRequestCount + ' request(s) in total. The last one is on';
                 lblNewRequestTextDate.text = (new Date(oProfile.LastRequestStartDate)).format('MM/dd/yyyy');
@@ -196,7 +197,7 @@ const pgStatus = extend(Page)(
                 motionEase: SMF.UI.MotionEase.DECELERATING,
                 duration: 700,
                 onFinish: function() {
-                    //do your action after finishing the animation
+                    // do your action after finishing the animation
                 }
             });
         }
@@ -279,7 +280,7 @@ const pgStatus = extend(Page)(
         }
 
     },
-    //Page Public Methods
+    // Page Public Methods
     function(_proto) {
         // for injection of routing data
         _proto.setRouteParams = function() {};
