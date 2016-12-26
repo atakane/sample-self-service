@@ -26,7 +26,7 @@ module.exports = {
             width: '80%',
             height: '8%',
             placeHolder: lang['pgLogin.txtUserName.placeHolder'],
-            text: 'test',
+            text: '',
             horizontalGap: 15,
             roundedEdge: 0
         },
@@ -36,7 +36,7 @@ module.exports = {
             width: '80%',
             height: '8%',
             placeHolder: lang['pgLogin.txtPassword.placeHolder'],
-            text: 'Smartface1',
+            text: '',
             isPassword: true,
             horizontalGap: 15,
             roundedEdge: 0
