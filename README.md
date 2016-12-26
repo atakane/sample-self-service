@@ -1,5 +1,5 @@
 <h3 align="center">
-  <img height=75 src="https://github.com/smartface/sample-self-service/blob/master/temp/smartface_logo.png" alt="smartface Logo" />
+  <img height=75 src="https://github.com/smartface/sample-self-service/blob/v2.0.0/temp/smartface_logo.png" alt="smartface Logo" />
 </h3>
 
 # Self Service from Smartface
@@ -8,20 +8,20 @@
 
 A sample app to demonstrate Smartface and Oracle EBS/Fusion integration. You can freely use the code in your apps.
 
-<img width=250 src="https://github.com/smartface/sample-self-service/blob/master/temp/sc1.png">
-<img width=250 src="https://github.com/smartface/sample-self-service/blob/master/temp/sc2.png" hspace="30">
-<img width=250 src="https://github.com/smartface/sample-self-service/blob/master/temp/sc3.png">
+<img width=250 src="https://github.com/smartface/sample-self-service/blob/v2.0.0/temp/sc1.png">
+<img width=250 src="https://github.com/smartface/sample-self-service/blob/v2.0.0/temp/sc2.png" hspace="30">
+<img width=250 src="https://github.com/smartface/sample-self-service/blob/v2.0.0/temp/sc3.png">
 
 ## How to Use
 This version works with mock-ebs services. To use all functionality in this app, please follow these steps;
-* Change the [mock services](https://github.com/smartface/sample-self-service/tree/master/_self-service-mock/) to match-up with your Real services.
+* Change the [mock services](https://github.com/smartface/sample-self-service/tree/v2.0.0/_self-service-mock/) to match-up with your Real services.
 * If you dont have, setup an account on [Oracle Cloud](https://cloud.oracle.com).
 * Create a new mobile backend for your project
 * Create separate mobile backend clients for your target platforms (Android and iOS)
 * Get tokens and keys for that backend from Oracle MCS dashboard
-* Write your tokens and keys into [`libs/Oracle/oracle_mobile_cloud_config.js`](https://github.com/smartface/sample-file-manager/blob/master/scripts/libs/Oracle/oracle_mobile_cloud_config.js)
-* If you want to use Push Notifications, update `googleCloudMessaging` value in [`config/project.json`] (https://github.com/smartface/sample-file-manager/blob/master/config/project.json). You need to get your Sender ID from your Google GCM / Firebase account. It is recommended to read our detailed [Push Notification Services Guide](https://smartface.atlassian.net/wiki/display/GUIDE/Push+Notification+Services)
-* To use Remote App Update feature update your [`config/project.rau.json`](https://github.com/smartface/sample-file-manager/blob/master/config/project.rau.json) You can unleash your app's power by reading [Remote App Update Guides](https://smartface.atlassian.net/wiki/display/GUIDE/Remote+App+Update+Guides)
+* Write your tokens and keys into [`libs/Oracle/oracle_mobile_cloud_config.js`](https://github.com/smartface/sample-self-service/blob/v2.0.0/scripts/libs/Oracle/oracle_mobile_cloud_config.js)
+* If you want to use Push Notifications, update `googleCloudMessaging` value in [`config/project.json`] (https://github.com/smartface/sample-self-service/blob/v2.0.0/config/project.json). You need to get your Sender ID from your Google GCM / Firebase account. It is recommended to read our detailed [Push Notification Services Guide](https://smartface.atlassian.net/wiki/display/GUIDE/Push+Notification+Services)
+* To use Remote App Update feature update your [`config/project.rau.json`](https://github.com/smartface/sample-self-service/blob/master/config/project.rau.json) You can unleash your app's power by reading [Remote App Update Guides](https://smartface.atlassian.net/wiki/display/GUIDE/Remote+App+Update+Guides)
 * Integrate your EBS rest services to MCS custom connectors, and relay from there.
 
 ## Dependencies
