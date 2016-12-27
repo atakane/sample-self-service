@@ -62,7 +62,7 @@ module.exports = {
         },
         ".boxDaysText2": {
             left: 0,
-            top: 73,
+            top: '73%',
             width: '100%',
             height: '20%'
         },
@@ -74,6 +74,10 @@ module.exports = {
             borderWidth: 1,
             borderColor: colors.Gray,
             roundedEdge: 0
+        },
+        ".lblTotalDaysText": {
+            top: '0%',
+            height: '30%'
         },
         ".lblTotalDays": {
             fontColor: colors.Gray

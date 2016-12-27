@@ -129,7 +129,7 @@ const pgLogin = extend(Page)(
                     // analytics log for auth.
                     smfOracle.logAnalytics('user authenticated');
 
-                    Dialog.showWait();
+                   // Dialog.showWait();
 
                     // Registering for Push notification
 
@@ -182,7 +182,7 @@ const pgLogin = extend(Page)(
         function getUserInfo() {
             // Get self service details from EBS service
             // For now we're going dummy
-            Dialog.showWait();
+           // Dialog.showWait();
 
             getDataFromService(function() {
                 // Routing to the Status Page

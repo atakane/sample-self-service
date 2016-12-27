@@ -232,7 +232,7 @@ const pgMyRequests = extend(Page)(
          */
         function pgMyRequests_onKeyPress(e) {
             if (e.keyCode === 4) {
-                Pages.back(reverseDefaultPageAnimation);
+                router.back();
             }
         }
 

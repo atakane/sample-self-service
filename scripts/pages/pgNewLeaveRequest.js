@@ -130,6 +130,7 @@ const pgNewLeaveRequest = extend(Page)(
         var lblStartDate = new SMF.UI.Label({
             name: 'lblStartDate',
             text: '-',
+            touchEnabled : true,
             onTouchEnded: function() {
                 showDateTimePicker(true);
             }
@@ -170,6 +171,7 @@ const pgNewLeaveRequest = extend(Page)(
         var lblEndDate = new SMF.UI.Label({
             name: 'lblEndDate',
             text: '',
+            touchEnabled : true,
             onTouchEnded: function() {
                 showDateTimePicker(false);
             }
@@ -493,7 +495,9 @@ const pgNewLeaveRequest = extend(Page)(
                         setDateLabels(newEndDate, false);
 
                         // disabling EndDate, it should be same as StartDate
+                        Pages.currentPage.cntStarts.lblStartDate.fontColor = colors.GrayLight;
                         Pages.currentPage.cntEnds.lblEndDate.fontColor = colors.GrayLight;
+                        Pages.currentPage.cntStarts.lblStartDate.touchEnabled = false;
                         Pages.currentPage.cntEnds.lblEndDate.touchEnabled = false;
 
                         Pages.currentPage.cntStarts.lblStartTime.touchEnabled = true;
@@ -518,7 +522,9 @@ const pgNewLeaveRequest = extend(Page)(
 
 
                         // enabling EndDate access
+                        Pages.currentPage.cntStarts.lblStartDate.fontColor = colors.Gray29;
                         Pages.currentPage.cntEnds.lblEndDate.fontColor = colors.Gray29;
+                        Pages.currentPage.cntStarts.lblStartDate.touchEnabled = true;
                         Pages.currentPage.cntEnds.lblEndDate.touchEnabled = true;
 
                         // disabling Start & End Time
@@ -551,7 +557,7 @@ const pgNewLeaveRequest = extend(Page)(
 
             var lblTotalDaysText = new SMF.UI.Label({
                 name: 'lblTotalDaysText',
-                text: lang[ 'pgStatus.boxTotal']
+                text: lang['pgStatus.boxTotal']
             });
             componentStyler(".textCenter .5pt .Generic.lblTotalDays .Generic.lblTotalDaysText")(lblTotalDaysText);
             boxTotalDays.add(lblTotalDaysText);
@@ -598,7 +604,7 @@ const pgNewLeaveRequest = extend(Page)(
 
             var lblRemainingDaysText = new SMF.UI.Label({
                 name: 'lblRemainingDaysText',
-                text:  lang['pgStatus.boxRem']
+                text: lang['pgStatus.boxRem']
             });
             componentStyler(".textCenter .5pt .Generic.lblTotalDaysText .Generic.lblRemainingDays")(lblRemainingDaysText);
             boxRemaining.add(lblRemainingDaysText);

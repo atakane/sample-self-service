@@ -1,4 +1,5 @@
 const ActionWrapper = require("js-base/component/header-bar");
+const colors = require("pages/style/colors.js");
 var eventCallback;
 const options = {
   visible: true,
