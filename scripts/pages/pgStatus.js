@@ -169,10 +169,12 @@ const pgStatus = extend(Page)(
             if ((oProfile.LeaveRequestCount) && !isNaN(oProfile.LeaveRequestCount) && (oProfile.LeaveRequestCount > 0)) {
                 lblNewRequestText.text = lang['pgStatus.lblNewRequestText.text.part1'] + oProfile.LeaveRequestCount + lang['pgStatus.lblNewRequestText.text.part2'];
                 lblNewRequestTextDate.text = (new Date(oProfile.LastRequestStartDate)).format('MM/dd/yyyy');
+                if(Device.deviceOS=='Android'){
                 var tmp1 = lblNewRequestText.text;
                 var tmp2 = lblNewRequestTextDate.text;
                 lblNewRequestText.text = lblNewRequestTextDate.text = "";
                 lblNewRequestText.attributedText = tmp1 + "<b> " + tmp2 + "</b>";
+                }
             }
             else {
                 lblNewRequestText.text = lang['pgStatus.text1'];
