@@ -1,0 +1,26 @@
+{
+  "name": "smf-js-base",
+  "description": "Smartface Core",
+  "repository": "",
+  "license": "MIT",
+  "version": "1.0.0-beta2",
+  "scripts": {
+    "test": "node ./test.js",
+    "jasmine": "jasmine"
+  },
+  "devDependencies": {
+    "eslint": "^3.9.1",
+    "jasmine": "^2.5.2",
+    "jasmine-reporters": "^2.2.0",
+    "jasmine-spec-reporter": "^2.7.0",
+    "mocha": "^3.1.2"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.16.0",
+    "deepmerge": "^1.3.1",
+    "js-extended-prototypes": "git+https://github.com/atakane/js-extended-prototypes.git#0.0.3",
+    "js-tinyutils": "git+https://github.com/atakane/js-tinyUtils.git#0.0.1",
+    "rx": "^4.1.0",
+    "smf-dialog": "^1.0.1"
+  }
+}
