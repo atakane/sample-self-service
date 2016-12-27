@@ -35,6 +35,7 @@ module.exports = {
             left: '10%',
             width: '80%',
             height: '8%',
+            text: '',
             placeHolder: lang['pgLogin.txtPassword.placeHolder'],
             
             isPassword: true,
