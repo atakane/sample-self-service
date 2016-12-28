@@ -12,7 +12,7 @@ Application.onMaximize = Application_onMaximize;
 
 // Global objects
 var smfOracle;
-var backendName = "smartfaceOracleMCS";
+var backendName = "YOUR_BACKEND_NAME";
 var oProfile;
 var oTimeTable;
 var oRequestList;
@@ -34,7 +34,7 @@ function Application_OnStart(e) {
 	// Showing the statusbar
 	SMF.UI.statusBar.visible = true;
 
-	// Creating a new Oracle MCS instance 
+	// Creating a new Oracle MCS instance
 	smfOracle = new SMF.Oracle.MobileCloudService(backendName);
 
 	// logging in as anonymous user to log Analytics events
@@ -48,7 +48,7 @@ function Application_OnStart(e) {
 }
 
 function Application_onMaximize(e) {
-	//do nothing	
+	//do nothing
 }
 
 function Application_OnError(e) {
