@@ -6,6 +6,12 @@
 |____/|_| |_| |_|\__,_|_|   \__|_|  \__,_|\___\___| (_) |_|\___/
 -----------------------------------------------------------------
 ```
+## sample-self-service v2.0.0
+
+* Style files are separated
+* Flux pattern implemented
+* Arabic support
+
 
 ## sample-self-service v1.0.1
 
