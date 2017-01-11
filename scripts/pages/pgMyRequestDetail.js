@@ -84,28 +84,28 @@ const pgMyRequestDetail = extend(Page)(
         // Request Details
         var lblLeaveTypeText = new SMF.UI.Label({
             name: 'lblLeaveTypeText',
-            text: 'LEAVE TYPE'
+            text: lang['pgNewLeaveRequest.lblLeaveTypeText.text']
         });
         componentStyler(".textLeft .7pt .pgApproveLeaveRequest.lblLeaveTypeText")(lblLeaveTypeText);
         this.add(lblLeaveTypeText);
 
         var lblTimeUnitText = new SMF.UI.Label({
             name: 'lblTimeUnitText',
-            text: 'TIME UNIT'
+            text: lang['pgNewLeaveRequest.lblTimeUnitText.text']
         });
         componentStyler(".textRight .7pt .pgApproveLeaveRequest.lblLeaveTypeText .pgApproveLeaveRequest.lblTimeUnitText")(lblTimeUnitText);
         this.add(lblTimeUnitText);
 
         var lblLeaveType = new SMF.UI.Label({
             name: 'lblLeaveType',
-            text: 'PERSONAL'
+            text: lang['pgNewLeaveRequest.lblLeaveType.text']
         });
         componentStyler(".textLeft .10pt .pgApproveLeaveRequest.lblLeaveType")(lblLeaveType);
         this.add(lblLeaveType);
 
         var lblTimeUnit = new SMF.UI.Label({
             name: 'lblTimeUnit',
-            text: 'DAY'
+            text: lang['pgNewLeaveRequest.lblTimeUnit.text']
         });
         componentStyler(".textRight .10pt .pgApproveLeaveRequest.lblLeaveType .pgApproveLeaveRequest.lblTimeUnit")(lblTimeUnit);
         this.add(lblTimeUnit);
@@ -113,7 +113,7 @@ const pgMyRequestDetail = extend(Page)(
         // Start Date
         var lblStart = new SMF.UI.Label({
             name: 'lblStart',
-            text: 'STARTS'
+            text: lang['pgOutOfOffice.lblStart.text']
         });
         componentStyler(".textLeft .7pt .pgApproveLeaveRequest.lblStart")(lblStart);
         this.add(lblStart);
@@ -135,7 +135,7 @@ const pgMyRequestDetail = extend(Page)(
         // End Date
         var lblEnd = new SMF.UI.Label({
             name: 'lblEnd',
-            text: 'ENDS'
+            text: lang['pgOutOfOffice.lblEnd.text']
         });
         componentStyler(".textRight .7pt .pgApproveLeaveRequest.lblEnd")(lblEnd);
         this.add(lblEnd);
@@ -185,7 +185,7 @@ const pgMyRequestDetail = extend(Page)(
         // Leave Details Title
         var lblDescription = new SMF.UI.Label({
             name: 'lblDescription',
-            text: 'DESCRIPTION'
+            text: lang['pgApproveLeaveRequest.lblStart.desc']
         });
         componentStyler(".textLeft .7pt .pgOutOfOffice.lblOutOfOfficeMessage .pgApproveLeaveRequest.lblDescription")(lblDescription);
         this.add(lblDescription);
@@ -206,10 +206,10 @@ const pgMyRequestDetail = extend(Page)(
             height: '9.5952%',
             onPressed: function(e) {
                 alert({
-                    title: 'Warning!',
-                    message: 'Do you want to delete this request?',
-                    firstButtonText: 'Delete',
-                    secondButtonText: 'Cancel',
+                    title: lang['pgOutOfOffice.btnSave.onPressed.title'],
+                    message: lang[ 'pgMyRequestDetail.btnDelete.onPressed.message'],
+                    firstButtonText: lang['pgMyRequestDetail.btnDelete.onPressed.firstButtonText'],
+                    secondButtonText: lang['pgOutOfOffice.btnSave.onPressed.secondButtonText'],
                     onFirstButtonPressed: function() {
 
                         // console.log(self, self.state);
@@ -220,9 +220,9 @@ const pgMyRequestDetail = extend(Page)(
                         oProfile.LeaveRequestCount = oProfile.LeaveRequestCount - 1;
 
                         alert({
-                            title: 'Request deleted',
-                            message: 'This leave request deleted.',
-                            firstButtonText: 'OK',
+                            title: lang[ 'pgMyRequestDetail.btnDelete.onPressed. onFirstButtonPressed.title'],
+                            message: lang['pgMyRequestDetail.btnDelete.onPressed. onFirstButtonPressed.message'],
+                            firstButtonText: lang['pgNewLeaveRequest.btnSave.onPressed. onFirstButtonPressed.text'],
                             onFirstButtonPressed: function() {
                                 router.back();
                             }
@@ -306,7 +306,7 @@ const pgMyRequestDetail = extend(Page)(
                     selectedStartDate = date;
                 }
                 else {
-                    alert('"Start Date" should be prior to "End Date"');
+                    alert(lang['pgOutOfOffice.alert.startDate']);
                 }
             }
             else {
@@ -315,7 +315,7 @@ const pgMyRequestDetail = extend(Page)(
                     selectedEndDate = date;
                 }
                 else {
-                    alert('"End Date" should be after "Start Date"');
+                    alert(lang['pgOutOfOffice.alert.endDate']);
                 }
 
             }
@@ -325,14 +325,14 @@ const pgMyRequestDetail = extend(Page)(
         // Calculates the day-count between Start and End Dates
         this.calculateDaysBetween = function() {
             var count, countText;
-            if (lblTimeUnit.text === 'DAY') {
+            if (lblTimeUnit.text === lang['pgNewLeaveRequest.lblTimeUnit.text']) {
                 count = tinyUtils.daysBetween(selectedStartDate.format('MM/dd/yyyy'), selectedEndDate.format('MM/dd/yyyy'));
-                countText = (count > 1) ? 'days' : 'day';
+                countText = (count > 1) ? lang['pgOutOfOffice.cntBlueBox.lblSelectedDaysCountText.days'] : lang['pgOutOfOffice.cntBlueBox.lblSelectedDaysCountText.day'];
 
             }
             else {
                 count = tinyUtils.daysBetween(selectedStartDate, selectedEndDate, true) - ((selectedEndDate.format('HH') < 13) ? 0 : lunchBreakDuration);
-                countText = (count > 1) ? 'hours' : 'hour';
+                countText = (count > 1) ? lang['pgOutOfOffice.cntBlueBox.lblSelectedDaysCountText.hours'] : lang['pgOutOfOffice.cntBlueBox.lblSelectedDaysCountText.hour'];
                 lblStartTime.text = selectedStartDate.format('HH:mm TT');
                 lblEndTime.text = selectedEndDate.format('HH:mm TT');
             }
@@ -358,7 +358,7 @@ const pgMyRequestDetail = extend(Page)(
 
             var lblTotalDaysText = new SMF.UI.Label({
                 name: 'lblTotalDaysText',
-                text: 'Total'
+                text: lang[ 'pgStatus.boxTotal']
             });
             componentStyler(".textCenter .5pt .Generic.lblTotalDays .Generic.lblTotalDaysText")(lblTotalDaysText);
             boxTotalDays.add(lblTotalDaysText);
@@ -378,7 +378,7 @@ const pgMyRequestDetail = extend(Page)(
 
             var lblUsedDaysText = new SMF.UI.Label({
                 name: 'lblTotalDaysText',
-                text: 'Used'
+                text: lang['pgStatus.boxUsed']
             });
             componentStyler(".textCenter .5pt .Generic.lblTotalDaysText .Generic.lblUsedDays")(lblUsedDaysText);
             boxUsed.add(lblUsedDaysText);
@@ -405,7 +405,7 @@ const pgMyRequestDetail = extend(Page)(
 
             var lblRemainingDaysText = new SMF.UI.Label({
                 name: 'lblRemainingDaysText',
-                text: 'Rem.'
+                text:  lang['pgStatus.boxRem']
             });
             componentStyler(".textCenter .5pt .Generic.lblTotalDaysText .Generic.lblRemainingDays")(lblRemainingDaysText);
             boxRemaining.add(lblRemainingDaysText);

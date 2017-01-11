@@ -29,7 +29,7 @@ const pgApprovalWorklist = extend(Page)(
             backgroundImage: 'stripe.png'
         });
 
-        headerBarOptions.setTitle('Approval Worklist');
+        headerBarOptions.setTitle(lang['pgApprovalWorklist.headerBar.setTitleView.titleText']);
         const headerBarWrapper = HeaderBarWrapper(this._view, headerBarOptions.options);
 
         // Creating Slider Drawer
@@ -160,14 +160,14 @@ const pgApprovalWorklist = extend(Page)(
             var days = tinyUtils.daysBetween(startDate, endDate);
 
             var leaveDetails, leaveText;
-            if (arrayRequests[e.rowIndex].TimeUnit === 'DAY') {
+            if (arrayRequests[e.rowIndex].TimeUnit === lang['pgNewLeaveRequest.lblTimeUnit.text']) {
                 var days = tinyUtils.daysBetween(startDate.format('MM/dd/yyyy'), endDate.format('MM/dd/yyyy'));
-                leaveDetails = arrayRequests[e.rowIndex].LeaveType + ', ' + days + ' ' + ((days > 1) ? 'days' : 'day');
+                leaveDetails = arrayRequests[e.rowIndex].LeaveType + ', ' + days + ' ' + ((days > 1) ? lang['pgOutOfOffice.cntBlueBox.lblSelectedDaysCountText.days'] : lang['pgOutOfOffice.cntBlueBox.lblSelectedDaysCountText.day']);
                 leaveText = ('{0}, starts {1}').format(leaveDetails, startDate.format('ddd, MMM. d'));
             }
             else {
                 var hours = tinyUtils.daysBetween(startDate, endDate, true) - ((endDate.format('HH') < 13) ? 0 : lunchBreakDuration);
-                leaveDetails = arrayRequests[e.rowIndex].LeaveType + ', ' + hours + ' ' + ((hours > 1) ? 'hours' : 'hour');
+                leaveDetails = arrayRequests[e.rowIndex].LeaveType + ', ' + hours + ' ' + ((hours > 1) ? lang['pgOutOfOffice.cntBlueBox.lblSelectedDaysCountText.hours'] : lang['pgOutOfOffice.cntBlueBox.lblSelectedDaysCountText.hour']);
                 leaveText = ('{0}, at {1}').format(leaveDetails, startDate.format('ddd, MMM. d, HH:mm'));
             }
 
@@ -192,7 +192,7 @@ const pgApprovalWorklist = extend(Page)(
         // adding label for no-data
         var lblNoData = new SMF.UI.Label({
             name: 'lblNoData',
-            text: 'No requests found!',
+            text: lang['pgApprovalWorklist.lblNoData.text'],
         });
         componentStyler(".allArea .textCenter .7pt .Generic.lblNoData")(lblNoData);
         this.add(lblNoData);
@@ -244,21 +244,21 @@ const pgApprovalWorklist = extend(Page)(
         // filter requests menu item
         function filterMenu(e) {
             var item1 = {
-                title: 'Waiting',
+                title: lang['pgApprovalWorklist.item1.title'],
                 icon: 'icon.png', // Andrid 3.0- only
                 onSelected: function(e) {
                     displayApprovalRequests('waiting');
                 }
             };
             var item2 = {
-                title: 'Approved',
+                title: lang['pgApprovalWorklist.item2.title'],
                 icon: 'icon.png', // Andrid 3.0- only
                 onSelected: function(e) {
                     displayApprovalRequests('approved');
                 }
             }
             var item3 = {
-                title: 'Rejected',
+                title: lang['pgApprovalWorklist.item3.title'],
                 icon: 'icon.png', // Andrid 3.0- only
                 onSelected: function(e) {
                     displayApprovalRequests('rejected');
@@ -266,7 +266,7 @@ const pgApprovalWorklist = extend(Page)(
             }
 
             var item4 = {
-                title: 'Cancel',
+                title: lang['pgOutOfOffice.btnSave.onPressed.secondButtonText'],
                 itemType: SMF.UI.MenuItemType.cancel, //  iOS Only
                 onSelected: function(e) {}
             };

@@ -25,8 +25,8 @@ module.exports = {
             left: '10%',
             width: '80%',
             height: '8%',
-            placeHolder: 'Username',
-            text: 'test',
+            placeHolder: lang['pgLogin.txtUserName.placeHolder'],
+            text: '',
             horizontalGap: 15,
             roundedEdge: 0
         },
@@ -35,8 +35,9 @@ module.exports = {
             left: '10%',
             width: '80%',
             height: '8%',
-            placeHolder: 'Password',
-            text: 'Smartface1',
+            text: '',
+            placeHolder: lang['pgLogin.txtPassword.placeHolder'],
+            keyboardType: SMF.UI.TextBox.KeyboardType.TEXTNOSUGGESTIONS,
             isPassword: true,
             horizontalGap: 15,
             roundedEdge: 0
@@ -46,7 +47,7 @@ module.exports = {
             left: '10%',
             width: '80%',
             height: '8%',
-            text: 'Login',
+            text: lang['pgLogin.btnLogin.text'],
             textAlignment: SMF.UI.TextAlignment.CENTER,
             roundedEdge: 1
         },

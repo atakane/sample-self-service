@@ -73,7 +73,7 @@ const pgOutOfOffice = extend(Page)(
         var swtOutOfOffice = new SMF.UI.SwitchButton({
             name: 'swtOutOfOffice',
             onChange: function(e) {
-                Pages.currentPage.lblOOOStatusText.text = this.checked == true ? 'Mode On' : 'Mode Off';
+                Pages.currentPage.lblOOOStatusText.text = this.checked == true ? lang['pgOutOfOffice.lblOOOStatusText.on'] : lang['pgOutOfOffice.lblOOOStatusText.off'];
                 Pages.currentPage.lblOOOStatusText.fontColor = this.checked == true ? colors.GreenDark : colors.BlueDark
                 Pages.currentPage.recOverlay.visible = !this.checked;
             }
@@ -84,14 +84,14 @@ const pgOutOfOffice = extend(Page)(
         // Status Texts
         var lblOOOStatusTitle = new SMF.UI.Label({
             name: 'lblOOOStatusTitle',
-            text: 'Out Of Office'
+            text: lang['pgStatus.lblOOOStatusTitle2.text']
         });
         componentStyler(".textCenter .7pt .pgOutOfOffice.lblOOOStatusTitle")(lblOOOStatusTitle);
         this.add(lblOOOStatusTitle);
 
         var lblOOOStatusText = new SMF.UI.Label({
             name: 'lblOOOStatusText',
-            text: 'Mode Off'
+            text: lang['pgOutOfOffice.lblOOOStatusText.off']
         });
         componentStyler(".textCenter .7pt .pgOutOfOffice.lblOOOStatusText")(lblOOOStatusText);
         this.add(lblOOOStatusText);
@@ -99,7 +99,7 @@ const pgOutOfOffice = extend(Page)(
         // Start Date
         var lblStart = new SMF.UI.Label({
             name: 'lblStart',
-            text: 'STARTS'
+            text: lang['pgOutOfOffice.lblStart.text']
         });
         componentStyler(".textLeft .7pt .pgOutOfOffice.lblStart .pgOutOfOffice.level1Top")(lblStart);
         this.add(lblStart);
@@ -132,7 +132,7 @@ const pgOutOfOffice = extend(Page)(
         // End Date
         var lblEnd = new SMF.UI.Label({
             name: 'lblEnd',
-            text: 'ENDS'
+            text: lang['pgOutOfOffice.lblEnd.text']
         });
         componentStyler(".textRight .7pt .pgOutOfOffice.lblEnd .pgOutOfOffice.level1Top")(lblEnd);
         this.add(lblEnd);
@@ -175,7 +175,7 @@ const pgOutOfOffice = extend(Page)(
 
         var lblSelectedDaysCountText = new SMF.UI.Label({
             name: 'lblSelectedDaysCountText',
-            text: 'day'
+            text: lang['pgOutOfOffice.cntBlueBox.lblSelectedDaysCountText.day']
         });
         componentStyler(".textCenter .7pt .pgOutOfOffice.lblSelectedDaysCountText")(lblSelectedDaysCountText);
         cntBlueBox.add(lblSelectedDaysCountText);
@@ -184,7 +184,7 @@ const pgOutOfOffice = extend(Page)(
         // Out Off Office Message Section        
         var lblOutOfOfficeMessage = new SMF.UI.Label({
             name: 'lblOutOfOfficeMessage',
-            text: 'OUT OF OFFICE MESSAGE'
+            text: lang['pgOutOfOffice.lblOutOfOfficeMessage.text']
         });
         componentStyler(".textLeft .7pt .pgOutOfOffice.lblOutOfOfficeMessage")(lblOutOfOfficeMessage);
         this.add(lblOutOfOfficeMessage);
@@ -207,10 +207,10 @@ const pgOutOfOffice = extend(Page)(
             height: '9.5952%',
             onPressed: function(e) {
                 alert({
-                    title: 'Warning!',
-                    message: 'Do you want to update your "Out of Office" status?',
-                    firstButtonText: 'Update',
-                    secondButtonText: 'Cancel',
+                    title: lang['pgOutOfOffice.btnSave.onPressed.title'],
+                    message: lang['pgOutOfOffice.btnSave.onPressed.message'],
+                    firstButtonText: lang['pgOutOfOffice.btnSave.onPressed.firstButtonText'],
+                    secondButtonText: lang['pgOutOfOffice.btnSave.onPressed.secondButtonText'],
                     onFirstButtonPressed: function() {
                         oProfile.OutOfOffice = Pages.currentPage.swtOutOfOffice.checked;
                         oProfile.OutOfOfficeMessage = Pages.currentPage.txtOutOfOfficeMessage.text;
@@ -218,7 +218,7 @@ const pgOutOfOffice = extend(Page)(
                         oProfile.OutOfOfficeStart = selectedStartDate;
                         oProfile.OutOfOfficeEnd = selectedEndDate;
 
-                        alert('Your "Out of Office" status has been updated.');
+                        alert(lang['pgOutOfOffice.btnSave.onPressed. onFirstButtonPressed']);
                     },
                     onSecondButtonPressed: function() {}
                 });
@@ -259,7 +259,7 @@ const pgOutOfOffice = extend(Page)(
             Dialog.removeWait();
 
             // Adding header bar (actionbar for Android, navigationbar for iOS)
-            headerBarOptions.setTitle('Out of Office');
+            headerBarOptions.setTitle(lang['pgStatus.lblOOOStatusTitle2.text']);
             headerBarWrapper.reload();
             headerBarOptions.eventCallback(function(e) {
                 if (e.type == "menu")
@@ -338,7 +338,7 @@ const pgOutOfOffice = extend(Page)(
                     selectedStartDate = date;
                 }
                 else {
-                    alert('"Start Date" should be prior to "End Date"');
+                    alert(lang['pgOutOfOffice.alert.startDate']);
                 }
             }
             else {
@@ -348,7 +348,7 @@ const pgOutOfOffice = extend(Page)(
                     setInitialOutOfficeText();
                 }
                 else {
-                    alert('"End Date" should be after "Start Date"');
+                    alert(lang['pgOutOfOffice.alert.endDate']);
                 }
 
             }
@@ -359,7 +359,7 @@ const pgOutOfOffice = extend(Page)(
         function calculateDaysBetween() {
             var days = tinyUtils.daysBetween(selectedStartDate, selectedEndDate).toFixed(0);
             cntBlueBox.lblSelectedDaysCount.text = days;
-            cntBlueBox.lblSelectedDaysCountText.text = (days == 1) ? 'day' : 'days';
+            cntBlueBox.lblSelectedDaysCountText.text = (days == 1) ? lang['pgOutOfOffice.cntBlueBox.lblSelectedDaysCountText.day'] : lang['pgOutOfOffice.cntBlueBox.lblSelectedDaysCountText.days'];
         }
     },
     // Page Public Methods

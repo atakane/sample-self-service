@@ -1,4 +1,4 @@
-/* globals smfOracle oTimeTable oProfile*/
+/* globals smfOracle oTimeTable oProfile fingerPrintStatus*/
 const Page = require("js-base/component/page");
 const extend = require("js-base/core/extend");
 
@@ -89,21 +89,21 @@ const pgStatus = extend(Page)(
 
         var lblOOOStatusTitle = new SMF.UI.Label({
             name: 'lblOOOStatusTitle',
-            text: 'OUT OF OFFICE STATUS',
+            text: lang['pgStatus.lblOOOStatusTitle.text'],
         });
         componentStyler(".textLeft .7pt .pgStatus.cntOutOfOfficeBar.lblOOOStatusTitle")(lblOOOStatusTitle);
         cntOutOfOfficeBar.add(lblOOOStatusTitle);
 
         var lblOOOStatusTitle2 = new SMF.UI.Label({
             name: 'lblOOOStatusTitle2',
-            text: 'Out Of Office',
+            text: lang['pgStatus.lblOOOStatusTitle2.text'],
         });
         componentStyler(".textLeft .7pt .pgStatus.cntOutOfOfficeBar.lblOOOStatusTitle2")(lblOOOStatusTitle2);
         cntOutOfOfficeBar.add(lblOOOStatusTitle2);
 
         var lblOOOStatusText = new SMF.UI.Label({
             name: 'lblOOOStatusText',
-            text: 'Mode Off'
+            text: lang['pgOutOfOffice.lblOOOStatusText.off']
         });
         componentStyler(".textLeft .7pt .pgStatus.cntOutOfOfficeBar.lblOOOStatusText")(lblOOOStatusText);
         cntOutOfOfficeBar.add(lblOOOStatusText);
@@ -167,11 +167,17 @@ const pgStatus = extend(Page)(
 
             // Writing the user's last leave-request details 
             if ((oProfile.LeaveRequestCount) && !isNaN(oProfile.LeaveRequestCount) && (oProfile.LeaveRequestCount > 0)) {
-                lblNewRequestText.text = 'You have ' + oProfile.LeaveRequestCount + ' request(s) in total. The last one is on';
+                lblNewRequestText.text = lang['pgStatus.lblNewRequestText.text.part1'] + oProfile.LeaveRequestCount + lang['pgStatus.lblNewRequestText.text.part2'];
                 lblNewRequestTextDate.text = (new Date(oProfile.LastRequestStartDate)).format('MM/dd/yyyy');
+                if(Device.deviceOS=='Android'){
+                var tmp1 = lblNewRequestText.text;
+                var tmp2 = lblNewRequestTextDate.text;
+                lblNewRequestText.text = lblNewRequestTextDate.text = "";
+                lblNewRequestText.attributedText = tmp1 + "<b> " + tmp2 + "</b>";
+                }
             }
             else {
-                lblNewRequestText.text = 'You don\'t have any upcoming leave request.';
+                lblNewRequestText.text = lang['pgStatus.text1'];
                 lblNewRequestTextDate.text = '';
             }
 
@@ -179,13 +185,29 @@ const pgStatus = extend(Page)(
             Pages.currentPage.imgAvatar.image = Pages.currentPage.sdSelfService.cntGeneral.cntTop.imgSliderAvatar.image = oProfile.Avatar;
             Pages.currentPage.lblFullName.text = Pages.currentPage.sdSelfService.cntGeneral.cntTop.lblSliderFullName.text = oProfile.FullName;
             Pages.currentPage.lblTeamRole.text = Pages.currentPage.sdSelfService.cntGeneral.cntTop.lblSliderTeamRole.text = oProfile.Role + ' / ' + oProfile.Team;
-            Pages.currentPage.cntOutOfOfficeBar.lblOOOStatusText.text = (oProfile.OutOfOffice) ? 'Mode On' : 'Mode Off';
+            Pages.currentPage.cntOutOfOfficeBar.lblOOOStatusText.text = (oProfile.OutOfOffice) ? lang['pgOutOfOffice.lblOOOStatusText.on'] : lang['pgOutOfOffice.lblOOOStatusText.off'];
             Pages.currentPage.cntOutOfOfficeBar.lblOOOStatusText.fontColor = (oProfile.OutOfOffice) ? colors.GreenDark : colors.BlueDark;
 
             // Oracle MCS Analytics logging 
             smfOracle.logAndFlushAnalytics('pgStatus_onShow');
 
             tinyUtils.fixOverlayBug();
+            
+            //if device can use TouchID ask to user 
+                        if (Device.canEvaluateFingerPrint && fingerPrintStatus != 'allowed') {
+                alert({
+                    title: lang['alerttitle'],
+                    message: lang['alertmessage'],
+                    firstButtonText: lang['yes'],
+                    secondButtonText: lang['no'],
+                    onFirstButtonPressed: function() {
+                        SMF.setVariable("fingerPrintStatus", 'allowed', true, false);
+                    },
+                    onSecondButtonPressed: function() {
+                        SMF.setVariable("fingerPrintStatus", 'notallowed', true, false);
+                    }
+                })
+            }
         }
 
         // Used days bar
@@ -218,7 +240,7 @@ const pgStatus = extend(Page)(
 
             var lblTotalDaysText = new SMF.UI.Label({
                 name: 'lblTotalDaysText',
-                text: 'Total'
+                text: lang[ 'pgStatus.boxTotal']
             });
             componentStyler(".textCenter .6pt .pgStatus.boxDaysText2 .pgStatus.lblTotalDays")(lblTotalDaysText);
             boxTotalDays.add(lblTotalDaysText);
@@ -237,7 +259,7 @@ const pgStatus = extend(Page)(
 
             var lblUsedDaysText = new SMF.UI.Label({
                 name: 'lblUsedDaysText',
-                text: 'Used'
+                text: lang['pgStatus.boxUsed']
             });
             componentStyler(".textCenter .6pt .pgStatus.boxDaysText2 .pgStatus.lblUsedDays")(lblUsedDaysText);
             boxUsed.add(lblUsedDaysText);
@@ -262,7 +284,7 @@ const pgStatus = extend(Page)(
 
             var lblRemainingDaysText = new SMF.UI.Label({
                 name: 'lblRemainingDaysText',
-                text: 'Remaining'
+                text: lang['pgStatus.boxRemaining']
             });
             componentStyler(".textCenter .6pt .pgStatus.boxDaysText2 .pgStatus.lblRemainingDays")(lblRemainingDaysText);
             boxRemaining.add(lblRemainingDaysText);

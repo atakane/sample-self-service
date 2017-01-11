@@ -136,6 +136,7 @@ module.exports = {
             left: '25%',
             width: '60%',
             height: '40%',
+            top:'5%',
             fontColor: colors.BlueMedium,
             borderWidth: 0,
             backgroundTransparent: true

@@ -61,7 +61,7 @@ exports.createSliderDrawer = function(page, name) {
     // Main Menu 1
     var lblLeaveManagement = new SMF.UI.Label({
         name: 'lblLeaveManagement',
-        text: 'Leave Management'
+        text: lang['pgsliderdrawer.lblLeaveManagement.text']
     });
     componentStyler(".textLeft .8pt .sliderDrawer.lblLeaveManagement")(lblLeaveManagement);
     cntGeneral.add(lblLeaveManagement);
@@ -77,7 +77,7 @@ exports.createSliderDrawer = function(page, name) {
     // button
     var btnStatus = new SMF.UI.TextButton({
         name: 'btnStatus',
-        text: 'Status',
+        text: lang['pgsliderdrawer.btnStatus.text'],
         onPressed: function(e) {
             (Pages.currentPage === Pages.pgStatus) ? sliderDrawer.hide(): router.goTransitionless('pgStatus');
         }
@@ -104,7 +104,7 @@ exports.createSliderDrawer = function(page, name) {
     // button
     var btnNewRequest = new SMF.UI.TextButton({
         name: 'btnNewRequest',
-        text: 'New Request',
+        text: lang['pgsliderdrawer.btnRequest.text'],
         onPressed: function(e) {
             (Pages.currentPage === Pages.pgNewLeaveRequest) ? sliderDrawer.hide(): router.goTransitionless('pgNewLeaveRequest');
         }
@@ -128,7 +128,7 @@ exports.createSliderDrawer = function(page, name) {
     // button
     var btnMyRequests = new SMF.UI.TextButton({
         name: 'btnMyRequests',
-        text: 'My Requests',
+        text: lang['pgsliderdrawer.btnMyRequests.text'],
         onPressed: function(e) {
             (Pages.currentPage === Pages.pgMyRequests) ? sliderDrawer.hide(): router.goTransitionless('pgMyRequests');
         }
@@ -145,7 +145,7 @@ exports.createSliderDrawer = function(page, name) {
     // Main Menu 2
     var btnApprovals = new SMF.UI.TextButton({
         name: 'btnApprovals',
-        text: 'Approval Worklist',
+        text: lang['pgsliderdrawer.btnApprovals.text'],
         onPressed: function(e) {
             (Pages.currentPage === Pages.pgApprovalWorklist) ? sliderDrawer.hide(): router.goTransitionless('pgApprovalWorklist');
         }
@@ -162,7 +162,7 @@ exports.createSliderDrawer = function(page, name) {
     // Main Menu 3
     var btnOutOfOffice = new SMF.UI.TextButton({
         name: 'btnOutOfOffice',
-        text: 'Out Of Office',
+        text: lang['pgStatus.lblOOOStatusTitle2.text'],
         onPressed: function(e) {
             (Pages.currentPage === Pages.pgOutOfOffice) ? sliderDrawer.hide(): router.goTransitionless('pgOutOfOffice');
         }
@@ -178,7 +178,7 @@ exports.createSliderDrawer = function(page, name) {
     // Main Menu 4
     var btnAbout = new SMF.UI.TextButton({
         name: 'btnAbout',
-        text: 'About',
+        text: lang['pgsliderdrawer.btnAbout.text'],
         onPressed: function(e) {
             (Pages.currentPage === Pages.pgAbout) ? sliderDrawer.hide(): router.goTransitionless('pgAbout');
         }
@@ -194,7 +194,7 @@ exports.createSliderDrawer = function(page, name) {
     // Main Menu 5
     var btnLogout = new SMF.UI.TextButton({
         name: 'btnLogout',
-        text: 'Logout',
+        text: lang['pgsliderdrawer.btnLogout.text'],
         onPressed: function(e) {
             router.goTransitionless('pgLogin');
         }

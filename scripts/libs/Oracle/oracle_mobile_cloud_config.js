@@ -5,15 +5,15 @@ var mcs_config = {
     "smartfaceOracleMCS": {
       "default": true,
       "baseUrl": "https://smartface-mobilebel.mobileenv.em2.oraclecloud.com:443",
-      "applicationKey": Device.deviceOS === "Android" ? "a286e7b4-a765-4895-a718-e1f9a57f1c5e" : "0e891fef-57d8-443a-9532-715106182720",
+      "applicationKey": Device.deviceOS === "Android" ? "8f04c58b-df4d-41ca-8781-028e672d5b14" : "96619cfa-bc73-4b21-b7f2-5c42ef9da109",
       "authorization": {
         "basicAuth": {
-          "backendId": "4a3a3740-5071-4bfe-8821-267fd3d09f55",
+          "backendId": "e8a0764c-fc27-4a4a-96ec-ae2f5d87bd53",
           "anonymousToken": "TU9CSUxFQkVMX1NNQVJURkFDRV9NT0JJTEVfQU5PTllNT1VTX0FQUElEOmZzOXEzakltbm9iX2hw"
         },
         "oAuth": {
-          "clientId": "16199e66-4f64-4fef-90c4-7d9231ff265a",
-          "clientSecret": "sozSvQZSTOphhcljZFa0",
+          "clientId": "38c536b8-2455-4312-b7c6-52dbc1bc74dd",
+          "clientSecret": "VqySdjKwGRfTwwxRrbm7",
           "tokenEndpoint": "https://mobilebel.identity.europe.oraclecloud.com/oam/oauth2/tokens"
         },
         "facebookAuth": {

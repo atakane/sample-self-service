@@ -1,3 +1,4 @@
+const colors = require('./colors.js');
 module.exports = {
   ".Generic": {
     ".imgHome": {
@@ -12,19 +13,21 @@ module.exports = {
     ".imgCircle": {
       height: '10dp',
       width: '60dp',
-      height: '60dp'
+      height: '60dp',
+      top: '10dp'
     },
     ".verticalLine": {
       width: '1dp'
     },
     ".horizontalLine": {
-      top: 79
+      top: '79dp'
     },
     ".lblMiddleLine": {
-      top: '8%',
+      top: '41%',
+      height:'30%'
     },
     ".lblBottomLine": {
-      top: '40%',
+      top: '65%',
       height: '30%',
     },
     ".cntLittleBoxes": {
@@ -32,7 +35,7 @@ module.exports = {
     },
     ".lblTotalDays": {
       top: '2%',
-      height: '61%'
+      height: '62%'
     },
     ".lblTotalDaysText": {
       top: '65%',
@@ -61,8 +64,8 @@ module.exports = {
     },
     ".imgAdd": {
       left: '78.2777%',
-      width: 61,
-      height: 64
+      width: '61dp',
+      height: '64dp'
     }
   },
   ".pgOutOfOffice": {
@@ -121,7 +124,8 @@ module.exports = {
     ".lblStatusLetter": {
       height: '9dp',
       width: '60dp',
-      height: '60dp'
+      height: '60dp',
+      top: '10dp'
     }
   },
   ".pgNewLeaveRequest": {

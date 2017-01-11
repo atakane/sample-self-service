@@ -44,5 +44,6 @@ include('i18n/de.js');
 include('i18n/en.js');
 include('i18n/fi.js');
 include('i18n/tr.js');
+include('i18n/ar.js');
 
 SMF.i18n.switchLanguage(Device.language);

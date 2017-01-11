@@ -164,16 +164,16 @@ const pgMyRequests = extend(Page)(
             var endDate = (new Date(arrayRequests[e.rowIndex].EndDate));
 
             var leaveDetails
-            if (arrayRequests[e.rowIndex].TimeUnit === 'DAY') {
+            if (arrayRequests[e.rowIndex].TimeUnit === lang['pgNewLeaveRequest.lblTimeUnit.text']) {
                 startDate = startDate.format('MM/dd/yyyy');
                 endDate = endDate.format('MM/dd/yyyy');
 
                 var days = tinyUtils.daysBetween(startDate, endDate);
-                leaveDetails = days + ' ' + ((days > 1) ? 'days' : 'day');
+                leaveDetails = days + ' ' + ((days > 1) ? lang['pgOutOfOffice.cntBlueBox.lblSelectedDaysCountText.days'] : lang['pgOutOfOffice.cntBlueBox.lblSelectedDaysCountText.day']);
             }
             else {
                 var hours = tinyUtils.daysBetween(startDate, endDate, true) - ((endDate.format('HH') < 13) ? 0 : lunchBreakDuration);
-                leaveDetails = hours + ' ' + ((hours > 1) ? 'hours' : 'hour');
+                leaveDetails = hours + ' ' + ((hours > 1) ? lang['pgOutOfOffice.cntBlueBox.lblSelectedDaysCountText.hours'] : lang['pgOutOfOffice.cntBlueBox.lblSelectedDaysCountText.hour']);
 
                 startDate = startDate.format('MM/dd/yyyy HH:mm');
                 endDate = endDate.format('MM/dd/yyyy HH:mm');
@@ -220,7 +220,7 @@ const pgMyRequests = extend(Page)(
         // adding label for no-data
         var lblNoData = new SMF.UI.Label({
             name: 'lblNoData',
-            text: 'You dont have any "Leave Request" yet.'
+            text: lang['pgMyRequests.lblNoData.text']
         });
         componentStyler(".allArea .textCenter .7pt .Generic.lblNoData")(lblNoData);
         this.add(lblNoData);
@@ -232,7 +232,7 @@ const pgMyRequests = extend(Page)(
          */
         function pgMyRequests_onKeyPress(e) {
             if (e.keyCode === 4) {
-                Pages.back(reverseDefaultPageAnimation);
+                router.back();
             }
         }
 
@@ -246,7 +246,7 @@ const pgMyRequests = extend(Page)(
             Dialog.removeWait();
 
             // Adding header bar (actionbar for Android, navigationbar for iOS)
-            headerBarOptions.setTitle('My Leave Requests');
+            headerBarOptions.setTitle(lang['pgMyRequests.headerBar.setTitleView.titleText']);
             headerBarWrapper.reload();
             headerBarOptions.eventCallback(function(e) {
                 if (e.type == "menu")

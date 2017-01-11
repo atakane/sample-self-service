@@ -9,7 +9,7 @@ include("node_modules/js-base/utils/require.js");
 Application.onStart = Application_OnStart;
 Application.onUnhandledError = Application_OnError;
 Application.onMaximize = Application_onMaximize;
-
+ 
 // Global objects
 var smfOracle;
 var backendName = "smartfaceOracleMCS";
@@ -24,6 +24,12 @@ var isSliderDrawerOpen = false;
 var fontAwesome = new SMF.UI.Font({
 	name: 'FontAwesome'
 });
+  
+//TouchID variables
+var fingerPrintStatus = '';
+var touchIDUserName = '';
+var touchIDPassword = '';
+var fingerPrintSuccess = false;
 
 /**
  * Triggered when application is started.
@@ -43,7 +49,8 @@ function Application_OnStart(e) {
 
 	// logging an event
 	smfOracle.logAnalytics('Application_OnStart');
-
+	// get TouchID status from secure variable
+	fingerPrintStatus = SMF.getVariable("fingerPrintStatus");
 	initRequire("./main.js");
 }
 

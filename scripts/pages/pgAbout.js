@@ -58,7 +58,7 @@ const pgLogin = extend(Page)(
 
         var lblWelcome2 = new SMF.UI.Label({
             name: 'lblWelcome2',
-            text: 'Powered & secured by Oracle MCS & ICS'
+            text: lang['pgAbout.lblWelcome2.text']
         });
         componentStyler(".7pt .pgLogin.lblWelcome2")(lblWelcome2);
         this.add(lblWelcome2);
@@ -74,7 +74,7 @@ const pgLogin = extend(Page)(
         // About text
         var lblInfoText = new SMF.UI.Label({
             name: 'lblInfoText',
-            text: 'This app is an employee self-service app which is integrated with Oracle Integration Cloud Service (ICS). Through ICS, this app can be integrated with all Oracle systems such as E-Business Suite or Applications Cloud.\n\nIt is a fully native app developed with the Smartface Cloud Platform. Full source code is available and enterprises can extend this app in the cloud development environment, only with JavaScript knowledge.'
+            text: lang['pgAbout.lblInfoText.text']
         });
         componentStyler(".8pt .pgAbout.lblInfoText")(lblInfoText);
 
@@ -94,7 +94,7 @@ const pgLogin = extend(Page)(
             Dialog.removeWait();
 
             // Adding header bar (actionbar for Android, navigationbar for iOS)
-            headerBarOptions.setTitle('About');
+            headerBarOptions.setTitle(lang['pgAbout.headerBar.setTitleView.titleText']);
             headerBarWrapper.reload();
             headerBarOptions.eventCallback(function(e) {
                 if (e.type == "menu")

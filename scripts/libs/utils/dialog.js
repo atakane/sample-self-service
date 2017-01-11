@@ -86,9 +86,6 @@
         borderWidth: 0,
         backgroundTransparent: true
     });
-    if(Device.deviceOS=='Android'){
-        waitDialog.top="39.2%";
-    }
     
     var waitRectangle = new SMF.UI.Rectangle({
         alpha: 0.8,

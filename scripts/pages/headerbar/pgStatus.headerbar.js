@@ -1,6 +1,6 @@
 const ActionWrapper = require("js-base/component/header-bar");
+const colors = require("pages/style/colors.js");
 var eventCallback;
-
 const options = {
   visible: true,
   backgroundImage: null,
@@ -30,7 +30,7 @@ if(Device.deviceOS == "iOS") {
     hideOnContentScroll: false,
     titleView: {
       type: SMF.UI.TitleViewType.TEXT,
-      text: 'Self Service',
+      text: lang['pgStatus.headerBar.setTitleView.titleText'],
       textColor: colors.BlueMedium,
       textSize: 20,
       alignment: SMF.UI.Alignment.CENTER

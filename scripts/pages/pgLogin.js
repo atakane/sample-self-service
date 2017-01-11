@@ -1,4 +1,4 @@
-/* globals smfOracle mcsUser mcsPassword urlMockServicePath oProfile oTimeTable oRequestList*/
+/* globals smfOracle mcsUser mcsPassword urlMockServicePath oProfile oTimeTable oRequestList fingerPrintStatus fingerPrintSuccess touchIDUserName touchIDPassword*/
 const Page = require("js-base/component/page");
 const extend = require("js-base/core/extend");
 
@@ -52,19 +52,28 @@ const pgLogin = extend(Page)(
 
         var lblWelcome2 = new SMF.UI.Label({
             name: 'lblWelcome2',
-            text: 'Powered & secured by Oracle MCS & ICS'
+            text: lang['pgAbout.lblWelcome2.text']
         });
         componentStyler(".7pt .pgLogin.lblWelcome2")(lblWelcome2);
         this.add(lblWelcome2);
 
         // Username and password inputs
         var txtUserName = new SMF.UI.TextBox({
-            name: 'txtUserName'
+            name: 'txtUserName',
+            returnKeyType: SMF.UI.ReturnKeyType.NEXT,
+            onReturnKey: function(e) {
+                txtPassword.focus();
+            }
         });
+
         componentStyler(".pgLogin.txtUserName")(txtUserName);
 
         var txtPassword = new SMF.UI.TextBox({
-            name: 'txtPassword'
+            name: 'txtPassword',
+            returnKeyType: SMF.UI.ReturnKeyType.SEND,
+            onReturnKey: function(e) {
+                pgLogin_btnLogin_onPressed();
+            }
         });
         componentStyler(".pgLogin.txtPassword")(txtPassword);
 
@@ -82,7 +91,7 @@ const pgLogin = extend(Page)(
         // Warning text
         var lblInfoText = new SMF.UI.Label({
             name: 'lblInfoText',
-            text: 'Please login with your MCS realm user.'
+            text: lang['pgLogin.lblInfoText.text']
         });
         componentStyler(".textTop .6pt .pgLogin.lblInfoText")(lblInfoText);
         this.add(lblInfoText);
@@ -103,14 +112,39 @@ const pgLogin = extend(Page)(
          */
         function pgLogin_onShow() {
             smfOracle.logAnalytics('pgLogin_onShow');
+            touchIDUserName = SMF.getVariable("username");
+            touchIDPassword = SMF.getVariable("password");
+            txtUserName.text = touchIDUserName;
+            if (Device.canEvaluateFingerPrint && fingerPrintStatus == 'allowed') {
+                Device.scanFingerPrint({
+                    title: lang['touhidtitle'],
+                    subtitle: "",
+                    icon: "myicon.png",
+                    fallbackText: lang['touchidpassword'],
+                }, function onSuccess(e) {
+                    fingerPrintSuccess = true;
+                    pgLogin_btnLogin_onPressed();
+                }, function onError(e) {
+                    if (e.code != -4) {
+                        alert("code: " + e.code +
+                            "\n description: " + e.description);
+                    }
+                });
+
+            }
             SMF.UI.statusBar.style = SMF.UI.StatusBarStyle.LIGHTCONTENT;
             Dialog.removeWait();
             btnLogin.enabled = true;
             btnLogin.fillColor = '#00A1F1';
             tinyUtils.fixOverlayBug();
+
         }
 
         function pgLogin_btnLogin_onPressed(e) {
+            if (fingerPrintSuccess) {
+                txtUserName.text = touchIDUserName;
+                txtPassword.text = touchIDPassword;
+            }
             // getUserInfo()
             smfOracle.logAnalytics('pgLogin_btnLogin_onPressed');
 
@@ -120,16 +154,18 @@ const pgLogin = extend(Page)(
             Dialog.showWait();
 
             smfOracle.logAnalytics('pgLogin_btnLogin_onPressed');
-
             mcsUser = txtUserName.text;
             mcsPassword = txtPassword.text;
+
+            SMF.setVariable("username", mcsUser, true, false);
+            SMF.setVariable("password", mcsPassword, true, false);
 
             if ((mcsUser) && (mcsPassword)) {
                 var successCallback = function(e) {
                     // analytics log for auth.
                     smfOracle.logAnalytics('user authenticated');
 
-                    Dialog.showWait();
+                    // Dialog.showWait();
 
                     // Registering for Push notification
 
@@ -158,12 +194,16 @@ const pgLogin = extend(Page)(
 
                 var failureCallback = function(e) {
                     // analytics log for auth fail
+                    txtUserName.text = "";
+                    txtPassword.text = "";
+                    SMF.setVariable("username", "", true, false);
+                    SMF.setVariable("password", "", true, false);
                     smfOracle.logAnalytics('[error] auth failed ' + e);
                     console.log(mcsUser + ' authentication failed ' + e);
 
                     Dialog.removeWait();
 
-                    alert('Username or Password is incorrect, please try again');
+                    alert(lang['pgLogin.alert1']);
                     btnLogin.enabled = true;
                     btnLogin.fillColor = '#00A1F1';
                 }
@@ -171,8 +211,13 @@ const pgLogin = extend(Page)(
                 smfOracle.authenticate(mcsUser, mcsPassword, successCallback, failureCallback)
             }
             else {
+                txtUserName.text = "";
+                txtPassword.text = "";
                 Dialog.removeWait();
-                alert('Please enter your username and password.');
+                SMF.setVariable("username", "", true, false);
+                SMF.setVariable("password", "", true, false);
+
+                alert(lang['pgLogin.alert2']);
                 btnLogin.enabled = true;
                 btnLogin.fillColor = '#00A1F1';
             }
@@ -182,7 +227,7 @@ const pgLogin = extend(Page)(
         function getUserInfo() {
             // Get self service details from EBS service
             // For now we're going dummy
-            Dialog.showWait();
+            // Dialog.showWait();
 
             getDataFromService(function() {
                 // Routing to the Status Page
