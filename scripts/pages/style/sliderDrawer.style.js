@@ -57,7 +57,7 @@ module.exports = {
         ".btnSubMenuTemplate": {
             left: '18.2666%',
             width: '55%',
-            height: '4.5%',
+            height: '6.4057%',
             fillColor: SMF.UI.Color.WHITE,
             pressedFillColor: SMF.UI.Color.WHITE,
             fontColor: colors.GrayDark,
@@ -81,60 +81,21 @@ module.exports = {
         ".imgSliderMenuStatus": {
             image: 'icon_status.png',
             left: '5.4666%',
-            top: '44.4527%',
+            // top: '44.4527%',
             imageFillType: SMF.UI.ImageFillType.ASPECTFIT
-        },
-        ".btnStatus": {
-            top: '43.4032%'
-        },
-        ".recUnderline1": {
-            top: '49.1754%'
         },
         ".imgSliderMenuRequest": {
             image: 'icon_request.png',
             left: '5.8666%',
-            top: '51.4992%',
+            // top: '51.4992%',
             imageFillType: SMF.UI.ImageFillType.ASPECTFIT
         },
-        ".btnNewRequest": {
-            top: '50.5247%'
-        },
-        ".recUnderline2": {
-            top: '56.2968%'
-        },
-
-        ".imgSliderMenuMyRequests": {
-            image: 'icon_info.png',
-            left: '5.8666%',
-            top: '58.6206%',
-            imageFillType: SMF.UI.ImageFillType.ASPECTFIT
-        },
-        ".btnMyRequests": {
-            top: '57.6461%'
-        },
-        ".recUnderline3": {
-            top: '63.4182%'
-        },
-        ".btnApprovals": {
-            top: '64.7222%',
-        },
-        ".recUnderline4": {
-            top: '69.79%'
-        },
-        ".btnOutOfOffice": {
-            top: '70.9891%'
-        },
-        ".recUnderline5": {
-            top: '76.0569%'
-        },
-        ".btnAbout": {
-            top: '77.256%'
-        },
-        ".recUnderline6": {
-            top: '93.02848%'
+       
+        ".recUnderlineLogout": {
+            top: '90%'
         },
         ".btnLogout": {
-            top: '94.2278%',
+            top: '93%',
             fontColor: colors.Pink,
             pressedFontColor: colors.PinkDark
         },

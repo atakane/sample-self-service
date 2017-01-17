@@ -61,16 +61,19 @@ exports.createSliderDrawer = function(page, name) {
     // Dynamic menu
 
     var oMenuItems = [{
-        "text": "Dashboard",
+        "text": lang['pgsliderdrawer.btnStatus.text'],
         "targetPage": "pgStatus",
+        "iconStyle": "",
         "subItems": []
     }, {
-        "text": "Leave of Absence",
+        "text": lang['pgsliderdrawer.lblLeaveManagement.text'],
         "targetPage": "pgMyRequests",
+        "iconStyle": "",
         "subItems": []
     }, {
         "text": "Timecards",
-        "targetPage": "pgTimecards",
+        "targetPage": "",
+        "iconStyle": "",
         "subItems": []
     }, {
         "text": lang['pgsliderdrawer.btnApprovals.text'],
@@ -78,19 +81,21 @@ exports.createSliderDrawer = function(page, name) {
         "subItems": [{
             "text": "Timecards",
             "targetPage": "pgApprovalTimecards",
-            "subItems": []
+            "iconStyle": ".sliderDrawer.imgSliderMenuStatus"
         }, {
             "text": "Leave Requests",
             "targetPage": "pgApprovalWorklist",
-            "subItems": []
+            "iconStyle": ".sliderDrawer.imgSliderMenuRequest"
         }]
     }, {
-        "text": "Out of Office",
+        "text": lang['pgStatus.lblOOOStatusTitle2.text'],
         "targetPage": "pgOutOfOffice",
+        "iconStyle": "",
         "subItems": []
     }, {
-        "text": "About",
+        "text": lang['pgsliderdrawer.btnAbout.text'],
         "targetPage": "pgAbout",
+        "iconStyle": "",
         "subItems": []
     }]
 
@@ -114,198 +119,105 @@ exports.createSliderDrawer = function(page, name) {
     var menuLabelTop = 1.9207;
     var menuHeight = 10.0360;
 
-    // Top line
-    var recUnderlineTop = new SMF.UI.Rectangle({
-        name: 'recUnderlineTop',
-        top: '0%'
-    });
-    componentStyler(".sliderDrawer.underlineTemplate")(recUnderlineTop);
-    // svMenu.add(recUnderlineTop);
-
     for (var i = 0; i < oMenuItems.length; i++) {
-        var targetPage = oMenuItems[i].targetPage
+        var text = oMenuItems[i].text;
+        var targetPage = oMenuItems[i].targetPage;
         var subItems = oMenuItems[i].subItems;
 
-        // var targetPage = oMenuItems[i].targetPage;
-        var btnMenuItem = new SMF.UI.TextButton({
-            name: 'btnMenuItem' + i,
-            top: menuLabelTop + '%',
-            // text: lang['pgsliderdrawer.btnApprovals.text'],
-            text: oMenuItems[i].text,
-            onPressed: function(e) {
-                //(Pages.currentPage === Pages.pgApprovalWorklist) ? sliderDrawer.hide(): 
-                console.log(targetPage);
-                // if (btnMenuItem.targetPage)
-                // router.goTransitionless(eval('btnMenuItem' + i + '.targetPage'));
-            }
-        });
-        componentStyler(".textLeft .8pt .sliderDrawer.btnMenuTemplate")(btnMenuItem);
 
+        createMenu(svMenu, false, text, targetPage, menuLabelTop);
 
+        // /// patlak kisim
+        // var tmpButton = new SMF.UI.TextButton({
+        //     top: menuLabelTop + '%',
+        //     text: text,
+        //     onPressed: function(e) {
+        //         //(Pages.currentPage === Pages.pgApprovalWorklist) ? sliderDrawer.hide(): 
+        //         console.log(targetPage);
+        //         // if (btnMenuItem.targetPage)
+        //         // router.goTransitionless(eval('btnMenuItem' + i + '.targetPage'));
+        //     }
+        // });
 
-        svMenu.add(btnMenuItem);
+        // var styleName = ".sliderDrawer.btnMenuTemplate";
+        // componentStyler(".textLeft .8pt " + styleName)(tmpButton);
+        // svMenu.add(tmpButton);
+
+        // /// patlak kisim
 
         if (subItems && (subItems.length != 0)) {
-            console.log('sub menu here . ' + subItems.length);
+            menuLineTop = menuLineTop + menuHeight;
+            menuLabelTop = menuLabelTop + menuHeight;
+
             for (var s = 0; s < subItems.length; s++) {
+
+                var textSubMenu = subItems[s].text;
+                var targetPageSubMenu = subItems[s].targetPage;
+                var subMenuStyle = subItems[s].iconStyle;
+
+                createMenu(svMenu, true, textSubMenu, targetPageSubMenu, menuLabelTop);
+
+                if (subMenuStyle) {
+                    createIcon(svMenu, menuLabelTop + 1, subMenuStyle)
+                }
+
                 menuLineTop = menuLineTop + menuHeight;
                 menuLabelTop = menuLabelTop + menuHeight;
+                createUnderline(svMenu, menuLineTop);
             }
         }
         else {
             menuLineTop = menuLineTop + menuHeight;
             menuLabelTop = menuLabelTop + menuHeight;
 
-            // underline
-            var recUnderline = new SMF.UI.Rectangle({
-                name: 'recUnderline' + i,
-                top: menuLineTop + '%'
-            });
-            componentStyler(".sliderDrawer.underlineTemplate")(recUnderline);
-            svMenu.add(recUnderline);
-
-
-            menuLabelTop = menuLabelTop + menuHeight;
+            if (i != oMenuItems.length - 1) createUnderline(svMenu, menuLineTop);
         }
-        // console.log(oMenuItems[i].text + ' target:' + oMenuItems[i].targetPage);
+    }
+
+    function createMenu(parent, isSubMenu, text, targetPage, top) {
+        var tmpButton = new SMF.UI.TextButton({
+            top: top + '%',
+            text: text,
+            onPressed: function(e) {
+                if (targetPage && (targetPage.length > 0))
+                    (Pages.currentPage.name === targetPage) ? sliderDrawer.hide() : router.goTransitionless(targetPage);
+            }
+        });
+
+        var styleName = ".sliderDrawer.btnMenuTemplate";
+        if (isSubMenu) {
+            styleName = ".sliderDrawer.btnSubMenuTemplate";
+        }
+        componentStyler(".textLeft .8pt " + styleName)(tmpButton);
+        parent.add(tmpButton);
+    }
+
+    function createUnderline(parent, top) {
+        var tmpLine = new SMF.UI.Rectangle({
+            top: top + '%'
+        });
+        componentStyler(".sliderDrawer.underlineTemplate")(tmpLine);
+
+        parent.add(tmpLine);
+    }
+
+    function createIcon(parent, top, style) {
+        var tmpIcon = new SMF.UI.Image({
+            top: top + '%'
+        });
+        componentStyler(style)(tmpIcon);
+
+        parent.add(tmpIcon);
     }
 
 
 
-    // Slider Menus
-    // Main Menu 1
-    var lblLeaveManagement = new SMF.UI.Label({
-        name: 'lblLeaveManagement',
-        text: lang['pgsliderdrawer.lblLeaveManagement.text']
-    });
-    componentStyler(".textLeft .8pt .sliderDrawer.lblLeaveManagement")(lblLeaveManagement);
-    // cntGeneral.add(lblLeaveManagement);
-
-    // Sub Menu 1.1
-    // icon
-    var imgSliderMenuStatus = new SMF.UI.Image({
-        name: 'imgSliderMenuStatus',
-    });
-    componentStyler(".sliderDrawer.imgSliderMenuStatus")(imgSliderMenuStatus);
-    // cntGeneral.add(imgSliderMenuStatus);
-
-    // button
-    var btnStatus = new SMF.UI.TextButton({
-        name: 'btnStatus',
-        text: lang['pgsliderdrawer.btnStatus.text'],
-        onPressed: function(e) {
-            (Pages.currentPage === Pages.pgStatus) ? sliderDrawer.hide(): router.goTransitionless('pgStatus');
-        }
-    });
-    componentStyler(".textLeft .9pt .sliderDrawer.btnSubMenuTemplate .sliderDrawer.btnStatus")(btnStatus);
-    // cntGeneral.add(btnStatus);
-
     // underline
-    var recUnderline1 = new SMF.UI.Rectangle({
-        name: 'recUnderline1',
+    var recUnderlineLogout = new SMF.UI.Rectangle({
+        name: 'recUnderlineLogout'
     });
-    componentStyler(".sliderDrawer.underlineTemplate .sliderDrawer.recUnderline1")(recUnderline1);
-    // cntGeneral.add(recUnderline1);
-
-
-    // Sub Menu 1.2
-    // icon
-    var imgSliderMenuRequest = new SMF.UI.Image({
-        name: 'imgSliderMenuRequest',
-    });
-    componentStyler(".sliderDrawer.imgSliderMenuRequest")(imgSliderMenuRequest);
-    // cntGeneral.add(imgSliderMenuRequest);
-
-    // button
-    var btnNewRequest = new SMF.UI.TextButton({
-        name: 'btnNewRequest',
-        text: lang['pgsliderdrawer.btnRequest.text'],
-        onPressed: function(e) {
-            (Pages.currentPage === Pages.pgNewLeaveRequest) ? sliderDrawer.hide(): router.goTransitionless('pgNewLeaveRequest');
-        }
-    });
-    componentStyler(".textLeft .9pt .sliderDrawer.btnSubMenuTemplate .sliderDrawer.btnNewRequest")(btnNewRequest);
-    // cntGeneral.add(btnNewRequest);
-
-    // underline
-    var recUnderline2 = recUnderline1.clone();
-    componentStyler(".sliderDrawer.recUnderline2")(recUnderline2);
-    // cntGeneral.add(recUnderline2);
-
-
-    // Sub Menu 1.3
-    var imgSliderMenuMyRequests = new SMF.UI.Image({
-        name: 'imgSliderMenuMyRequests',
-    });
-    componentStyler(".sliderDrawer.imgSliderMenuMyRequests")(imgSliderMenuMyRequests);
-    // cntGeneral.add(imgSliderMenuMyRequests);
-
-    // button
-    var btnMyRequests = new SMF.UI.TextButton({
-        name: 'btnMyRequests',
-        text: lang['pgsliderdrawer.btnMyRequests.text'],
-        onPressed: function(e) {
-            (Pages.currentPage === Pages.pgMyRequests) ? sliderDrawer.hide(): router.goTransitionless('pgMyRequests');
-        }
-    });
-    componentStyler(".textLeft .9pt .sliderDrawer.btnSubMenuTemplate .sliderDrawer.btnMyRequests")(btnMyRequests);
-    // cntGeneral.add(btnMyRequests);
-
-    // underline
-    var recUnderline3 = recUnderline1.clone();
-    componentStyler(".sliderDrawer.recUnderline3")(recUnderline3);
-    // cntGeneral.add(recUnderline3);
-
-
-    // Main Menu 2
-    var btnApprovals = new SMF.UI.TextButton({
-        name: 'btnApprovals',
-        text: lang['pgsliderdrawer.btnApprovals.text'],
-        onPressed: function(e) {
-            (Pages.currentPage === Pages.pgApprovalWorklist) ? sliderDrawer.hide(): router.goTransitionless('pgApprovalWorklist');
-        }
-    });
-    componentStyler(".textLeft .8pt .sliderDrawer.btnMenuTemplate .sliderDrawer.btnApprovals")(btnApprovals);
-    // cntGeneral.add(btnApprovals);
-
-    // underline
-    var recUnderline4 = recUnderline1.clone();
-    componentStyler(".sliderDrawer.recUnderline4")(recUnderline4);
-    // cntGeneral.add(recUnderline4);
-
-
-    // Main Menu 3
-    var btnOutOfOffice = new SMF.UI.TextButton({
-        name: 'btnOutOfOffice',
-        text: lang['pgStatus.lblOOOStatusTitle2.text'],
-        onPressed: function(e) {
-            (Pages.currentPage === Pages.pgOutOfOffice) ? sliderDrawer.hide(): router.goTransitionless('pgOutOfOffice');
-        }
-    });
-    componentStyler(".textLeft .8pt .sliderDrawer.btnMenuTemplate .sliderDrawer.btnOutOfOffice")(btnOutOfOffice);
-    // cntGeneral.add(btnOutOfOffice);
-
-    // underline
-    var recUnderline5 = recUnderline1.clone();
-    componentStyler(".sliderDrawer.recUnderline5")(recUnderline5);
-    // cntGeneral.add(recUnderline5);
-
-    // Main Menu 4
-    var btnAbout = new SMF.UI.TextButton({
-        name: 'btnAbout',
-        text: lang['pgsliderdrawer.btnAbout.text'],
-        onPressed: function(e) {
-            (Pages.currentPage === Pages.pgAbout) ? sliderDrawer.hide(): router.goTransitionless('pgAbout');
-        }
-    });
-    componentStyler(".textLeft .8pt .sliderDrawer.btnMenuTemplate .sliderDrawer.btnAbout")(btnAbout);
-    // cntGeneral.add(btnAbout);
-
-
-    // underline
-    var recUnderline6 = recUnderline.clone();
-    componentStyler(".sliderDrawer.recUnderline6")(recUnderline6);
-    // cntGeneral.add(recUnderline6);
+    componentStyler(".sliderDrawer.underlineTemplate .sliderDrawer.recUnderlineLogout")(recUnderlineLogout);
+    svMenu.add(recUnderlineLogout);
 
     // Main Menu 5
     var btnLogout = new SMF.UI.TextButton({
@@ -316,7 +228,7 @@ exports.createSliderDrawer = function(page, name) {
         }
     });
     componentStyler(".textLeft .8pt .sliderDrawer.btnMenuTemplate .sliderDrawer.btnLogout")(btnLogout);
-    // cntGeneral.add(btnLogout);
+    svMenu.add(btnLogout);
 
 
 
