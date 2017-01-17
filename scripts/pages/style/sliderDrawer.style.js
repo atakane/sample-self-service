@@ -47,7 +47,7 @@ module.exports = {
         ".btnMenuTemplate": {
             left: '4.9333%',
             width: '55%',
-            height: '4.5%',
+            height: '6.4057%',
             fillColor: SMF.UI.Color.WHITE,
             pressedFillColor: SMF.UI.Color.WHITE,
             fontColor: colors.BlueMedium,
