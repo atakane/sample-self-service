@@ -43,7 +43,7 @@ const pgMyLeaveRequests = extend(Page)(
         var rptDefault = {
             name: 'rptApprovalList',
             onSelectedItem: function(e) {
-                router.go('pgMyRequestDetail', arrayRequests[e.rowIndex]);
+                router.go('pgMyLeaveRequestDetail', arrayRequests[e.rowIndex]);
             }
         };
         var rptParams = {};

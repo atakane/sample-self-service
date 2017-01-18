@@ -12,7 +12,7 @@ const pgNewLeaveRequest = require('./pages/pgNewLeaveRequest.js');
 const pgApprovalWorklist = require('./pages/pgApprovalWorklist.js');
 const pgApproveLeaveRequest = require('./pages/pgApproveLeaveRequest.js');
 const pgMyLeaveRequests = require('./pages/pgMyLeaveRequests.js');
-const pgMyRequestDetail = require('./pages/pgMyRequestDetail.js');
+const pgMyLeaveRequestDetail = require('./pages/pgMyLeaveRequestDetail.js');
 
 //Styler
 const merge = require('deepmerge');
@@ -83,7 +83,7 @@ router.add('pgNewLeaveRequest', pgNewLeaveRequest, defaultPageAnimation);
 router.add('pgApprovalWorklist', pgApprovalWorklist, defaultPageAnimation);
 router.add('pgApproveLeaveRequest', pgApproveLeaveRequest, defaultPageAnimation);
 router.add('pgMyLeaveRequests', pgMyLeaveRequests, defaultPageAnimation);
-router.add('pgMyRequestDetail', pgMyRequestDetail, defaultPageAnimation);
+router.add('pgMyLeaveRequestDetail', pgMyLeaveRequestDetail, defaultPageAnimation);
 
 // Routing to the starting page of the application
 router.go('pgLogin');

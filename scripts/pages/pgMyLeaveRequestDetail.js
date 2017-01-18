@@ -16,15 +16,15 @@ const componentStyler = require("js-base/core/styler").componentStyler();
 // Router
 const router = require('js-base/core/router');
 
-const pgMyRequestDetail = extend(Page)(
+const pgMyLeaveRequestDetail = extend(Page)(
     // Page Constructor
     function(_super) {
         var oRequest = [];
 
         _super(this, {
-                name: 'pgMyRequestDetail',
-                onKeyPress: pgMyRequestDetail_onKeyPress,
-                onShow: pgMyRequestDetail_onShow
+                name: 'pgMyLeaveRequestDetail',
+                onKeyPress: pgMyLeaveRequestDetail_onKeyPress,
+                onShow: pgMyLeaveRequestDetail_onShow
             },
             "", {
                 oRequest: []
@@ -207,8 +207,8 @@ const pgMyRequestDetail = extend(Page)(
             onPressed: function(e) {
                 alert({
                     title: lang['pgOutOfOffice.btnSave.onPressed.title'],
-                    message: lang[ 'pgMyRequestDetail.btnDelete.onPressed.message'],
-                    firstButtonText: lang['pgMyRequestDetail.btnDelete.onPressed.firstButtonText'],
+                    message: lang[ 'pgMyLeaveRequestDetail.btnDelete.onPressed.message'],
+                    firstButtonText: lang['pgMyLeaveRequestDetail.btnDelete.onPressed.firstButtonText'],
                     secondButtonText: lang['pgOutOfOffice.btnSave.onPressed.secondButtonText'],
                     onFirstButtonPressed: function() {
 
@@ -220,8 +220,8 @@ const pgMyRequestDetail = extend(Page)(
                         oProfile.LeaveRequestCount = oProfile.LeaveRequestCount - 1;
 
                         alert({
-                            title: lang[ 'pgMyRequestDetail.btnDelete.onPressed. onFirstButtonPressed.title'],
-                            message: lang['pgMyRequestDetail.btnDelete.onPressed. onFirstButtonPressed.message'],
+                            title: lang[ 'pgMyLeaveRequestDetail.btnDelete.onPressed. onFirstButtonPressed.title'],
+                            message: lang['pgMyLeaveRequestDetail.btnDelete.onPressed. onFirstButtonPressed.message'],
                             firstButtonText: lang['pgNewLeaveRequest.btnSave.onPressed. onFirstButtonPressed.text'],
                             onFirstButtonPressed: function() {
                                 router.back();
@@ -240,7 +240,7 @@ const pgMyRequestDetail = extend(Page)(
          * @param {KeyCodeEventArguments} e Uses to for key code argument. It returns e.keyCode parameter.
          * @this Pages.pgOutOfOffice
          */
-        function pgMyRequestDetail_onKeyPress(e) {
+        function pgMyLeaveRequestDetail_onKeyPress(e) {
             if (e.keyCode === 4) {
                 router.back();
             }
@@ -251,7 +251,7 @@ const pgMyRequestDetail = extend(Page)(
          * @param {EventArguments} e Returns some attributes about the specified functions
          * @this Pages.pgOutOfOffice
          */
-        function pgMyRequestDetail_onShow() {
+        function pgMyLeaveRequestDetail_onShow() {
             // We are going w/ dark mode. Our navbar is white.
             SMF.UI.statusBar.style = SMF.UI.StatusBarStyle.DEFAULT;
 
@@ -267,7 +267,7 @@ const pgMyRequestDetail = extend(Page)(
             });
 
             // Oracle MCS Analytics logging 
-            smfOracle.logAndFlushAnalytics('pgMyRequestDetail_onShow');
+            smfOracle.logAndFlushAnalytics('pgMyLeaveRequestDetail_onShow');
             tinyUtils.fixOverlayBug();
         }
 
@@ -438,4 +438,4 @@ const pgMyRequestDetail = extend(Page)(
         };
     });
 
-module.exports = pgMyRequestDetail;
+module.exports = pgMyLeaveRequestDetail;
