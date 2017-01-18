@@ -11,7 +11,7 @@ const pgAbout = require('./pages/pgAbout.js');
 const pgNewLeaveRequest = require('./pages/pgNewLeaveRequest.js');
 const pgApprovalWorklist = require('./pages/pgApprovalWorklist.js');
 const pgApproveLeaveRequest = require('./pages/pgApproveLeaveRequest.js');
-const pgMyRequests = require('./pages/pgMyRequests.js');
+const pgMyLeaveRequests = require('./pages/pgMyLeaveRequests.js');
 const pgMyRequestDetail = require('./pages/pgMyRequestDetail.js');
 
 //Styler
@@ -25,14 +25,14 @@ const stylePgLogin = require('./pages/style/pgLogin.style.js');
 const stylePgStatus = require('./pages/style/pgStatus.style.js');
 const stylePgOutOfOffice = require('./pages/style/pgOutOfOffice.style.js');
 const stylePgAbout = require('./pages/style/pgAbout.style.js');
-const stylePgMyRequests = require('./pages/style/pgMyRequests.style.js');
+const stylePgMyLeaveRequests = require('./pages/style/pgMyLeaveRequests.style.js');
 const stylePgNewLeaveRequest = require('./pages/style/pgNewLeaveRequest.style.js');
 const stylePgApproveLeaveRequest = require('./pages/style/pgApproveLeaveRequest.style.js');
 const styleOSSpecific = (Device.deviceOS === 'iOS') ? require('./pages/style/ios.style.js') : require('./pages/style/android.style.js');
 
 // merging styles to simplify style usage
 // by that way  we can use same object hieararchy within style files.
-var mergedStyle = merge.all([styleGeneric, styleSliderDrawer, stylePgLogin, stylePgStatus, stylePgOutOfOffice, stylePgAbout, stylePgMyRequests, stylePgNewLeaveRequest, stylePgApproveLeaveRequest, styleOSSpecific]);
+var mergedStyle = merge.all([styleGeneric, styleSliderDrawer, stylePgLogin, stylePgStatus, stylePgOutOfOffice, stylePgAbout, stylePgMyLeaveRequests, stylePgNewLeaveRequest, stylePgApproveLeaveRequest, styleOSSpecific]);
 
 // passing style object to styler
 styler(mergedStyle);
@@ -82,7 +82,7 @@ router.add('pgAbout', pgAbout, defaultPageAnimation);
 router.add('pgNewLeaveRequest', pgNewLeaveRequest, defaultPageAnimation);
 router.add('pgApprovalWorklist', pgApprovalWorklist, defaultPageAnimation);
 router.add('pgApproveLeaveRequest', pgApproveLeaveRequest, defaultPageAnimation);
-router.add('pgMyRequests', pgMyRequests, defaultPageAnimation);
+router.add('pgMyLeaveRequests', pgMyLeaveRequests, defaultPageAnimation);
 router.add('pgMyRequestDetail', pgMyRequestDetail, defaultPageAnimation);
 
 // Routing to the starting page of the application

@@ -5,7 +5,7 @@
     "subItems": []
 }, {
     "text": "pgsliderdrawer.lblLeaveManagement.text",
-    "targetPage": "pgMyRequests",
+    "targetPage": "pgMyLeaveRequests",
     "iconStyle": "",
     "subItems": []
 }, {

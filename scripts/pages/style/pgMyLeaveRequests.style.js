@@ -1,7 +1,7 @@
 const colors = require('./colors.js');
 
 module.exports = {
-    ".pgMyRequests": {
+    ".pgMyLeaveRequests": {
         ".lblStatusLetter": {
             left: '3%',
             fontColor: colors.BlueMedium

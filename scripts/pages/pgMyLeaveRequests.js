@@ -10,7 +10,7 @@ const merge = require('deepmerge');
 const colors = require('./style/colors.js');
 
 // Actionbar
-const headerBarOptions = require("./headerbar/pgMyRequests.headerbar.js");
+const headerBarOptions = require("./headerbar/pgMyLeaveRequests.headerbar.js");
 const HeaderBarWrapper = require("js-base/component/header-bar.js");
 
 // styler
@@ -19,13 +19,13 @@ const componentStyler = require("js-base/core/styler").componentStyler();
 // Router
 const router = require('js-base/core/router');
 
-const pgMyRequests = extend(Page)(
+const pgMyLeaveRequests = extend(Page)(
     // Page Constructor
     function(_super) {
         _super(this, {
-            name: 'pgMyRequests',
-            onKeyPress: pgMyRequests_onKeyPress,
-            onShow: pgMyRequests_onShow,
+            name: 'pgMyLeaveRequests',
+            onKeyPress: pgMyLeaveRequests_onKeyPress,
+            onShow: pgMyLeaveRequests_onShow,
             backgroundImage: 'stripe.png'
         });
 
@@ -74,7 +74,7 @@ const pgMyRequests = extend(Page)(
             text: 'W'
 
         });
-        componentStyler(".textCenter .12pt .pgMyRequests.lblStatusLetter")(lblStatusLetter);
+        componentStyler(".textCenter .12pt .pgMyLeaveRequests.lblStatusLetter")(lblStatusLetter);
 
         var recVerticalLine = new SMF.UI.Rectangle({
             name: 'recVerticalLine',
@@ -215,12 +215,12 @@ const pgMyRequests = extend(Page)(
         this.add(rptApprovalList);
 
         // If you want, you can add some legend here
-        // createLabel(pgMyRequests, 'lblLegend', 'W: Waiting\nA: Approved\nR: Rejected', '5%', '0%', '90%', '10%', SMF.UI.TextAlignment.LEFT, true, '5pt', false, colors.Gray);
+        // createLabel(pgMyLeaveRequests, 'lblLegend', 'W: Waiting\nA: Approved\nR: Rejected', '5%', '0%', '90%', '10%', SMF.UI.TextAlignment.LEFT, true, '5pt', false, colors.Gray);
 
         // adding label for no-data
         var lblNoData = new SMF.UI.Label({
             name: 'lblNoData',
-            text: lang['pgMyRequests.lblNoData.text']
+            text: lang['pgMyLeaveRequests.lblNoData.text']
         });
         componentStyler(".allArea .textCenter .7pt .Generic.lblNoData")(lblNoData);
         this.add(lblNoData);
@@ -230,7 +230,7 @@ const pgMyRequests = extend(Page)(
          * @param {KeyCodeEventArguments} e Uses to for key code argument. It returns e.keyCode parameter.
          * @this Pages.pgLogin
          */
-        function pgMyRequests_onKeyPress(e) {
+        function pgMyLeaveRequests_onKeyPress(e) {
             if (e.keyCode === 4) {
                 router.back();
             }
@@ -241,12 +241,12 @@ const pgMyRequests = extend(Page)(
          * @param {EventArguments} e Returns some attributes about the specified functions
          * @this Pages.pgLogin
          */
-        function pgMyRequests_onShow() {
+        function pgMyLeaveRequests_onShow() {
             // Hiding 'wait' dialog
             Dialog.removeWait();
 
             // Adding header bar (actionbar for Android, navigationbar for iOS)
-            headerBarOptions.setTitle(lang['pgMyRequests.headerBar.setTitleView.titleText']);
+            headerBarOptions.setTitle(lang['pgMyLeaveRequests.headerBar.setTitleView.titleText']);
             headerBarWrapper.reload();
             headerBarOptions.eventCallback(function(e) {
                 if (e.type == "menu") {
@@ -265,7 +265,7 @@ const pgMyRequests = extend(Page)(
             displayApprovalRequests.call(this);
 
             // Oracle MCS Analytics logging 
-            smfOracle.logAndFlushAnalytics('pgMyRequests_onShow');
+            smfOracle.logAndFlushAnalytics('pgMyLeaveRequests_onShow');
             tinyUtils.fixOverlayBug();
         }
 
@@ -342,4 +342,4 @@ const pgMyRequests = extend(Page)(
         _proto.stateChangedHandler = function(state) {};
     });
 
-module.exports = pgMyRequests;
+module.exports = pgMyLeaveRequests;

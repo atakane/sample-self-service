@@ -120,7 +120,7 @@ module.exports = {
       height: '58.8696%'
     }
   },
-  ".pgMyRequests": {
+  ".pgMyLeaveRequests": {
     ".lblStatusLetter": {
       height: '9dp',
       width: '60dp',

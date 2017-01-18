@@ -91,7 +91,7 @@ function createSliderDrawer(page, name, backgroundColor) {
         SMF.UI.Color.WHITE, SMF.UI.Color.WHITE,
         '#444444', '#a0a0a0',
         function(e) {
-            (Pages.currentPage === Pages.pgMyRequests) ? sdSelfService.hide(): Pages.pgMyRequests.show();
+            (Pages.currentPage === Pages.pgMyLeaveRequests) ? sdSelfService.hide(): Pages.pgMyLeaveRequests.show();
         });
 
     createRectangle(cntGeneral, '4.4940%', '63.4182%', '95.506%', 1, '#e7e7e7');

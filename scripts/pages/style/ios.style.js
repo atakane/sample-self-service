@@ -117,7 +117,7 @@ module.exports = {
       height: '60.8696%'
     }
   },
-  ".pgMyRequests": {
+  ".pgMyLeaveRequests": {
     ".lblStatusLetter": {
       top: ((((Device.screenHeight - 64) / 7) - 60) / 2),
       width: 60,
