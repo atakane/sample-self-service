@@ -1,0 +1,38 @@
+[{
+    "text": "pgsliderdrawer.btnStatus.text",
+    "targetPage": "pgStatus",
+    "iconStyle": "",
+    "subItems": []
+}, {
+    "text": "pgsliderdrawer.lblLeaveManagement.text",
+    "targetPage": "pgMyRequests",
+    "iconStyle": "",
+    "subItems": []
+}, {
+    "text": "Timecards",
+    "targetPage": "",
+    "iconStyle": "",
+    "subItems": []
+}, {
+    "text": "pgsliderdrawer.btnApprovals.text",
+    "targetPage": "",
+    "subItems": [{
+        "text": "Timecards",
+        "targetPage": "pgApprovalTimecards",
+        "iconStyle": ".sliderDrawer.imgSliderMenuStatus"
+    }, {
+        "text": "Leave Requests",
+        "targetPage": "pgApprovalWorklist",
+        "iconStyle": ".sliderDrawer.imgSliderMenuRequest"
+    }]
+}, {
+    "text": "pgStatus.lblOOOStatusTitle2.text",
+    "targetPage": "pgOutOfOffice",
+    "iconStyle": "",
+    "subItems": []
+}, {
+    "text": "pgsliderdrawer.btnAbout.text",
+    "targetPage": "pgAbout",
+    "iconStyle": "",
+    "subItems": []
+}]

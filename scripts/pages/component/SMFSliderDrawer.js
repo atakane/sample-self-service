@@ -1,4 +1,4 @@
-/* globals*/
+/* globals oMenuItems*/
 // styler
 const componentStyler = require("js-base/core/styler").componentStyler();
 
@@ -59,45 +59,7 @@ exports.createSliderDrawer = function(page, name) {
     cntTop.add(lblSliderTeamRole);
 
     // Dynamic menu
-
-    var oMenuItems = [{
-        "text": lang['pgsliderdrawer.btnStatus.text'],
-        "targetPage": "pgStatus",
-        "iconStyle": "",
-        "subItems": []
-    }, {
-        "text": lang['pgsliderdrawer.lblLeaveManagement.text'],
-        "targetPage": "pgMyRequests",
-        "iconStyle": "",
-        "subItems": []
-    }, {
-        "text": "Timecards",
-        "targetPage": "",
-        "iconStyle": "",
-        "subItems": []
-    }, {
-        "text": lang['pgsliderdrawer.btnApprovals.text'],
-        "targetPage": "",
-        "subItems": [{
-            "text": "Timecards",
-            "targetPage": "pgApprovalTimecards",
-            "iconStyle": ".sliderDrawer.imgSliderMenuStatus"
-        }, {
-            "text": "Leave Requests",
-            "targetPage": "pgApprovalWorklist",
-            "iconStyle": ".sliderDrawer.imgSliderMenuRequest"
-        }]
-    }, {
-        "text": lang['pgStatus.lblOOOStatusTitle2.text'],
-        "targetPage": "pgOutOfOffice",
-        "iconStyle": "",
-        "subItems": []
-    }, {
-        "text": lang['pgsliderdrawer.btnAbout.text'],
-        "targetPage": "pgAbout",
-        "iconStyle": "",
-        "subItems": []
-    }]
+    // oMenuItems is loading at login.js 
 
     var svMenu = new SMF.UI.ScrollView({
         name: 'svMenu',
@@ -115,54 +77,44 @@ exports.createSliderDrawer = function(page, name) {
         borderWidth: 0
     });
 
+    var contentSpaceForMenuItem = 6.25;
     var menuLineTop = 0;
     var menuLabelTop = 1.9207;
     var menuHeight = 10.0360;
+    var totalMenuItemCount = 0;
+    var totalSubMenuCount = 0;
 
     for (var i = 0; i < oMenuItems.length; i++) {
-        var text = oMenuItems[i].text;
+        var text = lang.hasOwnProperty(oMenuItems[i].text) ? lang[oMenuItems[i].text] : oMenuItems[i].text;
         var targetPage = oMenuItems[i].targetPage;
         var subItems = oMenuItems[i].subItems;
 
-
+        // creating a top level menu item
         createMenu(svMenu, false, text, targetPage, menuLabelTop);
-
-        // /// patlak kisim
-        // var tmpButton = new SMF.UI.TextButton({
-        //     top: menuLabelTop + '%',
-        //     text: text,
-        //     onPressed: function(e) {
-        //         //(Pages.currentPage === Pages.pgApprovalWorklist) ? sliderDrawer.hide(): 
-        //         console.log(targetPage);
-        //         // if (btnMenuItem.targetPage)
-        //         // router.goTransitionless(eval('btnMenuItem' + i + '.targetPage'));
-        //     }
-        // });
-
-        // var styleName = ".sliderDrawer.btnMenuTemplate";
-        // componentStyler(".textLeft .8pt " + styleName)(tmpButton);
-        // svMenu.add(tmpButton);
-
-        // /// patlak kisim
 
         if (subItems && (subItems.length != 0)) {
             menuLineTop = menuLineTop + menuHeight;
             menuLabelTop = menuLabelTop + menuHeight;
+            totalSubMenuCount += subItems.length;
 
             for (var s = 0; s < subItems.length; s++) {
 
-                var textSubMenu = subItems[s].text;
+                var textSubMenu = lang.hasOwnProperty(subItems[s].text) ? lang[subItems[s].text] : subItems[s].text;
                 var targetPageSubMenu = subItems[s].targetPage;
-                var subMenuStyle = subItems[s].iconStyle;
+                var subMenuIconStyle = subItems[s].iconStyle;
 
+                // creating a sub menu item
                 createMenu(svMenu, true, textSubMenu, targetPageSubMenu, menuLabelTop);
 
-                if (subMenuStyle) {
-                    createIcon(svMenu, menuLabelTop + 1, subMenuStyle)
+                // adding Icon
+                if (subMenuIconStyle) {
+                    createIcon(svMenu, menuLabelTop + 1, subMenuIconStyle)
                 }
 
                 menuLineTop = menuLineTop + menuHeight;
                 menuLabelTop = menuLabelTop + menuHeight;
+
+                // drawing underline
                 createUnderline(svMenu, menuLineTop);
             }
         }
@@ -170,9 +122,26 @@ exports.createSliderDrawer = function(page, name) {
             menuLineTop = menuLineTop + menuHeight;
             menuLabelTop = menuLabelTop + menuHeight;
 
-            if (i != oMenuItems.length - 1) createUnderline(svMenu, menuLineTop);
+            // drawing underline if this is not last menu item
+            if (i != oMenuItems.length - 1) {
+                createUnderline(svMenu, menuLineTop)
+            }
+            else {
+                // 1 for logout static menu item
+                console.log('oMenuItems.length = ' + oMenuItems.length);
+                totalMenuItemCount = oMenuItems.length + totalSubMenuCount + 1;
+                console.log('totalMenuItemCount = ' + totalMenuItemCount);
+                if (totalMenuItemCount > 10) {
+                    svMenu.contentHeight = (contentSpaceForMenuItem * totalMenuItemCount) + '%';
+                    createUnderline(svMenu, menuLineTop);
+                }
+
+                createLogoutButton(svMenu, menuLabelTop);
+            };
         }
     }
+
+
 
     function createMenu(parent, isSubMenu, text, targetPage, top) {
         var tmpButton = new SMF.UI.TextButton({
@@ -210,29 +179,30 @@ exports.createSliderDrawer = function(page, name) {
         parent.add(tmpIcon);
     }
 
+    function createLogoutButton(parent, top) {
+        // Main Menu 5
+        var btnLogout = new SMF.UI.TextButton({
+            name: 'btnLogout',
+            text: lang['pgsliderdrawer.btnLogout.text'],
+            onPressed: function(e) {
+                router.goTransitionless('pgLogin');
+            }
+        });
+        componentStyler(".textLeft .8pt .sliderDrawer.btnMenuTemplate .sliderDrawer.btnLogout")(btnLogout);
 
-
-    // underline
-    var recUnderlineLogout = new SMF.UI.Rectangle({
-        name: 'recUnderlineLogout'
-    });
-    componentStyler(".sliderDrawer.underlineTemplate .sliderDrawer.recUnderlineLogout")(recUnderlineLogout);
-    svMenu.add(recUnderlineLogout);
-
-    // Main Menu 5
-    var btnLogout = new SMF.UI.TextButton({
-        name: 'btnLogout',
-        text: lang['pgsliderdrawer.btnLogout.text'],
-        onPressed: function(e) {
-            router.goTransitionless('pgLogin');
+        if (totalMenuItemCount > 10) {
+            btnLogout.top = top + '%';
         }
-    });
-    componentStyler(".textLeft .8pt .sliderDrawer.btnMenuTemplate .sliderDrawer.btnLogout")(btnLogout);
-    svMenu.add(btnLogout);
+        else {
+            // topline
+            var recLineLogout = new SMF.UI.Rectangle({});
+            componentStyler(".sliderDrawer.underlineTemplate .sliderDrawer.recUnderlineLogout")(recLineLogout);
+            parent.add(recLineLogout);
+        }
 
-
+        parent.add(btnLogout);
+    }
 
     cntGeneral.add(svMenu);
-
     page.add(sliderDrawer);
 }
