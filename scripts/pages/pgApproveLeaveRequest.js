@@ -30,7 +30,6 @@ const pgApproveLeaveRequest = extend(Page)(
 
         var self = this;
 
-        headerBarOptions.setTitle(lang['pgApproveLeaveRequest.headerBar.setTitleView.titleText']);
         const headerBarWrapper = HeaderBarWrapper(this._view, headerBarOptions.options);
 
         var selectedStartDate;
@@ -290,6 +289,7 @@ const pgApproveLeaveRequest = extend(Page)(
             Dialog.removeWait();
 
             // Adding header bar (actionbar for Android, navigationbar for iOS)
+            headerBarOptions.setTitle(lang['pgApproveLeaveRequest.headerBar.setTitleView.titleText']);
             headerBarWrapper.reload();
             headerBarOptions.eventCallback(function(e) {
                 if (e.type == "back")

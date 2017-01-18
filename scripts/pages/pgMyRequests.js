@@ -10,7 +10,7 @@ const merge = require('deepmerge');
 const colors = require('./style/colors.js');
 
 // Actionbar
-const headerBarOptions = require("./headerbar/generic.headerbar.js");
+const headerBarOptions = require("./headerbar/pgMyRequests.headerbar.js");
 const HeaderBarWrapper = require("js-base/component/header-bar.js");
 
 // styler
@@ -249,8 +249,12 @@ const pgMyRequests = extend(Page)(
             headerBarOptions.setTitle(lang['pgMyRequests.headerBar.setTitleView.titleText']);
             headerBarWrapper.reload();
             headerBarOptions.eventCallback(function(e) {
-                if (e.type == "menu")
+                if (e.type == "menu") {
                     Pages.currentPage.sdSelfService.show();
+                }
+                if (e.type == "add") {
+                    router.go('pgNewLeaveRequest');
+                }
             });
 
             // Updating logged in user's info on the this page's slider drawer

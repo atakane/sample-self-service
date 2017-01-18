@@ -29,7 +29,6 @@ const pgApprovalWorklist = extend(Page)(
             backgroundImage: 'stripe.png'
         });
 
-        headerBarOptions.setTitle(lang['pgApprovalWorklist.headerBar.setTitleView.titleText']);
         const headerBarWrapper = HeaderBarWrapper(this._view, headerBarOptions.options);
 
         // Creating Slider Drawer
@@ -218,6 +217,7 @@ const pgApprovalWorklist = extend(Page)(
             Dialog.removeWait();
 
             // Adding header bar (actionbar for Android, navigationbar for iOS)
+            headerBarOptions.setTitle(lang['pgApprovalWorklist.headerBar.setTitleView.titleText']);
             headerBarWrapper.reload();
             headerBarOptions.eventCallback(function(e) {
                 if (e.type == "menu") {

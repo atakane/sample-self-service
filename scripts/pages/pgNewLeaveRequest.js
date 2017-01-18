@@ -13,7 +13,7 @@ const tinyUtils = require('js-tinyutils/tinyUtils.js');
 const colors = require('pages/style/colors.js');
 
 // Actionbar
-const headerBarOptions = require("./headerbar/generic.headerbar.js");
+const headerBarOptions = require("./headerbar/generic.headerbar.back.js");
 const HeaderBarWrapper = require("js-base/component/header-bar.js");
 
 // styler
@@ -130,7 +130,7 @@ const pgNewLeaveRequest = extend(Page)(
         var lblStartDate = new SMF.UI.Label({
             name: 'lblStartDate',
             text: '-',
-            touchEnabled : true,
+            touchEnabled: true,
             onTouchEnded: function() {
                 showDateTimePicker(true);
             }
@@ -171,7 +171,7 @@ const pgNewLeaveRequest = extend(Page)(
         var lblEndDate = new SMF.UI.Label({
             name: 'lblEndDate',
             text: '',
-            touchEnabled : true,
+            touchEnabled: true,
             onTouchEnded: function() {
                 showDateTimePicker(false);
             }
@@ -313,8 +313,8 @@ const pgNewLeaveRequest = extend(Page)(
             headerBarOptions.setTitle(lang['pgNewLeaveRequest.headerBar.setTitleView.titleText.New']);
             headerBarWrapper.reload();
             headerBarOptions.eventCallback(function(e) {
-                if (e.type == "menu")
-                    Pages.currentPage.sdSelfService.show();
+                if (e.type == "back")
+                    router.back();
             });
 
             fillVacationMetrics(oTimeTable.TotalDays, oTimeTable.Used, oTimeTable.Remaining);
