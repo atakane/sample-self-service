@@ -1,4 +1,4 @@
-/* globals smfOracle mcsUser mcsPassword urlMockServicePath oProfile oTimeTable oRequestList fingerPrintStatus fingerPrintSuccess touchIDUserName touchIDPassword*/
+/* globals smfOracle mcsUser mcsPassword urlMockServicePath oMenuItems oProfile oTimeTable oRequestList fingerPrintStatus fingerPrintSuccess touchIDUserName touchIDPassword*/
 const Page = require("js-base/component/page");
 const extend = require("js-base/core/extend");
 
@@ -238,26 +238,33 @@ const pgLogin = extend(Page)(
         // Currently we're working from a mock url that provides all 3 JSON files
         // When we connected to a Real EBS service or MCS instance we'll change these to point real endpoints.
         function getDataFromService(callback) {
-            // Getting oProfile
-            SMFAjax.getJSON(urlMockServicePath + 'profile.json', {
+            // Getting oMenuItems
+            SMFAjax.getJSON(urlMockServicePath + 'menu.json', {
                 command: 'GET'
             }, function(data) {
-                oProfile = data;
+                oMenuItems = data;
 
-                // Getting TimeTable
-                SMFAjax.getJSON(urlMockServicePath + 'timetable.json', {
+                // Getting oProfile
+                SMFAjax.getJSON(urlMockServicePath + 'profile.json', {
                     command: 'GET'
                 }, function(data) {
-                    oTimeTable = data;
+                    oProfile = data;
 
-                    // Getting RequestList
-                    SMFAjax.getJSON(urlMockServicePath + 'requestlist.json', {
+                    // Getting TimeTable
+                    SMFAjax.getJSON(urlMockServicePath + 'timetable.json', {
                         command: 'GET'
                     }, function(data) {
-                        oRequestList = data;
+                        oTimeTable = data;
 
-                        Dialog.removeWait();
-                        oProfile && oTimeTable && oRequestList && callback && callback();
+                        // Getting RequestList
+                        SMFAjax.getJSON(urlMockServicePath + 'requestlist.json', {
+                            command: 'GET'
+                        }, function(data) {
+                            oRequestList = data;
+
+                            Dialog.removeWait();
+                            oProfile && oTimeTable && oRequestList && callback && callback();
+                        });
                     });
                 });
             });
