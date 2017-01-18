@@ -262,8 +262,15 @@ const pgLogin = extend(Page)(
                         }, function(data) {
                             oLeaveRequestList = data;
 
-                            Dialog.removeWait();
-                            oProfile && oTimeTable && oLeaveRequestList && callback && callback();
+                            // Getting TimecardList
+                            SMFAjax.getJSON(urlMockServicePath + 'timecardlist.json', {
+                                command: 'GET'
+                            }, function(data) {
+                                oTimecardList = data;
+
+                                Dialog.removeWait();
+                                oMenuItems && oProfile && oTimeTable && oLeaveRequestList && oTimecardList && callback && callback();
+                            });
                         });
                     });
                 });

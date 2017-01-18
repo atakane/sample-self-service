@@ -13,6 +13,9 @@ const pgApprovalWorklist = require('./pages/pgApprovalWorklist.js');
 const pgApproveLeaveRequest = require('./pages/pgApproveLeaveRequest.js');
 const pgMyLeaveRequests = require('./pages/pgMyLeaveRequests.js');
 const pgMyLeaveRequestDetail = require('./pages/pgMyLeaveRequestDetail.js');
+const pgApprovalWorklistTimecards = require('./pages/pgApprovalWorklistTimecards.js');
+const pgApproveTimecard = require('./pages/pgApproveTimecard.js');
+const pgMyTimecards = require('./pages/pgMyTimecards.js');
 
 //Styler
 const merge = require('deepmerge');
@@ -84,6 +87,9 @@ router.add('pgApprovalWorklist', pgApprovalWorklist, defaultPageAnimation);
 router.add('pgApproveLeaveRequest', pgApproveLeaveRequest, defaultPageAnimation);
 router.add('pgMyLeaveRequests', pgMyLeaveRequests, defaultPageAnimation);
 router.add('pgMyLeaveRequestDetail', pgMyLeaveRequestDetail, defaultPageAnimation);
+router.add('pgApprovalWorklistTimecards', pgApprovalWorklistTimecards, defaultPageAnimation);
+router.add('pgApproveTimecard',pgApproveTimecard,defaultPageAnimation);
+router.add('pgMyTimecards',pgMyTimecards,defaultPageAnimation);
 
 // Routing to the starting page of the application
 router.go('pgLogin');
@@ -167,7 +173,6 @@ function checkforUpdate() {
 						secondButtonText: "Later",
 						onFirstButtonPressed: onFirstButtonPressed,
 						onSecondButtonPressed: onSecondButtonPressed
-
 					});
 				}
 			}

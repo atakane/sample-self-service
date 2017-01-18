@@ -9,8 +9,8 @@
     "iconStyle": "",
     "subItems": []
 }, {
-    "text": "Timecards",
-    "targetPage": "",
+    "text": "My Timecards",
+    "targetPage": "pgMyTimecards",
     "iconStyle": "",
     "subItems": []
 }, {
@@ -18,7 +18,7 @@
     "targetPage": "",
     "subItems": [{
         "text": "Timecards",
-        "targetPage": "pgApprovalTimecards",
+        "targetPage": "pgApprovalWorklistTimecards",
         "iconStyle": ".sliderDrawer.imgSliderMenuStatus"
     }, {
         "text": "Leave Requests",
