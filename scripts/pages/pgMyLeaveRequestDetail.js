@@ -1,4 +1,4 @@
-/* globals smfOracle oProfile oRequestList lunchBreakDuration*/
+/* globals smfOracle oProfile oLeaveRequestList lunchBreakDuration*/
 
 const Page = require("js-base/component/page");
 const extend = require("js-base/core/extend");
@@ -214,7 +214,7 @@ const pgMyLeaveRequestDetail = extend(Page)(
 
                         // console.log(self, self.state);
                         tinyUtils.setTargetID(self.getState().oRequest.ID);
-                        oRequestList = oRequestList.filter(tinyUtils.filterOutByID)
+                        oLeaveRequestList = oLeaveRequestList.filter(tinyUtils.filterOutByID)
 
                         // Updating Stats (this should return from real service when we connected. For now updating the mock)
                         oProfile.LeaveRequestCount = oProfile.LeaveRequestCount - 1;

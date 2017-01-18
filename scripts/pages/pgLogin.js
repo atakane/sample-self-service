@@ -1,4 +1,4 @@
-/* globals smfOracle mcsUser mcsPassword urlMockServicePath oMenuItems oProfile oTimeTable oRequestList fingerPrintStatus fingerPrintSuccess touchIDUserName touchIDPassword*/
+/* globals smfOracle mcsUser mcsPassword urlMockServicePath oMenuItems oProfile oTimeTable oLeaveRequestList fingerPrintStatus fingerPrintSuccess touchIDUserName touchIDPassword*/
 const Page = require("js-base/component/page");
 const extend = require("js-base/core/extend");
 
@@ -257,13 +257,13 @@ const pgLogin = extend(Page)(
                         oTimeTable = data;
 
                         // Getting RequestList
-                        SMFAjax.getJSON(urlMockServicePath + 'requestlist.json', {
+                        SMFAjax.getJSON(urlMockServicePath + 'leaverequestlist.json', {
                             command: 'GET'
                         }, function(data) {
-                            oRequestList = data;
+                            oLeaveRequestList = data;
 
                             Dialog.removeWait();
-                            oProfile && oTimeTable && oRequestList && callback && callback();
+                            oProfile && oTimeTable && oLeaveRequestList && callback && callback();
                         });
                     });
                 });

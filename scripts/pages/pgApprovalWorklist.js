@@ -306,7 +306,7 @@ const pgApprovalWorklist = extend(Page)(
             */
 
 
-            var parsedResponse = oRequestList;
+            var parsedResponse = oLeaveRequestList;
             arrayRequests = [];
 
             // if (parsedResponse.length > 0)

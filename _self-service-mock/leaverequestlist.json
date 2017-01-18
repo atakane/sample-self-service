@@ -15,8 +15,7 @@
         "TotalDays": 29,
         "Used": 16,
         "Remaining": 13
-                },
-    {
+}, {
         "ID": 2,
         "EmployeeID": "88711203",
         "FullName": "Robert Harris",
@@ -33,7 +32,7 @@
         "TotalDays": 22,
         "Used": 16,
         "Remaining": 6
-        }, {
+}, {
         "ID": 3,
         "EmployeeID": "1902837",
         "FullName": "Kevin Parker",
@@ -50,7 +49,7 @@
         "TotalDays": 15,
         "Used": 9,
         "Remaining": 6
-        }, {
+}, {
         "ID": 4,
         "EmployeeID": "1902837",
         "FullName": "Patricia Lewis",
@@ -67,7 +66,7 @@
         "TotalDays": 19,
         "Used": 3,
         "Remaining": 16
-        }, {
+}, {
         "ID": 5,
         "EmployeeID": "8927191",
         "FullName": "Lee Allen",
@@ -84,7 +83,7 @@
         "TotalDays": 37,
         "Used": 18,
         "Remaining": 19
-        }, {
+}, {
         "ID": 6,
         "EmployeeID": "1902837",
         "FullName": "Patricia Lewis",
@@ -101,7 +100,7 @@
         "TotalDays": 19,
         "Used": 3,
         "Remaining": 16
-        }, {
+}, {
         "ID": 7,
         "EmployeeID": "341561",
         "FullName": "Michelle Edward",
@@ -118,4 +117,4 @@
         "TotalDays": 45,
         "Used": 20,
         "Remaining": 25
-        }]
+}]

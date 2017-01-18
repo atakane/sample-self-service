@@ -1,4 +1,4 @@
-/* globals smfOracle oTimeTable oProfile oRequestList lunchBreakDuration fontAwesome*/
+/* globals smfOracle oTimeTable oProfile oLeaveRequestList lunchBreakDuration fontAwesome*/
 
 /*
 TODO:
@@ -267,7 +267,7 @@ const pgNewLeaveRequest = extend(Page)(
                             'Remaining': oTimeTable.Remaining
                         }
 
-                        oRequestList.push(myRequest);
+                        oLeaveRequestList.push(myRequest);
 
                         alert({
                             title: lang['pgNewLeaveRequest.btnSave.onPressed. onFirstButtonPressed.title'],

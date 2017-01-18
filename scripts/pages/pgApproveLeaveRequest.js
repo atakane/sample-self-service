@@ -1,4 +1,4 @@
-/* globals oRequestList fontAwesome*/
+/* globals oLeaveRequestList fontAwesome*/
 
 const Page = require("js-base/component/page");
 const extend = require("js-base/core/extend");
@@ -214,7 +214,7 @@ const pgApproveLeaveRequest = extend(Page)(
                     firstButtonText: lang['pgApproveLeaveRequest.btnReject.onPressed.text1'],
                     secondButtonText: lang['pgOutOfOffice.btnSave.onPressed.secondButtonText'],
                     onFirstButtonPressed: function() {
-                        oRequestList[self.getState().targetRowIndex].Status = lang['pgMyLeaveRequests.getStatusLetter.status2'];
+                        oLeaveRequestList[self.getState().targetRowIndex].Status = lang['pgMyLeaveRequests.getStatusLetter.status2'];
 
                         alert({
                             title: lang['pgApproveLeaveRequest.btnReject.onPressed.onFirstButtonPressed.title'],
@@ -246,7 +246,7 @@ const pgApproveLeaveRequest = extend(Page)(
                     firstButtonText: lang['pgApproveLeaveRequest.btnSave.onPressed.text1'],
                     secondButtonText: lang['pgOutOfOffice.btnSave.onPressed.secondButtonText'],
                     onFirstButtonPressed: function() {
-                        oRequestList[self.getState().targetRowIndex].Status = lang['pgMyLeaveRequests.getStatusLetter.status2'];
+                        oLeaveRequestList[self.getState().targetRowIndex].Status = lang['pgMyLeaveRequests.getStatusLetter.status2'];
 
                         alert({
                             title: lang['pgApproveLeaveRequest.btnSave.onPressed.onFirstButtonPressed.title'],

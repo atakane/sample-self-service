@@ -296,7 +296,7 @@ const pgMyLeaveRequests = extend(Page)(
             }]
             */
 
-            var parsedResponse = oRequestList;
+            var parsedResponse = oLeaveRequestList;
             arrayRequests = [];
 
             for (var i = 0; i < parsedResponse.length; i++) {
