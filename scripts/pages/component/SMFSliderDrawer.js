@@ -128,9 +128,8 @@ exports.createSliderDrawer = function(page, name) {
             }
             else {
                 // 1 for logout static menu item
-                console.log('oMenuItems.length = ' + oMenuItems.length);
                 totalMenuItemCount = oMenuItems.length + totalSubMenuCount + 1;
-                console.log('totalMenuItemCount = ' + totalMenuItemCount);
+                
                 if (totalMenuItemCount > 10) {
                     svMenu.contentHeight = (contentSpaceForMenuItem * totalMenuItemCount) + '%';
                     createUnderline(svMenu, menuLineTop);
