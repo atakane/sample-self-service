@@ -43,9 +43,13 @@ const pgMyTimecards = extend(Page)(
         var rptDefault = {
             name: 'rptApprovalList',
             onSelectedItem: function(e) {
-                router.go('pgMyTimecardDetail', arrayRequests[e.rowIndex]);
+                router.go('pgMyTimecardDetail', {
+                    'id': arrayRequests[e.rowIndex].ID,
+                    'request': arrayRequests[e.rowIndex]
+                });
             }
         };
+
         var rptParams = {};
         componentStyler(".Generic.repeater")(rptParams);
         rptParams = merge.all([rptDefault, rptParams]);
@@ -162,7 +166,7 @@ const pgMyTimecards = extend(Page)(
 
             var textTimeDetail;
             textTimeDetail = ('{0} - {1}').format(startDate.format('MMM. d'), endDate.format('MMM. d, yyyy'));
-            
+
             var textTotalHours = arrayRequests[e.rowIndex].TotalHours + ' ' + ((arrayRequests[e.rowIndex].TotalHours > 1) ? lang['pgOutOfOffice.cntBlueBox.lblSelectedDaysCountText.hours'] : lang['pgOutOfOffice.cntBlueBox.lblSelectedDaysCountText.hour']);
 
             getStatusLetter(arrayRequests[e.rowIndex].Status, this.controls[1]);
@@ -209,7 +213,7 @@ const pgMyTimecards = extend(Page)(
         });
         componentStyler(".allArea .textCenter .7pt .Generic.lblNoData")(lblNoData);
         this.add(lblNoData);
-        
+
         /**
          * Creates action(s) that are run when the user press the key of the devices.
          * @param {KeyCodeEventArguments} e Uses to for key code argument. It returns e.keyCode parameter.
@@ -273,7 +277,8 @@ const pgMyTimecards = extend(Page)(
                     "EndDate": "12/16/16",
                     "TotalHours": "43",
                     "Status": "waiting",
-                    "Location" : "NA"
+                    "Location" : "NA",
+                    "days" : []
             }]
             */
 
@@ -296,6 +301,7 @@ const pgMyTimecards = extend(Page)(
                     objRequestObject.TotalHours = parsedResponse[i].TotalHours;
                     objRequestObject.Status = parsedResponse[i].Status;
                     objRequestObject.Location = parsedResponse[i].Location;
+                    objRequestObject.days = parsedResponse[i].days;
 
                     arrayRequests.push(objRequestObject);
                 }

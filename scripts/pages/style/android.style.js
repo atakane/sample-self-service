@@ -24,7 +24,7 @@ module.exports = {
     },
     ".lblMiddleLine": {
       top: '41%',
-      height:'30%'
+      height: '30%'
     },
     ".lblBottomLine": {
       top: '65%',
@@ -273,6 +273,11 @@ module.exports = {
     ".imgSliderMenuMyRequests": {
       width: '18.5dp',
       height: '18.5dp'
+    }
+  },
+  ".pgNewTimeCard": {
+    ".lblTimeCardDate": {
+      top: '14.5%'
     }
   }
 };

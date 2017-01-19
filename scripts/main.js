@@ -16,6 +16,7 @@ const pgMyLeaveRequestDetail = require('./pages/pgMyLeaveRequestDetail.js');
 const pgApprovalWorklistTimecards = require('./pages/pgApprovalWorklistTimecards.js');
 const pgApproveTimecard = require('./pages/pgApproveTimecard.js');
 const pgMyTimecards = require('./pages/pgMyTimecards.js');
+const pgMyTimecardDetail = require('./pages/pgMyTimecardDetail.js');
 
 //Styler
 const merge = require('deepmerge');
@@ -31,11 +32,13 @@ const stylePgAbout = require('./pages/style/pgAbout.style.js');
 const stylePgMyLeaveRequests = require('./pages/style/pgMyLeaveRequests.style.js');
 const stylePgNewLeaveRequest = require('./pages/style/pgNewLeaveRequest.style.js');
 const stylePgApproveLeaveRequest = require('./pages/style/pgApproveLeaveRequest.style.js');
+const stylePgNewTimeCard = require('./pages/style/pgNewTimeCard.style.js');
+
 const styleOSSpecific = (Device.deviceOS === 'iOS') ? require('./pages/style/ios.style.js') : require('./pages/style/android.style.js');
 
 // merging styles to simplify style usage
 // by that way  we can use same object hieararchy within style files.
-var mergedStyle = merge.all([styleGeneric, styleSliderDrawer, stylePgLogin, stylePgStatus, stylePgOutOfOffice, stylePgAbout, stylePgMyLeaveRequests, stylePgNewLeaveRequest, stylePgApproveLeaveRequest, styleOSSpecific]);
+var mergedStyle = merge.all([styleGeneric, styleSliderDrawer, stylePgLogin, stylePgStatus, stylePgOutOfOffice, stylePgAbout, stylePgMyLeaveRequests, stylePgNewLeaveRequest, stylePgApproveLeaveRequest, stylePgNewTimeCard, styleOSSpecific]);
 
 // passing style object to styler
 styler(mergedStyle);
@@ -90,6 +93,7 @@ router.add('pgMyLeaveRequestDetail', pgMyLeaveRequestDetail, defaultPageAnimatio
 router.add('pgApprovalWorklistTimecards', pgApprovalWorklistTimecards, defaultPageAnimation);
 router.add('pgApproveTimecard',pgApproveTimecard,defaultPageAnimation);
 router.add('pgMyTimecards',pgMyTimecards,defaultPageAnimation);
+router.add('pgMyTimecardDetail',pgMyTimecardDetail,defaultPageAnimation);
 
 // Routing to the starting page of the application
 router.go('pgLogin');

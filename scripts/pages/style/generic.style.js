@@ -101,7 +101,7 @@ module.exports = {
         ".repeater": {
             left: '0%',
             width: '100%',
-            height: '90%',
+            height: '91%',
             borderWidth: 0,
             showScrollbar: true,
             autoSize: false,

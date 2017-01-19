@@ -214,7 +214,7 @@ const pgApproveLeaveRequest = extend(Page)(
                     firstButtonText: lang['pgApproveLeaveRequest.btnReject.onPressed.text1'],
                     secondButtonText: lang['pgOutOfOffice.btnSave.onPressed.secondButtonText'],
                     onFirstButtonPressed: function() {
-                        oLeaveRequestList[self.getState().targetRowIndex].Status = lang['pgMyLeaveRequests.getStatusLetter.status2'];
+                        oLeaveRequestList[self.getState().targetRowIndex].Status = 'rejected';
 
                         alert({
                             title: lang['pgApproveLeaveRequest.btnReject.onPressed.onFirstButtonPressed.title'],
@@ -246,7 +246,7 @@ const pgApproveLeaveRequest = extend(Page)(
                     firstButtonText: lang['pgApproveLeaveRequest.btnSave.onPressed.text1'],
                     secondButtonText: lang['pgOutOfOffice.btnSave.onPressed.secondButtonText'],
                     onFirstButtonPressed: function() {
-                        oLeaveRequestList[self.getState().targetRowIndex].Status = lang['pgMyLeaveRequests.getStatusLetter.status2'];
+                        oLeaveRequestList[self.getState().targetRowIndex].Status = 'approved';
 
                         alert({
                             title: lang['pgApproveLeaveRequest.btnSave.onPressed.onFirstButtonPressed.title'],

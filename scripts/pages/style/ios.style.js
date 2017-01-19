@@ -266,5 +266,10 @@ module.exports = {
       width: 22,
       height: 20
     }
+  },
+  ".pgNewTimeCard": {
+    ".lblTimeCardDate": {
+      top: '11.5442%'
+    }
   }
 };
