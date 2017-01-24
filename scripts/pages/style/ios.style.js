@@ -1,3 +1,5 @@
+const colors = require('./colors.js');
+
 module.exports = {
   ".Generic": {
     ".imgHome": {
@@ -9,6 +11,9 @@ module.exports = {
     ".itemTemplate": {
       height: (Device.screenHeight - 64) / 7
     },
+    ".itemTemplate5items": {
+      height: (Device.screenHeight * 0.71) / 5
+    },
     ".imgCircle": {
       top: ((((Device.screenHeight - 64) / 7) - 60) / 2),
       width: 60,
@@ -19,6 +24,9 @@ module.exports = {
     },
     ".horizontalLine": {
       top: ((Device.screenHeight - 64) / 7) - 1
+    },
+    ".horizontalLine5items": {
+      top: (Device.screenHeight * 0.71) / 5 - 1
     },
     ".lblTopLine": {
       top: '9%',
@@ -268,8 +276,11 @@ module.exports = {
     }
   },
   ".pgNewTimeCard": {
-    ".lblTimeCardDate": {
-      top: '11.5442%'
+    ".lblStartEndDate": {
+      top: '12%'
+    },
+    ".lblWeekTotalHours": {
+      top: '17%'
     }
   }
 };

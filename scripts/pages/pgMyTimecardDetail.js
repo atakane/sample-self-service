@@ -3,7 +3,6 @@
 const Page = require("js-base/component/page");
 const extend = require("js-base/core/extend");
 
-const SMFSliderDrawer = require('./component/SMFSliderDrawer.js');
 const Dialog = require('smf-dialog');
 const tinyUtils = require('js-tinyutils/tinyUtils.js');
 const merge = require('deepmerge');
@@ -50,11 +49,10 @@ const pgMyTimecardDetail = extend(Page)(
         rptParams = merge.all([rptDefault, rptParams]);
 
         var rptTimecardDays = new SMF.UI.RepeatBox(rptParams);
-        // rptTimecardDays.top:''
 
         // styling repeater item templates
         var paramItemTemplate = {};
-        componentStyler(".Generic.itemTemplate")(paramItemTemplate);
+        componentStyler(".Generic.itemTemplate5items")(paramItemTemplate);
 
         rptTimecardDays.itemTemplate.fillColor = paramItemTemplate.fillColor;
         rptTimecardDays.itemTemplate.height = paramItemTemplate.height;
@@ -71,13 +69,6 @@ const pgMyTimecardDetail = extend(Page)(
         this.add(imgAvatar);
 
         // FullName & Role
-        var lblTimeCardDate = new SMF.UI.Label({
-            name: 'lblTimeCardDate',
-            text: '-'
-        });
-        componentStyler(".textRight .12pt .pgNewTimeCard.lblTimeCardDate")(lblTimeCardDate);
-        this.add(lblTimeCardDate);
-
         var lblFullName = new SMF.UI.Label({
             name: 'lblFullName'
         });
@@ -89,6 +80,18 @@ const pgMyTimecardDetail = extend(Page)(
         });
         componentStyler(".textLeft .7pt .pgOutOfOffice.lblTeamRole")(lblTeamRole);
         this.add(lblTeamRole);
+
+        var lblStartEndDate = new SMF.UI.Label({
+            name: 'lblStartEndDate'
+        });
+        componentStyler(".textRight .10pt .pgNewTimeCard.lblStartEndDate")(lblStartEndDate);
+        this.add(lblStartEndDate);
+
+        var lblWeekTotalHours = new SMF.UI.Label({
+            name: 'lblWeekTotalHours'
+        });
+        componentStyler(".textRight .12pt .pgNewTimeCard.lblWeekTotalHours")(lblWeekTotalHours);
+        this.add(lblWeekTotalHours);
 
         var myRectangle1 = new SMF.UI.Rectangle({});
         componentStyler(".pgApproveLeaveRequest.horizontalRectangle .Generic.horizontalLine .pgApproveLeaveRequest.myRectangle1Top")(myRectangle1);
@@ -110,27 +113,70 @@ const pgMyTimecardDetail = extend(Page)(
         });
         componentStyler(".textRight .5pt .pgNewTimeCard.lblDate")(lblDate);
 
+        var lblDayTotalHours = new SMF.UI.Label({
+            name: 'lblDayTotalHours',
+            text: '',
+        });
+        componentStyler(".textRight .6pt .pgNewTimeCard.lblDayTotalHours")(lblDayTotalHours);
+
         var recHorizontalLine = new SMF.UI.Rectangle({
             name: 'recHorizontalLine'
         });
-        componentStyler(".Generic.horizontalLine")(recHorizontalLine);
+        componentStyler(".Generic.horizontalLine5items")(recHorizontalLine);
 
         rptTimecardDays.itemTemplate.add(lblDayofWeek);
         rptTimecardDays.itemTemplate.add(lblDate);
+        rptTimecardDays.itemTemplate.add(lblDayTotalHours);
+
+        // we'll not use styler for "days", it is a little bit of design issue
+        var hourWidth = 14;
+        var hourGap = 1;
+        var lastPos = 8;
+
+        var unitType = (Device.deviceOS === 'Android') ? 'dp' : 'pt';
+
+        for (var i = 0; i < 24; i++) {
+            var cntHour = new SMF.UI.Rectangle({
+                name: 'cntHour' + i,
+                left: lastPos + unitType,
+                top: '48%',
+                width: hourWidth + unitType,
+                height: '35%',
+                borderWidth: 1,
+                fillColor: SMF.UI.Color.WHITE,
+                backgroundTransparent: false,
+                roundedEdge: 0,
+                borderColor: colors.GrayLight
+            });
+            var lblHour = new SMF.UI.Label({
+                name: 'lblHour' + i,
+                left: lastPos + unitType,
+                top: '87%',
+                width: hourWidth + unitType,
+                height: '10%',
+                text: i
+            });
+            componentStyler(".textLeft .5pt")(lblHour);
+
+            rptTimecardDays.itemTemplate.add(cntHour);
+            rptTimecardDays.itemTemplate.add(lblHour);
+            lastPos = lastPos + hourGap + hourWidth;
+        }
+
         rptTimecardDays.itemTemplate.add(recHorizontalLine);
-
-        // activeItemTemplate
-        var lblDayofWeek2 = lblDayofWeek.clone();
-        var lblDate2 = lblDate.clone();
-        var recHorizontalLine2 = recHorizontalLine.clone();
-
-        rptTimecardDays.activeItemTemplate.add(lblDayofWeek2);
-        rptTimecardDays.activeItemTemplate.add(lblDate2);
-        rptTimecardDays.activeItemTemplate.add(recHorizontalLine2);
 
         rptTimecardDays.pullDownItem.height = '8%';
 
         // onRowRender will work for each item bound
+        // row.controls[0] -> Day of week
+        // row.controls[1] -> Date
+        // row.controls[2] -> Hour 0 box
+        // row.controls[3] -> Hour 0 text
+        // row.controls[4] -> Hour 1 box
+        // row.controls[5] -> Hour 1 text
+        // row.controls[(i*2)+2] -> Hour i box
+
+        var totalHoursWeek = 0;
         rptTimecardDays.onRowRender = function(e) {
             // {
             // "days": [{
@@ -138,21 +184,33 @@ const pgMyTimecardDetail = extend(Page)(
             //  "hours": []
             //  }]
             // }
-
-            var tmpDate = new Date(self.getState().oRequest.days[e.rowIndex].date);
+            var myDaysArray = self.getState().oRequest.days[e.rowIndex];
+            var tmpDate = new Date(myDaysArray.date);
 
             this.controls[0].text = tmpDate.format('dddd');
-            this.controls[1].text = tmpDate.format('MMM. d yyyy');
+            this.controls[1].text = tmpDate.format('MMM. d, yyyy');
 
-            this.controls[3].text = tmpDate.format('dddd');
-            this.controls[4].text = tmpDate.format('MMM. d, yyyy');;
+            for (var i = 0; i < 24; i++) {
+                this.controls[(i * 2) + 3].fillColor = SMF.UI.Color.WHITE;
+                
+                if (myDaysArray.hours.indexOf(i) !== -1) {
+                    var fillColor = ((i < dayWorkHoursStart) || (i > dayWorkHoursEnd - 1)) ? SMF.UI.Color.RED : colors.BlueMedium;
+                    this.controls[(i * 2) + 3].fillColor = fillColor;
+
+                    totalHoursWeek++;
+                }
+
+            }
+            this.controls[2].text =  (myDaysArray.hours.length > 0) ? myDaysArray.hours.length + ' hours' : '';
+
+            if (e.rowIndex == self.getState().oRequest.days.length - 1) {
+                lblWeekTotalHours.text = (totalHoursWeek > 0) ? totalHoursWeek + ' hours' : '';
+            }
         };
 
         // adding repeatbox to the page
         this.add(rptTimecardDays);
 
-        // If you want, you can add some legend here
-        // createLabel(pgMyLeaveRequests, 'lblLegend', 'W: Waiting\nA: Approved\nR: Rejected', '5%', '0%', '90%', '10%', SMF.UI.TextAlignment.LEFT, true, '5pt', false, colors.Gray);
 
         // adding label for no-data
         this.lblNoData = new SMF.UI.Label({
@@ -201,22 +259,40 @@ const pgMyTimecardDetail = extend(Page)(
             tinyUtils.fixOverlayBug();
         }
 
+        // this.createDayHours = function(parent) {
+        //     var hourWidth = 4.16
+        //     for (var i = 0; i < 24; i++) {
+        //         var cntHour = new SMF.UI.Rectangle({
+        //             name: 'cntHour' + i,
+        //             left: (hourWidth * i) + '%',
+        //             top: '45%',
+        //             width: hourWidth + '%',
+        //             height: '50%',
+        //             borderWidth: 1,
+        //             fillColor: SMF.UI.Color.WHITE,
+        //             backgroundTransparent: false,
+        //             roundedEdge: 0
+        //         });
+        //         parent.add(cntHour)
+        //     }
+
+        // }
 
         // Parsing storage objects 
         this.displayTimecardDays = function(oRequest) {
 
             // Updating logged in user's info on the this page's slider drawer
             var textTimeCardDate
-            
+
             var startDate = new Date(oRequest.StartDate);
             var endDate = new Date(oRequest.EndDate);
 
             var tmp1 = "";
             if (startDate.format('MMM') != endDate.format('MMM')) tmp1 = endDate.format(' MMM');
-            
+
             textTimeCardDate = ('{0} - {1}{2}').format(startDate.format('MMM. d'), tmp1, endDate.format('d, yyyy'));
-            
-            lblTimeCardDate.text = textTimeCardDate;
+
+            lblStartEndDate.text = textTimeCardDate;
             imgAvatar.image = oRequest.Avatar;
             lblFullName.text = oRequest.FullName;
             lblTeamRole.text = oRequest.Role + ' / ' + oRequest.Team;
@@ -244,7 +320,6 @@ const pgMyTimecardDetail = extend(Page)(
             }
         };
         _proto.stateChangedHandler = function(state) {
-            console.log(JSON.prune(state));
             this.displayTimecardDays(state.oRequest)
         };
     });

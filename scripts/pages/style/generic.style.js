@@ -116,6 +116,9 @@ module.exports = {
         ".itemTemplate": {
             fillColor: colors.GrayLighter
         },
+        ".itemTemplate5items": {
+            fillColor: colors.GrayLighter
+        },
         ".activeItemTemplate": {
             fillColor: colors.White
         },
@@ -136,7 +139,7 @@ module.exports = {
             left: '25%',
             width: '60%',
             height: '40%',
-            top:'5%',
+            top: '5%',
             fontColor: colors.BlueMedium,
             borderWidth: 0,
             backgroundTransparent: true
@@ -162,6 +165,14 @@ module.exports = {
             imageFillType: SMF.UI.ImageFillType.NORMAL
         },
         ".horizontalLine": {
+            left: 0,
+            width: '100%',
+            height: 1,
+            fillColor: colors.White,
+            borderWidth: 0,
+            roundedEdge: 0
+        },
+        ".horizontalLine5items": {
             left: 0,
             width: '100%',
             height: 1,

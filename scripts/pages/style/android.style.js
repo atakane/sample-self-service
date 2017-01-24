@@ -10,6 +10,12 @@ module.exports = {
     ".itemTemplate": {
       height: '80dp'
     },
+    // ".itemTemplate5items": {
+    //   height: '78dp'
+    // },
+    ".itemTemplate5items": {
+      height: (Device.screenHeight * 0.71) / 5
+    },
     ".imgCircle": {
       height: '10dp',
       width: '60dp',
@@ -21,6 +27,12 @@ module.exports = {
     },
     ".horizontalLine": {
       top: '79dp'
+    },
+    // ".horizontalLine5items": {
+    //   top: '77dp'
+    // },
+    ".horizontalLine5items": {
+      top: (Device.screenHeight * 0.71) / 5 - 1
     },
     ".lblMiddleLine": {
       top: '41%',
@@ -276,8 +288,11 @@ module.exports = {
     }
   },
   ".pgNewTimeCard": {
-    ".lblTimeCardDate": {
+    ".lblStartEndDate": {
       top: '14.5%'
+    },
+    ".lblWeekTotalHours": {
+      top: '15%'
     }
   }
 };

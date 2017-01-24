@@ -2,32 +2,45 @@ const colors = require('./colors.js');
 
 module.exports = {
     ".pgNewTimeCard": {
-        ".lblTimeCardDate": {
+        ".lblStartEndDate": {
             left: '50%',
-            top: 0,
             width: '45.4667%',
-            height: '35%',
-            fontColor: colors.Gray29
+            height: '4.7376%',
+            fontColor: colors.GrayDark
+        },
+        ".lblWeekTotalHours": {
+            left: '50%',
+            width: '45.4667%',
+            height: '4.7376%',
+            fontColor: colors.BlueMedium
         },
         ".lblDayofWeek": {
             left: '4.5333%',
-            top: '13%',
+            top: '10%',
             width: '40%',
-            height: '35%',
-            fontColor: colors.Gray29
+            height: '40%',
+            fontColor: colors.GrayDark,
+            textAlignment: SMF.UI.TextAlignment.TOP
         },
         ".lblDate": {
             left: '70%',
-            top: '13%',
+            top: '10%',
             width: '25.4667%',
-            height: '30%',
-            fontColor: colors.Gray29
+            height: '15%',
+            fontColor: colors.GrayDark
+        },
+        ".lblDayTotalHours": {
+            left: '70%',
+            top: '25%',
+            width: '25.4667%',
+            height: '15%',
+            fontColor: colors.BlueMedium
         },
         ".repeater": {
             left: '0%',
-            top:'30%',
+            top: '30%',
             width: '100%',
-            height: '100%',
+            height: '71%',
             borderWidth: 0,
             showScrollbar: true,
             autoSize: false,
@@ -37,7 +50,8 @@ module.exports = {
             enablePullUpToRefresh: false,
             enablePullDownToRefresh: false,
             useActiveItem: false,
-            allowDeletingItem: false
+            allowDeletingItem: false,
+            fillColor: SMF.UI.Color.RED
         }
     }
 };
