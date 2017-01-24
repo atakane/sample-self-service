@@ -18,13 +18,13 @@ const componentStyler = require("js-base/core/styler").componentStyler();
 // Router
 const router = require('js-base/core/router');
 
-const pgApprovalWorklistTimecardDetail = extend(Page)(
+const pgTimecardDetail = extend(Page)(
     // Page Constructor
     function(_super) {
         _super(this, {
-                name: 'pgApprovalWorklistTimecardDetail',
-                onKeyPress: pgApprovalWorklistTimecardDetail_onKeyPress,
-                onShow: pgApprovalWorklistTimecardDetail_onShow,
+                name: 'pgTimecardDetail',
+                onKeyPress: pgTimecardDetail_onKeyPress,
+                onShow: pgTimecardDetail_onShow,
                 fillColor: colors.GrayLighter
             },
             "", {
@@ -41,7 +41,7 @@ const pgApprovalWorklistTimecardDetail = extend(Page)(
         var rptDefault = {
             name: 'rptApprovalList',
             onSelectedItem: function(e) {
-                // router.go('pgMyTimecardDetail', arrayRequests[e.rowIndex]);
+                // router.go('pgTimecardDetail', arrayRequests[e.rowIndex]);
             }
         };
         var rptParams = {};
@@ -82,13 +82,15 @@ const pgApprovalWorklistTimecardDetail = extend(Page)(
         this.add(lblTeamRole);
 
         var lblStartEndDate = new SMF.UI.Label({
-            name: 'lblStartEndDate'
+            name: 'lblStartEndDate',
+            text: ''
         });
         componentStyler(".textRight .10pt .pgNewTimeCard.lblStartEndDate")(lblStartEndDate);
         this.add(lblStartEndDate);
 
         var lblWeekTotalHours = new SMF.UI.Label({
-            name: 'lblWeekTotalHours'
+            name: 'lblWeekTotalHours',
+            text: ''
         });
         componentStyler(".textRight .12pt .pgNewTimeCard.lblWeekTotalHours")(lblWeekTotalHours);
         this.add(lblWeekTotalHours);
@@ -170,13 +172,13 @@ const pgApprovalWorklistTimecardDetail = extend(Page)(
         // onRowRender will work for each item bound
         // row.controls[0] -> Day of week
         // row.controls[1] -> Date
-        // row.controls[2] -> Hour 0 box
-        // row.controls[3] -> Hour 0 text
-        // row.controls[4] -> Hour 1 box
-        // row.controls[5] -> Hour 1 text
-        // row.controls[(i*2)+2] -> Hour i box
+        // row.controls[2] -> Week total
+        // row.controls[3] -> Hour 0 box
+        // row.controls[4] -> Hour 0 text
+        // row.controls[5] -> Hour 1 box
+        // row.controls[6] -> Hour 1 text
+        // row.controls[(i*2)+3] -> Hour i box
 
-        var totalHoursWeek = 0;
         rptTimecardDays.onRowRender = function(e) {
             // {
             // "days": [{
@@ -192,21 +194,18 @@ const pgApprovalWorklistTimecardDetail = extend(Page)(
 
             for (var i = 0; i < 24; i++) {
                 this.controls[(i * 2) + 3].fillColor = SMF.UI.Color.WHITE;
-                
+
                 if (myDaysArray.hours.indexOf(i) !== -1) {
                     var fillColor = ((i < dayWorkHoursStart) || (i > dayWorkHoursEnd - 1)) ? SMF.UI.Color.RED : colors.BlueMedium;
                     this.controls[(i * 2) + 3].fillColor = fillColor;
 
-                    totalHoursWeek++;
                 }
 
             }
-            this.controls[2].text =  (myDaysArray.hours.length > 0) ? myDaysArray.hours.length + ' hours' : '';
-
-            if (e.rowIndex == self.getState().oRequest.days.length - 1) {
-                lblWeekTotalHours.text = (totalHoursWeek > 0) ? totalHoursWeek + ' hours' : '';
-            }
+            this.controls[2].text = (myDaysArray.hours.length > 0) ? myDaysArray.hours.length + ' hours' : '';
         };
+
+
 
         // adding repeatbox to the page
         this.add(rptTimecardDays);
@@ -225,7 +224,7 @@ const pgApprovalWorklistTimecardDetail = extend(Page)(
          * @param {KeyCodeEventArguments} e Uses to for key code argument. It returns e.keyCode parameter.
          * @this Pages.pgLogin
          */
-        function pgApprovalWorklistTimecardDetail_onKeyPress(e) {
+        function pgTimecardDetail_onKeyPress(e) {
             if (e.keyCode === 4) {
                 router.back();
             }
@@ -236,7 +235,7 @@ const pgApprovalWorklistTimecardDetail = extend(Page)(
          * @param {EventArguments} e Returns some attributes about the specified functions
          * @this Pages.pgLogin
          */
-        function pgApprovalWorklistTimecardDetail_onShow() {
+        function pgTimecardDetail_onShow() {
             // Hiding 'wait' dialog
             Dialog.removeWait();
 
@@ -255,7 +254,7 @@ const pgApprovalWorklistTimecardDetail = extend(Page)(
             // displayTimecardDays.call(this);
 
             // Oracle MCS Analytics logging 
-            smfOracle.logAndFlushAnalytics('pgMyTimecardDetail_onShow');
+            smfOracle.logAndFlushAnalytics('pgTimecardDetail_onShow');
             tinyUtils.fixOverlayBug();
         }
 
@@ -280,7 +279,6 @@ const pgApprovalWorklistTimecardDetail = extend(Page)(
 
         // Parsing storage objects 
         this.displayTimecardDays = function(oRequest) {
-
             // Updating logged in user's info on the this page's slider drawer
             var textTimeCardDate
 
@@ -293,9 +291,12 @@ const pgApprovalWorklistTimecardDetail = extend(Page)(
             textTimeCardDate = ('{0} - {1}{2}').format(startDate.format('MMM. d'), tmp1, endDate.format('d, yyyy'));
 
             lblStartEndDate.text = textTimeCardDate;
+            lblWeekTotalHours.text = (oRequest.TotalHours > 0) ? oRequest.TotalHours + ' hours' : '';
+            
             imgAvatar.image = oRequest.Avatar;
             lblFullName.text = oRequest.FullName;
             lblTeamRole.text = oRequest.Role + ' / ' + oRequest.Team;
+            
 
             // binding objects array
             rptTimecardDays.closePullItems();
@@ -324,4 +325,4 @@ const pgApprovalWorklistTimecardDetail = extend(Page)(
         };
     });
 
-module.exports = pgApprovalWorklistTimecardDetail;
+module.exports = pgTimecardDetail;

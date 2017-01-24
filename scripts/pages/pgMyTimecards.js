@@ -286,27 +286,10 @@ const pgMyTimecards = extend(Page)(
             arrayRequests = [];
 
             for (var i = 0; i < parsedResponse.length; i++) {
-                var objRequestObject = {};
-
                 if (parsedResponse[i].EmployeeID === oProfile.EmployeeID) {
-                    objRequestObject.ID = parsedResponse[i].ID;
-                    objRequestObject.EmployeeID = parsedResponse[i].EmployeeID;
-                    objRequestObject.FullName = parsedResponse[i].FullName;
-                    objRequestObject.Email = parsedResponse[i].Email;
-                    objRequestObject.Avatar = parsedResponse[i].Avatar;
-                    objRequestObject.Team = parsedResponse[i].Team;
-                    objRequestObject.Role = parsedResponse[i].Role;
-                    objRequestObject.StartDate = parsedResponse[i].StartDate;
-                    objRequestObject.EndDate = parsedResponse[i].EndDate;
-                    objRequestObject.TotalHours = parsedResponse[i].TotalHours;
-                    objRequestObject.Status = parsedResponse[i].Status;
-                    objRequestObject.Location = parsedResponse[i].Location;
-                    objRequestObject.days = parsedResponse[i].days;
-
-                    arrayRequests.push(objRequestObject);
+                    arrayRequests.push(parsedResponse[i]);
                 }
             }
-
 
             // binding objects array
             rptApprovalList.closePullItems();
