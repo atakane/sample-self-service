@@ -40,8 +40,8 @@ const pgApprovalWorklistTimecards = extend(Page)(
         var rptDefault = {
             name: 'rptApprovalList',
             onSelectedItem: function(e) {
-                router.go('pgApproveTimecard', {
-                    'rowIndex': e.rowIndex,
+                router.go('pgMyTimecardDetail', {
+                    'id': arrayRequests[e.rowIndex].ID,
                     'request': arrayRequests[e.rowIndex]
                 });
             }
@@ -294,23 +294,8 @@ const pgApprovalWorklistTimecards = extend(Page)(
             arrayRequests = [];
 
             for (var i = 0; i < parsedResponse.length; i++) {
-                var objRequestObject = {};
-
                 if (parsedResponse[i].Status === status) {
-                    objRequestObject.ID = parsedResponse[i].ID;
-                    objRequestObject.EmployeeID = parsedResponse[i].EmployeeID;
-                    objRequestObject.FullName = parsedResponse[i].FullName;
-                    objRequestObject.Email = parsedResponse[i].Email;
-                    objRequestObject.Avatar = parsedResponse[i].Avatar;
-                    objRequestObject.Team = parsedResponse[i].Team;
-                    objRequestObject.Role = parsedResponse[i].Role;
-                    objRequestObject.StartDate = parsedResponse[i].StartDate;
-                    objRequestObject.EndDate = parsedResponse[i].EndDate;
-                    objRequestObject.TotalHours = parsedResponse[i].TotalHours;
-                    objRequestObject.Status = parsedResponse[i].Status;
-                    objRequestObject.Location = parsedResponse[i].Location;
-
-                    arrayRequests.push(objRequestObject);
+                    arrayRequests.push(parsedResponse[i]);
                 }
             }
 
