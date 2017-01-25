@@ -113,11 +113,11 @@ const pgStatus = extend(Page)(
         cntOutOfOfficeBar.add(imgDetail);
 
         this.add(cntOutOfOfficeBar);
-        
+
         var imgOutOfOfficeShadowLine = new SMF.UI.Image({});
         componentStyler(".pgStatus.imgOutOfOfficeShadowLine")(imgOutOfOfficeShadowLine);
         this.add(imgOutOfOfficeShadowLine);
-        
+
         // Latest Leave Request details
         var lblNewRequestText = new SMF.UI.Label({
             name: 'lblNewRequestText',
@@ -169,11 +169,11 @@ const pgStatus = extend(Page)(
             if ((oProfile.LeaveRequestCount) && !isNaN(oProfile.LeaveRequestCount) && (oProfile.LeaveRequestCount > 0)) {
                 lblNewRequestText.text = lang['pgStatus.lblNewRequestText.text.part1'] + oProfile.LeaveRequestCount + lang['pgStatus.lblNewRequestText.text.part2'];
                 lblNewRequestTextDate.text = (new Date(oProfile.LastRequestStartDate)).format('MM/dd/yyyy');
-                if(Device.deviceOS=='Android'){
-                var tmp1 = lblNewRequestText.text;
-                var tmp2 = lblNewRequestTextDate.text;
-                lblNewRequestText.text = lblNewRequestTextDate.text = "";
-                lblNewRequestText.attributedText = tmp1 + "<b> " + tmp2 + "</b>";
+                if (Device.deviceOS == 'Android') {
+                    var tmp1 = lblNewRequestText.text;
+                    var tmp2 = lblNewRequestTextDate.text;
+                    lblNewRequestText.text = lblNewRequestTextDate.text = "";
+                    lblNewRequestText.attributedText = tmp1 + "<b> " + tmp2 + "</b>";
                 }
             }
             else {
@@ -192,9 +192,9 @@ const pgStatus = extend(Page)(
             smfOracle.logAndFlushAnalytics('pgStatus_onShow');
 
             tinyUtils.fixOverlayBug();
-            
+
             //if device can use TouchID ask to user 
-                        if (Device.canEvaluateFingerPrint && fingerPrintStatus != 'allowed') {
+            if (Device.canEvaluateFingerPrint && fingerPrintStatus != 'allowed') {
                 alert({
                     title: lang['alerttitle'],
                     message: lang['alertmessage'],
@@ -240,7 +240,7 @@ const pgStatus = extend(Page)(
 
             var lblTotalDaysText = new SMF.UI.Label({
                 name: 'lblTotalDaysText',
-                text: lang[ 'pgStatus.boxTotal']
+                text: lang['pgStatus.boxTotal']
             });
             componentStyler(".textCenter .6pt .pgStatus.boxDaysText2 .pgStatus.lblTotalDays")(lblTotalDaysText);
             boxTotalDays.add(lblTotalDaysText);

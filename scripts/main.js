@@ -17,6 +17,8 @@ const pgApprovalWorklistTimecards = require('./pages/pgApprovalWorklistTimecards
 const pgApproveTimecard = require('./pages/pgApproveTimecard.js');
 const pgMyTimecards = require('./pages/pgMyTimecards.js');
 const pgTimecardDetail = require('./pages/pgTimecardDetail.js');
+const pgTimecardDetailDay = require('./pages/pgTimecardDetailDay.js');
+
 
 //Styler
 const merge = require('deepmerge');
@@ -94,6 +96,7 @@ router.add('pgApprovalWorklistTimecards', pgApprovalWorklistTimecards, defaultPa
 router.add('pgApproveTimecard',pgApproveTimecard,defaultPageAnimation);
 router.add('pgMyTimecards',pgMyTimecards,defaultPageAnimation);
 router.add('pgTimecardDetail',pgTimecardDetail,defaultPageAnimation);
+router.add('pgTimecardDetailDay',pgTimecardDetailDay,defaultPageAnimation);
 
 // Routing to the starting page of the application
 router.go('pgLogin');

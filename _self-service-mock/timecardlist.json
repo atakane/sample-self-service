@@ -1,5 +1,5 @@
 [{
-        "ID": 17,
+        "ID": 100270017,
         "EmployeeID": "341561",
         "FullName": "Michelle Edward",
         "Email": "md@lab.cp",
@@ -8,11 +8,33 @@
         "Role": "Art Director",
         "StartDate": "12/5/16",
         "EndDate": "12/9/16",
-        "TotalHours": "66",
+        "TotalHours": "68",
         "Status": "waiting",
-        "Location": "The Bike Company co., Palo Alto +1"
+        "Location": "The Bike Company co., Palo Alto +1",
+        "days": [{
+                "date": "12/5/16",
+                "hours": [9, 10, 11, 13, 14, 15, 16, 17, 18, 19, 21, 22]
+        }, {
+                "date": "12/6/16",
+                "hours": [10, 11, 13, 14, 15, 16, 17, 18, 20, 21, 22]
+        }, {
+                "date": "12/7/16",
+                "hours": [10, 11, 13, 14, 15, 16, 17, 18, 20, 21, 22]
+        }, {
+                "date": "12/8/16",
+                "hours": [13, 14, 15, 16, 17, 18, 19]
+        }, {
+                "date": "12/9/16",
+                "hours": [9, 10, 11, 13, 14, 15, 16, 17, 18, 19]
+        }, {
+                "date": "12/10/16",
+                "hours": [10, 11, 13, 14, 15, 16, 17]
+        }, {
+                "date": "12/11/16",
+                "hours": []
+        }]
 }, {
-        "ID": 11,
+        "ID": 100270011,
         "EmployeeID": "88771100",
         "FullName": "William Campell",
         "Email": "wc@smartface.io",
@@ -20,25 +42,34 @@
         "Team": "R&D",
         "Role": "Sr. Researcher",
         "StartDate": "12/12/16",
-        "EndDate": "12/16/16",
-        "TotalHours": "43",
+        "EndDate": "12/18/16",
+        "TotalHours": "48",
         "Status": "waiting",
-        "Location" : "NA"
+        "Location": "NA",
+        "days": [{
+                "date": "12/12/16",
+                "hours": [9, 10, 11, 13, 14, 15, 16, 17]
+        }, {
+                "date": "12/13/16",
+                "hours": [9, 10, 11, 13, 14, 15, 16, 17]
+        }, {
+                "date": "12/14/16",
+                "hours": [9, 10, 11, 13, 14, 15, 16, 17]
+        }, {
+                "date": "12/15/16",
+                "hours": [9, 10, 11, 13, 14, 15, 16, 17]
+        }, {
+                "date": "12/16/16",
+                "hours": [9, 10, 11, 13, 14, 15, 16, 17]
+        }, {
+                "date": "12/17/16",
+                "hours": [10, 11, 13, 14, 15, 16]
+        }, {
+                "date": "12/18/16",
+                "hours": [14, 15]
+        }]
 }, {
-        "ID": 15,
-        "EmployeeID": "8927191",
-        "FullName": "Lee Allen",
-        "Email": "la@smartface.io",
-        "Avatar": "avatar.png",
-        "Team": "HR Team",
-        "Role": "Director",
-        "StartDate": "12/12/16",
-        "EndDate": "12/16/16",
-        "TotalHours": "43",
-        "Status": "waiting",
-        "Location": "Oracle Inc., Redwood"
-}, {
-        "ID": 12,
+        "ID": 100270012,
         "EmployeeID": "88711203",
         "FullName": "Robert Harris",
         "Email": "robert@smartface.io",
@@ -49,9 +80,30 @@
         "EndDate": "1/5/17",
         "TotalHours": "37",
         "Status": "waiting",
-        "Location" : "NA"
+        "Location": "The Bike Company Inc., Palo Alto +1",
+        "days": [{
+                "date": "1/2/17",
+                "hours": [],
+                "location" : ""
+        }, {
+                "date": "1/3/17",
+                "hours": [9, 10, 11, 13, 14, 15, 16, 17],
+                "location" : "The Bike Company Inc., Palo Alto"
+        }, {
+                "date": "1/4/17",
+                "hours": [9, 10, 11, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+                "location" : "The Bike Company Inc., Palo Alto"
+        }, {
+                "date": "1/5/17",
+                "hours": [0, 1, 2, 14, 15, 16, 17],
+                "location" : "The Bike Company Inc., Palo Alto"
+        }, {
+                "date": "1/6/17",
+                "hours": [9, 10, 11, 13, 14, 15, 16, 17],
+                "location" : "Smartface Inc., Palo Alto"
+        }]
 }, {
-        "ID": 13,
+        "ID": 100270013,
         "EmployeeID": "1902837",
         "FullName": "Kevin Parker",
         "Email": "john.smart@bigcorp.io",
@@ -59,12 +111,31 @@
         "Team": "Dev-Ops",
         "Role": "Sys. Eng.",
         "StartDate": "1/3/17",
-        "EndDate": "1/5/17",
-        "TotalHours": "29",
+        "EndDate": "1/7/17",
+        "TotalHours": "32",
         "Status": "waiting",
-        "Location" : "NA"
+        "Location": "NA",
+        "days": [{
+                "date": "1/2/17",
+                "hours": []
+        }, {
+                "date": "1/3/17",
+                "hours": [10, 11, 13, 14, 15]
+        }, {
+                "date": "1/4/17",
+                "hours": [9, 10, 11, 13, 14, 15, 16, 17]
+        }, {
+                "date": "1/5/17",
+                "hours": [9, 10, 11, 13, 14, 15, 16, 17]
+        }, {
+                "date": "1/6/17",
+                "hours": [9, 10, 11, 13, 14, 15, 16, 17]
+        }, {
+                "date": "1/7/17",
+                "hours": [3, 4, 5]
+        }]
 }, {
-        "ID": 14,
+        "ID": 100270014,
         "EmployeeID": "1902837",
         "FullName": "Patricia Lewis",
         "Email": "plewis@hotmail.io",
@@ -75,9 +146,55 @@
         "EndDate": "1/5/17",
         "TotalHours": "24",
         "Status": "waiting",
-        "Location" : "NA"
+        "Location": "NA",
+        "days": [{
+                "date": "1/2/17",
+                "hours": []
+        }, {
+                "date": "1/3/17",
+                "hours": [10, 11, 13, 14]
+        }, {
+                "date": "1/4/17",
+                "hours": [10, 11, 13, 14, 15, 16, 17]
+        }, {
+                "date": "1/5/17",
+                "hours": [9, 10, 11, 13, 14, 15, 16]
+        }, {
+                "date": "1/6/17",
+                "hours": [10, 11, 13, 14, 15, 16]
+        }]
 }, {
-        "ID": 16,
+        "ID": 100270015,
+        "EmployeeID": "8927191",
+        "FullName": "Lee Allen",
+        "Email": "la@smartface.io",
+        "Avatar": "avatar.png",
+        "Team": "HR Team",
+        "Role": "Director",
+        "StartDate": "1/2/17",
+        "EndDate": "1/6/17",
+        "TotalHours": "24",
+        "Status": "waiting",
+        "Location": "Oracle Inc., Redwood",
+        "days": [{
+                "date": "1/2/17",
+                "hours": []
+        }, {
+                "date": "1/3/17",
+                "hours": [10, 11, 17, 18]
+        }, {
+                "date": "1/4/17",
+                "hours": [10, 11, 13, 14, 15, 16, 17, 18]
+        }, {
+                "date": "1/5/17",
+                "hours": [9, 10, 11, 13, 14, 15, 16, 17]
+        }, {
+                "date": "1/6/17",
+                "hours": [10, 11, 17, 18]
+        }]
+
+}, {
+        "ID": 100270016,
         "EmployeeID": "1902837",
         "FullName": "Patricia Lewis",
         "Email": "plewis@hotmail.io",
@@ -87,6 +204,22 @@
         "StartDate": "1/9/17",
         "EndDate": "1/13/17",
         "TotalHours": "43",
-        "Status": "approved",
-        "Location" : "NA"
+        "Status": "waiting",
+        "Location": "NA",
+        "days": [{
+                "date": "1/9/17",
+                "hours": [8, 9, 10, 11, 13, 14, 15, 16]
+        }, {
+                "date": "1/10/17",
+                "hours": [8, 9, 10, 11, 13, 14, 15, 16, 17, 18]
+        }, {
+                "date": "1/11/17",
+                "hours": [8, 9, 10, 11, 13, 14, 15, 16, 21, 22]
+        }, {
+                "date": "1/12/17",
+                "hours": [9, 10, 11, 13, 14, 15, 16]
+        }, {
+                "date": "1/13/17",
+                "hours": [8, 9, 10, 11, 13, 14, 15, 16]
+        }]
 }]

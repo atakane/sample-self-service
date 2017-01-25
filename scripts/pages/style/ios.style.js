@@ -280,7 +280,24 @@ module.exports = {
       top: '12%'
     },
     ".lblWeekTotalHours": {
-      top: '17%'
+      top: '17.5%'
+    },
+    ".lblStatus": {
+      top: '22.5%'
+    },
+    ".lblLocation": {
+      multipleLine: true,
+      height: '40%',
+      textAlignment: SMF.UI.TextAlignment.TOP
+    },
+    ".cntWorkLog": {
+      top: (Device.screenHeight * 0.30) + ((Device.screenHeight * 0.71) / 5),
+      height: (Device.screenHeight - ((Device.screenHeight * 0.30) + ((Device.screenHeight * 0.71) / 5))),
+      fillColor:SMF.UI.Color.WHITE,
+      backgroundTransparent:false
+    },
+    ".lblWorkLog":{
+      top:'3%'
     }
   }
 };

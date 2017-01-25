@@ -293,6 +293,9 @@ module.exports = {
     },
     ".lblWeekTotalHours": {
       top: '15%'
+    },
+    ".lblStatus": {
+      top: '20%'
     }
   }
 };

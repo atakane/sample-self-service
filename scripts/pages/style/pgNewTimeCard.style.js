@@ -14,6 +14,12 @@ module.exports = {
             height: '4.7376%',
             fontColor: colors.BlueMedium
         },
+        ".lblStatus": {
+            left: '50%',
+            width: '45.4667%',
+            height: '4.7376%',
+            fontColor: colors.BlueMedium
+        },
         ".lblDayofWeek": {
             left: '4.5333%',
             top: '10%',
@@ -23,9 +29,9 @@ module.exports = {
             textAlignment: SMF.UI.TextAlignment.TOP
         },
         ".lblDate": {
-            left: '70%',
+            left: '60%',
             top: '10%',
-            width: '25.4667%',
+            width: '35.4667%',
             height: '15%',
             fontColor: colors.GrayDark
         },
@@ -52,6 +58,10 @@ module.exports = {
             useActiveItem: false,
             allowDeletingItem: false,
             fillColor: SMF.UI.Color.RED
+        },
+        ".cntWorkLog": {
+            left: '0%',
+            width: '100%'
         }
     }
 };
