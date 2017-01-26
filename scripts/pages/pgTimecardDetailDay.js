@@ -9,7 +9,7 @@ const merge = require('deepmerge');
 const colors = require('./style/colors.js');
 
 // Actionbar
-const headerBarOptions = require("./headerbar/generic.headerbar.back.js");
+var headerBarOptions = require("./headerbar/generic.headerbar.back.js");
 const HeaderBarWrapper = require("js-base/component/header-bar.js");
 
 // styler
@@ -29,13 +29,13 @@ const pgTimecardDetailDay = extend(Page)(
             },
             "", {
                 targetTimecardID: 0,
-                oTimecard: [],
+                oRequest: [],
                 targetDate: null
             });
         var self = this;
         var arrayRequests = [];
 
-        const headerBarWrapper = HeaderBarWrapper(this._view, headerBarOptions.options);
+        var headerBarWrapper = HeaderBarWrapper(this._view, headerBarOptions.options);
 
         // Creating a repeatbox to show our requests
         // styling the repeater
@@ -169,14 +169,13 @@ const pgTimecardDetailDay = extend(Page)(
             lastPos = lastPos + hourGap + hourWidth;
         }
 
-        rptTimecardDetailDays.itemTemplate.add(recHorizontalLine);
+        // rptTimecardDetailDays.itemTemplate.add(recHorizontalLine);
 
         // rptTimecardDetailDays.pullDownItem.height = '8%';
 
         // onRowRender will work for each item bound
         // row.controls[0] -> Day of week
         // row.controls[1] -> Location
-
         // row.controls[2] -> Hour 0 box
         // row.controls[3] -> Hour 0 text
         // row.controls[4] -> Hour 1 box
@@ -201,9 +200,7 @@ const pgTimecardDetailDay = extend(Page)(
                 if (myDaysArray.hours.indexOf(i) !== -1) {
                     var fillColor = ((i < dayWorkHoursStart) || (i > dayWorkHoursEnd - 1)) ? SMF.UI.Color.RED : colors.BlueMedium;
                     this.controls[(i * 2) + 2].fillColor = fillColor;
-
                 }
-
             }
         };
 
@@ -212,7 +209,16 @@ const pgTimecardDetailDay = extend(Page)(
         // adding repeatbox to the page
         this.add(rptTimecardDetailDays);
 
-        // work logs header
+        // adding label for no-data
+        this.lblNoData = new SMF.UI.Label({
+            name: 'lblNoData',
+            text: lang['pgMyLeaveRequests.lblNoData.text']
+        });
+        componentStyler(".allArea .textCenter .7pt .Generic.lblNoData")(this.lblNoData);
+        this.add(this.lblNoData);
+
+        // WorkLog area
+        // work logs container
         var cntWorkLog = new SMF.UI.Container({
             name: 'cntWorkLog'
         })
@@ -226,15 +232,94 @@ const pgTimecardDetailDay = extend(Page)(
         componentStyler(".textLeft .10pt .pgNewTimeCard.lblDayofWeek .pgNewTimeCard.lblWorkLog")(lblWorkLog);
         cntWorkLog.add(lblWorkLog);
 
+        // Creating a repeatbox to show our day details
+        // styling the repeater
+        // We used a different way here beacause of the by-design nature of repeater component
+        var rptWorkLogDefault = {
+            name: 'rptWorkLog',
+            onSelectedItem: function(e) {
+                // router.go('pgTimecardDetailDay', arrayRequests[e.rowIndex]);
+            },
+            top: "10%",
+            height: "90%"
+        };
+        var rptWorkLogParams = {};
+        componentStyler(".Generic.repeater")(rptParams);
+        rptWorkLogParams = merge.all([rptParams, rptWorkLogDefault]);
 
+        var rptWorkLog = new SMF.UI.RepeatBox(rptWorkLogParams);
 
-        // adding label for no-data
-        this.lblNoData = new SMF.UI.Label({
-            name: 'lblNoData',
-            text: lang['pgMyLeaveRequests.lblNoData.text']
+        // styling repeater item templates
+        var paramWorkLogItemTemplate = {};
+        componentStyler(".pgNewTimeCard.rptWorkLogItem")(paramWorkLogItemTemplate);
+        rptWorkLog.itemTemplate.fillColor = paramWorkLogItemTemplate.fillColor;
+        // repeater's height is dynamic by design. Because of this we're calculating rowHeight from parent object which is cntWorkLog
+        // rptWorkLogDefault's height is 90% of cntWorkLog 
+        // We want to show 2 item at a time
+        rptWorkLog.itemTemplate.height = (cntWorkLog.height * 0.9) / 2
+
+        var lblWorkLogTotalHour = new SMF.UI.Label({
+            name: 'lblWorkLogTotalHour',
+            text: ''
         });
-        componentStyler(".allArea .textCenter .7pt .Generic.lblNoData")(this.lblNoData);
-        this.add(this.lblNoData);
+        componentStyler(".textLeft .12pt .pgNewTimeCard.lblWorkLogTotalHour")(lblWorkLogTotalHour);
+
+        var lblWorkLogStartEndHours = new SMF.UI.Label({
+            name: 'lblWorkLogStartEndHours',
+            text: ''
+        });
+        componentStyler(".textRight .5pt .bold .pgNewTimeCard.lblWorkLogStartEndHours")(lblWorkLogStartEndHours);
+
+        var lblWorkLogLocation = new SMF.UI.Label({
+            name: 'lblWorkLogTotalHour',
+            text: ''
+        });
+        componentStyler(".textLeft .5pt .bold .pgNewTimeCard.lblWorkLogLocation")(lblWorkLogLocation);
+
+        // Textbox for WorkLog
+        var txtWorkLog = new SMF.UI.Label({
+            name: 'txtWorkLog',
+            text: ''
+        });
+        componentStyler(".6pt .Generic.txtDisabled .pgOutOfOffice.txtOutOfOfficeMessage .pgNewTimeCard.txtWorkLog")(txtWorkLog);
+
+        var rptWorkLogItemHorizontalLine = new SMF.UI.Rectangle({
+            name: 'rptWorkLogItemHorizontalLine'
+        });
+        componentStyler(".Generic.horizontalLine .pgNewTimeCard.rptWorkLogItemHorizontalLine")(rptWorkLogItemHorizontalLine);
+
+        rptWorkLog.itemTemplate.add(lblWorkLogTotalHour);
+        rptWorkLog.itemTemplate.add(lblWorkLogStartEndHours);
+        rptWorkLog.itemTemplate.add(lblWorkLogLocation);
+        rptWorkLog.itemTemplate.add(txtWorkLog);
+        rptWorkLog.itemTemplate.add(rptWorkLogItemHorizontalLine);
+
+        rptWorkLog.onRowRender = function(e) {
+            //     "logs": [{
+            //         "hours": [9, 10, 11],
+            //         "location": "The Bike Company Inc., Palo Alto",
+            //         "log": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna."
+            //     }, {
+            //         "hours": [14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+            //         "location": "The Chip Company Company Inc., Santa Clara",
+            //         "log": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna."
+            //     }]
+
+            var myHoursArray = arrayRequests[0].logs[e.rowIndex].hours;
+            var startHour = myHoursArray[0];
+            var endHour = myHoursArray[myHoursArray.length - 1];
+
+            var logHours = myHoursArray.length
+            this.controls[0].text = (logHours < 3) ? logHours + ' hour' : logHours + ' hours';
+            this.controls[1].text = ('{0}:00 - {1}:00').format(startHour, endHour);
+            this.controls[2].text = arrayRequests[0].logs[e.rowIndex].location;
+            this.controls[3].text = arrayRequests[0].logs[e.rowIndex].log;
+        };
+
+
+
+        cntWorkLog.add(rptWorkLog);
+
 
         /**
          * Creates action(s) that are run when the user press the key of the devices.
@@ -268,17 +353,23 @@ const pgTimecardDetailDay = extend(Page)(
                 }
             });
 
-            // displayTimecardDays.call(this);
-
             // Oracle MCS Analytics logging 
             smfOracle.logAndFlushAnalytics('pgTimecardDetailDay_onShow');
             tinyUtils.fixOverlayBug();
         }
 
         // Parsing storage objects 
-        this.displayTimecardDays = function(oRequest, targetDate) {
+        this.displayData = function(oRequest, targetDate) {
+            //resetting repeatboxes
+            rptTimecardDetailDays.dataSource = [];
+            rptTimecardDetailDays.refresh();
+
+            rptWorkLog.dataSource = [];
+            rptWorkLog.refresh();
+
             // binding objects to an array
             arrayRequests = [];
+
             for (var i = 0; i < oRequest.days.length; i++) {
                 if (oRequest.days[i].date === self.getState().targetDate) {
                     arrayRequests.push(oRequest.days[i]);
@@ -300,6 +391,11 @@ const pgTimecardDetailDay = extend(Page)(
             rptTimecardDetailDays.closePullItems();
             rptTimecardDetailDays.dataSource = arrayRequests;
             rptTimecardDetailDays.refresh();
+
+            rptWorkLog.closePullItems();
+            rptWorkLog.dataSource = arrayRequests[0].logs;
+            rptWorkLog.refresh();
+
             Dialog.removeWait();
 
             this.lblNoData.visible = (oRequest.length == 0);
@@ -341,7 +437,11 @@ const pgTimecardDetailDay = extend(Page)(
             }
         };
         _proto.stateChangedHandler = function(state) {
-            this.displayTimecardDays(state.oRequest, state.targetDate)
+            this.displayData(state.oRequest, state.targetDate);
+
+            if (oProfile.EmployeeID === state.oRequest.EmployeeID) {
+                headerBarOptions = require("./headerbar/pgMyTimecards.headerbar.js");
+            }
         };
     });
 

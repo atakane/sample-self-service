@@ -56,12 +56,45 @@ module.exports = {
             enablePullUpToRefresh: false,
             enablePullDownToRefresh: false,
             useActiveItem: false,
-            allowDeletingItem: false,
-            fillColor: SMF.UI.Color.RED
+            allowDeletingItem: false
         },
         ".cntWorkLog": {
             left: '0%',
             width: '100%'
-        }
+        },
+        ".rptWorkLogItem": {
+            fillColor: colors.GrayLighter,
+            height: '50%'
+        },
+        ".rptWorkLogItemHorizontalLine": {
+            top: '99%',
+            height: 1
+        },
+        ".lblWorkLogTotalHour": {
+            left: '4.5333%',
+            top: '4.5333%',
+            width: '40%',
+            height: '20%',
+            fontColor: colors.BlueMedium,
+            textAlignment: SMF.UI.TextAlignment.TOP
+        },
+        ".lblWorkLogLocation": {
+            left: '4.5333%',
+            top: '21%',
+            width: '80%',
+            height: '10%',
+            fontColor: colors.GrayDark
+        },
+        ".txtWorkLog": {
+            top: '30%',
+            height: '66%'
+        },
+        ".lblWorkLogStartEndHours": {
+            left: '50%',
+            top: '4.5333%',
+            width: '45.4667%',
+            height: '10%',
+            fontColor: colors.GrayDark
+        },
     }
 };

@@ -291,13 +291,14 @@ module.exports = {
       textAlignment: SMF.UI.TextAlignment.TOP
     },
     ".cntWorkLog": {
-      top: (Device.screenHeight * 0.30) + ((Device.screenHeight * 0.71) / 5),
-      height: (Device.screenHeight - ((Device.screenHeight * 0.30) + ((Device.screenHeight * 0.71) / 5))),
-      fillColor:SMF.UI.Color.WHITE,
-      backgroundTransparent:false
+      top: (Device.screenHeight * 0.4375),
+      height: (Device.screenHeight * 0.5625),
+      fillColor: SMF.UI.Color.WHITE,
+      backgroundTransparent: false
     },
-    ".lblWorkLog":{
-      top:'3%'
+    ".lblWorkLog": {
+      top: '3%'
     }
+
   }
 };
