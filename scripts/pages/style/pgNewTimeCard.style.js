@@ -96,5 +96,13 @@ module.exports = {
             height: '10%',
             fontColor: colors.GrayDark
         },
+        ".txtLocation": {
+            borderWidth: 1,
+            textAlignment: SMF.UI.TextAlignment.LEFT
+        },
+        ".txtWorkLog": {
+            multipleLine: true,
+            textAlignment: SMF.UI.TextAlignment.TOP
+        }
     }
 };

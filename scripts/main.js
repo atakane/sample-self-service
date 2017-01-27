@@ -18,6 +18,8 @@ const pgApproveTimecard = require('./pages/pgApproveTimecard.js');
 const pgMyTimecards = require('./pages/pgMyTimecards.js');
 const pgTimecardDetail = require('./pages/pgTimecardDetail.js');
 const pgTimecardDetailDay = require('./pages/pgTimecardDetailDay.js');
+const pgTimecardDetailDayAddEdit = require('./pages/pgTimecardDetailDayAddEdit.js');
+
 
 
 //Styler
@@ -97,10 +99,10 @@ router.add('pgApproveTimecard',pgApproveTimecard,defaultPageAnimation);
 router.add('pgMyTimecards',pgMyTimecards,defaultPageAnimation);
 router.add('pgTimecardDetail',pgTimecardDetail,defaultPageAnimation);
 router.add('pgTimecardDetailDay',pgTimecardDetailDay,defaultPageAnimation);
+router.add('pgTimecardDetailDayAddEdit',pgTimecardDetailDayAddEdit,defaultPageAnimation);
 
 // Routing to the starting page of the application
 router.go('pgLogin');
-
 
 // Remote App Update update check function
 function checkforUpdate() {

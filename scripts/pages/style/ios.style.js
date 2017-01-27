@@ -304,6 +304,24 @@ module.exports = {
     },
     ".lblWorkLog": {
       top: '3%'
+    },
+    ".txtLocation": {
+      top: '12%',
+      height: '12%'
+    },
+    ".lblCustomer": {
+      top: '27%'
+    },
+    ".txtCustomer": {
+      top: '36%',
+      height: '12%'
+    },
+    ".lblWorklog": {
+      top: '51%'
+    },
+    ".txtWorkLog": {
+      top: '60%',
+      height: '35%'
     }
 
   }

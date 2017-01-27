@@ -9,7 +9,7 @@ include("node_modules/js-base/utils/require.js");
 Application.onStart = Application_OnStart;
 Application.onUnhandledError = Application_OnError;
 Application.onMaximize = Application_onMaximize;
- 
+
 // Global objects
 var smfOracle;
 var backendName = "smartfaceOracleMCS";
@@ -31,7 +31,7 @@ var isSliderDrawerOpen = false;
 var fontAwesome = new SMF.UI.Font({
 	name: 'FontAwesome'
 });
-  
+
 //TouchID variables
 var fingerPrintStatus = '';
 var touchIDUserName = '';
