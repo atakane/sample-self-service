@@ -4,13 +4,13 @@
     "iconStyle": "",
     "subItems": []
 }, {
-    "text": "pgsliderdrawer.lblLeaveManagement.text",
-    "targetPage": "pgMyLeaveRequests",
+    "text": "My Timecards",
+    "targetPage": "pgMyTimecards",
     "iconStyle": "",
     "subItems": []
 }, {
-    "text": "My Timecards",
-    "targetPage": "pgMyTimecards",
+    "text": "pgsliderdrawer.lblLeaveManagement.text",
+    "targetPage": "pgMyLeaveRequests",
     "iconStyle": "",
     "subItems": []
 }, {
