@@ -196,8 +196,8 @@ const pgMyLeaveRequests = extend(Page)(
             // this switch written here to prevent further problems. 
             // if your EBS installation's status type are different, you may just change below lines to fit your configuration.
             switch (status.toUpperCase()) {
-                case 'WAITING':
-                    statusObject.text = 'W';
+                case 'PENDING':
+                    statusObject.text = 'P';
                     statusObject.fontColor = colors.BlueMedium;
                     break;
                 case 'APPROVED':
@@ -215,7 +215,7 @@ const pgMyLeaveRequests = extend(Page)(
         this.add(rptApprovalList);
 
         // If you want, you can add some legend here
-        // createLabel(pgMyLeaveRequests, 'lblLegend', 'W: Waiting\nA: Approved\nR: Rejected', '5%', '0%', '90%', '10%', SMF.UI.TextAlignment.LEFT, true, '5pt', false, colors.Gray);
+        // createLabel(pgMyLeaveRequests, 'lblLegend', 'P: Pending\nA: Approved\nR: Rejected', '5%', '0%', '90%', '10%', SMF.UI.TextAlignment.LEFT, true, '5pt', false, colors.Gray);
 
         // adding label for no-data
         var lblNoData = new SMF.UI.Label({
@@ -289,7 +289,7 @@ const pgMyLeaveRequests = extend(Page)(
                     'LeaveType': 'MEDICAL',
                     'TimeUnit': 'DAY',
                     'AbsenceMessage': 'I've a planned surgery. Going to be at hospital for 2 weeks.',
-                    'Status': 'waiting',
+                    'Status': 'pending',
                     'TotalDays': 29,
                     'Used': 16,
                     'Remaining': 13

@@ -247,7 +247,7 @@ const pgApprovalWorklist = extend(Page)(
                 title: lang['pgApprovalWorklist.item1.title'],
                 icon: 'icon.png', // Andrid 3.0- only
                 onSelected: function(e) {
-                    displayApprovalRequests('waiting');
+                    displayApprovalRequests('pending');
                 }
             };
             var item2 = {
@@ -281,7 +281,7 @@ const pgApprovalWorklist = extend(Page)(
 
         // Parsing storage objects 
         function displayApprovalRequests(status) {
-            if (!(status) || (status.length == 0)) status = 'waiting';
+            if (!(status) || (status.length == 0)) status = 'pending';
             /*
             Sample item 
            [
@@ -298,7 +298,7 @@ const pgApprovalWorklist = extend(Page)(
                     'LeaveType': 'MEDICAL',
                     'TimeUnit': 'DAY',
                     'AbsenceMessage': 'I've a planned surgery. Going to be at hospital for 2 weeks.',
-                    'Status': 'waiting',
+                    'Status': 'pending',
                     'TotalDays': 29,
                     'Used': 16,
                     'Remaining': 13

@@ -11,7 +11,7 @@
         "LeaveType": "PERSONAL",
         "TimeUnit": "DAY",
         "AbsenceMessage": "I need a few days for paper works.",
-        "Status": "waiting",
+        "Status": "pending",
         "TotalDays": 29,
         "Used": 16,
         "Remaining": 13
@@ -28,7 +28,7 @@
         "LeaveType": "MEDICAL",
         "TimeUnit": "DAY",
         "AbsenceMessage": "I've a planned surgery. Going to be at hospital for 2 weeks.",
-        "Status": "waiting",
+        "Status": "pending",
         "TotalDays": 22,
         "Used": 16,
         "Remaining": 6
@@ -45,7 +45,7 @@
         "LeaveType": "PERSONAL",
         "TimeUnit": "DAY",
         "AbsenceMessage": "You know, it's Christmas time!!! :)",
-        "Status": "waiting",
+        "Status": "pending",
         "TotalDays": 15,
         "Used": 9,
         "Remaining": 6
@@ -62,7 +62,7 @@
         "LeaveType": "MEDICAL",
         "TimeUnit": "DAY",
         "AbsenceMessage": "Doctor checkup",
-        "Status": "waiting",
+        "Status": "pending",
         "TotalDays": 19,
         "Used": 3,
         "Remaining": 16
@@ -96,7 +96,7 @@
         "LeaveType": "PERSONAL",
         "TimeUnit": "DAY",
         "AbsenceMessage": "New Year's eve. I need to keep up with the Family. Michelle will take the calls while I'm away.",
-        "Status": "waiting",
+        "Status": "pending",
         "TotalDays": 19,
         "Used": 3,
         "Remaining": 16
@@ -113,7 +113,7 @@
         "LeaveType": "PERSONAL",
         "TimeUnit": "DAY",
         "AbsenceMessage": "European division site visit with Sr. Vice President Mr. Thomas.",
-        "Status": "waiting",
+        "Status": "pending",
         "TotalDays": 45,
         "Used": 20,
         "Remaining": 25

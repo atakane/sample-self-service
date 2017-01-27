@@ -261,7 +261,7 @@ const pgNewLeaveRequest = extend(Page)(
                             'TimeUnit': Pages.currentPage.lblTimeUnit.text,
                             'LeaveType': Pages.currentPage.lblLeaveType.text,
                             'AbsenceMessage': JSON.stringify(Pages.currentPage.txtAbsenceMessage.text),
-                            'Status': 'waiting',
+                            'Status': 'pending',
                             'TotalDays': oTimeTable.TotalDays,
                             'Used': oTimeTable.Used,
                             'Remaining': oTimeTable.Remaining
