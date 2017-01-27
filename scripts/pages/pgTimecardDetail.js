@@ -41,12 +41,12 @@ const pgTimecardDetail = extend(Page)(
         var rptDefault = {
             name: 'rptTimecardDetail',
             onSelectedItem: function(e) {
-                    router.go('pgTimecardDetailDay', {
+                router.go('pgTimecardDetailDay', {
                     'id': self.getState().oRequest.ID,
                     'request': self.getState().oRequest,
-                    'date':self.getState().oRequest.days[e.rowIndex].date
+                    'date': self.getState().oRequest.days[e.rowIndex].date
                 });
-                
+
             }
         };
         var rptParams = {};
@@ -262,7 +262,7 @@ const pgTimecardDetail = extend(Page)(
                 }
             });
 
-            // displayTimecardDays.call(this);
+            getStatusText(self.getState().oRequest.Status, lblStatus);
 
             // Oracle MCS Analytics logging 
             smfOracle.logAndFlushAnalytics('pgTimecardDetail_onShow');
@@ -284,7 +284,7 @@ const pgTimecardDetail = extend(Page)(
 
             lblStartEndDate.text = textTimeCardDate;
             lblWeekTotalHours.text = (oRequest.TotalHours > 0) ? oRequest.TotalHours + ' hours' : '';
-            getStatusText(oRequest.Status, lblStatus);
+            // getStatusText(oRequest.Status, lblStatus);
 
             imgAvatar.image = oRequest.Avatar;
             lblFullName.text = oRequest.FullName;
@@ -306,8 +306,8 @@ const pgTimecardDetail = extend(Page)(
             // this switch written here to prevent further problems. 
             // if your EBS installation's status type are different, you may just change below lines to match your configuration.
             switch (status.toUpperCase()) {
-                case 'WAITING':
-                    statusObject.text = 'waiting for approval';
+                case 'PENDING':
+                    statusObject.text = 'pending for approval';
                     statusObject.fontColor = colors.BlueMedium;
                     break;
                 case 'APPROVED':
@@ -317,6 +317,10 @@ const pgTimecardDetail = extend(Page)(
                 case 'REJECTED':
                     statusObject.text = status.toLowerCase();
                     statusObject.fontColor = colors.RedDark;
+                    break;
+                case 'NEW':
+                    statusObject.text = 'new - add a work log';
+                    statusObject.fontColor = SMF.UI.Color.RED
                     break;
             }
         }

@@ -296,6 +296,26 @@ module.exports = {
     },
     ".lblStatus": {
       top: '20%'
+    },
+    ".lblLocation": {
+      multipleLine: true,
+      height: '40%',
+      textAlignment: SMF.UI.TextAlignment.TOP
+    },
+    ".cntWorkLog": {
+      top: (Device.screenHeight * 0.4375),
+      height: (Device.screenHeight * 0.4625),
+      fillColor: SMF.UI.Color.WHITE,
+      backgroundTransparent: false
+    },
+    ".cntWorkLogWithoutAdminButtons": {
+      top: (Device.screenHeight * 0.4375),
+      height: (Device.screenHeight * 0.5625),
+      fillColor: SMF.UI.Color.WHITE,
+      backgroundTransparent: false
+    },
+    ".lblWorkLog": {
+      top: '3%'
     }
   }
 };

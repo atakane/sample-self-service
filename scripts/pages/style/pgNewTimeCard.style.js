@@ -3,8 +3,8 @@ const colors = require('./colors.js');
 module.exports = {
     ".pgNewTimeCard": {
         ".lblStartEndDate": {
-            left: '50%',
-            width: '45.4667%',
+            left: '40%',
+            width: '55.4667%',
             height: '4.7376%',
             fontColor: colors.GrayDark
         },
@@ -80,7 +80,7 @@ module.exports = {
         },
         ".lblWorkLogLocation": {
             left: '4.5333%',
-            top: '21%',
+            top: '23%',
             width: '80%',
             height: '10%',
             fontColor: colors.GrayDark

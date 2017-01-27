@@ -147,7 +147,7 @@ const pgApprovalWorklistTimecards = extend(Page)(
             // "StartDate": "12/12/16",
             // "EndDate": "12/16/16",
             // "TotalHours": "43",
-            // "Status": "waiting",
+            // "Status": "pending",
             // "Location" : "NA"
             // }
 
@@ -235,7 +235,7 @@ const pgApprovalWorklistTimecards = extend(Page)(
                 title: lang['pgApprovalWorklist.item1.title'],
                 icon: 'icon.png', // Andrid 3.0- only
                 onSelected: function(e) {
-                    displayApprovalRequests('waiting');
+                    displayApprovalRequests('pending');
                 }
             };
             var item2 = {
@@ -269,7 +269,7 @@ const pgApprovalWorklistTimecards = extend(Page)(
 
         // Parsing storage objects 
         function displayApprovalRequests(status) {
-            if (!(status) || (status.length == 0)) status = 'waiting';
+            if (!(status) || (status.length == 0)) status = 'pending';
             /*
             Sample item 
            [
@@ -284,7 +284,7 @@ const pgApprovalWorklistTimecards = extend(Page)(
                     "StartDate": "12/12/16",
                     "EndDate": "11/16/16",
                     "TotalHours": "43",
-                    "Status": "waiting",
+                    "Status": "pending",
                     "Location" : "NA"
             }]
             */

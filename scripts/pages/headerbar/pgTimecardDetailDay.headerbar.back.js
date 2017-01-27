@@ -16,15 +16,17 @@ if (Device.deviceOS == "iOS") {
   options.ios = {
     rightBarButtonItems: [new SMF.UI.iOS.BarButtonItem({
       title: "Add",
-      onSelected: function(){
-        eventCallback({type: "add"});
+      onSelected: function() {
+        eventCallback({
+          type: "add"
+        });
       }
     })],
     leftBarButtonItems: [new SMF.UI.iOS.BarButtonItem({
-      image: "menu.png",
+      image: "back.png",
       onSelected: function() {
         eventCallback({
-          type: "menu"
+          type: "back"
         });
       }
     })],
@@ -51,22 +53,24 @@ else {
       alignment: SMF.UI.Alignment.CENTER
     },
     overlay: true,
-    homeAsUpIndicator: "menu.png",
+    homeAsUpIndicator: "back.png",
     onHomeIconItemSelected: function() {
       eventCallback({
-        type: "menu"
+        type: "back"
       });
     },
-    displayShowHomeEnabled: true,
+    displayShowHomeEnabled: false,
     alpha: 1,
     displayHomeAsUpEnabled: true,
     menuItems: [new SMF.UI.Android.MenuItem({
-        id: "1",
-        title: "Add",
-        showAsAction: SMF.UI.Android.ShowAsAction.ALWAYS,
-        onSelected: function(e) {
-            eventCallback({type: "add"});
-        }
+      id: "1",
+      title: "Add",
+      showAsAction: SMF.UI.Android.ShowAsAction.ALWAYS,
+      onSelected: function(e) {
+        eventCallback({
+          type: "add"
+        });
+      }
     })]
   };
 }

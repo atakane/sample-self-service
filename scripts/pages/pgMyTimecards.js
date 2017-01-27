@@ -1,4 +1,4 @@
-/* globals*/
+/* globals oTimecardList oProfile*/
 
 const Page = require("js-base/component/page");
 const extend = require("js-base/core/extend");
@@ -157,7 +157,7 @@ const pgMyTimecards = extend(Page)(
             // "StartDate": "12/12/16",
             // "EndDate": "12/16/16",
             // "TotalHours": "43",
-            // "Status": "waiting",
+            // "Status": "pending",
             // "Location" : "NA"
             // }
 
@@ -185,8 +185,8 @@ const pgMyTimecards = extend(Page)(
             // this switch written here to prevent further problems. 
             // if your EBS installation's status type are different, you may just change below lines to fit your configuration.
             switch (status.toUpperCase()) {
-                case 'WAITING':
-                    statusObject.text = 'W';
+                case 'PENDING':
+                    statusObject.text = 'P';
                     statusObject.fontColor = colors.BlueMedium;
                     break;
                 case 'APPROVED':
@@ -197,6 +197,10 @@ const pgMyTimecards = extend(Page)(
                     statusObject.text = 'R';
                     statusObject.fontColor = colors.RedDark;
                     break;
+                case 'NEW':
+                    statusObject.text = 'N';
+                    statusObject.fontColor = SMF.UI.Color.RED
+                    break;
             }
         }
 
@@ -204,7 +208,7 @@ const pgMyTimecards = extend(Page)(
         this.add(rptMyTimecards);
 
         // If you want, you can add some legend here
-        // createLabel(pgMyLeaveRequests, 'lblLegend', 'W: Waiting\nA: Approved\nR: Rejected', '5%', '0%', '90%', '10%', SMF.UI.TextAlignment.LEFT, true, '5pt', false, colors.Gray);
+        // createLabel(pgMyLeaveRequests, 'lblLegend', 'P: Pending\nA: Approved\nR: Rejected', '5%', '0%', '90%', '10%', SMF.UI.TextAlignment.LEFT, true, '5pt', false, colors.Gray);
 
         // adding label for no-data
         var lblNoData = new SMF.UI.Label({
@@ -242,7 +246,7 @@ const pgMyTimecards = extend(Page)(
                     Pages.currentPage.sdSelfService.show();
                 }
                 if (e.type == "add") {
-                    router.go('pgNewTimecard');
+                    createWeekPicker();
                 }
             });
 
@@ -258,6 +262,94 @@ const pgMyTimecards = extend(Page)(
             tinyUtils.fixOverlayBug();
         }
 
+        function createWeekPicker() {
+            //https://stackoverflow.com/questions/17302555/get-the-dates-of-all-the-mondays-between-two-dates-in-javascript
+            var start_week_date = new Date(2017, 0, 1); // no queries exist before this
+            var end_date = new Date(2017, 11, 31);
+
+            // array to hold week commencing dates
+            var arrayMondays = new Array();
+            var arrayMondaysForDisplay = new Array();
+
+            var week_number = 0;
+
+            while (start_week_date < end_date) {
+                var next_date = start_week_date.setDate(start_week_date.getDate() + 1);
+
+                var next_days_date = new Date(next_date);
+                day_index = next_days_date.getDay();
+                if (day_index == 1) {
+                    week_number++;
+                    arrayMondays.push(next_days_date);
+                    arrayMondaysForDisplay.push(next_days_date.format("ddd d MMM yyyy") + ' / week' + week_number);
+                }
+                // increment the date
+                start_week_date = new Date(next_date);
+            }
+
+            var selectedIndex = 0;
+            pick(
+                arrayMondaysForDisplay,
+                selectedIndex,
+                function(e) {
+                    selectedIndex = e.index;
+                    createNewWeekTimeCard(arrayMondays[e.index]);
+                },
+                function() {}
+            );
+
+        }
+
+        function createNewWeekTimeCard(weekStartDate) {
+            // thus we're using mock services, ne need to get latest ID to increment it for a new record.
+            // sorting our oTimeCardList array to get latest ID 
+
+            var sortedTimeCardList = oTimecardList.sort(function(a, b) {
+                return parseFloat(b.ID) - parseFloat(a.ID);
+            });
+
+            var latestID = sortedTimeCardList[0].ID;
+            var startDate = weekStartDate;
+            var endDate = (new Date(startDate)).addDays(4);
+
+            var tempTimeCard = {
+                    "ID": latestID + 1,
+                    "EmployeeID": oProfile.EmployeeID,
+                    "FullName": oProfile.FullName,
+                    "Email": oProfile.Email,
+                    "Avatar": oProfile.Avatar,
+                    "Team": oProfile.Team,
+                    "Role": oProfile.Role,
+                    "StartDate": startDate.format("M/d/yy"),
+                    "EndDate": endDate.format("M/d/yy"),
+                    "TotalHours": "0",
+                    "Status": "new",
+                    "Location": "NA",
+                    "days": [{
+                        "date": startDate.format("M/d/yy"),
+                        "hours": []
+                    }, {
+                        "date": startDate.addDays(1).format("M/d/yy"),
+                        "hours": []
+                    }, {
+                        "date": startDate.addDays(1).format("M/d/yy"),
+                        "hours": []
+                    }, {
+                        "date": startDate.addDays(1).format("M/d/yy"),
+                        "hours": []
+                    }, {
+                        "date": startDate.addDays(1).format("M/d/yy"),
+                        "hours": []
+                    }]
+                }
+                // console.log(JSON.stringify(tempTimeCard));
+            oTimecardList.push(tempTimeCard);
+            router.go('pgTimecardDetail', {
+                'id': tempTimeCard.ID,
+                'request': tempTimeCard
+            });
+
+        }
 
         // Parsing storage objects 
         function displayApprovalRequests() {
@@ -276,7 +368,7 @@ const pgMyTimecards = extend(Page)(
                     "StartDate": "12/12/16",
                     "EndDate": "12/16/16",
                     "TotalHours": "43",
-                    "Status": "waiting",
+                    "Status": "pending",
                     "Location" : "NA",
                     "days" : []
             }]

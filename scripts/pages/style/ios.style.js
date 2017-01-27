@@ -292,6 +292,12 @@ module.exports = {
     },
     ".cntWorkLog": {
       top: (Device.screenHeight * 0.4375),
+      height: (Device.screenHeight * 0.4625),
+      fillColor: SMF.UI.Color.WHITE,
+      backgroundTransparent: false
+    },
+    ".cntWorkLogWithoutAdminButtons": {
+      top: (Device.screenHeight * 0.4375),
       height: (Device.screenHeight * 0.5625),
       fillColor: SMF.UI.Color.WHITE,
       backgroundTransparent: false

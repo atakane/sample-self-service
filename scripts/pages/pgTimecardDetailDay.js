@@ -1,4 +1,4 @@
-/* globals*/
+/* globals oProfile oTimecardList fontAwesome dayWorkHoursStart dayWorkHoursEnd */
 
 const Page = require("js-base/component/page");
 const extend = require("js-base/core/extend");
@@ -9,7 +9,8 @@ const merge = require('deepmerge');
 const colors = require('./style/colors.js');
 
 // Actionbar
-var headerBarOptions = require("./headerbar/generic.headerbar.back.js");
+const headerBarOptions = require("./headerbar/generic.headerbar.back.js");
+const headerBarOptions2 = require("./headerbar/pgTimecardDetailDay.headerbar.back.js");
 const HeaderBarWrapper = require("js-base/component/header-bar.js");
 
 // styler
@@ -30,12 +31,14 @@ const pgTimecardDetailDay = extend(Page)(
             "", {
                 targetTimecardID: 0,
                 oRequest: [],
-                targetDate: null
+                targetDate: null,
+                isMe: false
             });
         var self = this;
         var arrayRequests = [];
 
         var headerBarWrapper = HeaderBarWrapper(this._view, headerBarOptions.options);
+        var headerBarWrapper2 = HeaderBarWrapper(this._view, headerBarOptions2.options);
 
         // Creating a repeatbox to show our requests
         // styling the repeater
@@ -190,9 +193,10 @@ const pgTimecardDetailDay = extend(Page)(
             // }
             var myDaysArray = arrayRequests[e.rowIndex];
             var tmpDate = new Date(myDaysArray.date);
+            var location = (myDaysArray.logs) ? (myDaysArray.logs.length != 0) ? myDaysArray.logs[0].location : '' : '';
 
             this.controls[0].text = tmpDate.format('dddd');
-            this.controls[1].text = myDaysArray.location;
+            this.controls[1].text = location;
 
             for (var i = 0; i < 24; i++) {
                 this.controls[(i * 2) + 2].fillColor = SMF.UI.Color.WHITE;
@@ -320,6 +324,96 @@ const pgTimecardDetailDay = extend(Page)(
 
         cntWorkLog.add(rptWorkLog);
 
+        // Reject Button
+        // FontAwesome 'close icon' UTF8 code: uf00d
+        // TODO: height will be moved to style file after styler-fix
+        var btnReject = new SMF.UI.TextButton({
+            name: 'btnReject',
+            font: fontAwesome,
+            height: '9.5952%',
+            onPressed: function(e) {
+                alert({
+                    title: 'Warning!',
+                    message: 'Do you want to reject this timecard? This action will set whole-week\'s status as rejected not only this-day\'s.',
+                    firstButtonText: 'Reject',
+                    secondButtonText: 'Cancel',
+                    onFirstButtonPressed: function() {
+
+                        // finding related item and setting status
+                        for (var i = 0; i < oTimecardList.length; i++) {
+                            if (oTimecardList[i].ID === self.getState().targetTimecardID) {
+                                oTimecardList[i].Status = 'rejected';
+                            }
+                        }
+
+                        alert({
+                            title: 'Timecard rejected',
+                            message: 'Timecard is rejected and timecard-owner has been notified',
+                            firstButtonText: 'OK',
+                            onFirstButtonPressed: function() {
+                                router.back();
+                            }
+                        });
+                    },
+                    onSecondButtonPressed: function() {}
+                });
+            }
+        });
+        componentStyler(".12pt .pgApproveLeaveRequest.btnReject")(btnReject);
+        this.add(btnReject);
+
+        // Save button
+        // FontAwesome 'check icon' UTF8 code: uf00c
+        // TODO: height will be moved to style file after styler-fix
+        var btnSave = new SMF.UI.TextButton({
+            name: 'btnSave',
+            font: fontAwesome,
+            height: '9.5952%',
+            onPressed: function(e) {
+                alert({
+                    title: 'Warning!',
+                    message: 'Do you want to approve this timecard? This action will set whole-week\'s status as approved not only this-day\'s.',
+                    firstButtonText: 'Approve',
+                    secondButtonText: 'Cancel',
+                    onFirstButtonPressed: function() {
+
+                        // finding related item and setting status
+                        for (var i = 0; i < oTimecardList.length; i++) {
+                            if (oTimecardList[i].ID === self.getState().targetTimecardID) {
+                                oTimecardList[i].Status = 'approved';
+                            }
+                        }
+
+                        alert({
+                            title: 'Timecard approved',
+                            message: 'Timecard is approved and timecard-owner has been notified',
+                            firstButtonText: 'OK',
+                            onFirstButtonPressed: function() {
+                                router.back();
+                            }
+                        });
+
+                    },
+                    onSecondButtonPressed: function() {}
+                });
+            }
+        });
+        componentStyler(".12pt .pgApproveLeaveRequest.btnSave")(btnSave);
+        this.add(btnSave);
+
+        this.hideAdminButtons = function() {
+            btnReject.visible = false;
+            btnSave.visible = false;
+            componentStyler(".pgNewTimeCard.cntWorkLog .pgNewTimeCard.cntWorkLogWithoutAdminButtons")(cntWorkLog);
+            rptWorkLog.itemTemplate.height = (cntWorkLog.height * 0.9) / 2
+        };
+
+        this.showAdminButtons = function() {
+            btnReject.visible = true;
+            btnSave.visible = true;
+            componentStyler(".pgNewTimeCard.cntWorkLog")(cntWorkLog);
+            rptWorkLog.itemTemplate.height = (cntWorkLog.height * 0.9) / 2
+        };
 
         /**
          * Creates action(s) that are run when the user press the key of the devices.
@@ -342,16 +436,36 @@ const pgTimecardDetailDay = extend(Page)(
             Dialog.removeWait();
 
             // Adding header bar (actionbar for Android, navigationbar for iOS)
-            headerBarOptions.setTitle('Day in Detail');
-            headerBarWrapper.reload();
-            headerBarOptions.eventCallback(function(e) {
-                if (e.type == "back") {
-                    router.back();
-                }
-                if (e.type == "add") {
-                    router.go('pgTimecardAddHour');
-                }
-            });
+            if (self.getState().isMe) {
+                self.hideAdminButtons();
+                headerBarOptions2.setTitle('My Day');
+                headerBarWrapper2.reload();
+
+                headerBarOptions2.eventCallback(function(e) {
+                    if (e.type == "back") {
+                        router.back();
+                    }
+                    if (e.type == "add") {
+                        // router.go('pgTimecardAddHour');
+                        router.go('pgTimecardDetailDayAddEdit', {
+                            'id': self.getState().targetTimecardID,
+                            'request': self.getState().oRequest,
+                            'date': self.getState().targetDate
+                        });
+                    }
+                });
+            }
+            else {
+                self.showAdminButtons();
+                headerBarOptions.setTitle('Day in Detail');
+                headerBarWrapper.reload();
+
+                headerBarOptions.eventCallback(function(e) {
+                    if (e.type == "back") {
+                        router.back();
+                    }
+                });
+            }
 
             // Oracle MCS Analytics logging 
             smfOracle.logAndFlushAnalytics('pgTimecardDetailDay_onShow');
@@ -407,8 +521,8 @@ const pgTimecardDetailDay = extend(Page)(
             // this switch written here to prevent further problems. 
             // if your EBS installation's status type are different, you may just change below lines to match your configuration.
             switch (status.toUpperCase()) {
-                case 'WAITING':
-                    statusObject.text = 'waiting for approval';
+                case 'PENDING':
+                    statusObject.text = 'pending for approval';
                     statusObject.fontColor = colors.BlueMedium;
                     break;
                 case 'APPROVED':
@@ -418,6 +532,10 @@ const pgTimecardDetailDay = extend(Page)(
                 case 'REJECTED':
                     statusObject.text = status.toLowerCase();
                     statusObject.fontColor = colors.RedDark;
+                    break;
+                case 'NEW':
+                    statusObject.text = 'new - add a work log';
+                    statusObject.fontColor = SMF.UI.Color.RED
                     break;
             }
         }
@@ -432,16 +550,13 @@ const pgTimecardDetailDay = extend(Page)(
                 this._changeState({
                     targetTimecardID: params.id,
                     oRequest: params.request,
-                    targetDate: params.date
+                    targetDate: params.date,
+                    isMe: (oProfile.EmployeeID === params.request.EmployeeID)
                 });
             }
         };
         _proto.stateChangedHandler = function(state) {
             this.displayData(state.oRequest, state.targetDate);
-
-            if (oProfile.EmployeeID === state.oRequest.EmployeeID) {
-                headerBarOptions = require("./headerbar/pgMyTimecards.headerbar.js");
-            }
         };
     });
 

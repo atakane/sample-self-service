@@ -274,7 +274,7 @@ const pgNewLeaveRequest = extend(Page)(
                             message: lang['pgNewLeaveRequest.btnSave.onPressed. onFirstButtonPressed.message'],
                             firstButtonText: lang['pgNewLeaveRequest.btnSave.onPressed. onFirstButtonPressed.text'],
                             onFirstButtonPressed: function() {
-                                router.go('pgStatus');
+                                router.back();
                             }
                         });
                     },
