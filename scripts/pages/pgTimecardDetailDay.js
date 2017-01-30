@@ -467,13 +467,15 @@ const pgTimecardDetailDay = extend(Page)(
                 });
             }
 
+            displayData.call(this,self.getState().oRequest, self.getState().targetDate);
+
             // Oracle MCS Analytics logging 
             smfOracle.logAndFlushAnalytics('pgTimecardDetailDay_onShow');
             tinyUtils.fixOverlayBug();
         }
 
         // Parsing storage objects 
-        this.displayData = function(oRequest, targetDate) {
+        function displayData(oRequest, targetDate) {
             //resetting repeatboxes
             rptTimecardDetailDays.dataSource = [];
             rptTimecardDetailDays.refresh();
@@ -556,7 +558,7 @@ const pgTimecardDetailDay = extend(Page)(
             }
         };
         _proto.stateChangedHandler = function(state) {
-            this.displayData(state.oRequest, state.targetDate);
+            // this.displayData(state.oRequest, state.targetDate);
         };
     });
 

@@ -159,7 +159,6 @@ const pgTimecardDetailDayAddEdit = extend(Page)(
             });
             componentStyler(".textLeft .5pt")(lblHour);
 
-
             rptTimecardDetailDays.itemTemplate.add(cntHour);
             rptTimecardDetailDays.itemTemplate.add(lblHour);
             lastPos = lastPos + hourGap + hourWidth;
@@ -167,49 +166,34 @@ const pgTimecardDetailDayAddEdit = extend(Page)(
 
         function touchHour(parent) {
             var selectedHour = parseInt(parent.name.replace('cntHour', ''));
-            var removeHour;
 
-            var isRemoved = false;
+            // find if the hour touched already
+            var isPreviouslySelected = touchedHours.some(function(a) {
+                return a == selectedHour
+            })
 
-            for (var i = 0; i < touchedHours.length; i++) {
-                if (touchedHours[i] === selectedHour) {
-                    parent.fillColor = SMF.UI.Color.WHITE;
-                    touchedHours = touchedHours.remove(i)
-                    isRemoved = true;
-                    // break;
-                }
+            // if touched
+            if (isPreviouslySelected) {
+                // remove
+                touchedHours = touchedHours.filter(function(a) {
+                    return a != selectedHour
+                });
+
+                parent.fillColor = SMF.UI.Color.WHITE;
             }
-
-            if (!isRemoved) {
-                parent.hourSelected = true;
+            else {
+                // add
                 touchedHours.push(selectedHour);
-                txtWorkLog.text = JSON.stringify(touchedHours);
                 parent.fillColor = colors.BlueMedium;
             }
 
+            // sort
+            touchedHours.sort(function(a, b) {
+                return parseInt(a) - parseInt(b)
+            });
             txtWorkLog.text = JSON.stringify(touchedHours);
 
-            // //sorting
-            // touchedHours = touchedHours.sort(function(a, b) {
-            //     return parseFloat(a) - parseFloat(b);
-            // });
-
         }
-        // https://stackoverflow.com/questions/3954438/remove-item-from-array-by-value
-        Array.prototype.remove = function() {
-  
-            var what, a = arguments,
-                L = a.length,
-                ax;
-            while (L && this.length) {
-                what = a[--L];
-                while ((ax = this.indexOf(what)) !== -1) {
-                    this.splice(ax, 1);
-                }
-            }
-            console.log(JSON.stringify(this));
-            return this;
-        };
 
         // rptTimecardDetailDays.itemTemplate.add(recHorizontalLine);
 
@@ -331,18 +315,23 @@ const pgTimecardDetailDayAddEdit = extend(Page)(
                         for (var i = 0; i < oTimecardList.length; i++) {
                             if (oTimecardList[i].ID === self.getState().targetTimecardID) {
                                 oTimecardList[i].Status = 'pending';
-                               
-                               /*
-                                {
-                                    "date": "1/6/17",
-                                    "hours": [10, 11, 13, 14, 15, 16],
+
+
+                                var tmpNewLog = {
+                                    "date": self.getState().targetDate,
+                                    "hours": touchedHours,
                                     "logs": [{
-                                        "hours": [10, 11, 13, 14, 15, 16],
+                                        "hours": touchedHours,
                                         "location": txtLocation.text,
                                         "log": txtWorkLog.text
                                     }]
                                 }
-                               */
+                                oTimecardList[i].days.push(tmpNewLog);
+                                console.log('-------------------------');
+                                console.log(JSON.stringify(tmpNewLog));
+                                console.log('-------------------------');
+                                console.log(JSON.stringify(oTimecardList));
+                                console.log('-------------------------');
                             }
                         }
 
