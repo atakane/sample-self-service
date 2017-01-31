@@ -303,25 +303,23 @@ module.exports = {
       backgroundTransparent: false
     },
     ".lblWorkLog": {
-      top: '3%'
+      top: '3%',
+      width: '80%'
     },
     ".txtLocation": {
       top: '12%',
       height: '12%'
     },
-    ".lblCustomer": {
+    ".lblWorklog": {
       top: '27%'
     },
-    ".txtCustomer": {
-      top: '36%',
-      height: '12%'
-    },
-    ".lblWorklog": {
-      top: '51%'
-    },
     ".txtWorkLog": {
-      top: '60%',
-      height: '35%'
+      top: '31%',
+      height: '67%'
+    },
+    ".txtWorkLogAdd": {
+      top: '36%',
+      height: '60%'
     }
 
   }

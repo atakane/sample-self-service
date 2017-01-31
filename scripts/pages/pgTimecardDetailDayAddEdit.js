@@ -167,32 +167,53 @@ const pgTimecardDetailDayAddEdit = extend(Page)(
         function touchHour(parent) {
             var selectedHour = parseInt(parent.name.replace('cntHour', ''));
 
-            // find if the hour touched already
-            var isPreviouslySelected = touchedHours.some(function(a) {
+            // if hour already logged we'll raise an alert
+            var myHoursArray = arrayRequests[0].hours;
+            var isAlreadyLogged = myHoursArray.some(function(a) {
                 return a == selectedHour
             })
 
-            // if touched
-            if (isPreviouslySelected) {
-                // remove
-                touchedHours = touchedHours.filter(function(a) {
-                    return a != selectedHour
-                });
+            if (isAlreadyLogged) {
+                alert({
+                    title: 'Already logged',
+                    message: 'The hour you\'ve selected is already logged. You can choose from \'white colored\' hours to log.',
+                    firstButtonText: 'OK',
+                    onFirstButtonPressed: function() {
 
-                parent.fillColor = SMF.UI.Color.WHITE;
+                    }
+                });
             }
             else {
-                // add
-                touchedHours.push(selectedHour);
-                parent.fillColor = colors.BlueMedium;
+                // find if the hour touched already
+                var isPreviouslySelected = touchedHours.some(function(a) {
+                    return a == selectedHour
+                })
+
+                // if touched
+                if (isPreviouslySelected) {
+                    // remove
+                    touchedHours = touchedHours.filter(function(a) {
+                        return a != selectedHour
+                    });
+
+                    parent.fillColor = SMF.UI.Color.WHITE;
+                }
+                else {
+                    // add
+                    touchedHours.push(selectedHour);
+                    
+                    var fillColor = ((selectedHour < dayWorkHoursStart) || (selectedHour > dayWorkHoursEnd - 1)) ? SMF.UI.Color.RED : colors.BlueMedium;
+                    parent.fillColor = fillColor;
+                }
+
+                // sort
+                touchedHours.sort(function(a, b) {
+                    return parseInt(a) - parseInt(b)
+                });
+                
+                var suffix = (touchedHours.length>2)? ' hours' : ' hour';
+                lblWeekTotalHours.text = (touchedHours.length > 0) ? touchedHours.length + suffix : '';
             }
-
-            // sort
-            touchedHours.sort(function(a, b) {
-                return parseInt(a) - parseInt(b)
-            });
-            txtWorkLog.text = JSON.stringify(touchedHours);
-
         }
 
         // rptTimecardDetailDays.itemTemplate.add(recHorizontalLine);
@@ -252,7 +273,7 @@ const pgTimecardDetailDayAddEdit = extend(Page)(
 
         var lblLocation = new SMF.UI.Label({
             name: 'lblWorkLog',
-            text: 'Location'
+            text: 'Location / Customer'
         });
         componentStyler(".textLeft .bold .10pt .pgNewTimeCard.lblDayofWeek .pgNewTimeCard.lblWorkLog")(lblLocation);
         cntWorkLog.add(lblLocation);
@@ -264,22 +285,6 @@ const pgTimecardDetailDayAddEdit = extend(Page)(
         });
         componentStyler(".7pt .pgOutOfOffice.txtOutOfOfficeMessage .pgNewTimeCard.txtLocation")(txtLocation);
         cntWorkLog.add(txtLocation);
-        //
-
-        var lblCustomer = new SMF.UI.Label({
-            name: 'lblCustomer',
-            text: 'Customer'
-        });
-        componentStyler(".textLeft .bold .10pt .pgNewTimeCard.lblDayofWeek .pgNewTimeCard.lblCustomer")(lblCustomer);
-        cntWorkLog.add(lblCustomer);
-
-        var txtCustomer = new SMF.UI.TextBox({
-            name: 'txtCustomer',
-            placeHolder: 'Who was the customer?',
-            text: ''
-        });
-        componentStyler(".7pt .pgOutOfOffice.txtOutOfOfficeMessage .pgNewTimeCard.txtLocation .pgNewTimeCard.txtCustomer")(txtCustomer);
-        cntWorkLog.add(txtCustomer);
 
         var lblWorklog = new SMF.UI.Label({
             name: 'lblWorklog',
@@ -293,7 +298,7 @@ const pgTimecardDetailDayAddEdit = extend(Page)(
             placeHolder: 'What were you working on?',
             text: ''
         });
-        componentStyler(".7pt .pgOutOfOffice.txtOutOfOfficeMessage .pgNewTimeCard.txtLocation .pgNewTimeCard.txtCustomer .pgNewTimeCard.txtWorkLog")(txtWorkLog);
+        componentStyler(".7pt .pgOutOfOffice.txtOutOfOfficeMessage .pgNewTimeCard.txtLocation .pgNewTimeCard.txtWorkLogAdd")(txtWorkLog);
         cntWorkLog.add(txtWorkLog);
 
         // Save button
@@ -304,49 +309,95 @@ const pgTimecardDetailDayAddEdit = extend(Page)(
             font: fontAwesome,
             height: '9.5952%',
             onPressed: function(e) {
-                alert({
-                    title: 'Warning!',
-                    message: 'Do you want to add this work log?',
-                    firstButtonText: 'Add',
-                    secondButtonText: 'Cancel',
-                    onFirstButtonPressed: function() {
+                if (touchedHours.length != 0) {
+                    alert({
+                        title: 'Warning!',
+                        message: 'Do you want to add this work log?',
+                        firstButtonText: 'Add',
+                        secondButtonText: 'Cancel',
+                        onFirstButtonPressed: function() {
 
-                        // finding related item and setting status
-                        for (var i = 0; i < oTimecardList.length; i++) {
-                            if (oTimecardList[i].ID === self.getState().targetTimecardID) {
-                                oTimecardList[i].Status = 'pending';
+                            // Finding Target Timecard within oTimecardlist object array.
+                            // You can change this code to bind it directly to a REST API
+                            // Timecard ID is unique, this will return a single item array
+                            function findTimeCardIndex(item) {
+                                return item.ID == self.getState().targetTimecardID;
+                            }
+
+                            function findDayIndex(item) {
+                                return item.date === self.getState().targetDate;
+                            }
+
+                            // Finding the card's index
+                            var myTimecardIndex = oTimecardList.findIndex(findTimeCardIndex);
+
+                            // If card exists -it should be! btw-
+                            if (myTimecardIndex != -1) {
+                                // Updating the card's status
+                                oTimecardList[myTimecardIndex].Status = 'pending';
+
+                                // Finding if the day already in oTimecardList
+                                var isDayExists = oTimecardList[myTimecardIndex].days.some(function(a) {
+                                    return a.date === self.getState().targetDate;
+                                });
 
 
-                                var tmpNewLog = {
-                                    "date": self.getState().targetDate,
+                                // New log
+                                var tmpNewLog = [{
                                     "hours": touchedHours,
-                                    "logs": [{
-                                        "hours": touchedHours,
-                                        "location": txtLocation.text,
-                                        "log": txtWorkLog.text
-                                    }]
+                                    "location": txtLocation.text,
+                                    "log": txtWorkLog.text
+                                }];
+
+
+                                if (isDayExists) {
+                                    // Finding date index
+                                    var myDateIndex = oTimecardList[myTimecardIndex].days.findIndex(findDayIndex);
+
+                                    // Pushing new log
+                                    oTimecardList[myTimecardIndex].days[myDateIndex].hours.push.apply(oTimecardList[myTimecardIndex].days[myDateIndex].hours, touchedHours);
+                                    oTimecardList[myTimecardIndex].days[myDateIndex].logs.push.apply(oTimecardList[myTimecardIndex].days[myDateIndex].logs, tmpNewLog);
                                 }
-                                oTimecardList[i].days.push(tmpNewLog);
-                                console.log('-------------------------');
-                                console.log(JSON.stringify(tmpNewLog));
-                                console.log('-------------------------');
-                                console.log(JSON.stringify(oTimecardList));
-                                console.log('-------------------------');
-                            }
-                        }
+                                else {
+                                    // New full date Log
+                                    var tmpNewDate = [{
+                                        "date": self.getState().targetDate,
+                                        "hours": touchedHours,
+                                        "logs": tmpNewLog
+                                    }]
 
-                        alert({
-                            title: 'Work log added',
-                            message: 'Your work log added to related Timecard. Now it is pending for manager approval.',
-                            firstButtonText: 'OK',
-                            onFirstButtonPressed: function() {
-                                router.back();
+                                    // Pushing as a new day
+                                    oTimecardList[myTimecardIndex].days.push(tmpNewDate);
+                                }
                             }
-                        });
+                            
+                            // Updating root item
+                            oTimecardList[myTimecardIndex].TotalHours = parseInt( oTimecardList[myTimecardIndex].TotalHours) + touchedHours.length;
 
-                    },
-                    onSecondButtonPressed: function() {}
-                });
+
+                            console.log('----------oTimecardList-----------');
+                            console.log(JSON.prune(oTimecardList, 15));
+                            console.log('----------oTimecardList-----------');
+
+                            txtLocation.text = '';
+                            txtWorkLog.text = '';
+
+                            alert({
+                                title: 'Work log added',
+                                message: 'Your work log added to related Timecard. Now it is pending for manager approval.',
+                                firstButtonText: 'OK',
+                                onFirstButtonPressed: function() {
+                                    router.back();
+                                }
+                            });
+
+                        },
+                        onSecondButtonPressed: function() {}
+                    });
+                }
+                else {
+                    alert('You need to select work hours first!');
+                }
             }
         });
         componentStyler(".12pt .pgOutOfOffice.btnSave")(btnSave);

@@ -126,8 +126,8 @@ const pgLogin = extend(Page)(
                     pgLogin_btnLogin_onPressed();
                 }, function onError(e) {
                     if (e.code != -4) {
-                        alert("code: " + e.code +
-                            "\n description: " + e.description);
+                        // alert("code: " + e.code +
+                        //     "\n description: " + e.description);
                     }
                 });
 

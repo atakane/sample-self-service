@@ -247,6 +247,7 @@ const pgTimecardDetail = extend(Page)(
          * @this Pages.pgLogin
          */
         function pgTimecardDetail_onShow() {
+
             // Hiding 'wait' dialog
             Dialog.removeWait();
 
@@ -262,6 +263,9 @@ const pgTimecardDetail = extend(Page)(
                 }
             });
 
+
+            displayTimecardDays.call(this, self.getState().oRequest);
+
             getStatusText(self.getState().oRequest.Status, lblStatus);
 
             // Oracle MCS Analytics logging 
@@ -270,7 +274,12 @@ const pgTimecardDetail = extend(Page)(
         }
 
         // Parsing storage objects 
-        this.displayTimecardDays = function(oRequest) {
+        function displayTimecardDays(oRequest) {
+
+            rptTimecardDetail.dataSource = [];
+            rptTimecardDetail.refresh();
+            lblWeekTotalHours.text = '';
+
             // Updating logged in user's info on the this page's slider drawer
             var textTimeCardDate
 
@@ -339,7 +348,7 @@ const pgTimecardDetail = extend(Page)(
             }
         };
         _proto.stateChangedHandler = function(state) {
-            this.displayTimecardDays(state.oRequest)
+            // this.displayTimecardDays(state.oRequest)
         };
     });
 

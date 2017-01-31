@@ -25,10 +25,12 @@ module.exports = {
             left: '10%',
             width: '80%',
             height: '8%',
-            placeHolder: lang['pgLogin.txtUserName.placeHolder'],
             text: '',
             horizontalGap: 15,
-            roundedEdge: 0
+            roundedEdge: 12,
+            inactiveBorderColor:SMF.UI.Color.RED,
+            placeHolder: lang['pgLogin.txtUserName.placeHolder'],
+            
         },
         '.txtPassword': {
             top: '60%',

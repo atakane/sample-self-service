@@ -35,7 +35,7 @@ const pgTimecardDetailDay = extend(Page)(
                 isMe: false
             });
         var self = this;
-        var arrayRequests = [];
+        var myTimecardDay = [];
 
         var headerBarWrapper = HeaderBarWrapper(this._view, headerBarOptions.options);
         var headerBarWrapper2 = HeaderBarWrapper(this._view, headerBarOptions2.options);
@@ -45,11 +45,17 @@ const pgTimecardDetailDay = extend(Page)(
         // We used a different way here beacause of the by-design nature of repeater component
         var rptDefault = {
             name: 'rptTimecardDetailDays',
-            onSelectedItem: function(e) {
-                // router.go('pgTimecardDetailDay', arrayRequests[e.rowIndex]);
+            onTouchEnded: function(e) {
+                if (self.getState().isMe) {
+                    router.go('pgTimecardDetailDayAddEdit', {
+                        'id': self.getState().targetTimecardID,
+                        'request': self.getState().oRequest,
+                        'date': self.getState().targetDate
+                    });
+                }
             },
             enableScroll: false,
-            touchEnabled: false
+            // touchEnabled: false
         };
         var rptParams = {};
         componentStyler(".Generic.repeater .pgNewTimeCard.repeater .Generic.itemTemplate5items")(rptParams);
@@ -191,7 +197,7 @@ const pgTimecardDetailDay = extend(Page)(
             //  "hours": [],
             //  "location" : ""
             // }
-            var myDaysArray = arrayRequests[e.rowIndex];
+            var myDaysArray = myTimecardDay[e.rowIndex];
             var tmpDate = new Date(myDaysArray.date);
             var location = (myDaysArray.logs) ? (myDaysArray.logs.length != 0) ? myDaysArray.logs[0].location : '' : '';
 
@@ -241,15 +247,12 @@ const pgTimecardDetailDay = extend(Page)(
         // We used a different way here beacause of the by-design nature of repeater component
         var rptWorkLogDefault = {
             name: 'rptWorkLog',
-            onSelectedItem: function(e) {
-                // router.go('pgTimecardDetailDay', arrayRequests[e.rowIndex]);
-            },
             top: "10%",
             height: "90%"
         };
         var rptWorkLogParams = {};
-        componentStyler(".Generic.repeater")(rptParams);
-        rptWorkLogParams = merge.all([rptParams, rptWorkLogDefault]);
+        componentStyler(".Generic.repeater")(rptWorkLogParams);
+        rptWorkLogParams = merge.all([rptWorkLogParams, rptWorkLogDefault]);
 
         var rptWorkLog = new SMF.UI.RepeatBox(rptWorkLogParams);
 
@@ -309,15 +312,15 @@ const pgTimecardDetailDay = extend(Page)(
             //         "log": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna."
             //     }]
 
-            var myHoursArray = arrayRequests[0].logs[e.rowIndex].hours;
+            var myHoursArray = myTimecardDay[0].logs[e.rowIndex].hours;
             var startHour = myHoursArray[0];
             var endHour = myHoursArray[myHoursArray.length - 1];
 
             var logHours = myHoursArray.length
             this.controls[0].text = (logHours < 3) ? logHours + ' hour' : logHours + ' hours';
             this.controls[1].text = ('{0}:00 - {1}:00').format(startHour, endHour);
-            this.controls[2].text = arrayRequests[0].logs[e.rowIndex].location;
-            this.controls[3].text = arrayRequests[0].logs[e.rowIndex].log;
+            this.controls[2].text = myTimecardDay[0].logs[e.rowIndex].location;
+            this.controls[3].text = myTimecardDay[0].logs[e.rowIndex].log;
         };
 
 
@@ -438,7 +441,7 @@ const pgTimecardDetailDay = extend(Page)(
             // Adding header bar (actionbar for Android, navigationbar for iOS)
             if (self.getState().isMe) {
                 self.hideAdminButtons();
-                headerBarOptions2.setTitle('My Day');
+                headerBarOptions2.setTitle('My Day in Detail');
                 headerBarWrapper2.reload();
 
                 headerBarOptions2.eventCallback(function(e) {
@@ -446,7 +449,6 @@ const pgTimecardDetailDay = extend(Page)(
                         router.back();
                     }
                     if (e.type == "add") {
-                        // router.go('pgTimecardAddHour');
                         router.go('pgTimecardDetailDayAddEdit', {
                             'id': self.getState().targetTimecardID,
                             'request': self.getState().oRequest,
@@ -467,7 +469,7 @@ const pgTimecardDetailDay = extend(Page)(
                 });
             }
 
-            displayData.call(this,self.getState().oRequest, self.getState().targetDate);
+            displayData.call(this, self.getState().oRequest, self.getState().targetDate);
 
             // Oracle MCS Analytics logging 
             smfOracle.logAndFlushAnalytics('pgTimecardDetailDay_onShow');
@@ -483,20 +485,25 @@ const pgTimecardDetailDay = extend(Page)(
             rptWorkLog.dataSource = [];
             rptWorkLog.refresh();
 
-            // binding objects to an array
-            arrayRequests = [];
+            // Finding Target Timecard within oTimecardlist object array.
+            // You can change this code to bind it directly to a REST API
+            // Timecard ID is unique, this will return a single item array
+            var myTimecard = oTimecardList.filter(function(a) {
+                return a.ID === self.getState().targetTimecardID;
+            });
 
-            for (var i = 0; i < oRequest.days.length; i++) {
-                if (oRequest.days[i].date === self.getState().targetDate) {
-                    arrayRequests.push(oRequest.days[i]);
-                }
-            }
+            // Getting target date. 
+            myTimecardDay = myTimecard[0].days.filter(function(a) {
+                return a.date === self.getState().targetDate;
+            });
 
             // Updating Day details
             var cardDate = new Date(targetDate);
             lblStartEndDate.text = cardDate.format('MMM. d, yyyy');
 
-            lblWeekTotalHours.text = (arrayRequests[0].hours.length > 0) ? arrayRequests[0].hours.length + ' hours' : '';
+
+            var suffix = (myTimecardDay[0].hours.length > 2) ? ' hours' : ' hour';
+            lblWeekTotalHours.text = (myTimecardDay[0].hours.length > 0) ? myTimecardDay[0].hours.length + suffix : '';
             getStatusText(oRequest.Status, lblStatus);
 
             imgAvatar.image = oRequest.Avatar;
@@ -505,11 +512,12 @@ const pgTimecardDetailDay = extend(Page)(
 
             // Preparing 1st repeater will show only selected day
             rptTimecardDetailDays.closePullItems();
-            rptTimecardDetailDays.dataSource = arrayRequests;
+            rptTimecardDetailDays.dataSource = myTimecardDay;
             rptTimecardDetailDays.refresh();
 
+
             rptWorkLog.closePullItems();
-            rptWorkLog.dataSource = arrayRequests[0].logs;
+            rptWorkLog.dataSource = myTimecardDay[0].logs;
             rptWorkLog.refresh();
 
             Dialog.removeWait();

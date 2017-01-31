@@ -98,7 +98,9 @@ module.exports = {
         },
         ".txtLocation": {
             borderWidth: 1,
-            textAlignment: SMF.UI.TextAlignment.LEFT
+            textAlignment: SMF.UI.TextAlignment.LEFT,
+            activeBorderColor: colors.GrayLighter,
+            inactiveBorderColor: colors.GrayLight
         },
         ".txtWorkLog": {
             multipleLine: true,
