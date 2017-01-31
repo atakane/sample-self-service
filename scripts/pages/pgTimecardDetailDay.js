@@ -491,7 +491,7 @@ const pgTimecardDetailDay = extend(Page)(
             var myTimecard = oTimecardList.filter(function(a) {
                 return a.ID === self.getState().targetTimecardID;
             });
-
+            
             // Getting target date. 
             myTimecardDay = myTimecard[0].days.filter(function(a) {
                 return a.date === self.getState().targetDate;

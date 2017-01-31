@@ -201,18 +201,19 @@ const pgTimecardDetailDayAddEdit = extend(Page)(
                 else {
                     // add
                     touchedHours.push(selectedHour);
-                    
+
                     var fillColor = ((selectedHour < dayWorkHoursStart) || (selectedHour > dayWorkHoursEnd - 1)) ? SMF.UI.Color.RED : colors.BlueMedium;
                     parent.fillColor = fillColor;
                 }
+
+                var suffix = (touchedHours.length > 2) ? ' hours' : ' hour';
+                lblWeekTotalHours.text = (touchedHours.length > 0) ? touchedHours.length + suffix : '';
 
                 // sort
                 touchedHours.sort(function(a, b) {
                     return parseInt(a) - parseInt(b)
                 });
-                
-                var suffix = (touchedHours.length>2)? ' hours' : ' hour';
-                lblWeekTotalHours.text = (touchedHours.length > 0) ? touchedHours.length + suffix : '';
+
             }
         }
 
@@ -356,7 +357,15 @@ const pgTimecardDetailDayAddEdit = extend(Page)(
 
                                     // Pushing new log
                                     oTimecardList[myTimecardIndex].days[myDateIndex].hours.push.apply(oTimecardList[myTimecardIndex].days[myDateIndex].hours, touchedHours);
-                                    oTimecardList[myTimecardIndex].days[myDateIndex].logs.push.apply(oTimecardList[myTimecardIndex].days[myDateIndex].logs, tmpNewLog);
+                                    if (oTimecardList[myTimecardIndex].days[myDateIndex].logs) {
+                                        oTimecardList[myTimecardIndex].days[myDateIndex].logs.push.apply(oTimecardList[myTimecardIndex].days[myDateIndex].logs, tmpNewLog);
+                                    }
+                                    else {
+                                        // Adding root location item for first time
+                                        // This location info should be filled by the backend when you switched to Rest API 
+                                        oTimecardList[myTimecardIndex].Location = txtLocation.text;
+                                        oTimecardList[myTimecardIndex].days[myDateIndex].logs = tmpNewLog;
+                                    }
                                 }
                                 else {
                                     // New full date Log
@@ -370,14 +379,10 @@ const pgTimecardDetailDayAddEdit = extend(Page)(
                                     oTimecardList[myTimecardIndex].days.push(tmpNewDate);
                                 }
                             }
-                            
+
                             // Updating root item
-                            oTimecardList[myTimecardIndex].TotalHours = parseInt( oTimecardList[myTimecardIndex].TotalHours) + touchedHours.length;
-
-
-                            console.log('----------oTimecardList-----------');
-                            console.log(JSON.prune(oTimecardList, 15));
-                            console.log('----------oTimecardList-----------');
+                            // This info should be filled by the backend when you switched to Rest API 
+                            oTimecardList[myTimecardIndex].TotalHours = parseInt(oTimecardList[myTimecardIndex].TotalHours) + touchedHours.length;
 
                             txtLocation.text = '';
                             txtWorkLog.text = '';
@@ -461,10 +466,14 @@ const pgTimecardDetailDayAddEdit = extend(Page)(
             };
             oReq.open("GET", "https://ipapi.co/json/", true);
             oReq.send();
+
+            lblWeekTotalHours.text = '';
+            touchedHours = [];
+            displayData.call(this, self.getState().oRequest, self.getState().targetDate);
         }
 
         // Parsing storage objects 
-        this.displayData = function(oRequest, targetDate) {
+        function displayData(oRequest, targetDate) {
             //resetting repeatboxes
             rptTimecardDetailDays.dataSource = [];
             rptTimecardDetailDays.refresh();
@@ -513,7 +522,7 @@ const pgTimecardDetailDayAddEdit = extend(Page)(
             }
         };
         _proto.stateChangedHandler = function(state) {
-            this.displayData(state.oRequest, state.targetDate);
+            // this.displayData(state.oRequest, state.targetDate);
         };
     });
 

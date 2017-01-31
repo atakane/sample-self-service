@@ -1,5 +1,5 @@
 [{
-        "ID": 100270017,
+        "ID": 100270012,
         "EmployeeID": "341561",
         "FullName": "Michelle Edward",
         "Email": "md@lab.cp",
@@ -65,7 +65,7 @@
                 "logs": []
         }]
 }, {
-        "ID": 100270011,
+        "ID": 100270013,
         "EmployeeID": "88771100",
         "FullName": "William Campell",
         "Email": "wc@smartface.io",
@@ -135,7 +135,7 @@
                 }]
         }]
 }, {
-        "ID": 100270012,
+        "ID": 100270014,
         "EmployeeID": "88711203",
         "FullName": "Robert Harris",
         "Email": "robert@smartface.io",
@@ -194,7 +194,7 @@
                 }]
         }]
 }, {
-        "ID": 100270013,
+        "ID": 100270015,
         "EmployeeID": "1902837",
         "FullName": "Kevin Parker",
         "Email": "john.smart@bigcorp.io",
@@ -252,7 +252,7 @@
                 }]
         }]
 }, {
-        "ID": 100270014,
+        "ID": 100270016,
         "EmployeeID": "1902837",
         "FullName": "Patricia Lewis",
         "Email": "plewis@hotmail.io",
@@ -302,7 +302,7 @@
                 }]
         }]
 }, {
-        "ID": 100270015,
+        "ID": 100270017,
         "EmployeeID": "8927191",
         "FullName": "Lee Allen",
         "Email": "la@smartface.io",
@@ -357,7 +357,7 @@
         }]
 
 }, {
-        "ID": 100270016,
+        "ID": 100270018,
         "EmployeeID": "1902837",
         "FullName": "Patricia Lewis",
         "Email": "plewis@hotmail.io",
@@ -410,4 +410,118 @@
                         "log": "No logs entered"
                 }]
         }]
+}, {
+        "ID": 100270019,
+        "EmployeeID": "8927191",
+        "FullName": "Lee Allen",
+        "Email": "la@smartface.io",
+        "Avatar": "avatar.png",
+        "Team": "HR Team",
+        "Role": "Director",
+        "StartDate": "1/16/17",
+        "EndDate": "1/20/17",
+        "TotalHours": "40",
+        "Status": "approved",
+        "Location": "The Cloud Company Inc., Seattle",
+        "days": [{
+                "date": "1/23/17",
+                "hours": [9, 10, 11, 13, 14, 15, 16, 17],
+                "logs": [{
+                        "hours": [9, 10, 11, 13, 14, 15, 16, 17],
+                        "location": "The Cloud Company Inc., Seattle",
+                        "log": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna."
+                }]
+        }, {
+                "date": "1/24/17",
+                "hours": [9, 10, 11, 13, 14, 15, 16, 17],
+                "logs": [{
+                        "hours": [9, 10, 11, 13, 14, 15, 16, 17],
+                        "location": "The Cloud Company Inc., Seattle",
+                        "log": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna."
+                }]
+        }, {
+                "date": "1/25/17",
+                "hours": [7, 8, 9, 10, 14, 15, 16, 17],
+                "logs": [{
+                        "hours": [7, 8, 9, 10],
+                        "location": "The Cloud Company Inc., Seattle",
+                        "log": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui."
+                }, {
+                        "hours": [14, 15, 16, 17],
+                        "location": "The Cloud Company Inc., Seattle",
+                        "log": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna."
+                }]
+        }, {
+                "date": "1/26/17",
+                "hours": [9, 10, 11, 13, 14, 15, 16, 17],
+                "logs": [{
+                        "hours": [9, 10, 11, 13, 14, 15, 16, 17],
+                        "location": "The Cloud Company Inc., Seattle",
+                        "log": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna."
+                }]
+        }, {
+                "date": "1/27/17",
+                "hours": [9, 10, 11, 13, 14, 15, 16, 17],
+                "logs": [{
+                        "hours": [9, 10, 11, 13, 14, 15, 16, 17],
+                        "location": "The Cloud Company Inc., Seattle",
+                        "log": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna."
+                }]
+        }]
+
+}, {
+        "ID": 100270020,
+        "EmployeeID": "8927191",
+        "FullName": "Lee Allen",
+        "Email": "la@smartface.io",
+        "Avatar": "avatar.png",
+        "Team": "HR Team",
+        "Role": "Director",
+        "StartDate": "1/23/17",
+        "EndDate": "1/27/17",
+        "TotalHours": "36",
+        "Status": "rejected",
+        "Location": "The Coffe Company Inc., Seattle",
+        "days": [{
+                "date": "1/23/17",
+                "hours": [9, 10, 11, 13, 14, 15, 16, 17],
+                "logs": [{
+                        "hours": [9, 10, 11, 13, 14, 15, 16, 17],
+                        "location": "The Coffe Company Inc., Seattle",
+                        "log": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna."
+                }]
+        }, {
+                "date": "1/24/17",
+                "hours": [9, 10, 11, 13, 14, 15, 16, 17],
+                "logs": [{
+                        "hours": [9, 10, 11, 13, 14, 15, 16, 17],
+                        "location": "The Coffe Company Inc., Seattle",
+                        "log": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna."
+                }]
+        }, {
+                "date": "1/25/17",
+                "hours": [9, 10, 11, 13],
+                "logs": [{
+                        "hours": [9, 10, 11, 13],
+                        "location": "The Coffe Company Inc., Seattle",
+                        "log": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui."
+                }]
+        }, {
+                "date": "1/26/17",
+                "hours": [9, 10, 11, 13, 14, 15, 16, 17],
+                "logs": [{
+                        "hours": [9, 10, 11, 13, 14, 15, 16, 17],
+                        "location": "The Coffe Company Inc., Seattle",
+                        "log": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna."
+                }]
+        }, {
+                "date": "1/27/17",
+                "hours": [9, 10, 11, 13, 14, 15, 16, 17],
+                "logs": [{
+                        "hours": [9, 10, 11, 13, 14, 15, 16, 17],
+                        "location": "The Coffe Company Inc., Seattle",
+                        "log": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna."
+                }]
+        }]
+
 }]
