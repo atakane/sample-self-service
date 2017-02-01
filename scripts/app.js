@@ -12,7 +12,7 @@ Application.onMaximize = Application_onMaximize;
 
 // Global objects
 var smfOracle;
-var backendName = "smartfaceOracleMCS";
+var backendName = "YOUR_BACKEND_NAME";
 var oMenuItems;
 var oProfile;
 var oTimeTable;
@@ -22,7 +22,7 @@ var templateOutOfOfficeText = "Hello,\n\nI'm currently out of the office but I w
 var lunchBreakDuration = 1;
 var dayWorkHoursStart = 9;
 var dayWorkHoursEnd = 18;
-var urlMockServicePath = "https://preview.dev.smartface.io/smartface92/bb-v2-sample-oracle-self-service/_self-service-mock/";
+var urlMockServicePath = "https://raw.githubusercontent.com/smartface/sample-self-service/v2.1/_self-service-mock/";
 /*
 at the end we will change url to the master repo "https://raw.githubusercontent.com/smartface/sample-self-service/master/_self-service-mock/"
 */
