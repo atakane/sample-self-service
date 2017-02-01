@@ -29,11 +29,11 @@ const pgTimecardDetailDayAddEdit = extend(Page)(
             },
             "", {
                 targetTimecardID: 0,
-                oRequest: [],
                 targetDate: null
             });
         var self = this;
-        var arrayRequests = [];
+        var myTimecard;
+        var myTimecardDay;
 
         var headerBarWrapper = HeaderBarWrapper(this._view, headerBarOptions.options);
 
@@ -43,10 +43,9 @@ const pgTimecardDetailDayAddEdit = extend(Page)(
         var rptDefault = {
             name: 'rptTimecardDetailDays',
             onSelectedItem: function(e) {
-                // router.go('pgTimecardDetailDayAddEdit', arrayRequests[e.rowIndex]);
+                // do nothing
             },
-            enableScroll: false,
-            // touchEnabled: false
+            enableScroll: false
         };
         var rptParams = {};
         componentStyler(".Generic.repeater .pgNewTimeCard.repeater .Generic.itemTemplate5items")(rptParams);
@@ -168,7 +167,7 @@ const pgTimecardDetailDayAddEdit = extend(Page)(
             var selectedHour = parseInt(parent.name.replace('cntHour', ''));
 
             // if hour already logged we'll raise an alert
-            var myHoursArray = arrayRequests[0].hours;
+            var myHoursArray = myTimecardDay[0].hours;
             var isAlreadyLogged = myHoursArray.some(function(a) {
                 return a == selectedHour
             })
@@ -235,7 +234,7 @@ const pgTimecardDetailDayAddEdit = extend(Page)(
             //  "hours": [],
             //  "location" : ""
             // }
-            var myDaysArray = arrayRequests[e.rowIndex];
+            var myDaysArray = myTimecardDay[e.rowIndex];
             var tmpDate = new Date(myDaysArray.date);
 
             this.controls[0].text = tmpDate.format('dddd');
@@ -469,43 +468,48 @@ const pgTimecardDetailDayAddEdit = extend(Page)(
 
             lblWeekTotalHours.text = '';
             touchedHours = [];
-            displayData.call(this, self.getState().oRequest, self.getState().targetDate);
+            displayData.call(this);
         }
 
         // Parsing storage objects 
-        function displayData(oRequest, targetDate) {
+        function displayData() {
             //resetting repeatboxes
             rptTimecardDetailDays.dataSource = [];
             rptTimecardDetailDays.refresh();
 
-            // binding objects to an array
-            arrayRequests = [];
+            // Finding Target Timecard within oTimecardlist object array.
+            // You can change this code to bind it directly to a REST API
+            // Timecard ID is unique, this will return a single item array
+            myTimecard = oTimecardList.filter(function(a) {
+                return a.ID === self.getState().targetTimecardID;
+            })[0];
 
-            for (var i = 0; i < oRequest.days.length; i++) {
-                if (oRequest.days[i].date === self.getState().targetDate) {
-                    arrayRequests.push(oRequest.days[i]);
-                }
-            }
+            // Getting target date. 
+            myTimecardDay = myTimecard.days.filter(function(a) {
+                return a.date === self.getState().targetDate;
+            });
 
             // Updating Day details
-            var cardDate = new Date(targetDate);
+            var cardDate = new Date(self.getState().targetDate);
             lblStartEndDate.text = cardDate.format('MMM. d, yyyy');
 
-            lblWeekTotalHours.text = (arrayRequests[0].hours.length > 0) ? arrayRequests[0].hours.length + ' hours' : '';
 
-            imgAvatar.image = oRequest.Avatar;
-            lblFullName.text = oRequest.FullName;
-            lblTeamRole.text = oRequest.Role + ' / ' + oRequest.Team;
+            var suffix = (myTimecardDay[0].hours.length > 2) ? ' hours' : ' hour';
+            lblWeekTotalHours.text = (myTimecardDay[0].hours.length > 0) ? myTimecardDay[0].hours.length + suffix : '';
+
+            imgAvatar.image = myTimecard.Avatar;
+            lblFullName.text = myTimecard.FullName;
+            lblTeamRole.text = myTimecard.Role + ' / ' + myTimecard.Team;
 
             // Preparing 1st repeater will show only selected day
             rptTimecardDetailDays.closePullItems();
-            rptTimecardDetailDays.dataSource = arrayRequests;
+            rptTimecardDetailDays.dataSource = myTimecardDay;
             rptTimecardDetailDays.refresh();
 
             Dialog.removeWait();
 
-            this.lblNoData.visible = (oRequest.length == 0);
-            rptTimecardDetailDays.visible = !(oRequest.length == 0);
+            this.lblNoData.visible = (myTimecard.length == 0);
+            rptTimecardDetailDays.visible = !(myTimecard.length == 0);
         }
     },
     // Page Public Methods
@@ -516,7 +520,6 @@ const pgTimecardDetailDayAddEdit = extend(Page)(
             if (params) {
                 this._changeState({
                     targetTimecardID: params.id,
-                    oRequest: params.request,
                     targetDate: params.date
                 });
             }

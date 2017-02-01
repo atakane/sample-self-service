@@ -207,7 +207,7 @@ const pgMyLeaveRequestDetail = extend(Page)(
             onPressed: function(e) {
                 alert({
                     title: lang['pgOutOfOffice.btnSave.onPressed.title'],
-                    message: lang[ 'pgMyLeaveRequestDetail.btnDelete.onPressed.message'],
+                    message: lang['pgMyLeaveRequestDetail.btnDelete.onPressed.message'],
                     firstButtonText: lang['pgMyLeaveRequestDetail.btnDelete.onPressed.firstButtonText'],
                     secondButtonText: lang['pgOutOfOffice.btnSave.onPressed.secondButtonText'],
                     onFirstButtonPressed: function() {
@@ -220,7 +220,7 @@ const pgMyLeaveRequestDetail = extend(Page)(
                         oProfile.LeaveRequestCount = oProfile.LeaveRequestCount - 1;
 
                         alert({
-                            title: lang[ 'pgMyLeaveRequestDetail.btnDelete.onPressed. onFirstButtonPressed.title'],
+                            title: lang['pgMyLeaveRequestDetail.btnDelete.onPressed. onFirstButtonPressed.title'],
                             message: lang['pgMyLeaveRequestDetail.btnDelete.onPressed. onFirstButtonPressed.message'],
                             firstButtonText: lang['pgNewLeaveRequest.btnSave.onPressed. onFirstButtonPressed.text'],
                             onFirstButtonPressed: function() {
@@ -325,7 +325,8 @@ const pgMyLeaveRequestDetail = extend(Page)(
         // Calculates the day-count between Start and End Dates
         this.calculateDaysBetween = function() {
             var count, countText;
-            if (lblTimeUnit.text === lang['pgNewLeaveRequest.lblTimeUnit.text']) {
+            if (lblTimeUnit.text === 'DAY') //lang['pgNewLeaveRequest.lblTimeUnit.text']
+            {
                 count = tinyUtils.daysBetween(selectedStartDate.format('MM/dd/yyyy'), selectedEndDate.format('MM/dd/yyyy'));
                 countText = (count > 1) ? lang['pgOutOfOffice.cntBlueBox.lblSelectedDaysCountText.days'] : lang['pgOutOfOffice.cntBlueBox.lblSelectedDaysCountText.day'];
 
@@ -358,7 +359,7 @@ const pgMyLeaveRequestDetail = extend(Page)(
 
             var lblTotalDaysText = new SMF.UI.Label({
                 name: 'lblTotalDaysText',
-                text: lang[ 'pgStatus.boxTotal']
+                text: lang['pgStatus.boxTotal']
             });
             componentStyler(".textCenter .5pt .Generic.lblTotalDays .Generic.lblTotalDaysText")(lblTotalDaysText);
             boxTotalDays.add(lblTotalDaysText);
@@ -405,7 +406,7 @@ const pgMyLeaveRequestDetail = extend(Page)(
 
             var lblRemainingDaysText = new SMF.UI.Label({
                 name: 'lblRemainingDaysText',
-                text:  lang['pgStatus.boxRem']
+                text: lang['pgStatus.boxRem']
             });
             componentStyler(".textCenter .5pt .Generic.lblTotalDaysText .Generic.lblRemainingDays")(lblRemainingDaysText);
             boxRemaining.add(lblRemainingDaysText);

@@ -103,7 +103,7 @@ const pgApproveLeaveRequest = extend(Page)(
 
         var lblTimeUnit = new SMF.UI.Label({
             name: 'lblTimeUnit',
-            text: lang['pgNewLeaveRequest.lblTimeUnit.text']
+            text: 'DAY' //lang['pgNewLeaveRequest.lblTimeUnit.text']
         });
         componentStyler(".textRight .10pt .pgApproveLeaveRequest.lblLeaveType .pgApproveLeaveRequest.lblTimeUnit")(lblTimeUnit);
         this.add(lblTimeUnit);
@@ -357,7 +357,8 @@ const pgApproveLeaveRequest = extend(Page)(
         this.calculateDaysBetween = function() {
 
             var count, countText;
-            if (lblTimeUnit.text === lang['pgNewLeaveRequest.lblTimeUnit.text']) {
+            if (lblTimeUnit.text === 'DAY') //lang['pgNewLeaveRequest.lblTimeUnit.text']
+            {
                 count = tinyUtils.daysBetween(selectedStartDate.format('MM/dd/yyyy'), selectedEndDate.format('MM/dd/yyyy'));
                 countText = (count > 1) ? lang['pgOutOfOffice.cntBlueBox.lblSelectedDaysCountText.days'] : lang['pgOutOfOffice.cntBlueBox.lblSelectedDaysCountText.day'];
 

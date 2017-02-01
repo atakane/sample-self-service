@@ -103,7 +103,7 @@ const pgNewLeaveRequest = extend(Page)(
 
         var lblTimeUnit = new SMF.UI.Label({
             name: 'lblTimeUnit',
-            text: lang['pgNewLeaveRequest.lblTimeUnit.text'],
+            text: 'DAY', //lang['pgNewLeaveRequest.lblTimeUnit.text'],
             touchEnabled: true,
             onTouchEnded: pickTimeUnit
         });
@@ -326,7 +326,7 @@ const pgNewLeaveRequest = extend(Page)(
 
             this.txtAbsenceMessage.text = '';
             this.lblLeaveType.text = lang['pgNewLeaveRequest.lblLeaveType.text'];
-            this.lblTimeUnit.text = lang['pgNewLeaveRequest.lblTimeUnit.text'];
+            this.lblTimeUnit.text = 'DAY'; //lang['pgNewLeaveRequest.lblTimeUnit.text'];
             this.cntStarts.lblStartTime.touchEnabled = false;
             this.cntEnds.lblEndTime.touchEnabled = false;
 
@@ -360,7 +360,7 @@ const pgNewLeaveRequest = extend(Page)(
                 onSelect: function(e) {
                     var sDate = new Date(e.date);
 
-                    if (Pages.currentPage.lblTimeUnit.text === lang['pgNewLeaveRequest.lblTimeUnit.text'])
+                    if (Pages.currentPage.lblTimeUnit.text === 'DAY') //lang['pgNewLeaveRequest.lblTimeUnit.text']
                         Pages.currentPage.cntStarts.lblStartTime.text = Pages.currentPage.cntEnds.lblEndTime.text = '';
                     setDateLabels(sDate, isStartDate);
                 },
@@ -405,7 +405,8 @@ const pgNewLeaveRequest = extend(Page)(
             var _time = date.format('h:mm TT');
 
             if (isStartDate) {
-                if (Pages.currentPage.lblTimeUnit.text === lang['pgNewLeaveRequest.lblTimeUnit.text']) {
+                if (Pages.currentPage.lblTimeUnit.text === 'DAY') //lang['pgNewLeaveRequest.lblTimeUnit.text']
+                {
                     if (date < selectedEndDate) {
                         Pages.currentPage.cntStarts.lblStartDate.text = _month + '.' + _day + '.' + _year;
                         selectedStartDate = date;
@@ -426,7 +427,8 @@ const pgNewLeaveRequest = extend(Page)(
                     Pages.currentPage.cntEnds.lblEndDate.text = _month + '.' + _day + '.' + _year;
                     selectedEndDate = date;
 
-                    if (Pages.currentPage.lblTimeUnit.text === lang['pgNewLeaveRequest.lblTimeUnit.text1']) {
+                    if (Pages.currentPage.lblTimeUnit.text === 'HOUR') //lang['pgNewLeaveRequest.lblTimeUnit.text1']
+                    {
                         Pages.currentPage.cntEnds.lblEndTime.text = _time;
                     }
                 }
@@ -471,7 +473,8 @@ const pgNewLeaveRequest = extend(Page)(
 
         // Show Time-Unit picker
         function pickTimeUnit() {
-            var timeUnits = [lang['pgNewLeaveRequest.lblTimeUnit.text'], lang['pgNewLeaveRequest.lblTimeUnit.text1']];
+            // var timeUnits = [lang['pgNewLeaveRequest.lblTimeUnit.text'], lang['pgNewLeaveRequest.lblTimeUnit.text1']];
+            var timeUnits = ['DAY', 'HOUR'];
             pick(
                 timeUnits,
                 (timeUnitSelectedIndex) ? timeUnitSelectedIndex : 0,
@@ -479,7 +482,7 @@ const pgNewLeaveRequest = extend(Page)(
                     Pages.currentPage.lblTimeUnit.text = timeUnits[e.index];
                     timeUnitSelectedIndex = e.index;
 
-                    if (timeUnits[e.index] === lang['pgNewLeaveRequest.lblTimeUnit.text1']) {
+                    if (timeUnits[e.index] === 'HOUR') {
                         var newStartDate = new Date(selectedStartDate);
                         newStartDate.setHours(9);
                         newStartDate.setMinutes(0);

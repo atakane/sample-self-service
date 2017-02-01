@@ -30,11 +30,11 @@ const pgTimecardDetailDay = extend(Page)(
             },
             "", {
                 targetTimecardID: 0,
-                oRequest: [],
                 targetDate: null,
                 isMe: false
             });
         var self = this;
+        var myTimecard;
         var myTimecardDay = [];
 
         var headerBarWrapper = HeaderBarWrapper(this._view, headerBarOptions.options);
@@ -49,7 +49,6 @@ const pgTimecardDetailDay = extend(Page)(
                 if (self.getState().isMe) {
                     router.go('pgTimecardDetailDayAddEdit', {
                         'id': self.getState().targetTimecardID,
-                        'request': self.getState().oRequest,
                         'date': self.getState().targetDate
                     });
                 }
@@ -451,7 +450,6 @@ const pgTimecardDetailDay = extend(Page)(
                     if (e.type == "add") {
                         router.go('pgTimecardDetailDayAddEdit', {
                             'id': self.getState().targetTimecardID,
-                            'request': self.getState().oRequest,
                             'date': self.getState().targetDate
                         });
                     }
@@ -469,7 +467,7 @@ const pgTimecardDetailDay = extend(Page)(
                 });
             }
 
-            displayData.call(this, self.getState().oRequest, self.getState().targetDate);
+            displayData.call(this);
 
             // Oracle MCS Analytics logging 
             smfOracle.logAndFlushAnalytics('pgTimecardDetailDay_onShow');
@@ -477,7 +475,7 @@ const pgTimecardDetailDay = extend(Page)(
         }
 
         // Parsing storage objects 
-        function displayData(oRequest, targetDate) {
+        function displayData() {
             //resetting repeatboxes
             rptTimecardDetailDays.dataSource = [];
             rptTimecardDetailDays.refresh();
@@ -488,27 +486,27 @@ const pgTimecardDetailDay = extend(Page)(
             // Finding Target Timecard within oTimecardlist object array.
             // You can change this code to bind it directly to a REST API
             // Timecard ID is unique, this will return a single item array
-            var myTimecard = oTimecardList.filter(function(a) {
+            myTimecard = oTimecardList.filter(function(a) {
                 return a.ID === self.getState().targetTimecardID;
-            });
-            
+            })[0];
+
             // Getting target date. 
-            myTimecardDay = myTimecard[0].days.filter(function(a) {
+            myTimecardDay = myTimecard.days.filter(function(a) {
                 return a.date === self.getState().targetDate;
             });
 
             // Updating Day details
-            var cardDate = new Date(targetDate);
+            var cardDate = new Date(self.getState().targetDate);
             lblStartEndDate.text = cardDate.format('MMM. d, yyyy');
 
 
             var suffix = (myTimecardDay[0].hours.length > 2) ? ' hours' : ' hour';
             lblWeekTotalHours.text = (myTimecardDay[0].hours.length > 0) ? myTimecardDay[0].hours.length + suffix : '';
-            getStatusText(oRequest.Status, lblStatus);
+            getStatusText(myTimecard.Status, lblStatus);
 
-            imgAvatar.image = oRequest.Avatar;
-            lblFullName.text = oRequest.FullName;
-            lblTeamRole.text = oRequest.Role + ' / ' + oRequest.Team;
+            imgAvatar.image = myTimecard.Avatar;
+            lblFullName.text = myTimecard.FullName;
+            lblTeamRole.text = myTimecard.Role + ' / ' + myTimecard.Team;
 
             // Preparing 1st repeater will show only selected day
             rptTimecardDetailDays.closePullItems();
@@ -522,8 +520,8 @@ const pgTimecardDetailDay = extend(Page)(
 
             Dialog.removeWait();
 
-            this.lblNoData.visible = (oRequest.length == 0);
-            rptTimecardDetailDays.visible = !(oRequest.length == 0);
+            this.lblNoData.visible = (myTimecard.length == 0);
+            rptTimecardDetailDays.visible = !(myTimecard.length == 0);
         }
 
         function getStatusText(status, statusObject) {
@@ -559,9 +557,8 @@ const pgTimecardDetailDay = extend(Page)(
             if (params) {
                 this._changeState({
                     targetTimecardID: params.id,
-                    oRequest: params.request,
                     targetDate: params.date,
-                    isMe: (oProfile.EmployeeID === params.request.EmployeeID)
+                    isMe: params.isMe
                 });
             }
         };

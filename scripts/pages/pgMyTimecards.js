@@ -327,19 +327,24 @@ const pgMyTimecards = extend(Page)(
                     "Location": "NA",
                     "days": [{
                         "date": startDate.format("M/d/yy"),
-                        "hours": []
+                        "hours": [],
+                        "logs": []
                     }, {
                         "date": startDate.addDays(1).format("M/d/yy"),
-                        "hours": []
+                        "hours": [],
+                        "logs": []
                     }, {
                         "date": startDate.addDays(1).format("M/d/yy"),
-                        "hours": []
+                        "hours": [],
+                        "logs": []
                     }, {
                         "date": startDate.addDays(1).format("M/d/yy"),
-                        "hours": []
+                        "hours": [],
+                        "logs": []
                     }, {
                         "date": startDate.addDays(1).format("M/d/yy"),
-                        "hours": []
+                        "hours": [],
+                        "logs": []
                     }]
                 }
                 // console.log(JSON.stringify(tempTimeCard));
@@ -373,15 +378,12 @@ const pgMyTimecards = extend(Page)(
                     "days" : []
             }]
             */
-
-            var parsedResponse = oTimecardList;
             arrayRequests = [];
 
-            for (var i = 0; i < parsedResponse.length; i++) {
-                if (parsedResponse[i].EmployeeID === oProfile.EmployeeID) {
-                    arrayRequests.push(parsedResponse[i]);
-                }
-            }
+            // Filtering requests for this employee
+            arrayRequests = oTimecardList.filter(function(item) {
+                return item.EmployeeID === oProfile.EmployeeID
+            });
 
             // binding objects array
             rptMyTimecards.closePullItems();

@@ -1,4 +1,4 @@
-/* globals*/
+/* globals oProfile oTimecardList lang dayWorkHoursStart dayWorkHoursEnd smfOracle*/
 
 const Page = require("js-base/component/page");
 const extend = require("js-base/core/extend");
@@ -32,6 +32,10 @@ const pgTimecardDetail = extend(Page)(
                 oTimecard: []
             });
         var self = this;
+        // Finding Target Timecard within oTimecardlist object array.
+        // You can change this code to bind it directly to a REST API
+        // Timecard ID is unique, this will return a single item array
+        var myTimecard;
 
         const headerBarWrapper = HeaderBarWrapper(this._view, headerBarOptions.options);
 
@@ -42,11 +46,29 @@ const pgTimecardDetail = extend(Page)(
             name: 'rptTimecardDetail',
             onSelectedItem: function(e) {
                 router.go('pgTimecardDetailDay', {
-                    'id': self.getState().oRequest.ID,
-                    'request': self.getState().oRequest,
-                    'date': self.getState().oRequest.days[e.rowIndex].date
+                    'id': self.getState().targetTimecardID,
+                    'date': myTimecard.days[e.rowIndex].date,
+                    'isMe': (oProfile.EmployeeID === myTimecard.EmployeeID)
                 });
-
+            },
+            onPullDown: function(e) {
+                Dialog.showWait();
+                displayTimecardDays.call(self);
+            },
+            onLongTouch: function(e) {
+                //Since Android doesn't have a swipe gesture we're adding a long touch for "delete item" functionality
+                if (Device.deviceOS == 'Android') {
+                    alert({
+                        title: 'Warning!',
+                        message: 'Do you want to delete this day\'s log?',
+                        firstButtonText: "Delete",
+                        secondButtonText: "Cancel",
+                        onFirstButtonPressed: function() {
+                            deleteTimecardDay(myTimecard.days[e.rowIndex].date);
+                        },
+                        onSecondButtonPressed: function() {}
+                    });
+                }
             }
         };
         var rptParams = {};
@@ -62,6 +84,76 @@ const pgTimecardDetail = extend(Page)(
         rptTimecardDetail.itemTemplate.fillColor = paramItemTemplate.fillColor;
         rptTimecardDetail.itemTemplate.height = paramItemTemplate.height;
 
+
+        // swipe action 
+        // Addigin swipe gesture for iOS devices to delete items.
+        if (Device.deviceOS == 'iOS') {
+            // alert(Device.brandModel.toLowerCase());
+            var myFont = new SMF.UI.Font({
+                name: "FontAwesome",
+                size: (Device.brandModel.toLowerCase().includes("plus")) ? 80 : 40
+            });
+
+            var itemDelete = new SMF.UI.RepeatBoxSwipeItem({
+                width: "16%",
+                height: "100%",
+                left: "84%",
+                top: "0%",
+                // text: "Delete",
+                text: JSON.parse('""'), //"uf08b",
+                font: myFont,
+                // tintColor: "#FFFFFF",
+                fontColor: "#FFFFFF",
+                pressedFontColor: "#ffffff",
+                fillColor: "#ff0000",
+                onSelected: function(e) {
+                    Dialog.showWait();
+                    deleteTimecardDay(myTimecard.days[e.rowIndex].date);
+                },
+                roundedEdge: 0
+            });
+
+            var itemRead = new SMF.UI.RepeatBoxSwipeItem({
+                width: "16%",
+                height: "100%",
+                left: "68%",
+                top: "0%",
+                // text: "Delete",
+                text: JSON.parse('""'), //"f002",
+                font: myFont,
+                fontColor: "#FFFFFF",
+                pressedFontColor: "#ffffff",
+                fillColor: "#00A1F1",
+                onSelected: function(e) {
+                    Dialog.showWait();
+                    router.go('pgTimecardDetailDay', {
+                        'id': self.getState().targetTimecardID,
+                        'date': myTimecard.days[e.rowIndex].date,
+                        'isMe': (oProfile.EmployeeID === myTimecard.EmployeeID)
+                    });
+                },
+                roundedEdge: 0
+            });
+
+            var items = [itemRead, itemDelete];
+            rptTimecardDetail.setSwipeItems(items);
+
+            //Setting pull-to-refresh props.
+
+            //an activity indicator for pulldown action on file repeatbox
+            var aiPullDown = new SMF.UI.ActivityIndicator({
+                top: "0%",
+                left: "45%",
+                widht: "10%",
+                height: "10%",
+                style: SMF.UI.ActivityIndicatorStyle.GRAY,
+            });
+            rptTimecardDetail.pullDownItem.add(aiPullDown);
+            rptTimecardDetail.pullDownItemTemplate.fillColor = "#FFFFFF";
+        }
+
+
+        // item templates
         var paramActiveItemTemplate = {};
         componentStyler(".Generic.activeItemTemplate")(paramActiveItemTemplate);
 
@@ -197,7 +289,7 @@ const pgTimecardDetail = extend(Page)(
             //  "hours": []
             //  }]
             // }
-            var myDaysArray = self.getState().oRequest.days[e.rowIndex];
+            var myDaysArray = myTimecard.days[e.rowIndex];
             var tmpDate = new Date(myDaysArray.date);
 
             this.controls[0].text = tmpDate.format('dddd');
@@ -206,21 +298,24 @@ const pgTimecardDetail = extend(Page)(
             for (var i = 0; i < 24; i++) {
                 this.controls[(i * 2) + 3].fillColor = SMF.UI.Color.WHITE;
 
-                if (myDaysArray.hours.indexOf(i) !== -1) {
-                    var fillColor = ((i < dayWorkHoursStart) || (i > dayWorkHoursEnd - 1)) ? SMF.UI.Color.RED : colors.BlueMedium;
-                    this.controls[(i * 2) + 3].fillColor = fillColor;
+                if (myDaysArray.hours)
+                    if (myDaysArray.hours.indexOf(i) !== -1) {
+                        var fillColor = ((i < dayWorkHoursStart) || (i > dayWorkHoursEnd - 1)) ? SMF.UI.Color.RED : colors.BlueMedium;
+                        this.controls[(i * 2) + 3].fillColor = fillColor;
 
-                }
+                    }
 
             }
-            this.controls[2].text = (myDaysArray.hours.length > 0) ? myDaysArray.hours.length + ' hours' : '';
+            if (myDaysArray.hours) {
+                this.controls[2].text = (myDaysArray.hours.length > 0) ? myDaysArray.hours.length + ' hours' : '';
+            }
+            else {
+                this.controls[2].text = '';
+            }
         };
-
-
 
         // adding repeatbox to the page
         this.add(rptTimecardDetail);
-
 
         // adding label for no-data
         this.lblNoData = new SMF.UI.Label({
@@ -263,10 +358,7 @@ const pgTimecardDetail = extend(Page)(
                 }
             });
 
-
-            displayTimecardDays.call(this, self.getState().oRequest);
-
-            getStatusText(self.getState().oRequest.Status, lblStatus);
+            displayTimecardDays.call(self);
 
             // Oracle MCS Analytics logging 
             smfOracle.logAndFlushAnalytics('pgTimecardDetail_onShow');
@@ -274,17 +366,22 @@ const pgTimecardDetail = extend(Page)(
         }
 
         // Parsing storage objects 
-        function displayTimecardDays(oRequest) {
+        function displayTimecardDays() {
 
             rptTimecardDetail.dataSource = [];
             rptTimecardDetail.refresh();
             lblWeekTotalHours.text = '';
 
             // Updating logged in user's info on the this page's slider drawer
-            var textTimeCardDate
+            var textTimeCardDate;
 
-            var startDate = new Date(oRequest.StartDate);
-            var endDate = new Date(oRequest.EndDate);
+            myTimecard = oTimecardList.filter(function(a) {
+                return a.ID === self.getState().targetTimecardID;
+            })[0];
+
+
+            var startDate = new Date(myTimecard.StartDate);
+            var endDate = new Date(myTimecard.EndDate);
 
             var tmp1 = "";
             if (startDate.format('MMM') != endDate.format('MMM')) tmp1 = endDate.format(' MMM');
@@ -292,22 +389,25 @@ const pgTimecardDetail = extend(Page)(
             textTimeCardDate = ('{0} - {1}{2}').format(startDate.format('MMM. d'), tmp1, endDate.format('d, yyyy'));
 
             lblStartEndDate.text = textTimeCardDate;
-            lblWeekTotalHours.text = (oRequest.TotalHours > 0) ? oRequest.TotalHours + ' hours' : '';
-            // getStatusText(oRequest.Status, lblStatus);
+            lblWeekTotalHours.text = (myTimecard.TotalHours > 0) ? myTimecard.TotalHours + ' hours' : '';
 
-            imgAvatar.image = oRequest.Avatar;
-            lblFullName.text = oRequest.FullName;
-            lblTeamRole.text = oRequest.Role + ' / ' + oRequest.Team;
+            imgAvatar.image = myTimecard.Avatar;
+            lblFullName.text = myTimecard.FullName;
+            lblTeamRole.text = myTimecard.Role + ' / ' + myTimecard.Team;
 
 
             // binding objects array
             rptTimecardDetail.closePullItems();
-            rptTimecardDetail.dataSource = oRequest.days;
+            rptTimecardDetail.dataSource = myTimecard.days;
             rptTimecardDetail.refresh();
             Dialog.removeWait();
 
-            this.lblNoData.visible = (oRequest.length == 0);
-            rptTimecardDetail.visible = !(oRequest.length == 0);
+            getStatusText(myTimecard.Status, lblStatus);
+
+            if (myTimecard) {
+                this.lblNoData.visible = false;
+                rptTimecardDetail.visible = true;
+            }
         }
 
         function getStatusText(status, statusObject) {
@@ -329,8 +429,46 @@ const pgTimecardDetail = extend(Page)(
                     break;
                 case 'NEW':
                     statusObject.text = 'new - add a work log';
-                    statusObject.fontColor = SMF.UI.Color.RED
+                    statusObject.fontColor = SMF.UI.Color.RED;
                     break;
+            }
+        }
+
+        // Delete day from card
+        function deleteTimecardDay(cardDate) {
+            Dialog.showWait();
+
+            if (cardDate) {
+                // Finding Target Timecard within oTimecardlist object array.
+                // You can change this code to bind it directly to a REST API
+                // Timecard ID is unique, this will return a single item array
+                function findTimeCardIndex(item) {
+                    return item.ID == self.getState().targetTimecardID;
+                }
+
+                function findDayIndex(item) {
+                    return item.date === cardDate;
+                }
+
+                // Finding the card's index
+                var myTimecardIndex = oTimecardList.findIndex(findTimeCardIndex);
+
+                // Finding date index
+                var myDateIndex = oTimecardList[myTimecardIndex].days.findIndex(findDayIndex);
+
+
+                // Updating root item
+                // This info should be filled by the backend when you switched to Rest API 
+                oTimecardList[myTimecardIndex].TotalHours = parseInt(oTimecardList[myTimecardIndex].TotalHours) - parseInt(oTimecardList[myTimecardIndex].days[myDateIndex].hours.length);
+
+                // Replacing date record with an empty object to ensure our full week display is not broken
+                oTimecardList[myTimecardIndex].days[myDateIndex] = {
+                    "date": cardDate.format("M/d/yy"),
+                    "hours": [],
+                    "logs": []
+                };
+
+                displayTimecardDays.call(self);
             }
         }
 
@@ -342,13 +480,12 @@ const pgTimecardDetail = extend(Page)(
             // inherited from UIComponent
             if (params) {
                 this._changeState({
-                    targetTimecardID: params.id,
-                    oRequest: params.request
+                    targetTimecardID: params.id
                 });
             }
         };
         _proto.stateChangedHandler = function(state) {
-            // this.displayTimecardDays(state.oRequest)
+            
         };
     });
 

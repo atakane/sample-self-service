@@ -1,4 +1,4 @@
-/* globals*/
+/* globals oLeaveRequestList oProfile*/
 
 const Page = require("js-base/component/page");
 const extend = require("js-base/core/extend");
@@ -164,7 +164,8 @@ const pgMyLeaveRequests = extend(Page)(
             var endDate = (new Date(arrayRequests[e.rowIndex].EndDate));
 
             var leaveDetails
-            if (arrayRequests[e.rowIndex].TimeUnit === lang['pgNewLeaveRequest.lblTimeUnit.text']) {
+            if (arrayRequests[e.rowIndex].TimeUnit === 'DAY') //lang['pgNewLeaveRequest.lblTimeUnit.text']
+            {
                 startDate = startDate.format('MM/dd/yyyy');
                 endDate = endDate.format('MM/dd/yyyy');
 
@@ -224,7 +225,7 @@ const pgMyLeaveRequests = extend(Page)(
         });
         componentStyler(".allArea .textCenter .7pt .Generic.lblNoData")(lblNoData);
         this.add(lblNoData);
-        
+
         /**
          * Creates action(s) that are run when the user press the key of the devices.
          * @param {KeyCodeEventArguments} e Uses to for key code argument. It returns e.keyCode parameter.
@@ -296,34 +297,10 @@ const pgMyLeaveRequests = extend(Page)(
             }]
             */
 
-            var parsedResponse = oLeaveRequestList;
-            arrayRequests = [];
-
-            for (var i = 0; i < parsedResponse.length; i++) {
-                var objRequestObject = {};
-
-                if (parsedResponse[i].EmployeeID === oProfile.EmployeeID) {
-                    objRequestObject.ID = parsedResponse[i].ID;
-                    objRequestObject.EmployeeID = parsedResponse[i].EmployeeID;
-                    objRequestObject.FullName = parsedResponse[i].FullName;
-                    objRequestObject.Email = parsedResponse[i].Email;
-                    objRequestObject.Avatar = parsedResponse[i].Avatar;
-                    objRequestObject.Team = parsedResponse[i].Team;
-                    objRequestObject.Role = parsedResponse[i].Role;
-                    objRequestObject.StartDate = parsedResponse[i].StartDate;
-                    objRequestObject.EndDate = parsedResponse[i].EndDate;
-                    objRequestObject.LeaveType = parsedResponse[i].LeaveType;
-                    objRequestObject.TimeUnit = parsedResponse[i].TimeUnit;
-                    objRequestObject.AbsenceMessage = parsedResponse[i].AbsenceMessage;
-                    objRequestObject.Status = parsedResponse[i].Status;
-                    objRequestObject.TotalDays = parsedResponse[i].TotalDays;
-                    objRequestObject.Used = parsedResponse[i].Used;
-                    objRequestObject.Remaining = parsedResponse[i].Remaining;
-
-                    arrayRequests.push(objRequestObject);
-                }
-            }
-
+            // Filtering requests for this employee
+            arrayRequests = oLeaveRequestList.filter(function(item) {
+                return item.EmployeeID === oProfile.EmployeeID
+            });
 
             // binding objects array
             rptApprovalList.closePullItems();
@@ -331,6 +308,7 @@ const pgMyLeaveRequests = extend(Page)(
             rptApprovalList.refresh();
             Dialog.removeWait();
 
+            // display 'no-data' if there is 'no-data'
             this.lblNoData.visible = (arrayRequests.length == 0);
             rptApprovalList.visible = !(arrayRequests.length == 0);
         }
